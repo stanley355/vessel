@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import getConfig from 'next/config';
 import fetcher from '../../../lib/fetcher';
+import styles from './login.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
@@ -32,8 +33,16 @@ const AccountLogin = () => {
   return (
     <div className='container'>
       {loadGSignInScript()}
-      <h1>User Login</h1>
-      <div className="g-signin2" data-onsuccess="onSignIn" />
+      <div className={styles.account__login}>
+        <h1 className={styles.title}>User Login</h1>
+        <div
+          className="g-signin2"
+          data-width="360"
+          data-longtitle={true}
+          data-theme="dark"
+          data-onsuccess="onSignIn"
+        />
+      </div>
     </div>
   )
 }
