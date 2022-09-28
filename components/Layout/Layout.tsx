@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import getConfig from 'next/config';
+import Navbar from '../Navbar';
 
 const { APP_ENV } = getConfig().publicRuntimeConfig;
 
@@ -16,8 +17,7 @@ const Layout = ({ children }: any) => {
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="1B5-W9OtAQdiu4XQXrRDfAdNJiVSM9k2GVxupDVJ4fU" />
       </Head>
-      {/* <Navbar /> */}
-      <header>kepala</header>
+      <Navbar />
       {children}
       <footer>Kaki</footer>
     </div>

@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const Home: NextPage = () => {
   return (
-    <div className="">
+    <div className="container">
       hi
     </div>
   )

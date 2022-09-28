@@ -1,0 +1,15 @@
+@import '../../styles/tokens/all.scss';
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  box-shadow: $box-shadow-color;
+  padding: 0 $space--lg;
+
+  a {
+    color: $color--blue;
+  }
+}
