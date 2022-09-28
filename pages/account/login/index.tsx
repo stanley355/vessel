@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
+import getConfig from 'next/config';
+import fetcher from '../../../lib/fetcher';
+
+const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const AccountLogin = () => {
+  const [clientID, setClientID] = useState('');
+
+  const getClientID = async () => {
+    const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
+    if (config.data) {
+      setClientID(config.data.clientID);
+    } else {
+      console.error('Client ID not loaded')
+    }
+  }
 
   const loadGSignInScript = () => {
-    if (typeof window !== 'undefined') {
+    getClientID();
+    if (typeof window !== 'undefined' && clientID) {
       return (
         <Head>
-          <script src="https://apis.google.com/js/platform.js" async defer />
-          <meta name="google-signin-client_id" content="823740612457-jprigf74qvsv7dnem6loqi13sfsdt02f.apps.googleusercontent.com" />
+          <script src="https://apis.google.com/js/platform.js" async />
+          <meta name="google-signin-client_id" content={clientID} />
         </Head>
       )
     }
@@ -17,7 +32,7 @@ const AccountLogin = () => {
   return (
     <div className='container'>
       {loadGSignInScript()}
-      <h3>User Login</h3>
+      <h1>User Login</h1>
       <div className="g-signin2" data-onsuccess="onSignIn" />
     </div>
   )
