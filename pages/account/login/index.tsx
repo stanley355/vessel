@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 import getConfig from 'next/config';
+import jwt_decode from 'jwt-decode';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import fetcher from '../../../lib/fetcher';
 import styles from './login.module.scss';
 
@@ -8,6 +9,10 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const AccountLogin = () => {
   const [clientID, setClientID] = useState('');
+
+  useEffect(()=> {
+    getClientID();
+  }, [clientID])
 
   const getClientID = async () => {
     const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
@@ -18,32 +23,25 @@ const AccountLogin = () => {
     }
   }
 
-  const loadGSignInScript = () => {
-    getClientID();
-    if (typeof window !== 'undefined' && clientID) {
-      return (
-        <Head>
-          <script src="https://apis.google.com/js/platform.js" async />
-          <meta name="google-signin-client_id" content={clientID} />
-        </Head>
-      )
-    }
+  const handleGSignIn = (googleRes:any) => {
+    const data = jwt_decode(googleRes.credential);
+    console.log(data);
   }
 
   return (
-    <div className='container'>
-      {loadGSignInScript()}
-      <div className={styles.account__login}>
-        <h1 className={styles.title}>User Login</h1>
-        <div
-          className="g-signin2"
-          data-width="360"
-          data-longtitle={true}
-          data-theme="dark"
-          data-onsuccess="onSignIn"
-        />
+    <GoogleOAuthProvider clientId={clientID}>
+      <div className='container'>
+        <div className={styles.account__login}>
+          <h1 className={styles.title}>User Login</h1>
+          <GoogleLogin
+            onSuccess={handleGSignIn}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </div>
       </div>
-    </div>
+    </GoogleOAuthProvider>
   )
 }
 
