@@ -7,14 +7,14 @@ interface IFetcherConfig {
   data?: any;
 }
 
-const fetcher = async (url: string, config: IFetcherConfig ) => {
+const fetcher = async (url: string, config: IFetcherConfig) => {
   let response;
 
   try {
     response = await axios({
       url,
-      method: config.method ?? 'GET',
-      headers: config.headers ? config.headers : {},
+      method: config.method ?? "GET",
+      headers: config.headers ?? { "Content-Type": "application/json" },
       data: config.data,
     });
   } catch (err) {

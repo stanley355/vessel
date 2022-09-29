@@ -23,9 +23,15 @@ const AccountLogin = () => {
     }
   }
 
-  const handleGSignIn = (googleRes: any) => {
-    const data = jwt_decode(googleRes.credential);
-    console.log(data);
+  const handleGSignIn = async (googleRes: any) => {
+    const credential:any = jwt_decode(googleRes.credential);
+    const data = {
+      fullname: credential.name,
+      email: credential.email
+    }
+
+    const loginRes = await fetcher(`${BASE_URL}/api/account/gmail-login`, { method: 'POST', data });
+    console.log('Final', loginRes.data);
   }
 
   return (
