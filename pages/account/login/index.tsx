@@ -10,7 +10,7 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 const AccountLogin = () => {
   const [clientID, setClientID] = useState('');
 
-  useEffect(()=> {
+  useEffect(() => {
     getClientID();
   }, [clientID])
 
@@ -23,7 +23,7 @@ const AccountLogin = () => {
     }
   }
 
-  const handleGSignIn = (googleRes:any) => {
+  const handleGSignIn = (googleRes: any) => {
     const data = jwt_decode(googleRes.credential);
     console.log(data);
   }
@@ -32,12 +32,14 @@ const AccountLogin = () => {
     <GoogleOAuthProvider clientId={clientID}>
       <div className='container'>
         <div className={styles.account__login}>
-          <h1 className={styles.title}>User Login</h1>
+          <h1 className={styles.title}>Login / Daftar</h1>
           <GoogleLogin
             onSuccess={handleGSignIn}
-            onError={() => {
-              console.log('Login Failed');
-            }}
+            onError={() => alert('Internal Server Error')}
+            logo_alignment='left'
+            theme='filled_blue'
+            shape='rectangular'
+            width='360'
           />
         </div>
       </div>
