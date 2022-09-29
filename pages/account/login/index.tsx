@@ -1,8 +1,18 @@
-import React from 'react';
+import Router from 'next/router';
+import React, { useEffect } from 'react';
 import GoogleSignInBtn from '../../../components/GoogleSignInBtn';
+import useAuthenticated from '../../../lib/hooks/useAuthenticated';
 import styles from './login.module.scss';
 
 const AccountLogin = () => {
+  const isAuthenticated = useAuthenticated();
+
+  useEffect(()=> {
+    if (isAuthenticated) {
+      Router.push('/');
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className='container'>
       <div className={styles.account__login}>
@@ -10,7 +20,6 @@ const AccountLogin = () => {
         <GoogleSignInBtn />
       </div>
     </div>
-
   )
 }
 

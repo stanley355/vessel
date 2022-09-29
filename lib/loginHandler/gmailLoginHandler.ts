@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import jsCookie from "js-cookie";
 import fetcher from "../fetcher";
 import { WARNING_MSG } from "../warning-messages";
+import Router from "next/router";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
@@ -19,7 +20,7 @@ const gmailSignInHandler = async (googleRes: any) => {
   });
   if (loginRes.data && loginRes.data.token) {
     jsCookie.set("token", loginRes.data.token);
-    window.location.reload();
+    window.location.href = "/";
   } else {
     alert(WARNING_MSG.TRY_AGAIN);
   }
