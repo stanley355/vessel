@@ -2,9 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import jsCookie from 'js-cookie';
 import styles from './Navbar.module.scss';
+import useAuthenticated from '../../lib/hooks/useAuthenticated';
 
 const Navbar = () => {
-  const token = jsCookie.get('token');
+  const token = useAuthenticated();
 
   const logoutUser = () => {
     jsCookie.remove('token');
