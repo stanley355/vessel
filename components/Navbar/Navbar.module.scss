@@ -12,4 +12,11 @@
   a {
     color: $color--blue;
   }
+
+  button {
+    color: $color--blue;
+    background: none;
+    border: none;
+    font-size: $font--lg;
+  }
 }
