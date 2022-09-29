@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import jwt_decode from 'jwt-decode';
+import jsCookie from 'js-cookie';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import fetcher from '../../../lib/fetcher';
+import { WARNING_MSG } from '../../../lib/warning-messages';
 import styles from './login.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -24,14 +26,19 @@ const AccountLogin = () => {
   }
 
   const handleGSignIn = async (googleRes: any) => {
-    const credential:any = jwt_decode(googleRes.credential);
+    const credential: any = jwt_decode(googleRes.credential);
     const data = {
       fullname: credential.name,
       email: credential.email
     }
 
     const loginRes = await fetcher(`${BASE_URL}/api/account/gmail-login`, { method: 'POST', data });
-    console.log('Final', loginRes.data);
+    if (loginRes.data && loginRes.data.token) {
+      jsCookie.set('token', loginRes.data.token);
+      window.location.reload();
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN)
+    }
   }
 
   return (
@@ -41,7 +48,7 @@ const AccountLogin = () => {
           <h1 className={styles.title}>Login / Daftar</h1>
           <GoogleLogin
             onSuccess={handleGSignIn}
-            onError={() => alert('Internal Server Error')}
+            onError={() => alert(WARNING_MSG.TRY_AGAIN)}
             logo_alignment='left'
             theme='filled_blue'
             shape='rectangular'
