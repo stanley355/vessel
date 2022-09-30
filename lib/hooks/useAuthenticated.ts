@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
-import jsCookie from "js-cookie";
+import jsCookie from 'js-cookie';
 
 const useAuthenticated = () => {
-  const [token, setToken] = useState("");
+  const [authenticated, setAuthenticated] = useState(false);
+  const token = jsCookie.get('token');
 
   useEffect(() => {
-    const tokenCookie = jsCookie.get("token");
-    if (tokenCookie) setToken(tokenCookie);
-  }, [token]);
+    if (token && !authenticated) {
+      setAuthenticated(true);
+    }
+  }, [authenticated]);
 
-  return token;
-};
+  return authenticated;
+}
 
 export default useAuthenticated;
+

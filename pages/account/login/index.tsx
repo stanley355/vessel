@@ -9,7 +9,7 @@ const AccountLogin = () => {
 
   useEffect(()=> {
     if (isAuthenticated) {
-      Router.push('/');
+      Router.push('/account/');
     }
   }, [isAuthenticated]);
 

@@ -1,0 +1,13 @@
+@import '../../styles/tokens/all.scss';
+
+.account {
+  &__logout {
+    float: right;
+    padding: $space--xs;
+    font-size: $font--md;
+    box-shadow: $box-shadow-color;
+    margin: $space--sm;
+    border-radius: $space--xs;
+    color:$color--blue;
+  }
+}
