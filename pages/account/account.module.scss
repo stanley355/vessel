@@ -8,11 +8,12 @@
   }
 
   &__logout {
+    background: $color--white;
     padding: $space--xs;
     font-size: $font--md;
     margin: $space--md 0;
     border-radius: $space--xs;
     color: $color--blue;
-    border: none;
+    border: 1px solid $color--black;
   }
 }
