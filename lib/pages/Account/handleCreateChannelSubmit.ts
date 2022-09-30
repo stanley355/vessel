@@ -1,6 +1,7 @@
 import Router from "next/router";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
+import updateUserData from "./updateUserData";
 import createChannel from "../../channelHandler/createChannel";
 import validateCreateChannelInput from "./validateCreateChannelInput";
 import { WARNING_MSG } from "../../warning-messages";
@@ -22,8 +23,19 @@ const handleCreateChannelSubmit = async (e: any) => {
     const channelRes = await createChannel(data);
 
     if (channelRes && channelRes.token) {
-      jsCookie.set("token_channel", channelRes.token);
-      Router.reload();
+      const newUserData = {
+        ...decode,
+        has_channel: true
+      }
+      const updatedData = await updateUserData(newUserData);
+
+      if (updatedData) {
+        jsCookie.set("token", updatedData.token);
+        jsCookie.set("token_channel", channelRes.token);
+        Router.reload();
+      } else {
+        alert(WARNING_MSG.TRY_AGAIN);
+      }
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
     }
