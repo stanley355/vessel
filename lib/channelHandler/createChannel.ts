@@ -16,12 +16,12 @@ const createChannel = async (data: ICreateChannel) => {
     subscription_price: data.subscriptionPrice,
   };
 
-  const createChannelRes = await fetcher(`${BASE_URL}/channel`, {
+  const createChannelRes = await fetcher(`${BASE_URL}/api/channel/`, {
     method: "POST",
     data: payload,
   });
 
-  console.log("Output", createChannelRes);
+  console.log("Output", createChannelRes.data);
 };
 
 export default createChannel;

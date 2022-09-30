@@ -14,11 +14,11 @@ interface ICreateChannelForm {
 const CreateChannelForm = (props: ICreateChannelForm) => {
 
   const handleSubmit = async (e:any) => {
-    
+    e.preventDefault();
     const data = {
       userID: props.ownerID,
       channelName: e.target.channelName.value,
-      subscriptionPrice: e.target.subscriptionPrice.value
+      subscriptionPrice: Number(e.target.subscriptionPrice.value)
     }
 
     const channelRes = await createChannel(data);
