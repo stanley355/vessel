@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 import jsCookie from 'js-cookie';
 import logoutUser from '../../lib/loginHandler/logoutUser';
-import useAuthenticated from '../../lib/hooks/useAuthenticated';
 import styles from './account.module.scss';
 
 const Account = () => {
   const token = jsCookie.get('token');
   
-  if (typeof window !== 'undefined') {
-    if (!token) Router.push('/account/login/');
+  if (typeof window !== 'undefined' && !token) {
+    Router.push('/account/login/');
   }
 
   return (

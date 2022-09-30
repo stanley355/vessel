@@ -5,7 +5,7 @@ import styles from './Navbar.module.scss';
 import useAuthenticated from '../../lib/hooks/useAuthenticated';
 
 const Navbar = () => {
-  const token = useAuthenticated();
+  const isAuthenticated = useAuthenticated();
 
   const LoginBtn = () => {
     return (
@@ -31,7 +31,7 @@ const Navbar = () => {
     <div className={styles.navbar}>
       <h2>Kontenku</h2>
 
-      {!token ? <LoginBtn /> : <AccountBtn />}
+      {isAuthenticated ? <AccountBtn /> : <LoginBtn />}
     </div>
   )
 }

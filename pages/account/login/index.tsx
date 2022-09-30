@@ -7,11 +7,9 @@ import styles from './login.module.scss';
 const AccountLogin = () => {
   const isAuthenticated = useAuthenticated();
 
-  useEffect(()=> {
-    if (isAuthenticated) {
-      Router.push('/account/');
-    }
-  }, [isAuthenticated]);
+  if (typeof window !== 'undefined' && isAuthenticated) {
+    Router.push('/account/');
+  }
 
   return (
     <div className='container'>
