@@ -9,7 +9,7 @@ const useAuthenticated = () => {
     if (token && !authenticated) {
       setAuthenticated(true);
     }
-  }, []);
+  }, [authenticated]);
 
   return authenticated;
 }

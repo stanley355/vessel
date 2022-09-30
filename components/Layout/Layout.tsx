@@ -18,8 +18,10 @@ const Layout = ({ children }: any) => {
         <meta name="google-site-verification" content="1B5-W9OtAQdiu4XQXrRDfAdNJiVSM9k2GVxupDVJ4fU" />
       </Head>
       <Navbar />
-      {children}
-      <footer>Kaki</footer>
+      <div className='body'>
+        {children}
+      </div>
+      <footer></footer>
     </div>
   )
 }
