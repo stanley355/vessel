@@ -1,5 +1,5 @@
 import getConfig from "next/config";
-import fetcher from "../../fetcher";
+import fetcher from "./fetcher";
 
 interface INewData {
   id: string;
@@ -13,7 +13,7 @@ interface INewData {
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const updateUserData = async (newData: INewData) => {
-  const authorRes = await fetcher(`${BASE_URL}/api//account/user/`, {
+  const authorRes = await fetcher(`${BASE_URL}/api/account/user/`, {
     method: "PUT",
     data: newData,
   });

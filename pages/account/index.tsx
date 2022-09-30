@@ -9,7 +9,7 @@ import styles from './account.module.scss';
 
 
 const Account = (props: any) => {
-  const { token } = props;
+  const { token, tokenChannel } = props;
 
   const [profile, setProfile] = useState<any>(null);
 
@@ -24,7 +24,7 @@ const Account = (props: any) => {
   return (
     <div className="container">
       <div className={styles.account}>
-        <CreateChannelForm />
+        {tokenChannel ? 'Hi' : <CreateChannelForm /> }
         {profile && <ProfileSection profile={profile} /> }
 
         <button className={styles.account__logout} onClick={logoutUser}>Logout</button>
@@ -35,10 +35,12 @@ const Account = (props: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies['token'];
+  const tokenChannel = context.req.cookies['token_channel'];
 
   return {
     props: {
-      token: token ?? null
+      token: token ?? null,
+      tokenChannel: tokenChannel ?? null,
     }
   }
 }

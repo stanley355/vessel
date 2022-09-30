@@ -1,7 +1,7 @@
 import Router from "next/router";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import updateUserData from "./updateUserData";
+import updateUserData from "../../updateUserData";
 import createChannel from "../../channelHandler/createChannel";
 import validateCreateChannelInput from "./validateCreateChannelInput";
 import { WARNING_MSG } from "../../warning-messages";
