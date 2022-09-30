@@ -7,13 +7,6 @@ import useAuthenticated from '../../lib/hooks/useAuthenticated';
 const Navbar = () => {
   const token = useAuthenticated();
 
-  console.log(token)
-
-  const logoutUser = () => {
-    jsCookie.remove('token');
-    window.location.reload();
-  }
-
   const LoginBtn = () => {
     return (
       <Link href="/account/login">
@@ -24,11 +17,21 @@ const Navbar = () => {
     )
   }
 
+  const AccountBtn = () => {
+    return (
+      <Link href="/account/">
+        <a title='Account'>
+          Account
+        </a>
+      </Link>
+    )
+  }
+
   return (
     <div className={styles.navbar}>
       <h2>Kontenku</h2>
 
-      {!token ? <LoginBtn /> : <button onClick={logoutUser} >Logout</button>}
+      {!token ? <LoginBtn /> : <AccountBtn />}
     </div>
   )
 }

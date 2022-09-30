@@ -20,7 +20,7 @@ const gmailSignInHandler = async (googleRes: any) => {
   });
   if (loginRes.data && loginRes.data.token) {
     jsCookie.set("token", loginRes.data.token);
-    window.location.href = "/";
+    window.location.href = "/account/";
   } else {
     alert(WARNING_MSG.TRY_AGAIN);
   }
