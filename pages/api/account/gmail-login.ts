@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { json } from "stream/consumers";
 
 const loginHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.AUTHOR_URL}/login/gmail/`;
+  const URL = `${process.env.AUTHOR_URL}/users/login/gmail/`;
 
   let response: any;
   try {

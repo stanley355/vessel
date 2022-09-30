@@ -7,6 +7,8 @@ import useAuthenticated from '../../lib/hooks/useAuthenticated';
 const Navbar = () => {
   const token = useAuthenticated();
 
+  console.log(token)
+
   const logoutUser = () => {
     jsCookie.remove('token');
     window.location.reload();
