@@ -21,7 +21,7 @@ const createChannel = async (data: ICreateChannel) => {
     data: payload,
   });
 
-  console.log("Output", createChannelRes.data);
+  return createChannelRes.data;
 };
 
 export default createChannel;

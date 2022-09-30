@@ -4,6 +4,8 @@ import { FaRegGrinWink } from 'react-icons/fa';
 import jsCookie from 'js-cookie';
 import createChannel from '../../../../lib/channelHandler/createChannel';
 import styles from './CreateChannelForm.module.scss';
+import Router from 'next/router';
+import { WARNING_MSG } from '../../../../lib/warning-messages';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
@@ -13,15 +15,43 @@ interface ICreateChannelForm {
 
 const CreateChannelForm = (props: ICreateChannelForm) => {
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-    const data = {
-      userID: props.ownerID,
-      channelName: e.target.channelName.value,
-      subscriptionPrice: Number(e.target.subscriptionPrice.value)
+  const validateInput = (e: any) => {
+    const { channelName, subscriptionPrice } = e.target;
+
+    if (!channelName.value) {
+      alert('Nama channel wajib diisi!');
+      return false;
     }
 
-    const channelRes = await createChannel(data);
+    if (!subscriptionPrice.value) {
+      alert('Harga berlangganan wajib disi!');
+      return false;
+    }
+
+    return true;
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const inputValid = validateInput(e);
+
+    if (inputValid) {
+      const data = {
+        userID: props.ownerID,
+        channelName: e.target.channelName.value,
+        subscriptionPrice: Number(e.target.subscriptionPrice.value)
+      }
+
+      const channelRes = await createChannel(data);
+
+      if (channelRes && channelRes.token) {
+        jsCookie.set('token_channel', channelRes.token);
+        Router.reload();
+      } else {
+        alert(WARNING_MSG.TRY_AGAIN);
+      }
+    }
   }
 
   return (
