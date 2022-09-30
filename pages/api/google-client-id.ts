@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const { GOOGLE_CLIENT_ID } = getConfig().serverRuntimeConfig;
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+const googleClientID = (req: NextApiRequest, res: NextApiResponse) => {
   const config = {
     clientID: GOOGLE_CLIENT_ID,
   };
@@ -12,3 +12,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader("Content-Type", "application/json");
   res.json(config);
 };
+
+export default googleClientID;
