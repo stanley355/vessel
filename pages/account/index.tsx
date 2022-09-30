@@ -24,7 +24,7 @@ const Account = (props: any) => {
   return (
     <div className="container">
       <div className={styles.account}>
-        <CreateChannelForm ownerID={profile?.id ?? ''} />
+        <CreateChannelForm />
         {profile && <ProfileSection profile={profile} /> }
 
         <button className={styles.account__logout} onClick={logoutUser}>Logout</button>
