@@ -1,13 +1,18 @@
 @import '../../styles/tokens/all.scss';
 
 .account {
+  @include desktop-view {
+    padding: $space--sm;
+    border-left: 1px solid $color--blue;
+    border-right: 1px solid $color--blue;
+  }
+
   &__logout {
-    float: right;
     padding: $space--xs;
     font-size: $font--md;
-    box-shadow: $box-shadow-color;
-    margin: $space--sm;
+    margin: $space--md 0;
     border-radius: $space--xs;
-    color:$color--blue;
+    color: $color--blue;
+    border: none;
   }
 }

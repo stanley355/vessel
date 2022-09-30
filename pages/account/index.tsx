@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import Router from 'next/router';
 import jwtDecode from 'jwt-decode';
 import logoutUser from '../../lib/loginHandler/logoutUser';
+import ProfileSection from '../../components/pages/Account/ProfileSection';
 import styles from './account.module.scss';
-import { GetServerSideProps } from 'next';
+
 
 const Account = (props: any) => {
   const { token } = props;
@@ -21,11 +23,7 @@ const Account = (props: any) => {
   return (
     <div className="container">
       <div className={styles.account}>
-        <div>
-          <h3>My Profile</h3>
-          <div>Fullname: {profile && profile.fullname} </div>
-          <div>Email: {profile && profile.email} </div>
-        </div>
+        {profile && <ProfileSection profile={profile} /> }
 
         <button className={styles.account__logout} onClick={logoutUser}>Logout</button>
       </div>
