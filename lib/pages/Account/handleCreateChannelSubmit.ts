@@ -22,19 +22,24 @@ const handleCreateChannelSubmit = async (e: any) => {
 
     const channelRes = await createChannel(data);
 
-    if (channelRes && channelRes.token) {
-      const newUserData = {
-        ...decode,
-        has_channel: true
-      }
-      const updatedData = await updateUserData(newUserData);
+    if (channelRes) {
+      if (channelRes.token) {
+        const newUserData = {
+          ...decode,
+          has_channel: true,
+        };
+        const updatedData = await updateUserData(newUserData);
 
-      if (updatedData) {
-        jsCookie.set("token", updatedData.token);
-        jsCookie.set("token_channel", channelRes.token);
-        Router.reload();
-      } else {
-        alert(WARNING_MSG.TRY_AGAIN);
+        if (updatedData) {
+          jsCookie.set("token", updatedData.token);
+          jsCookie.set("token_channel", channelRes.token);
+          Router.reload();
+        } else {
+          alert(WARNING_MSG.TRY_AGAIN);
+        }
+      }
+      if (channelRes.error) {
+        alert(channelRes.error);
       }
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
