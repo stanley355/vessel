@@ -1,13 +1,13 @@
 import fetcher from "../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const loginHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.AUTHOR_URL}/users/login/gmail/`;
+const channelHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const URL = `${process.env.CHANNEL_URL}/`;
 
   let response: any;
   try {
     const res = await fetcher(URL, {
-      method: "POST",
+      method: req.method,
       data: JSON.stringify(req.body),
     });
 
@@ -20,4 +20,4 @@ const loginHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(response);
 };
 
-export default loginHandler;
+export default channelHandler;

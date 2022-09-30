@@ -1,15 +1,33 @@
 import React from 'react';
 import getConfig from 'next/config';
 import { FaRegGrinWink } from 'react-icons/fa';
+import jsCookie from 'js-cookie';
+import createChannel from '../../../../lib/channelHandler/createChannel';
 import styles from './CreateChannelForm.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
-const CreateChannelForm = () => {
+interface ICreateChannelForm {
+  ownerID: string;
+}
+
+const CreateChannelForm = (props: ICreateChannelForm) => {
+
+  const handleSubmit = async (e:any) => {
+    
+    const data = {
+      userID: props.ownerID,
+      channelName: e.target.channelName.value,
+      subscriptionPrice: e.target.subscriptionPrice.value
+    }
+
+    const channelRes = await createChannel(data);
+  }
+
   return (
     <div className={styles.create__channel}>
       <div className={styles.title}>Oops, kamu belum punya channel, buat yuk untuk subscribermu <FaRegGrinWink /> </div>
-      <form onSubmit={() => { }} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles['form__input--wrap']}>
           <label htmlFor="channelName">Nama Channel* : </label>
           <input type="text" name="channelName" id="channelName" placeholder='Channel ...' />
