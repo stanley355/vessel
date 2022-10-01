@@ -21,7 +21,7 @@ const CreateChannelForm = () => {
           <input type="number" name="subscriptionPrice" id="subscriptionPrice" placeholder='Rp ...' />
         </div>
 
-        <div className={styles.notes}>*Nama channel akan menjadi nama URL kontenmu, cth channel 'ibu budi' akan mempunyai url {BASE_URL}/channel/ibu-budi  </div>
+        <div className={styles.notes}>*Nama channel akan menjadi nama URL kontenmu, cth channel &lsquo;ibu budi&lsquo; akan mempunyai url {BASE_URL}/channel/ibu-budi  </div>
         <div className={styles.notes}>** Harga berlanganan adalah harga berlangganan subscribermu selama 1 bulan </div>
 
         <button type="submit">Buat sekarang</button>
