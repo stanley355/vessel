@@ -1,0 +1,26 @@
+@import '../../../../styles/tokens/all';
+
+.channel__section {
+  border-bottom: 1px solid $color--black;
+  padding-bottom: $space--xs;
+
+  @include desktop-view {
+    border-bottom: unset;
+  }
+
+  div {
+    font-size: $font--md;
+    margin-bottom: $space--xs;
+  }
+
+  .link__wrap {
+    margin-top: $space--lg;
+  }
+
+  a {
+    border-radius: $space--xs;
+    color: $color--blue;
+    border: 1px solid $color--black;
+    padding: $space--xxs $space--xs;
+  }
+}

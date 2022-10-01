@@ -2,6 +2,7 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import jwtDecode from 'jwt-decode';
 import logoutUser from '../../lib/loginHandler/logoutUser';
+import ChannelSection from '../../components/pages/Account/ChannelSection';
 import CreateChannelForm from '../../components/pages/Account/CreateChannelForm';
 import ProfileSection from '../../components/pages/Account/ProfileSection';
 import styles from './account.module.scss';
@@ -10,13 +11,11 @@ import styles from './account.module.scss';
 const Account = (props: any) => {
   const { profile, channel } = props;
 
-
   return (
     <div className="container">
       <div className={styles.account}>
-        {channel ? 'Hi' : <CreateChannelForm /> }
-        {profile && <ProfileSection profile={profile} /> }
-
+        {channel ? <ChannelSection channel={channel} /> : <CreateChannelForm />}
+        {profile && <ProfileSection profile={profile} />}
         <button className={styles.account__logout} onClick={logoutUser}>Logout</button>
       </div>
     </div>
