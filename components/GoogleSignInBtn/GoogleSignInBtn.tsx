@@ -7,21 +7,12 @@ import { WARNING_MSG } from '../../lib/warning-messages';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
-const GoogleSignInBtn = () => {
-  const [clientID, setClientID] = useState('');
+interface IGoogleSignIn {
+  clientID: string;
+}
 
-  useEffect(() => {
-    getClientID();
-  }, [clientID])
-
-  const getClientID = async () => {
-    const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
-    if (config.data) {
-      setClientID(config.data.clientID);
-    } else {
-      console.error('Client ID not loaded')
-    }
-  }
+const GoogleSignInBtn = (props: IGoogleSignIn) => {
+  const { clientID } = props;
 
   return (
     <GoogleOAuthProvider clientId={clientID}>

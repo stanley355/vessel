@@ -12,6 +12,7 @@ const Account = (props: any) => {
   const { token, tokenChannel } = props;
 
   const [profile, setProfile] = useState<any>(null);
+  const [channel, setChannel] = useState<any>(null);
 
   useEffect(() => {
     if (!token) Router.push('/account/login/');
