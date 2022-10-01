@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { GetServerSideProps } from 'next';
-import Router from 'next/router';
 import jwtDecode from 'jwt-decode';
 import logoutUser from '../../lib/loginHandler/logoutUser';
 import CreateChannelForm from '../../components/pages/Account/CreateChannelForm';
@@ -9,23 +8,13 @@ import styles from './account.module.scss';
 
 
 const Account = (props: any) => {
-  const { token, tokenChannel } = props;
+  const { profile, channel } = props;
 
-  const [profile, setProfile] = useState<any>(null);
-  const [channel, setChannel] = useState<any>(null);
-
-  useEffect(() => {
-    if (!token) Router.push('/account/login/');
-    if (!profile) {
-      const decode = jwtDecode(token);
-      setProfile(decode);
-    }
-  }, [token, profile])
 
   return (
     <div className="container">
       <div className={styles.account}>
-        {tokenChannel ? 'Hi' : <CreateChannelForm /> }
+        {channel ? 'Hi' : <CreateChannelForm /> }
         {profile && <ProfileSection profile={profile} /> }
 
         <button className={styles.account__logout} onClick={logoutUser}>Logout</button>
@@ -37,11 +26,25 @@ const Account = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies['token'];
   const tokenChannel = context.req.cookies['token_channel'];
+  let profile;
+  let channel;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/account/login/',
+        permanent: false,
+      },
+    }
+  }
+
+  if (token) profile = jwtDecode(token);
+  if (tokenChannel) channel = jwtDecode(tokenChannel);
 
   return {
     props: {
-      token: token ?? null,
-      tokenChannel: tokenChannel ?? null,
+      profile: profile ?? null,
+      channel: channel ?? null,
     }
   }
 }
