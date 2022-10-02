@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { FaUpload } from 'react-icons/fa';
 import getConfig from 'next/config';
 import jwtDecode from 'jwt-decode';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import fetcher from '../../lib/fetcher';
 import styles from './ChannelUpload.module.scss';
@@ -57,19 +59,18 @@ const ChannelUpload = (props: any) => {
           </div>
 
           <div className={styles.form__field}>
-            <label htmlFor="file" >
+            <label htmlFor="file" className={styles.file__label} >
               <input type='file' name='file' />
             </label>
           </div>
 
-          <button type='submit' className={styles.cta}>Upload
+          <button type='submit' className={styles.cta}>Upload <FaUpload /> </button>
+        </form>
 
-            {!imgUrl &&
+        {/* {!imgUrl &&
               <div className='outerbar'>
                 <div className='innerbar' style={{ width: `${progresspercent}%` }}>{progresspercent}%</div>
-              </div>}
-          </button>
-        </form>
+              </div>} */}
       </div>
     </div>
   )

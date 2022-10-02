@@ -7,6 +7,12 @@
   }
 
   .form {
+    @include desktop-view {
+      width: 60%;
+      margin: auto;
+    }
+
+
     &__field {
       display: flex;
       flex-direction: column;
@@ -23,22 +29,45 @@
       border-radius: $space--xs;
     }
 
+    .file__label {
+      width: 100%;
+      
+      input {
+        width: 100%;
+      }
+
+      ::-webkit-file-upload-button {
+        cursor: pointer;
+        padding: $space--xs;
+        background: $color--blue;
+        border: none;
+        color: $color--white;
+        font-size: $font--lg;
+        border-radius: $space--xs;
+        width: 60%;
+        margin-right: $space--sm;
+      }
+    }
+
     .cta {
       padding: $space--xs;
       background: $color--blue;
-      margin: 0 25%;
-      width: 50%;
+      margin: $space--xl 15%;
+      width: 70%;
       border: none;
-      color:$color--white;
-      font-size: $font--lg;
+      color: $color--white;
+      font-size: $font--xl;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: $space--xs;
-  
+
+      svg {
+        margin-left: $space--sm;
+      }
+
       @include desktop-view {
-        width: 30%;
-        margin: 0 35%;
+        margin: $space--xl 20%;
       }
     }
   }
