@@ -4,6 +4,10 @@
   .title {
     font-size: $font--xxl;
     text-align: center;
+
+    @include desktop-view {
+      font-size: 36px;
+    }
   }
 
   .cta {
@@ -18,5 +22,10 @@
     align-items: center;
     justify-content: center;
     border-radius: $space--xs;
+
+    @include desktop-view {
+      width: 30%;
+      margin: 0 35%;
+    }
   }
 }

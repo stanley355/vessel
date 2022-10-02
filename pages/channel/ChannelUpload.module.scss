@@ -1,0 +1,45 @@
+@import '../../styles/tokens/all';
+
+.channel__upload {
+  .title {
+    font-size: $font--xxl;
+    text-align: center;
+  }
+
+  .form {
+    &__field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: $space--sm;
+    }
+
+    label {
+      font-size: $font--lg;
+      font-weight: bold;
+    }
+
+    textarea {
+      padding: $space--xs;
+      border-radius: $space--xs;
+    }
+
+    .cta {
+      padding: $space--xs;
+      background: $color--blue;
+      margin: 0 25%;
+      width: 50%;
+      border: none;
+      color:$color--white;
+      font-size: $font--lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $space--xs;
+  
+      @include desktop-view {
+        width: 30%;
+        margin: 0 35%;
+      }
+    }
+  }
+}
