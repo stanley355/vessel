@@ -1,0 +1,22 @@
+@import '../../../../styles/tokens/all';
+
+.post__card {
+  .title {
+    font-size: $font--xxl;
+    text-align: center;
+  }
+
+  .cta {
+    padding: $space--xs;
+    background: $color--blue;
+    margin: 0 25%;
+    width: 50%;
+    border: none;
+    color:$color--white;
+    font-size: $font--lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $space--xs;
+  }
+}
