@@ -1,20 +1,26 @@
 import React from 'react';
 import jwtDecode from 'jwt-decode';
+import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import HasNoPostCard from '../../components/pages/Channel/HasNoPostCard/';
+import fetcher from '../../lib/fetcher';
+
+const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const ChannelSlug = (props: any) => {
-  const { slug, profile, channel } = props;
+  const { slug, profile, channel, posts } = props;
   const isMyChannel = channel && (channel.slug === slug);
 
   return (
     <div className='container'>
-      <HasNoPostCard isMyChannel={isMyChannel} />
+      {posts.length > 0 ? 'hi' : <HasNoPostCard isMyChannel={isMyChannel} />}
     </div>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+  const slug = context?.params?.slug;
+  
   const token = context.req.cookies['token'];
   const tokenChannel = context.req.cookies['token_channel'];
   let profile;
@@ -32,11 +38,14 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   if (token) profile = jwtDecode(token);
   if (tokenChannel) channel = jwtDecode(tokenChannel);
 
+  const posts = await fetcher(`${BASE_URL}/api/channel/view-post?slug=${slug}`, {});
+  
   return {
     props: {
       slug: context?.params?.slug,
       profile: profile ?? null,
       channel: channel ?? null,
+      posts: posts?.data ?? []
     }
   }
 }
