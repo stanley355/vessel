@@ -1,10 +1,12 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
+import jsCookie from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import logoutUser from '../../lib/loginHandler/logoutUser';
 import ChannelSection from '../../components/pages/Account/ChannelSection';
 import CreateChannelForm from '../../components/pages/Account/CreateChannelForm';
 import ProfileSection from '../../components/pages/Account/ProfileSection';
+import channelLoginHandler from '../../lib/loginHandler/channelLoginHandler';
 import styles from './account.module.scss';
 
 const Account = (props: any) => {
@@ -23,8 +25,7 @@ const Account = (props: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies['token'];
-  const tokenChannel = context.req.cookies['token_channel'];
-  let profile;
+  let profile: any = token ? jwtDecode(token) : '';
   let channel;
 
   if (!token) {
@@ -37,10 +38,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   if (token) profile = jwtDecode(token);
-  if (tokenChannel) {
-    
-    channel = jwtDecode(tokenChannel)
-  };
+
+  // Refetch channel data if there's necessary changes e.g (subscribers/post)
+  if (profile && profile.has_channel) {
+    const channelToken = await channelLoginHandler(token);
+
+    if (channelToken) {
+      jsCookie.set("token_channel", channelToken);
+      channel = jwtDecode(channelToken)
+    }
+  }
 
   return {
     props: {

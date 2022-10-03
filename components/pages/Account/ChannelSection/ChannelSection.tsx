@@ -16,7 +16,7 @@ const ChannelSection = (props: IChannelSection) => {
       <div>Channel Name: {channel.channel_name}</div>
       <div>Posts Number: {channel.posts_number}</div>
       <div>Last Post: {channel.updated_at}</div>
-      <div>Subscribers: {channel.subsribers}</div>
+      <div>Subscribers: {channel.subscribers}</div>
       <div>Subscription Price: {channel.subscription_price}</div>
 
       <div className={styles.link__wrap}>
