@@ -14,7 +14,7 @@ import styles from './ChannelUpload.module.scss';
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const ChannelUpload = (props: any) => {
-  const { profile, channel, firebaseConfig } = props;
+  const { channel, firebaseConfig } = props;
 
   const [progresspercent, setProgresspercent] = useState(0);
 
@@ -112,14 +112,12 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     }
   }
 
-  if (token) profile = jwtDecode(token);
   if (tokenChannel) channel = jwtDecode(tokenChannel);
 
   const firebaseConfig: any = await fetcher(`${BASE_URL}/api/firebase-config/`, { method: "GET" });
 
   return {
     props: {
-      profile: profile ?? null,
       channel: channel ?? null,
       firebaseConfig: firebaseConfig?.data ?? {}
     }
