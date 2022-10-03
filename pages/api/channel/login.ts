@@ -1,12 +1,14 @@
 import fetcher from "../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const viewPostHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.CHANNEL_URL}/post/?slug=${req.query.slug}`;
+const channelLoginHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const URL = `${process.env.CHANNEL_URL}/channel/?owner_id=${req.query.owner_id}`;
 
   let response: any;
   try {
-    const res = await fetcher(URL, {});
+    const res = await fetcher(URL, {
+      method: 'GET'
+    });
     response = res.data;
   } catch (err) {
     response = err;
@@ -16,4 +18,4 @@ const viewPostHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(response);
 };
 
-export default viewPostHandler;
+export default channelLoginHandler;

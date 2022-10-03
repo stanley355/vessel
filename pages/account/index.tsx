@@ -7,7 +7,6 @@ import CreateChannelForm from '../../components/pages/Account/CreateChannelForm'
 import ProfileSection from '../../components/pages/Account/ProfileSection';
 import styles from './account.module.scss';
 
-
 const Account = (props: any) => {
   const { profile, channel } = props;
 
@@ -38,7 +37,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   if (token) profile = jwtDecode(token);
-  if (tokenChannel) channel = jwtDecode(tokenChannel);
+  if (tokenChannel) {
+    
+    channel = jwtDecode(tokenChannel)
+  };
 
   return {
     props: {
