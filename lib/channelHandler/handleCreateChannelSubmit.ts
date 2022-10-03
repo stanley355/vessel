@@ -1,10 +1,10 @@
 import Router from "next/router";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import updateUserData from "../../updateUserData";
-import createChannel from "../../channelHandler/createChannel";
-import validateCreateChannelInput from "./validateCreateChannelInput";
-import { WARNING_MSG } from "../../warning-messages";
+import updateUserData from "../updateUserData";
+import createChannel from "../channelHandler/createChannel";
+import validateCreateChannelInput from "../channelHandler/validateCreateChannelInput";
+import { WARNING_MSG } from "../warning-messages";
 
 const handleCreateChannelSubmit = async (e: any) => {
   e.preventDefault();

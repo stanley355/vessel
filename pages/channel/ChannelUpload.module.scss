@@ -37,11 +37,10 @@
       }
 
       ::-webkit-file-upload-button {
+        content: "Browse Files";
         cursor: pointer;
         padding: $space--xs;
-        background: $color--blue;
         border: none;
-        color: $color--white;
         font-size: $font--lg;
         border-radius: $space--xs;
         width: 60%;

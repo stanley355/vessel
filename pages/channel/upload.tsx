@@ -9,43 +9,52 @@ import { getStorage } from "firebase/storage";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import fetcher from '../../lib/fetcher';
 import styles from './ChannelUpload.module.scss';
+import { WARNING_MSG } from '../../lib/warning-messages';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const ChannelUpload = (props: any) => {
   const { profile, channel, firebaseConfig } = props;
 
-  const firebaseApp = initializeApp(firebaseConfig);
-  const firebaseStorage = getStorage(firebaseApp);
 
   const [imgUrl, setImgUrl] = useState('');
   const [progresspercent, setProgresspercent] = useState(0);
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    const file = e.target.file?.files[0];
+    const file = e.target.fileUpload?.files[0];
 
     if (!file) return;
-    const storageRef = ref(firebaseStorage, `files/${file.name}`);
 
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const maxAllowedSize = 50 * 1024 * 1024; //50 MB
 
-    uploadTask.on("state_changed",
-      (snapshot) => {
-        const progress =
-          Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        setProgresspercent(progress);
-      },
-      (error) => {
-        alert(error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(downloadURL);
-          setImgUrl(downloadURL)
-        });
-      }
-    );
+    if (file.size > maxAllowedSize) {
+      alert('Maximum file size is 50MB');
+      return ''
+    } else {
+      const firebaseApp = initializeApp(firebaseConfig);
+      const firebaseStorage = getStorage(firebaseApp);
+      const storageRef = ref(firebaseStorage, `files/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on("state_changed",
+        (snapshot) => {
+          const progress =
+            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          setProgresspercent(progress);
+        },
+        (error) => {
+          alert(WARNING_MSG.TRY_AGAIN);
+          console.error(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log(downloadURL);
+            setImgUrl(downloadURL)
+          });
+        }
+      );
+    }
   }
 
   return (
@@ -60,7 +69,7 @@ const ChannelUpload = (props: any) => {
 
           <div className={styles.form__field}>
             <label htmlFor="file" className={styles.file__label} >
-              <input type='file' name='file' />
+              <input type='file' name='fileUpload' accept="video/*, image/*" />
             </label>
           </div>
 

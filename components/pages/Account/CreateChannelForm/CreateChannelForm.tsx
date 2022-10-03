@@ -1,7 +1,7 @@
 import React from 'react';
 import getConfig from 'next/config';
 import { FaRegGrinWink } from 'react-icons/fa';
-import handleCreateChannelSubmit from '../../../../lib/pages/Account/handleCreateChannelSubmit';
+import handleCreateChannelSubmit from '../../../../lib/channelHandler/handleCreateChannelSubmit';
 import styles from './CreateChannelForm.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
