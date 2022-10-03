@@ -5,36 +5,31 @@ import jwtDecode from 'jwt-decode';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
-
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import fetcher from '../../lib/fetcher';
-import styles from './ChannelUpload.module.scss';
 import { WARNING_MSG } from '../../lib/warning-messages';
+import styles from './ChannelUpload.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const ChannelUpload = (props: any) => {
   const { profile, channel, firebaseConfig } = props;
 
-
-  const [imgUrl, setImgUrl] = useState('');
   const [progresspercent, setProgresspercent] = useState(0);
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
     const file = e.target.fileUpload?.files[0];
-
     if (!file) return;
 
     const maxAllowedSize = 50 * 1024 * 1024; //50 MB
-
     if (file.size > maxAllowedSize) {
       alert('Maximum file size is 50MB');
       return ''
     } else {
       const firebaseApp = initializeApp(firebaseConfig);
       const firebaseStorage = getStorage(firebaseApp);
-      const storageRef = ref(firebaseStorage, `files/${file.name}`);
+      const storageRef = ref(firebaseStorage, `${channel.slug}/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on("state_changed",
@@ -50,7 +45,6 @@ const ChannelUpload = (props: any) => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log(downloadURL);
-            setImgUrl(downloadURL)
           });
         }
       );
@@ -73,13 +67,14 @@ const ChannelUpload = (props: any) => {
             </label>
           </div>
 
-          <button type='submit' className={styles.cta}>Upload <FaUpload /> </button>
+          <button type='submit' className={styles.cta}>
+            {
+              (progresspercent > 0 && progresspercent < 100) ?
+                <span>Uploading...{progresspercent} %</span> :
+                <span>Upload <FaUpload /></span>
+            }
+          </button>
         </form>
-
-        {/* {!imgUrl &&
-              <div className='outerbar'>
-                <div className='innerbar' style={{ width: `${progresspercent}%` }}>{progresspercent}%</div>
-              </div>} */}
       </div>
     </div>
   )
