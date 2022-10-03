@@ -11,7 +11,6 @@ const channelHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       method: req.method,
       data: JSON.stringify(req.body),
     });
-    
     response = res.data;
   } catch (err) {
     response = err;

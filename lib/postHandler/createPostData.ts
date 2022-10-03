@@ -16,11 +16,14 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 const createPostData = async (props: ICreatePostData) => {
   const payload = {
     channels_id: props.channelID,
+    channels_slug: props.channelSlug,
     img_url: props.downloadURL,
     description: props.description,
     post_type: props.postType,
     is_free: false,
   };
+
+  console.log(payload);
 
   const res = await fetcher(`${BASE_URL}/api/channel/post/`, {
     method: "POST",
