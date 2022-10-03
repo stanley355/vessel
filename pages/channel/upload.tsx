@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import fetcher from '../../lib/fetcher';
+import createPostData from '../../lib/postHandler/createPostData';
 import { WARNING_MSG } from '../../lib/warning-messages';
 import styles from './ChannelUpload.module.scss';
 
@@ -18,7 +19,8 @@ const ChannelUpload = (props: any) => {
   const [progresspercent, setProgresspercent] = useState(0);
 
   const handleSubmit = (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
+    const description = e.target.description.value;
     const file = e.target.fileUpload?.files[0];
     if (!file) return;
 
@@ -34,8 +36,7 @@ const ChannelUpload = (props: any) => {
 
       uploadTask.on("state_changed",
         (snapshot) => {
-          const progress =
-            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           setProgresspercent(progress);
         },
         (error) => {
@@ -43,8 +44,15 @@ const ChannelUpload = (props: any) => {
           console.error(error);
         },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log(downloadURL);
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            const payload = {
+              channelID: channel.id,
+              channelSlug: channel.slug,
+              downloadURL: downloadURL,
+              description: description,
+              postType: file.type.includes('video') ? "Video" : "Image"
+            }
+            await createPostData(payload);
           });
         }
       );
