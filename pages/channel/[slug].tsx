@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import HasNoPostCard from '../../components/pages/Channel/HasNoPostCard/';
+import PostCard from '../../components/pages/Channel/PostCard';
 import fetcher from '../../lib/fetcher';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -13,7 +14,7 @@ const ChannelSlug = (props: any) => {
 
   return (
     <div className='container'>
-      {posts.length > 0 ? 'hi' : <HasNoPostCard isMyChannel={isMyChannel} />}
+      {posts.length > 0 ? <PostCard posts={posts}/> : <HasNoPostCard isMyChannel={isMyChannel} />}
     </div>
   )
 }
@@ -39,10 +40,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   if (tokenChannel) channel = jwtDecode(tokenChannel);
 
   const posts = await fetcher(`${BASE_URL}/api/channel/view-post?slug=${slug}`, {});
-  
+
   return {
     props: {
-      slug: context?.params?.slug,
+      slug: slug ?? '',
       profile: profile ?? null,
       channel: channel ?? null,
       posts: posts?.data ?? []
