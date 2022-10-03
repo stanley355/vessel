@@ -23,8 +23,6 @@ const createPostData = async (props: ICreatePostData) => {
     is_free: false,
   };
 
-  console.log(payload);
-
   const res = await fetcher(`${BASE_URL}/api/channel/post/`, {
     method: "POST",
     data: payload,
