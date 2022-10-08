@@ -50,7 +50,7 @@ const ChannelUpload = (props: any) => {
               channelSlug: channel.slug,
               downloadURL: downloadURL,
               description: description,
-              postType: file.type.includes('video') ? "Video" : "Image"
+              postType: "Image"
             }
             await createPostData(payload);
           });
@@ -71,7 +71,7 @@ const ChannelUpload = (props: any) => {
 
           <div className={styles.form__field}>
             <label htmlFor="file" className={styles.file__label} >
-              <input type='file' name='fileUpload' accept="video/*, image/*" />
+              <input type='file' name='fileUpload' accept="image/*" /> {/* TODO: Enable video type*/}
             </label>
           </div>
 
