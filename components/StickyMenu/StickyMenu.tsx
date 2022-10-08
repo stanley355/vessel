@@ -25,7 +25,7 @@ const StickyMenu = () => {
   return (
     <div className={styles.sticky__menu}>
       {MENUS.map(menu =>
-        <Link href={menu.slug}>
+        <Link href={menu.slug} key={menu.title}>
           <a title={menu.title}>
             {menu.icon}
           </a>
