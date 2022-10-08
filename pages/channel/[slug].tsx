@@ -2,6 +2,7 @@ import React from 'react';
 import jwtDecode from 'jwt-decode';
 import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import StickyMenu from '../../components/StickyMenu';
 import HasNoPostCard from '../../components/pages/Channel/HasNoPostCard/';
 import PostCard from '../../components/pages/Channel/PostCard';
 import fetcher from '../../lib/fetcher';
