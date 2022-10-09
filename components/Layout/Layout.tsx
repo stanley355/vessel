@@ -1,12 +1,14 @@
 import React from 'react';
+import jsCookie from 'js-cookie';
 import Head from 'next/head';
 import getConfig from 'next/config';
 import Navbar from '../Navbar';
 import StickyMenu from '../StickyMenu';
 
-const { APP_ENV } = getConfig().publicRuntimeConfig;
-
 const Layout = ({ children }: any) => {
+
+  const token = jsCookie.get('token');
+
   return (
     <div className="layout">
       <Head>
@@ -22,7 +24,7 @@ const Layout = ({ children }: any) => {
       <div className='body'>
         {children}
       </div>
-      <StickyMenu />
+      {token && <StickyMenu />}
     </div>
   )
 }
