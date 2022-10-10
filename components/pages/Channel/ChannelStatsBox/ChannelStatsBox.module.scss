@@ -1,0 +1,27 @@
+@import '../../../../styles/tokens/all';
+
+.channel__stats {
+  @include desktop-view {
+    width: 50%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 33% 66%;
+  }
+
+  &__numbers {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    span {
+      padding: $space--xs;
+      border: 1px solid $color--white;
+    }
+
+    @include desktop-view {
+      font-size: $font--xxl;
+      span {
+        text-align: center;
+        border: unset;
+      }
+    }
+  }
+}
