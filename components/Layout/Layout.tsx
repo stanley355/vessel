@@ -1,13 +1,12 @@
 import React from 'react';
 import jsCookie from 'js-cookie';
 import Head from 'next/head';
-import getConfig from 'next/config';
+import useAuthenticated from '../../lib/hooks/useAuthenticated';
 import Navbar from '../Navbar';
 import StickyMenu from '../StickyMenu';
 
 const Layout = ({ children }: any) => {
-
-  const token = jsCookie.get('token');
+  const authenticated = useAuthenticated();
 
   return (
     <div className="layout">
@@ -24,7 +23,7 @@ const Layout = ({ children }: any) => {
       <div className='body'>
         {children}
       </div>
-      {token && <StickyMenu />}
+      {authenticated && <StickyMenu />}
     </div>
   )
 }
