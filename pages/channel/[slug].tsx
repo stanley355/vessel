@@ -9,8 +9,8 @@ import fetcher from '../../lib/fetcher';
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const ChannelSlug = (props: any) => {
-  const { slug, profile, channel, posts } = props;
-  const isMyChannel = channel && (channel.slug === slug);
+  const { slug, myChannel, channelStats, posts } = props;
+  const isMyChannel = myChannel && (myChannel.slug === slug);
 
   return (
     <div className='container'>
@@ -24,8 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   
   const token = context.req.cookies['token'];
   const tokenChannel = context.req.cookies['token_channel'];
-  let profile;
-  let channel;
+  let myChannel;
 
   if (!token) {
     return {
@@ -36,16 +35,16 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     }
   }
 
-  if (token) profile = jwtDecode(token);
-  if (tokenChannel) channel = jwtDecode(tokenChannel);
+  if (tokenChannel) myChannel = jwtDecode(tokenChannel);
 
+  const channelStats = await fetcher(`${BASE_URL}/api/channel/status/?slug=${slug}`, {});
   const posts = await fetcher(`${BASE_URL}/api/channel/view-post?slug=${slug}`, {});
 
   return {
     props: {
       slug: slug ?? '',
-      profile: profile ?? null,
-      channel: channel ?? null,
+      myChannel: myChannel ?? null,
+      channelStats: channelStats?.data ?? null,
       posts: posts?.data ?? []
     }
   }
