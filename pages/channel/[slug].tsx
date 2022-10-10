@@ -4,6 +4,7 @@ import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import HasNoPostCard from '../../components/pages/Channel/HasNoPostCard/';
 import PostCard from '../../components/pages/Channel/PostCard';
+import ChannelStatsBox from '../../components/pages/Channel/ChannelStatsBox';
 import fetcher from '../../lib/fetcher';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -14,14 +15,15 @@ const ChannelSlug = (props: any) => {
 
   return (
     <div className='container'>
-      {posts.length > 0 ? <PostCard posts={posts}/> : <HasNoPostCard isMyChannel={isMyChannel} />}
+      {channelStats && <ChannelStatsBox stats={channelStats} />}
+      {posts.length > 0 ? <PostCard posts={posts} /> : <HasNoPostCard isMyChannel={isMyChannel} />}
     </div>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const slug = context?.params?.slug;
-  
+
   const token = context.req.cookies['token'];
   const tokenChannel = context.req.cookies['token_channel'];
   let myChannel;
