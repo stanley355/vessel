@@ -38,8 +38,10 @@ const handleCreateChannelSubmit = async (e: any) => {
           alert(WARNING_MSG.TRY_AGAIN);
         }
       }
+
+      
       if (channelRes.error) {
-        alert(channelRes.error);
+        alert("Channel with similar name exists!");
       }
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
