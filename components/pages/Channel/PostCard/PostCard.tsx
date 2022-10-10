@@ -1,4 +1,5 @@
 import React from 'react';
+import parse from 'html-react-parser';
 import styles from './PostCard.module.scss';
 
 interface IPostCard {
@@ -31,7 +32,7 @@ const PostCard = (props: IPostCard) => {
       {posts.length > 0 && posts.map(post =>
         <div key={post.id} className={styles.card}>
           {post.post_type === 'Video' ? <VideoPost props={post} /> : <ImgPost props={post} />}
-          <div className={styles.description}>{post.description}</div>
+          <div className={styles.description}>{parse(post.description)}</div>
         </div>
       )}
     </div>
