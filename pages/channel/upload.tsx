@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
-import getConfig from 'next/config';
 import jwtDecode from 'jwt-decode';
+import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { ref, getDownloadURL, getStorage, uploadBytesResumable } from "firebase/storage";
 import fetcher from '../../lib/fetcher';
+import textToHtml from '../../lib/textToHtml';
 import createPostData from '../../lib/postHandler/createPostData';
 import { WARNING_MSG } from '../../lib/warning-messages';
 import styles from './ChannelUpload.module.scss';
@@ -24,39 +24,44 @@ const ChannelUpload = (props: any) => {
     const file = e.target.fileUpload?.files[0];
     if (!file) return;
 
+    if (description.length > 250) {
+      alert('Maximum description is 250 character');
+      return '';
+    }
+
     const maxAllowedSize = 50 * 1024 * 1024; //50 MB
     if (file.size > maxAllowedSize) {
       alert('Maximum file size is 50MB');
       return ''
-    } else {
-      const firebaseApp = initializeApp(firebaseConfig);
-      const firebaseStorage = getStorage(firebaseApp);
-      const storageRef = ref(firebaseStorage, `${channel.slug}/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on("state_changed",
-        (snapshot) => {
-          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          setProgresspercent(progress);
-        },
-        (error) => {
-          alert(WARNING_MSG.TRY_AGAIN);
-          console.error(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            const payload = {
-              channelID: channel.id,
-              channelSlug: channel.slug,
-              downloadURL: downloadURL,
-              description: description,
-              postType: file.type.includes('video') ? "Video" : "Image"
-            }
-            await createPostData(payload);
-          });
-        }
-      );
     }
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    const firebaseStorage = getStorage(firebaseApp);
+    const storageRef = ref(firebaseStorage, `${channel.slug}/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setProgresspercent(progress);
+      },
+      (error) => {
+        alert(WARNING_MSG.TRY_AGAIN);
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          const payload = {
+            channelID: channel.id,
+            channelSlug: channel.slug,
+            downloadURL: downloadURL,
+            description: textToHtml(description),
+            postType: file.type.includes('video') ? "Video" : "Image"
+          }
+          await createPostData(payload);
+        });
+      }
+    );
   }
 
   return (
@@ -66,12 +71,12 @@ const ChannelUpload = (props: any) => {
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.form__field}>
             <label htmlFor="description">Short caption: </label>
-            <textarea name="description" id="" defaultValue="" placeholder='About...' />
+            <textarea name="description" id="description" rows={10} placeholder='About...' />
           </div>
 
           <div className={styles.form__field}>
             <label htmlFor="file" className={styles.file__label} >
-              <input type='file' name='fileUpload' accept="video/*, image/*" /> 
+              <input type='file' name='fileUpload' accept="video/*, image/*" />
             </label>
           </div>
 
