@@ -15,7 +15,7 @@ const ChannelSlug = (props: any) => {
 
   return (
     <div className='container'>
-      {channelStats && <ChannelStatsBox stats={channelStats} />}
+      {channelStats && <ChannelStatsBox stats={channelStats} isMyChannel={isMyChannel}/>}
       {posts.length > 0 ? <PostCard posts={posts} /> : <HasNoPostCard isMyChannel={isMyChannel} />}
     </div>
   )
