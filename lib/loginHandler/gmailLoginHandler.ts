@@ -25,7 +25,7 @@ const gmailSignInHandler = async (googleRes: any) => {
 
     if (credential.has_channel) {
       const channelToken = await channelLoginHandler(loginRes.data.token);
-      
+
       if (channelToken) {
         jsCookie.set("token", loginRes.data.token);
         jsCookie.set("token_channel", channelToken);

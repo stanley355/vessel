@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import styles from './ChannelSection.module.scss';
+import React from "react";
+import Link from "next/link";
+import styles from "./ChannelSection.module.scss";
 
 interface IChannelSection {
   channel: any;
@@ -26,6 +26,6 @@ const ChannelSection = (props: IChannelSection) => {
       </div>
     </div>
   );
-}
+};
 
 export default ChannelSection;

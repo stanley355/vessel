@@ -1,4 +1,4 @@
-@import '../../styles/tokens/all';
+@import "../../styles/tokens/all";
 
 .sticky__menu {
   position: fixed;
@@ -25,9 +25,8 @@
     align-items: center;
     justify-content: center;
     font-size: $font--xxl;
-    color:$color--white;
+    color: $color--white;
     background: $color--blue;
     border-radius: $space--sm $space--sm 0 0;
   }
-
 }

@@ -1,4 +1,4 @@
-@import '../../styles/tokens/all';
+@import "../../styles/tokens/all";
 
 .subscription__slug {
   line-height: 2;
@@ -37,7 +37,7 @@
       padding: $space--xs;
       font-size: $font--md;
       background: $color--blue;
-      color:$color--white;
+      color: $color--white;
       border-radius: $space--xs;
       @include desktop-view {
         width: 70%;
@@ -45,6 +45,4 @@
       }
     }
   }
-
-
 }

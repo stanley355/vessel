@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .create__channel {
   margin: $space--sm 0;
@@ -46,7 +46,7 @@
       font-size: $font--md;
       border-radius: $space--xs;
       background: $color--blue;
-      color:$color--white;
+      color: $color--white;
       font-weight: bold;
     }
   }

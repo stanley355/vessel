@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './ProfileSection.module.scss';
+import React from "react";
+import styles from "./ProfileSection.module.scss";
 
 interface IProfileSection {
   profile: any;
@@ -15,6 +15,6 @@ const ProfileSection = (props: IProfileSection) => {
       <div>Email: {profile.email} </div>
     </div>
   );
-}
+};
 
 export default ProfileSection;

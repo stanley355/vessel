@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
-    AUTHOR_URL: process.env.AUTHOR_URL
+    AUTHOR_URL: process.env.AUTHOR_URL,
   },
   serverRuntimeConfig: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
@@ -14,8 +14,8 @@ const nextConfig = {
     FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESSAGING_SENDER: process.env.FIREBASE_MESSAGING_SENDER,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-    MEASUREMENT_ID: process.env.MEASUREMENT_ID
-  }
-}
+    MEASUREMENT_ID: process.env.MEASUREMENT_ID,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

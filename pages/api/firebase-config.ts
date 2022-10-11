@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 const firebaseConfig = (req: NextApiRequest, res: NextApiResponse) => {
-  
   const config = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -9,7 +8,7 @@ const firebaseConfig = (req: NextApiRequest, res: NextApiResponse) => {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER,
     appId: process.env.FIREBASE_APP_ID,
-    measurementId: process.env.FIREBASE_MEASUREMENT_ID
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
   };
 
   res.statusCode = 200;

@@ -7,7 +7,7 @@ const channelStatus = async (req: NextApiRequest, res: NextApiResponse) => {
   let response: any;
   try {
     const res = await fetcher(URL, {
-      method: 'GET'
+      method: "GET",
     });
     response = res.data;
   } catch (err) {

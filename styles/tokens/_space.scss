@@ -1,9 +1,9 @@
-$base--unit : 1rem;
+$base--unit: 1rem;
 
-$space--xxs  : calc(0.25 * #{$base--unit}); // 4px
-$space--xs   : calc(0.5 * #{$base--unit});  // 8px
-$space--sm   : calc(0.75 * #{$base--unit}); // 12px
-$space--md   : calc(1 * #{$base--unit}); // 12px
-$space--lg   : calc(1.25 * #{$base--unit}); // 20px
-$space--xl   : calc(1.5 * #{$base--unit}); // 24px
-$space--xxl  : calc(2 * #{$base--unit});    // 32px
+$space--xxs: calc(0.25 * #{$base--unit}); // 4px
+$space--xs: calc(0.5 * #{$base--unit}); // 8px
+$space--sm: calc(0.75 * #{$base--unit}); // 12px
+$space--md: calc(1 * #{$base--unit}); // 12px
+$space--lg: calc(1.25 * #{$base--unit}); // 20px
+$space--xl: calc(1.5 * #{$base--unit}); // 24px
+$space--xxl: calc(2 * #{$base--unit}); // 32px

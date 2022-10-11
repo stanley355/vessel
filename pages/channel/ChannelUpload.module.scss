@@ -1,4 +1,4 @@
-@import '../../styles/tokens/all';
+@import "../../styles/tokens/all";
 
 .channel__upload {
   .title {
@@ -11,7 +11,6 @@
       width: 60%;
       margin: auto;
     }
-
 
     &__field {
       display: flex;
@@ -31,7 +30,7 @@
 
     .file__label {
       width: 100%;
-      
+
       input {
         width: 100%;
       }

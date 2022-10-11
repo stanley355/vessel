@@ -39,7 +39,6 @@ const handleCreateChannelSubmit = async (e: any) => {
         }
       }
 
-      
       if (channelRes.error) {
         alert("Channel with similar name exists!");
       }

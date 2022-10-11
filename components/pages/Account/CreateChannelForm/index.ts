@@ -1,1 +1,1 @@
-export {default} from './CreateChannelForm';
+export { default } from "./CreateChannelForm";

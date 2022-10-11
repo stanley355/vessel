@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 const channelHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const URL = `${process.env.CHANNEL_URL}/post/`;
 
-  
   let response: any;
   try {
     const res = await fetcher(URL, {

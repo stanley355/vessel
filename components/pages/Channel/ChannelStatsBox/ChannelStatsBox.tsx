@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import useResponsive from '../../../../lib/hooks/useResponsive';
-import styles from './ChannelStatsBox.module.scss';
+import React from "react";
+import Link from "next/link";
+import useResponsive from "../../../../lib/hooks/useResponsive";
+import styles from "./ChannelStatsBox.module.scss";
 
 interface IChannelStats {
   isMyChannel: boolean;
@@ -11,17 +11,19 @@ interface IChannelStats {
 const ChannelStatsBox = (props: IChannelStats) => {
   const { isMyChannel, stats } = props;
 
-  const {isDesktop} = useResponsive();
+  const { isDesktop } = useResponsive();
 
   return (
     <div className={styles.channel__stats}>
       <div className={styles.channel__stats__head}>
         <h1>{stats.channel_name}</h1>
-        {!isDesktop && !isMyChannel && <Link href={`/subscription/${stats.slug}`}>
-          <a title="Subscribe" className={styles.subscribe__cta}>
-            Subscribe
-          </a>
-        </Link>}
+        {!isDesktop && !isMyChannel && (
+          <Link href={`/subscription/${stats.slug}`}>
+            <a title="Subscribe" className={styles.subscribe__cta}>
+              Subscribe
+            </a>
+          </Link>
+        )}
       </div>
       <div className={styles.channel__stats__numbers}>
         <span>
@@ -33,13 +35,15 @@ const ChannelStatsBox = (props: IChannelStats) => {
           <div>Subscribers</div>
         </span>
       </div>
-      {isDesktop && !isMyChannel && <Link href="/subscription">
+      {isDesktop && !isMyChannel && (
+        <Link href="/subscription">
           <a title="Subscribe" className={styles.subscribe__cta}>
             Subscribe
           </a>
-        </Link>}
+        </Link>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default ChannelStatsBox;

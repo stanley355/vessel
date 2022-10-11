@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .post__card {
   .title {
@@ -16,7 +16,7 @@
     margin: 0 25%;
     width: 50%;
     border: none;
-    color:$color--white;
+    color: $color--white;
     font-size: $font--lg;
     display: flex;
     align-items: center;

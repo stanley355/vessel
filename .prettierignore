@@ -1,0 +1,10 @@
+node_modules/
+.cache/
+public
+.DS_Store
+.history
+.direnv
+.env
+bundle-analysis.html
+yarn-error.log
+.next/
