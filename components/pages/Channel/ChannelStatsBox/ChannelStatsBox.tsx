@@ -9,7 +9,7 @@ interface IChannelStats {
 }
 
 const ChannelStatsBox = (props: IChannelStats) => {
-  const { isMyChannel,  stats } = props;
+  const { isMyChannel, stats } = props;
 
   const {isDesktop} = useResponsive();
 
@@ -17,8 +17,8 @@ const ChannelStatsBox = (props: IChannelStats) => {
     <div className={styles.channel__stats}>
       <div className={styles.channel__stats__head}>
         <h1>{stats.channel_name}</h1>
-        {!isDesktop && !isMyChannel && <Link href="/subscription">
-          <a title="Subscribe">
+        {!isDesktop && !isMyChannel && <Link href={`/subscription/${stats.slug}`}>
+          <a title="Subscribe" className={styles.subscribe__cta}>
             Subscribe
           </a>
         </Link>}
