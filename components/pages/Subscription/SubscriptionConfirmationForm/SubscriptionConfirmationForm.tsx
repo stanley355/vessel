@@ -19,31 +19,31 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
 
     const duration = e.target.subscription_duration.value ?? 1;
 
-    const payload = {
-      userID: profile.id,
-      channelID: channelStats.id,
-      channelSlug: channelStats.slug,
-      duration: duration,
-      invoiceID: `${profile.id}-${channelStats.id}`,
+    const invoicePayload = {
+      externalID: `${profile.id}-${channelStats.id}`,
+      userFullname: profile.fullname,
+      userEmail: profile.email,
+      description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,
+      amount: duration * channelStats.subscription_price
     }
 
-    const subscription = await createSubscription(payload);
+    const invoice = await createInvoice(invoicePayload);
 
-    if (subscription) {
-      const invoicePayload = {
-        externalID: `${profile.id}-${channelStats.id}`,
-        userFullname: profile.fullname,
-        userEmail: profile.email,
-        description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,
-        amount: duration * channelStats.subscription_price
+    if (invoice && invoice.id) {
+      const payload = {
+        userID: profile.id,
+        channelID: channelStats.id,
+        channelSlug: channelStats.slug,
+        duration: duration,
+        invoiceID: `${profile.id}-${channelStats.id}`,
       }
   
-      const invoice = await createInvoice(invoicePayload);
+      const subscription = await createSubscription(payload);
 
-      if (invoice && invoice.id) {
+      if (subscription) {
         window.location.href = invoice.invoice_url;
       } else {
-        alert('Gagal Memproses Pembayaran. Silakan Coba lagi')
+        alert(WARNING_MSG.TRY_AGAIN);
       }
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
