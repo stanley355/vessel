@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
+import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './SubscriptionConfirmationForm.module.scss';
 
 interface IConfirmationForm {
@@ -12,10 +13,25 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
 
   const [subsDuration, setSubsDuration] = useState(1);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    console.log(e.target.subscription_duration.value);
+    const duration = e.target.subscription_duration.value ?? 1;
+
+    const payload = {
+      userID: profile.id,
+      channelID: channelStats.id,
+      channelSlug: channelStats.slug,
+      duration: duration,
+    }
+
+    const subscription = await createSubscription(payload);
+
+    if (subscription) {
+      console.log("Success")
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN)
+    }
   };
 
   return (

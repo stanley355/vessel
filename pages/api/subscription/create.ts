@@ -1,0 +1,25 @@
+import fetcher from "../../../lib/fetcher";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const createSubscriptionHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const URL = `${process.env.AUTHOR_URL}/subscriptions/`;
+
+  console.log(URL);
+  let response: any;
+  try {
+    const res = await fetcher(URL, {
+      method: "POST",
+      data: JSON.stringify(req.body),
+    });
+
+    console.log(res);
+    response = res.data ?? { error: "Bad Request" };
+  } catch (err) {
+    response = err;
+  }
+
+  res.setHeader("Content-Type", "application/json");
+  res.json(response);
+};
+
+export default createSubscriptionHandler;
