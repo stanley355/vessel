@@ -36,7 +36,7 @@ const ChannelStatsBox = (props: IChannelStats) => {
         </span>
       </div>
       {isDesktop && !isMyChannel && (
-        <Link href="/subscription">
+        <Link href={`/subscription/${stats.slug}`}>
           <a title="Subscribe" className={styles.subscribe__cta}>
             Subscribe
           </a>

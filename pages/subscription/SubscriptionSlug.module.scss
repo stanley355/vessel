@@ -11,38 +11,5 @@
     border: none;
   }
 
-  .title {
-    text-align: center;
-  }
-
-  h3 {
-    margin-bottom: $space--xs;
-  }
-
-  .form {
-    &__field {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    select {
-      width: 50%;
-      border-radius: $space--xs;
-    }
-
-    &__cta {
-      width: 100%;
-      margin: $space--lg 0;
-      padding: $space--xs;
-      font-size: $font--md;
-      background: $color--blue;
-      color: $color--white;
-      border-radius: $space--xs;
-      @include desktop-view {
-        width: 70%;
-        margin: $space--lg 15%;
-      }
-    }
-  }
+  
 }
