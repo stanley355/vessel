@@ -19,31 +19,35 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
 
     const duration = e.target.subscription_duration.value ?? 1;
 
-    const invoicePayload = {
-      externalID: `${profile.id}-${channelStats.id}`,
-      userFullname: profile.fullname,
-      userEmail: profile.email,
-      description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,
-      amount: duration * channelStats.subscription_price
+    const payload = {
+      userID: profile.id,
+      channelID: channelStats.id,
+      channelSlug: channelStats.slug,
+      duration: duration,
+      invoiceID: `${profile.id}-${channelStats.id}`,
     }
 
-    const invoice = await createInvoice(invoicePayload);
-    console.log(invoice);
+    const subscription = await createSubscription(payload);
 
-    // const payload = {
-    //   userID: profile.id,
-    //   channelID: channelStats.id,
-    //   channelSlug: channelStats.slug,
-    //   duration: duration,
-    // }
+    if (subscription) {
+      const invoicePayload = {
+        externalID: `${profile.id}-${channelStats.id}`,
+        userFullname: profile.fullname,
+        userEmail: profile.email,
+        description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,
+        amount: duration * channelStats.subscription_price
+      }
+  
+      const invoice = await createInvoice(invoicePayload);
 
-    // const subscription = await createSubscription(payload);
-
-    // if (subscription) {
-    //   console.log("Success")
-    // } else {
-    //   alert(WARNING_MSG.TRY_AGAIN)
-    // }
+      if (invoice && invoice.id) {
+        window.location.href = invoice.invoice_url;
+      } else {
+        alert('Gagal Memproses Pembayaran. Silakan Coba lagi')
+      }
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN);
+    }
   };
 
   return (
