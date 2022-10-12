@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import createInvoice from '../../../../lib/paymentHandler/createInvoice';
 import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
 import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './SubscriptionConfirmationForm.module.scss';
@@ -18,20 +19,31 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
 
     const duration = e.target.subscription_duration.value ?? 1;
 
-    const payload = {
-      userID: profile.id,
-      channelID: channelStats.id,
-      channelSlug: channelStats.slug,
-      duration: duration,
+    const invoicePayload = {
+      externalID: `${profile.id}-${channelStats.id}`,
+      userFullname: profile.fullname,
+      userEmail: profile.email,
+      description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,
+      amount: duration * channelStats.subscription_price
     }
 
-    const subscription = await createSubscription(payload);
+    const invoice = await createInvoice(invoicePayload);
+    console.log(invoice);
 
-    if (subscription) {
-      console.log("Success")
-    } else {
-      alert(WARNING_MSG.TRY_AGAIN)
-    }
+    // const payload = {
+    //   userID: profile.id,
+    //   channelID: channelStats.id,
+    //   channelSlug: channelStats.slug,
+    //   duration: duration,
+    // }
+
+    // const subscription = await createSubscription(payload);
+
+    // if (subscription) {
+    //   console.log("Success")
+    // } else {
+    //   alert(WARNING_MSG.TRY_AGAIN)
+    // }
   };
 
   return (

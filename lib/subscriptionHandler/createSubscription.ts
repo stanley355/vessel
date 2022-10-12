@@ -6,6 +6,7 @@ interface ICreateSubscription {
   channelID: number;
   channelSlug: string;
   duration: number;
+  invoiceID: string;
 }
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -16,6 +17,7 @@ const createSubscription = async (data: ICreateSubscription) => {
     channels_id: Number(data.channelID),
     channels_slug: data.channelSlug,
     duration: Number(data.duration),
+    invoice_id: data.invoiceID
   };
 
   const res = await fetcher(`${BASE_URL}/api/subscription/create/`, {

@@ -5,6 +5,8 @@ const nextConfig = {
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
     AUTHOR_URL: process.env.AUTHOR_URL,
+    PAYMENT_URL: process.env.PAYMENT_URL,
+    CHANNEL_URL: process.env.CHANNEL_URL,
   },
   serverRuntimeConfig: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
