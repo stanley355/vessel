@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import createInvoice from '../../../../lib/paymentHandler/createInvoice';
+import expireInvoice from '../../../../lib/paymentHandler/expireInvoice';
 import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
 import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './SubscriptionConfirmationForm.module.scss';
@@ -13,10 +14,12 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
   const { profile, channelStats } = props;
 
   const [subsDuration, setSubsDuration] = useState(1);
+  const [hasSubmit, setHasSubmit] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    setHasSubmit(true);
     const duration = e.target.subscription_duration.value ?? 1;
 
     const invoicePayload = {
@@ -37,15 +40,18 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
         duration: duration,
         invoiceID: `${profile.id}-${channelStats.id}`,
       }
-  
+
       const subscription = await createSubscription(payload);
 
-      if (subscription) {
+      if (subscription && subscription.id) {
         window.location.href = invoice.invoice_url;
       } else {
+        await expireInvoice(invoice.id);
+        setHasSubmit(false);
         alert(WARNING_MSG.TRY_AGAIN);
       }
     } else {
+      setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);
     }
   };
@@ -83,8 +89,8 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
           Total Harga: {subsDuration * channelStats.subscription_price}
         </div>
 
-        <button type="submit" className={styles.form__cta}>
-          Submit
+        <button type="submit" className={styles.form__cta} disabled={hasSubmit}>
+          {hasSubmit ? 'Processing...' : ' Submit'}
         </button>
       </form>
     </div>

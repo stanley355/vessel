@@ -24,8 +24,6 @@ const createInvoice = async (data: ICreateInvoice) => {
     data: payload,
   });
 
-  console.log(222, res);
-
   if (res && res.data) {
     return res.data;
   } else {
