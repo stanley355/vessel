@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import createInvoice from '../../../../lib/paymentHandler/createInvoice';
 import expireInvoice from '../../../../lib/paymentHandler/expireInvoice';
 import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
@@ -11,7 +12,7 @@ interface IConfirmationForm {
 }
 
 const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
-  const { profile, channelStats } = props;
+  const { profile, channelStats, } = props;
 
   const [subsDuration, setSubsDuration] = useState(1);
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -44,7 +45,7 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
       const subscription = await createSubscription(payload);
 
       if (subscription && subscription.id) {
-        window.location.href = invoice.invoice_url;
+        Router.reload()
       } else {
         await expireInvoice(invoice.id);
         setHasSubmit(false);
