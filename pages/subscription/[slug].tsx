@@ -4,16 +4,14 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import jwtDecode from "jwt-decode";
 import fetcher from "../../lib/fetcher";
 import viewSubscription from "../../lib/subscriptionHandler/viewSubscription";
+import viewInvoice from "../../lib/paymentHandler/viewInvoice";
 import SubscriptionConfirmationForm from "../../components/pages/Subscription/SubscriptionConfirmationForm";
 import styles from "./SubscriptionSlug.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const SubscriptionSlug = (props: any) => {
-  const { profile, channelStats, subscriptions } = props;
-
-  const lastSubscription = subscriptions && subscriptions.length > 0 ? subscriptions[subscriptions.length - 1] : {};
-  console.log(lastSubscription);
+  const { profile, channelStats, lastSubscription, lastInvoice } = props;
 
   return (
     <div className="container">
@@ -29,9 +27,12 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const slug = context?.params?.slug;
 
-  const token = context.req.cookies["token"];
+  const token: any = context.req.cookies["token"];
   let profile: any;
+  let channelStats;
   let subscriptions;
+  let lastSubscription;
+  let lastInvoice;
 
   if (!token) {
     return {
@@ -43,24 +44,29 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   if (token) profile = jwtDecode(token);
-  const channelStats:any = await fetcher(
+  if (slug) channelStats = await fetcher(
     `${BASE_URL}/api/channel/status/?slug=${slug}`,
     {}
   );
 
-  if (token && profile && channelStats && channelStats.data) {
-    const data = {
+  if (profile && channelStats && channelStats.data) {
+    subscriptions = await viewSubscription({
       userID: profile.id,
       channelID: channelStats.data.id,
+    });
+
+    if (subscriptions && subscriptions.length > 0) {
+      lastSubscription = subscriptions[subscriptions.length - 1];
+      lastInvoice = await viewInvoice(lastSubscription.invoice_id);
     }
-    subscriptions = await viewSubscription(data)
   }
 
   return {
     props: {
       profile: profile ?? null,
       channelStats: channelStats?.data ?? null,
-      subscriptions: subscriptions ?? null,
+      lastSubscription: lastSubscription ?? null,
+      lastInvoice: lastInvoice ?? null,
     },
   };
 };

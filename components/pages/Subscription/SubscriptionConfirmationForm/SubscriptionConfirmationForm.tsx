@@ -39,7 +39,7 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
         channelID: channelStats.id,
         channelSlug: channelStats.slug,
         duration: duration,
-        invoiceID: `${profile.id}-${channelStats.id}`,
+        invoiceID: invoice.id
       }
 
       const subscription = await createSubscription(payload);
