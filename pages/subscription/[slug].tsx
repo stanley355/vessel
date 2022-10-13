@@ -3,13 +3,17 @@ import getConfig from "next/config";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import jwtDecode from "jwt-decode";
 import fetcher from "../../lib/fetcher";
+import viewSubscription from "../../lib/subscriptionHandler/viewSubscription";
 import SubscriptionConfirmationForm from "../../components/pages/Subscription/SubscriptionConfirmationForm";
 import styles from "./SubscriptionSlug.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const SubscriptionSlug = (props: any) => {
-  const { profile, channelStats } = props;
+  const { profile, channelStats, subscriptions } = props;
+
+  const lastSubscription = subscriptions && subscriptions.length > 0 ? subscriptions[subscriptions.length - 1] : {};
+  console.log(lastSubscription);
 
   return (
     <div className="container">
@@ -26,7 +30,8 @@ export const getServerSideProps: GetServerSideProps = async (
   const slug = context?.params?.slug;
 
   const token = context.req.cookies["token"];
-  let profile;
+  let profile: any;
+  let subscriptions;
 
   if (!token) {
     return {
@@ -38,16 +43,24 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   if (token) profile = jwtDecode(token);
-
-  const channelStats = await fetcher(
+  const channelStats:any = await fetcher(
     `${BASE_URL}/api/channel/status/?slug=${slug}`,
     {}
   );
+
+  if (token && profile && channelStats && channelStats.data) {
+    const data = {
+      userID: profile.id,
+      channelID: channelStats.data.id,
+    }
+    subscriptions = await viewSubscription(data)
+  }
 
   return {
     props: {
       profile: profile ?? null,
       channelStats: channelStats?.data ?? null,
+      subscriptions: subscriptions ?? null,
     },
   };
 };
