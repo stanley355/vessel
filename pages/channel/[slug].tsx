@@ -12,11 +12,12 @@ import fetcher from "../../lib/fetcher";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const ChannelSlug = (props: any) => {
-  const { slug, myChannel, channelStats, posts, lastSubcription } = props;
+  const { slug, myChannel, channelStats, posts, lastSubscription } = props;
   const isMyChannel = myChannel && myChannel.slug === slug;
 
-  console.log(lastSubcription);
 
+
+  console.log(lastSubscription);
   const SubscriptionLink = () => (
     <div>
       <div>Anda belum berlangganan Channel ini</div>
@@ -31,8 +32,11 @@ const ChannelSlug = (props: any) => {
 
   const ChannelContent = () => {
     if (posts.length > 0) {
-      if (lastSubcription && lastSubcription.paid) {
-        return <PostCard posts={posts} />
+      if (lastSubscription && lastSubscription.paid) {
+        const expiredAt = new Date(lastSubscription.expired_at).getTime();
+        const currentTime = new Date().getTime();
+
+        return currentTime > expiredAt ? <SubscriptionLink /> : <PostCard posts={posts} />;
       }
       return <SubscriptionLink />
     }
@@ -103,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (
       myChannel: myChannel ?? null,
       channelStats: channelStats?.data ?? null,
       posts: posts?.data ?? [],
-      lastSubcription: lastSubscription ?? null,
+      lastSubscription: lastSubscription ?? null,
     },
   };
 };

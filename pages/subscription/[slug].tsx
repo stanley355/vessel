@@ -16,22 +16,37 @@ const SubscriptionSlug = (props: any) => {
 
   const [renewSubs, setRenewSubs] = useState(false);
 
-  return (
-    <div className="container">
-      <div className={styles.subscription__slug}>
-        {!renewSubs && lastInvoice ? (
-          <AwaitingPaymentBox
-            lastSubscription={lastSubscription}
-            lastInvoice={lastInvoice}
-            onRenewClick={() => setRenewSubs(true)}
-          />
-        ) : (
-          <SubscriptionConfirmationForm
+  const SubscriptionConfirmation = () => {
+    if (!renewSubs && lastSubscription && lastInvoice) {
+      if (lastInvoice.status === "PAID") {
+        const expiredAt = new Date(lastSubscription.expired_at).getTime();
+        const currentTime = new Date().getTime();
+        if (currentTime > expiredAt) {
+          return <SubscriptionConfirmationForm
             subscriptions_freq={subscriptions_freq}
             profile={profile}
             channelStats={channelStats}
           />
-        )}
+        }
+        return <AwaitingPaymentBox
+          lastSubscription={lastSubscription}
+          lastInvoice={lastInvoice}
+          onRenewClick={() => setRenewSubs(true)}
+        />
+      }
+    }
+
+    return <SubscriptionConfirmationForm
+      subscriptions_freq={subscriptions_freq}
+      profile={profile}
+      channelStats={channelStats}
+    />
+  }
+
+  return (
+    <div className="container">
+      <div className={styles.subscription__slug}>
+        <SubscriptionConfirmation />
       </div>
     </div>
   );
@@ -74,6 +89,19 @@ export const getServerSideProps: GetServerSideProps = async (
     if (subscriptions && subscriptions.length > 0) {
       lastSubscription = subscriptions[subscriptions.length - 1];
       lastInvoice = await viewInvoice(lastSubscription.invoice_id);
+    }
+  }
+
+  if (lastSubscription && lastSubscription.paid) {
+    const expiredAt = new Date(lastSubscription.expired_at).getTime();
+    const currentTime = new Date().getTime();
+    if (currentTime < expiredAt) {
+      return {
+        redirect: {
+          destination: `/channel/${slug}`,
+          permanent: false,
+        },
+      };
     }
   }
 
