@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import Router from 'next/router';
-import createInvoice from '../../../../lib/paymentHandler/createInvoice';
-import expireInvoice from '../../../../lib/paymentHandler/expireInvoice';
-import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
-import { WARNING_MSG } from '../../../../lib/warning-messages';
-import styles from './SubscriptionConfirmationForm.module.scss';
+import React, { useState } from "react";
+import Router from "next/router";
+import createInvoice from "../../../../lib/paymentHandler/createInvoice";
+import expireInvoice from "../../../../lib/paymentHandler/expireInvoice";
+import createSubscription from "../../../../lib/subscriptionHandler/createSubscription";
+import { WARNING_MSG } from "../../../../lib/warning-messages";
+import styles from "./SubscriptionConfirmationForm.module.scss";
 
 interface IConfirmationForm {
-  profile: any,
-  channelStats: any,
+  profile: any;
+  channelStats: any;
 }
 
 const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
-  const { profile, channelStats, } = props;
+  const { profile, channelStats } = props;
 
   const [subsDuration, setSubsDuration] = useState(1);
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -28,8 +28,8 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
       userFullname: profile.fullname,
       userEmail: profile.email,
       description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,
-      amount: duration * channelStats.subscription_price
-    }
+      amount: duration * channelStats.subscription_price,
+    };
 
     const invoice = await createInvoice(invoicePayload);
 
@@ -39,13 +39,13 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
         channelID: channelStats.id,
         channelSlug: channelStats.slug,
         duration: duration,
-        invoiceID: invoice.id
-      }
+        invoiceID: invoice.id,
+      };
 
       const subscription = await createSubscription(payload);
 
       if (subscription && subscription.id) {
-        Router.reload()
+        Router.reload();
       } else {
         await expireInvoice(invoice.id);
         setHasSubmit(false);
@@ -86,16 +86,14 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
           </select>
         </div>
 
-        <div>
-          Total Harga: {subsDuration * channelStats.subscription_price}
-        </div>
+        <div>Total Harga: {subsDuration * channelStats.subscription_price}</div>
 
         <button type="submit" className={styles.form__cta} disabled={hasSubmit}>
-          {hasSubmit ? 'Processing...' : ' Submit'}
+          {hasSubmit ? "Processing..." : " Submit"}
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default SubscriptionConfirmationForm;

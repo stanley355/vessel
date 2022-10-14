@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface IAwaitingPayment {
   lastSubscription: any;
@@ -22,25 +22,31 @@ const AwaitingPaymentBox = (props: IAwaitingPayment) => {
           <span>Link Pembayaran : </span>
           <span>
             <Link href={lastInvoice.invoice_url}>
-              <a title={lastInvoice.invoice_url}>
-                Klik Disini
-              </a>
+              <a title={lastInvoice.invoice_url}>Klik Disini</a>
             </Link>
           </span>
         </div>
       </div>
 
       <div>
-        <div>* Notifikasi pembayaran sudah dikirimkan ke email : {lastInvoice.payer_email}</div>
-        <div>** Jika pembayaran selesai harap klik tombol di bawah ini untuk konfirmasi</div>
+        <div>
+          * Notifikasi pembayaran sudah dikirimkan ke email :{" "}
+          {lastInvoice.payer_email}
+        </div>
+        <div>
+          ** Jika pembayaran selesai harap klik tombol di bawah ini untuk
+          konfirmasi
+        </div>
       </div>
 
       <div>
-        <button type='button'>Saya sudah bayar</button>
-        {lastInvoice.status === 'EXPIRED' && <button type='button'>Perbaharui Langganan</button> }
+        <button type="button">Saya sudah bayar</button>
+        {lastInvoice.status === "EXPIRED" && (
+          <button type="button">Perbaharui Langganan</button>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default AwaitingPaymentBox;

@@ -17,7 +17,7 @@ const createSubscription = async (data: ICreateSubscription) => {
     channels_id: Number(data.channelID),
     channels_slug: data.channelSlug,
     duration: Number(data.duration),
-    invoice_id: data.invoiceID
+    invoice_id: data.invoiceID,
   };
 
   const res = await fetcher(`${BASE_URL}/api/subscription/create/`, {
@@ -26,7 +26,7 @@ const createSubscription = async (data: ICreateSubscription) => {
   });
 
   if (res && res.data) {
-    return res.data
+    return res.data;
   } else {
     return null;
   }

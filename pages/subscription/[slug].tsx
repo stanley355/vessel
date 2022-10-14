@@ -17,10 +17,17 @@ const SubscriptionSlug = (props: any) => {
   return (
     <div className="container">
       <div className={styles.subscription__slug}>
-        {lastInvoice ?
-          <AwaitingPaymentBox lastSubscription={lastSubscription} lastInvoice={lastInvoice} /> :
-          <SubscriptionConfirmationForm profile={profile} channelStats={channelStats} />
-        }
+        {lastInvoice ? (
+          <AwaitingPaymentBox
+            lastSubscription={lastSubscription}
+            lastInvoice={lastInvoice}
+          />
+        ) : (
+          <SubscriptionConfirmationForm
+            profile={profile}
+            channelStats={channelStats}
+          />
+        )}
       </div>
     </div>
   );
@@ -48,10 +55,11 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   if (token) profile = jwtDecode(token);
-  if (slug) channelStats = await fetcher(
-    `${BASE_URL}/api/channel/status/?slug=${slug}`,
-    {}
-  );
+  if (slug)
+    channelStats = await fetcher(
+      `${BASE_URL}/api/channel/status/?slug=${slug}`,
+      {}
+    );
 
   if (profile && channelStats && channelStats.data) {
     subscriptions = await viewSubscription({

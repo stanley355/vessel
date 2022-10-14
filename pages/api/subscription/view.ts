@@ -5,7 +5,9 @@ const viewSubscriptionHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const param = `user_id=${req.body.user_id}&channels_id=${req.body.channels_id}${req.body.invoice_id ? `&invoice_id=${req.body.invoice_id}` : ""}`;
+  const param = `user_id=${req.body.user_id}&channels_id=${
+    req.body.channels_id
+  }${req.body.invoice_id ? `&invoice_id=${req.body.invoice_id}` : ""}`;
   const URL = `${process.env.AUTHOR_URL}/subscriptions/?${param}`;
 
   let response: any;

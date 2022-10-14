@@ -1,7 +1,10 @@
 import fetcher from "../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const createSubscriptionHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const createSubscriptionHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const URL = `${process.env.AUTHOR_URL}/subscriptions/`;
 
   let response: any;
