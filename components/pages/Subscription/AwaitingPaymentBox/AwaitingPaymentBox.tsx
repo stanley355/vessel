@@ -2,12 +2,13 @@ import React from "react";
 import Link from "next/link";
 
 interface IAwaitingPayment {
+  onRenewClick: () => void;
   lastSubscription: any;
   lastInvoice: any;
 }
 
 const AwaitingPaymentBox = (props: IAwaitingPayment) => {
-  const { lastSubscription, lastInvoice } = props;
+  const { onRenewClick, lastSubscription, lastInvoice } = props;
 
   return (
     <div>
@@ -42,7 +43,7 @@ const AwaitingPaymentBox = (props: IAwaitingPayment) => {
       <div>
         <button type="button">Saya sudah bayar</button>
         {lastInvoice.status === "EXPIRED" && (
-          <button type="button">Perbaharui Langganan</button>
+          <button type="button" onClick={onRenewClick}>Perbaharui Langganan</button>
         )}
       </div>
     </div>

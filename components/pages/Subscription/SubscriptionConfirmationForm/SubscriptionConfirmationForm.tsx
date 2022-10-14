@@ -7,12 +7,13 @@ import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./SubscriptionConfirmationForm.module.scss";
 
 interface IConfirmationForm {
+  subscriptions_freq: number;
   profile: any;
   channelStats: any;
 }
 
 const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
-  const { profile, channelStats } = props;
+  const { subscriptions_freq, profile, channelStats } = props;
 
   const [subsDuration, setSubsDuration] = useState(1);
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -24,7 +25,7 @@ const SubscriptionConfirmationForm = (props: IConfirmationForm) => {
     const duration = e.target.subscription_duration.value ?? 1;
 
     const invoicePayload = {
-      externalID: `${profile.id}-${channelStats.id}`,
+      externalID: `${profile.id}-${channelStats.id}-${subscriptions_freq}`,
       userFullname: profile.fullname,
       userEmail: profile.email,
       description: `Pembayaran Langganan Channel ${channelStats.channel_name}`,

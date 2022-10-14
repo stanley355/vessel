@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import getConfig from "next/config";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import jwtDecode from "jwt-decode";
@@ -12,18 +12,22 @@ import styles from "./SubscriptionSlug.module.scss";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const SubscriptionSlug = (props: any) => {
-  const { profile, channelStats, lastSubscription, lastInvoice } = props;
+  const { profile, channelStats, lastSubscription, lastInvoice, subscriptions_freq } = props;
+
+  const [renewSubs, setRenewSubs] = useState(false);
 
   return (
     <div className="container">
       <div className={styles.subscription__slug}>
-        {lastInvoice ? (
+        {!renewSubs && lastInvoice ? (
           <AwaitingPaymentBox
             lastSubscription={lastSubscription}
             lastInvoice={lastInvoice}
+            onRenewClick={() => setRenewSubs(true)}
           />
         ) : (
           <SubscriptionConfirmationForm
+            subscriptions_freq={subscriptions_freq}
             profile={profile}
             channelStats={channelStats}
           />
@@ -77,6 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (
     props: {
       profile: profile ?? null,
       channelStats: channelStats?.data ?? null,
+      subcriptions_freq: subscriptions?.length ?? 0,
       lastSubscription: lastSubscription ?? null,
       lastInvoice: lastInvoice ?? null,
     },
