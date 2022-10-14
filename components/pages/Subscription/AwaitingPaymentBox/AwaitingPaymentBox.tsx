@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import updatePaidSubscription from "../../../../lib/subscriptionHandler/updatePaidSubscription";
 
 interface IAwaitingPayment {
   onRenewClick: () => void;
@@ -9,6 +10,26 @@ interface IAwaitingPayment {
 
 const AwaitingPaymentBox = (props: IAwaitingPayment) => {
   const { onRenewClick, lastSubscription, lastInvoice } = props;
+
+  const handlePaymentConfirmation = async () => {
+    if (lastInvoice && lastInvoice.status === "PAID") {
+      const payload = {
+        userID: lastSubscription.user_id,
+        channelID: lastSubscription.channels_id,
+        invoiceID: lastInvoice.id
+      }
+
+      const subscriptionStatus = await updatePaidSubscription(payload);
+      if (subscriptionStatus && subscriptionStatus.paid) {
+        alert('Berhasil')
+      } else {
+        alert('Pembayaran belum dapat diproses, harap tunggu beberapa saat lagi')
+      }
+    }
+    else {
+      alert('Pembayaran belum diterima');
+    }
+  }
 
   return (
     <div>
@@ -41,7 +62,7 @@ const AwaitingPaymentBox = (props: IAwaitingPayment) => {
       </div>
 
       <div>
-        <button type="button">Saya sudah bayar</button>
+        <button type="button" onClick={handlePaymentConfirmation}>Saya sudah bayar</button>
         {lastInvoice.status === "EXPIRED" && (
           <button type="button" onClick={onRenewClick}>Perbaharui Langganan</button>
         )}
