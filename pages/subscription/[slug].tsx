@@ -6,6 +6,7 @@ import fetcher from "../../lib/fetcher";
 import viewSubscription from "../../lib/subscriptionHandler/viewSubscription";
 import viewInvoice from "../../lib/paymentHandler/viewInvoice";
 import SubscriptionConfirmationForm from "../../components/pages/Subscription/SubscriptionConfirmationForm";
+import AwaitingPaymentBox from "../../components/pages/Subscription/AwaitingPaymentBox";
 import styles from "./SubscriptionSlug.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -16,7 +17,10 @@ const SubscriptionSlug = (props: any) => {
   return (
     <div className="container">
       <div className={styles.subscription__slug}>
-        <SubscriptionConfirmationForm profile={profile} channelStats={channelStats} />
+        {lastInvoice ?
+          <AwaitingPaymentBox lastSubscription={lastSubscription} lastInvoice={lastInvoice} /> :
+          <SubscriptionConfirmationForm profile={profile} channelStats={channelStats} />
+        }
       </div>
     </div>
   );
