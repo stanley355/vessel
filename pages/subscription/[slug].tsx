@@ -80,10 +80,10 @@ export const getServerSideProps: GetServerSideProps = async (
       {}
     );
 
-  if (profile && channelStats && channelStats.data) {
+  if (profile && channelStats && channelStats) {
     subscriptions = await viewSubscription({
       userID: profile.id,
-      channelID: channelStats.data.id,
+      channelID: channelStats.id,
     });
 
     if (subscriptions && subscriptions.length > 0) {
@@ -108,7 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (
   return {
     props: {
       profile: profile ?? null,
-      channelStats: channelStats?.data ?? null,
+      channelStats: channelStats?? null,
       subcriptions_freq: subscriptions?.length ?? 0,
       lastSubscription: lastSubscription ?? null,
       lastInvoice: lastInvoice ?? null,

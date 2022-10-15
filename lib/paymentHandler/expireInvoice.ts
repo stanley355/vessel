@@ -4,18 +4,14 @@ import fetcher from "../fetcher";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const expireInvoice = async (invoiceID: number) => {
-  const res = await fetcher(
+  const invoiceRes = await fetcher(
     `${BASE_URL}/api/payment/expire-invoice?invoiceID=${invoiceID}`,
     {
       method: "POST",
     }
   );
 
-  if (res && res.data) {
-    return res.data;
-  } else {
-    return null;
-  }
+  return invoiceRes;
 };
 
 export default expireInvoice;

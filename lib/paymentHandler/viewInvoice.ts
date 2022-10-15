@@ -4,18 +4,14 @@ import fetcher from "../fetcher";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const viewInvoice = async (invoiceID: number) => {
-  const res = await fetcher(
+  const invoceRes = await fetcher(
     `${BASE_URL}/api/payment/view-invoice?invoiceID=${invoiceID}`,
     {
       method: "GET",
     }
   );
 
-  if (res && res.data) {
-    return res.data;
-  } else {
-    return null;
-  }
+  return invoceRes;
 };
 
 export default viewInvoice;

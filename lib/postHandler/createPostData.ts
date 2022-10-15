@@ -23,12 +23,12 @@ const createPostData = async (props: ICreatePostData) => {
     is_free: false,
   };
 
-  const res = await fetcher(`${BASE_URL}/api/channel/post/`, {
+  const postRes = await fetcher(`${BASE_URL}/api/channel/post/`, {
     method: "POST",
     data: payload,
   });
 
-  if (res && res.data.id) {
+  if (postRes && postRes.id) {
     Router.push(`/channel/${props.channelSlug}`);
   } else {
     alert(WARNING_MSG.TRY_AGAIN);

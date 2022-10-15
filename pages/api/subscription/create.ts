@@ -7,20 +7,13 @@ const createSubscriptionHandler = async (
 ) => {
   const URL = `${process.env.AUTHOR_URL}/subscriptions/`;
 
-  let response: any;
-  try {
-    const res = await fetcher(URL, {
-      method: "POST",
-      data: JSON.stringify(req.body),
-    });
-
-    response = res.data ?? { error: "Bad Request" };
-  } catch (err) {
-    response = err;
-  }
+  const resp =  await fetcher(URL, {
+    method: "POST",
+    data: JSON.stringify(req.body),
+  });
 
   res.setHeader("Content-Type", "application/json");
-  res.json(response);
+  res.json(resp);
 };
 
 export default createSubscriptionHandler;

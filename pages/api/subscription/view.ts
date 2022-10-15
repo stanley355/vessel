@@ -10,19 +10,10 @@ const viewSubscriptionHandler = async (
   }${req.body.invoice_id ? `&invoice_id=${req.body.invoice_id}` : ""}`;
   const URL = `${process.env.AUTHOR_URL}/subscriptions/?${param}`;
 
-  let response: any;
-  try {
-    const res = await fetcher(URL, {
-      method: "GET",
-    });
-
-    response = res.data ?? { error: "Bad Request" };
-  } catch (err) {
-    response = err;
-  }
+  const resp = await fetcher(URL, {});
 
   res.setHeader("Content-Type", "application/json");
-  res.json(response);
+  res.json(resp);
 };
 
 export default viewSubscriptionHandler;

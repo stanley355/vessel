@@ -19,16 +19,12 @@ const createInvoice = async (data: ICreateInvoice) => {
     amount: data.amount,
   };
 
-  const res = await fetcher(`${BASE_URL}/api/payment/create-invoice/`, {
+  const invoiceRes = await fetcher(`${BASE_URL}/api/payment/create-invoice/`, {
     method: "POST",
     data: payload,
   });
 
-  if (res && res.data) {
-    return res.data;
-  } else {
-    return null;
-  }
+  return invoiceRes;
 };
 
 export default createInvoice;

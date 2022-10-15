@@ -18,7 +18,7 @@ const updateUserData = async (newData: INewData) => {
     data: newData,
   });
 
-  return authorRes.data;
+  return authorRes;
 };
 
 export default updateUserData;

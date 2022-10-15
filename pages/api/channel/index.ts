@@ -4,20 +4,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 const channelHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const URL = `${process.env.CHANNEL_URL}/channel/`;
 
-  let response: any;
-  try {
-    const res = await fetcher(URL, {
-      method: req.method,
-      data: JSON.stringify(req.body),
-    });
-
-    response = res.data ?? { error: "Bad Request" };
-  } catch (err) {
-    response = err;
-  }
+  const resp = await fetcher(URL, {
+    method: req.method,
+    data: JSON.stringify(req.body),
+  });
 
   res.setHeader("Content-Type", "application/json");
-  res.json(response);
+  res.json(resp);
 };
 
 export default channelHandler;

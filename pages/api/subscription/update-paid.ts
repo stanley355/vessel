@@ -7,24 +7,17 @@ const viewSubscriptionHandler = async (
 ) => {
   const URL = `${process.env.AUTHOR_URL}/subscriptions/paid/`;
 
-  let response: any;
-  try {
-    const res = await fetcher(URL, {
-      method: "PUT",
-      data: {
-        user_id: req.body.user_id,
-        channels_id: req.body.channels_id,
-        invoice_id: req.body.invoice_id
-      }
-    });
-
-    response = res.data ?? { error: "Bad Request" };
-  } catch (err) {
-    response = err;
-  }
+  const resp = await fetcher(URL, {
+    method: "PUT",
+    data: {
+      user_id: req.body.user_id,
+      channels_id: req.body.channels_id,
+      invoice_id: req.body.invoice_id,
+    },
+  });
 
   res.setHeader("Content-Type", "application/json");
-  res.json(response);
+  res.json(resp);
 };
 
 export default viewSubscriptionHandler;

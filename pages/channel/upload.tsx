@@ -113,7 +113,6 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const token = context.req.cookies["token"];
   const tokenChannel = context.req.cookies["token_channel"];
-  let profile;
   let channel;
 
   if (!token) {
@@ -144,7 +143,7 @@ export const getServerSideProps: GetServerSideProps = async (
   return {
     props: {
       channel: channel ?? null,
-      firebaseConfig: firebaseConfig?.data ?? {},
+      firebaseConfig: firebaseConfig ?? {},
     },
   };
 };

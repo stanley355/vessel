@@ -20,16 +20,12 @@ const createSubscription = async (data: ICreateSubscription) => {
     invoice_id: data.invoiceID,
   };
 
-  const res = await fetcher(`${BASE_URL}/api/subscription/create/`, {
+  const subscribeRes = await fetcher(`${BASE_URL}/api/subscription/create/`, {
     method: "POST",
     data: payload,
   });
 
-  if (res && res.data) {
-    return res.data;
-  } else {
-    return null;
-  }
+  return subscribeRes;
 };
 
 export default createSubscription;
