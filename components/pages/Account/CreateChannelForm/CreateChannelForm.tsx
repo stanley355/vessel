@@ -13,47 +13,50 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const CreateChannelForm = () => {
 
-  const validateCreateChannelInput = (e: any) => {
-    const { channelName, subscriptionPrice } = e.target;
-  
-    if (!channelName.value) {
+  const validateCreateChannelInput = (channelName: string, subscriptionPrice: number) => {
+    if (!channelName) {
       alert("Nama channel wajib diisi!");
       return false;
     }
-  
-    if (!subscriptionPrice.value) {
+
+    if (channelName && channelName.length < 4) {
+      alert("Nama channel minimal 4 huruf!");
+      return false;
+    }
+
+    if (!subscriptionPrice) {
       alert("Harga berlangganan wajib disi!");
       return false;
     }
-  
+
     return true;
   };
 
   const handleCreateChannelSubmit = async (e: any) => {
     e.preventDefault();
-  
-    const inputValid = validateCreateChannelInput(e);
-  
+    const { channelName, subscriptionPrice } = e.target;
+
+    const inputValid = validateCreateChannelInput(channelName.value, subscriptionPrice.value);
+
     if (inputValid) {
       const token: any = jsCookie.get("token");
-      const decode: any = jwtDecode(token);
+      const user: any = jwtDecode(token);
       const data = {
-        userID: decode.id,
-        channelName: e.target.channelName.value,
-        subscriptionPrice: Number(e.target.subscriptionPrice.value),
+        userID: user.id,
+        channelName: channelName.value,
+        subscriptionPrice: Number(subscriptionPrice.value),
       };
-  
+
       const channelRes = await createChannel(data);
-      console.log(222, channelRes);
-  
+
       if (channelRes) {
         if (channelRes.token) {
           const newUserData = {
-            ...decode,
+            ...user,
             has_channel: true,
           };
           const updatedData = await updateUserData(newUserData);
-  
+
           if (updatedData) {
             jsCookie.set("token", updatedData.token);
             jsCookie.set("token_channel", channelRes.token);
@@ -62,12 +65,8 @@ const CreateChannelForm = () => {
             alert(WARNING_MSG.TRY_AGAIN);
           }
         }
-  
-        if (channelRes.error) {
-          alert("Channel with similar name exists!");
-        }
       } else {
-        alert(WARNING_MSG.TRY_AGAIN);
+        alert("Channel with similar name exists!");
       }
     }
   };
