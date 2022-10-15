@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import logoutUser from "../../lib/loginHandler/logoutUser";
 import ChannelSection from "../../components/pages/Account/ChannelSection";
 import CreateChannelForm from "../../components/pages/Account/CreateChannelForm";
+import useResponsive from "../../lib/hooks/useResponsive";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
@@ -13,15 +14,23 @@ import styles from "./account.module.scss";
 const Account = (props: any) => {
   const { profile, channel } = props;
 
+  const { isDesktop } = useResponsive();
+
+  const LogoutBtn = () => (
+    <button className={styles.logout__btn} onClick={logoutUser}>
+      Logout
+    </button>
+  );
+
   return (
     <div className="container">
       <div className={styles.account}>
         <div className={styles.account__user}>
           {profile && <UserProfileCard profile={profile} />}
-          <button className={styles.logout__btn} onClick={logoutUser}>
-            Logout
-          </button>
+          {isDesktop && <LogoutBtn /> }
         </div>
+        <br />
+        {!isDesktop && <LogoutBtn /> }
       </div>
     </div>
   );
