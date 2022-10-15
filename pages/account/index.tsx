@@ -43,11 +43,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
   if (profile && profile.has_channel) {
-    const channelToken = await channelLoginHandler(token);
+    const channelLogin = await channelLoginHandler(token);
 
-    if (channelToken) {
-      jsCookie.set("token_channel", channelToken);
-      channel = jwtDecode(channelToken);
+    if (channelLogin && channelLogin.token) {
+      jsCookie.set("token_channel", channelLogin.token);
+      channel = jwtDecode(channelLogin.token);
     }
   }
 
