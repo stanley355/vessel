@@ -16,12 +16,12 @@ const updatePaidSubscription = async (body: IUpdateSubscription) => {
     invoice_id: body.invoiceID,
   };
 
-  const { data } = await fetcher(`${BASE_URL}/api/subscription/update-paid/`, {
+  const subsRes = await fetcher(`${BASE_URL}/api/subscription/update-paid/`, {
     method: "POST",
     data: payload,
   });
 
-  return data;
+  return subsRes;
 };
 
 export default updatePaidSubscription;

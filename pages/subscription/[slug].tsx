@@ -16,9 +16,10 @@ const SubscriptionSlug = (props: any) => {
 
   const [renewSubs, setRenewSubs] = useState(false);
 
+  
   const SubscriptionConfirmation = () => {
     if (!renewSubs && lastSubscription && lastInvoice) {
-      if (lastInvoice.status === "PAID") {
+      if (lastInvoice.status === "PAID" && lastSubscription.expiredAt) {
         const expiredAt = new Date(lastSubscription.expired_at).getTime();
         const currentTime = new Date().getTime();
         if (currentTime > expiredAt) {
@@ -34,6 +35,11 @@ const SubscriptionSlug = (props: any) => {
           onRenewClick={() => setRenewSubs(true)}
         />
       }
+      return <AwaitingPaymentBox
+          lastSubscription={lastSubscription}
+          lastInvoice={lastInvoice}
+          onRenewClick={() => setRenewSubs(true)}
+        />
     }
 
     return <SubscriptionConfirmationForm

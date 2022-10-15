@@ -29,6 +29,9 @@ const ChannelSlug = (props: any) => {
 
   const ChannelContent = () => {
     if (posts.length > 0) {
+      if (isMyChannel) {
+        return <PostCard posts={posts} />
+      }
       if (lastSubscription && lastSubscription.paid) {
         const expiredAt = new Date(lastSubscription.expired_at).getTime();
         const currentTime = new Date().getTime();
@@ -75,7 +78,6 @@ export const getServerSideProps: GetServerSideProps = async (
   if (token) profile = jwtDecode(token);
   if (tokenChannel) myChannel = jwtDecode(tokenChannel);
   const isMyChannel = myChannel && myChannel.slug === slug;
-
 
   const channelStats = await fetcher(
     `${BASE_URL}/api/channel/status/?slug=${slug}`,

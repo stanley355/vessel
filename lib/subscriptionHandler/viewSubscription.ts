@@ -16,12 +16,12 @@ const viewSubscription = async (body: IViewSubscription) => {
     ...(body.invoiceID && { invoice_id: body.invoiceID }),
   };
 
-  const { data } = await fetcher(`${BASE_URL}/api/subscription/view/`, {
+  const resp = await fetcher(`${BASE_URL}/api/subscription/view/`, {
     method: "POST",
     data: payload,
   });
 
-  return data;
+  return resp;
 };
 
 export default viewSubscription;

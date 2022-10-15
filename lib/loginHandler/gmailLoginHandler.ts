@@ -30,7 +30,7 @@ const gmailLoginHandler = async (googleRes: any) => {
 
       if (channelLogin && channelLogin.token) {
         jsCookie.set("token", loginRes.token);
-        jsCookie.set("token_channel", channelLogin.Token);
+        jsCookie.set("token_channel", channelLogin.token);
         Router.push("/account/");
       } else {
         alert(WARNING_MSG.TRY_AGAIN);

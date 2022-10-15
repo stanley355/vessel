@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Router from "next/router";
 import updatePaidSubscription from "../../../../lib/subscriptionHandler/updatePaidSubscription";
 
 interface IAwaitingPayment {
@@ -21,7 +22,7 @@ const AwaitingPaymentBox = (props: IAwaitingPayment) => {
 
       const subscriptionStatus = await updatePaidSubscription(payload);
       if (subscriptionStatus && subscriptionStatus.paid) {
-        alert('Berhasil')
+        Router.push(`/channel/${lastSubscription.channnels_slug}`)
       } else {
         alert('Pembayaran belum dapat diproses, harap tunggu beberapa saat lagi')
       }
