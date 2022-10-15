@@ -1,0 +1,7 @@
+@import '../../../../styles/tokens/all';
+
+.profile__card {
+  padding: $space--sm;
+  border-radius: $space--xs;
+  box-shadow: 0 0 12px 4px $color--gray;
+}
