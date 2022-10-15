@@ -1,22 +1,12 @@
 @import "../../styles/tokens/all.scss";
 
 .navbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: bold;
-  box-shadow: $box-shadow-color;
-  padding: 0 $space--lg;
+  padding: 0;
 
-  a {
+  h2 {
     color: $color--blue;
+    text-align: center;
   }
 
-  button {
-    color: $color--blue;
-    background: none;
-    border: none;
-    font-size: $font--lg;
-  }
+  
 }

@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import React from "react";
 import getConfig from "next/config";
 import fetcher from "../../../lib/fetcher";
@@ -13,7 +13,7 @@ const AccountLogin = (props: any) => {
   return (
     <div className="container">
       <div className={styles.account__login}>
-        <h1 className={styles.title}>Login / Daftar</h1>
+        <h2 className={styles.title}>Sign In to Kontenku</h2>
         <GoogleSignInBtn clientID={clientID} />
       </div>
     </div>
