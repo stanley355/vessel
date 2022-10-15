@@ -16,15 +16,13 @@ const Account = (props: any) => {
   return (
     <div className="container">
       <div className={styles.account}>
-        {profile && <UserProfileCard profile={profile} /> }
-        <button className={styles.account__logout} onClick={logoutUser}>
-          Logout
-        </button>
+        <div className={styles.account__user}>
+          {profile && <UserProfileCard profile={profile} />}
+          <button className={styles.logout__btn} onClick={logoutUser}>
+            Logout
+          </button>
+        </div>
       </div>
-
-      <button className={styles.account__logout} onClick={logoutUser}>
-          Logout
-        </button>
     </div>
   );
 };

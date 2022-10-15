@@ -1,13 +1,26 @@
 @import "../../styles/tokens/all.scss";
 
 .account {
-  &__logout {
-    background: $color--white;
-    padding: $space--xs;
-    font-size: $font--md;
-    margin: $space--md 0;
-    border-radius: $space--xs;
-    color: $color--blue;
-    border: 1px solid $color--black;
+  &__user {
+    @include desktop-view {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   }
+
+  .logout__btn {
+    background: $color--white;
+    font-size: $font--md;
+    color: $color--blue;
+    border: 1px solid $color--blue;
+
+    &:hover {
+      background: $color--blue;
+      color: $color--white;
+      padding: $space--xs;
+      border-radius: $space--sm;
+    }
+  }
+
 }
