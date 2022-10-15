@@ -26,7 +26,7 @@ const gmailLoginHandler = async (googleRes: any) => {
     const user: any = jwtDecode(loginRes.token);
 
     if (user.has_channel) {
-      const channelLogin:any = await channelLoginHandler(loginRes.token);
+      const channelLogin: any = await channelLoginHandler(loginRes.token);
 
       if (channelLogin && channelLogin.token) {
         jsCookie.set("token", loginRes.token);
@@ -35,7 +35,6 @@ const gmailLoginHandler = async (googleRes: any) => {
       } else {
         alert(WARNING_MSG.TRY_AGAIN);
       }
-
     } else {
       jsCookie.set("token", loginRes.token);
       Router.push("/account/");

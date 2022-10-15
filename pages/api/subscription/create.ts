@@ -7,7 +7,7 @@ const createSubscriptionHandler = async (
 ) => {
   const URL = `${process.env.AUTHOR_URL}/subscriptions/`;
 
-  const resp =  await fetcher(URL, {
+  const resp = await fetcher(URL, {
     method: "POST",
     data: JSON.stringify(req.body),
   });

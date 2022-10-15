@@ -27,10 +27,10 @@ const Account = (props: any) => {
       <div className={styles.account}>
         <div className={styles.account__user}>
           {profile && <UserProfileCard profile={profile} />}
-          {isDesktop && <LogoutBtn /> }
+          {isDesktop && <LogoutBtn />}
         </div>
         <br />
-        {!isDesktop && <LogoutBtn /> }
+        {!isDesktop && <LogoutBtn />}
       </div>
     </div>
   );

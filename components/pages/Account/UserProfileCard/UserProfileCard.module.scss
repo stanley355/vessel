@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .profile__card {
   padding: $space--sm;
@@ -15,7 +15,6 @@
     box-shadow: none;
     display: grid;
     grid-template-columns: 10% 90%;
-    
   }
 
   .profile__image {

@@ -17,20 +17,21 @@ const AwaitingPaymentBox = (props: IAwaitingPayment) => {
       const payload = {
         userID: lastSubscription.user_id,
         channelID: lastSubscription.channels_id,
-        invoiceID: lastInvoice.id
-      }
+        invoiceID: lastInvoice.id,
+      };
 
       const subscriptionStatus = await updatePaidSubscription(payload);
       if (subscriptionStatus && subscriptionStatus.paid) {
-        Router.push(`/channel/${lastSubscription.channnels_slug}`)
+        Router.push(`/channel/${lastSubscription.channnels_slug}`);
       } else {
-        alert('Pembayaran belum dapat diproses, harap tunggu beberapa saat lagi')
+        alert(
+          "Pembayaran belum dapat diproses, harap tunggu beberapa saat lagi"
+        );
       }
+    } else {
+      alert("Pembayaran belum diterima");
     }
-    else {
-      alert('Pembayaran belum diterima');
-    }
-  }
+  };
 
   return (
     <div>
@@ -63,9 +64,13 @@ const AwaitingPaymentBox = (props: IAwaitingPayment) => {
       </div>
 
       <div>
-        <button type="button" onClick={handlePaymentConfirmation}>Saya sudah bayar</button>
+        <button type="button" onClick={handlePaymentConfirmation}>
+          Saya sudah bayar
+        </button>
         {lastInvoice.status === "EXPIRED" && (
-          <button type="button" onClick={onRenewClick}>Perbaharui Langganan</button>
+          <button type="button" onClick={onRenewClick}>
+            Perbaharui Langganan
+          </button>
         )}
       </div>
     </div>

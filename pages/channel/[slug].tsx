@@ -20,9 +20,7 @@ const ChannelSlug = (props: any) => {
       <div>Anda belum berlangganan Channel ini</div>
       <div>Klik di bawah untuk mulai berlangganan</div>
       <Link href={`/subscription/${slug}`}>
-        <a title={slug}>
-          Mulai Berlangganan
-        </a>
+        <a title={slug}>Mulai Berlangganan</a>
       </Link>
     </div>
   );
@@ -30,25 +28,27 @@ const ChannelSlug = (props: any) => {
   const ChannelContent = () => {
     if (posts.length > 0) {
       if (isMyChannel) {
-        return <PostCard posts={posts} />
+        return <PostCard posts={posts} />;
       }
       if (lastSubscription && lastSubscription.paid) {
         const expiredAt = new Date(lastSubscription.expired_at).getTime();
         const currentTime = new Date().getTime();
 
-        return currentTime > expiredAt ? <SubscriptionLink /> : <PostCard posts={posts} />;
+        return currentTime > expiredAt ? (
+          <SubscriptionLink />
+        ) : (
+          <PostCard posts={posts} />
+        );
       }
-      return <SubscriptionLink />
+      return <SubscriptionLink />;
     }
 
-    return <HasNoPostCard isMyChannel={isMyChannel} />
-  }
+    return <HasNoPostCard isMyChannel={isMyChannel} />;
+  };
 
   return (
     <div className="container">
-      {channelStats && (
-        <ChannelStatsBox stats={channelStats} />
-      )}
+      {channelStats && <ChannelStatsBox stats={channelStats} />}
       <ChannelContent />
     </div>
   );
@@ -104,8 +104,8 @@ export const getServerSideProps: GetServerSideProps = async (
     props: {
       slug: slug ?? "",
       myChannel: myChannel ?? null,
-      channelStats: channelStats?? null,
-      posts: posts?? [],
+      channelStats: channelStats ?? null,
+      posts: posts ?? [],
       lastSubscription: lastSubscription ?? null,
     },
   };

@@ -2,7 +2,7 @@ import React from "react";
 import { FaRegGrinWink } from "react-icons/fa";
 import getConfig from "next/config";
 import Router from "next/router";
-import jsCookie from 'js-cookie';
+import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import createChannel from "../../../../lib/channelHandler/createChannel";
 import updateUserData from "../../../../lib/updateUserData";
@@ -12,8 +12,10 @@ import styles from "./CreateChannelForm.module.scss";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const CreateChannelForm = () => {
-
-  const validateCreateChannelInput = (channelName: string, subscriptionPrice: number) => {
+  const validateCreateChannelInput = (
+    channelName: string,
+    subscriptionPrice: number
+  ) => {
     if (!channelName) {
       alert("Nama channel wajib diisi!");
       return false;
@@ -36,7 +38,10 @@ const CreateChannelForm = () => {
     e.preventDefault();
     const { channelName, subscriptionPrice } = e.target;
 
-    const inputValid = validateCreateChannelInput(channelName.value, subscriptionPrice.value);
+    const inputValid = validateCreateChannelInput(
+      channelName.value,
+      subscriptionPrice.value
+    );
 
     if (inputValid) {
       const token: any = jsCookie.get("token");

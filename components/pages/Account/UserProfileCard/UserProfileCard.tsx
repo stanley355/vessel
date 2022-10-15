@@ -1,12 +1,12 @@
-import React from 'react';
-import getNameInitials from '../../../../lib/getNameInitials';
-import styles from './UserProfileCard.module.scss';
+import React from "react";
+import getNameInitials from "../../../../lib/getNameInitials";
+import styles from "./UserProfileCard.module.scss";
 
 interface IUserProfile {
   profile: {
     fullname: string;
     email: string;
-  }
+  };
 }
 
 const UserProfileCard = (props: IUserProfile) => {
@@ -22,7 +22,7 @@ const UserProfileCard = (props: IUserProfile) => {
         <div>{profile.email}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default UserProfileCard;

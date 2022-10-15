@@ -12,42 +12,55 @@ import styles from "./SubscriptionSlug.module.scss";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const SubscriptionSlug = (props: any) => {
-  const { profile, channelStats, lastSubscription, lastInvoice, subscriptions_freq } = props;
+  const {
+    profile,
+    channelStats,
+    lastSubscription,
+    lastInvoice,
+    subscriptions_freq,
+  } = props;
 
   const [renewSubs, setRenewSubs] = useState(false);
 
-  
   const SubscriptionConfirmation = () => {
     if (!renewSubs && lastSubscription && lastInvoice) {
       if (lastInvoice.status === "PAID" && lastSubscription.expiredAt) {
         const expiredAt = new Date(lastSubscription.expired_at).getTime();
         const currentTime = new Date().getTime();
         if (currentTime > expiredAt) {
-          return <SubscriptionConfirmationForm
-            subscriptions_freq={subscriptions_freq}
-            profile={profile}
-            channelStats={channelStats}
-          />
+          return (
+            <SubscriptionConfirmationForm
+              subscriptions_freq={subscriptions_freq}
+              profile={profile}
+              channelStats={channelStats}
+            />
+          );
         }
-        return <AwaitingPaymentBox
-          lastSubscription={lastSubscription}
-          lastInvoice={lastInvoice}
-          onRenewClick={() => setRenewSubs(true)}
-        />
+        return (
+          <AwaitingPaymentBox
+            lastSubscription={lastSubscription}
+            lastInvoice={lastInvoice}
+            onRenewClick={() => setRenewSubs(true)}
+          />
+        );
       }
-      return <AwaitingPaymentBox
+      return (
+        <AwaitingPaymentBox
           lastSubscription={lastSubscription}
           lastInvoice={lastInvoice}
           onRenewClick={() => setRenewSubs(true)}
         />
+      );
     }
 
-    return <SubscriptionConfirmationForm
-      subscriptions_freq={subscriptions_freq}
-      profile={profile}
-      channelStats={channelStats}
-    />
-  }
+    return (
+      <SubscriptionConfirmationForm
+        subscriptions_freq={subscriptions_freq}
+        profile={profile}
+        channelStats={channelStats}
+      />
+    );
+  };
 
   return (
     <div className="container">
@@ -114,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (
   return {
     props: {
       profile: profile ?? null,
-      channelStats: channelStats?? null,
+      channelStats: channelStats ?? null,
       subcriptions_freq: subscriptions?.length ?? 0,
       lastSubscription: lastSubscription ?? null,
       lastInvoice: lastInvoice ?? null,
