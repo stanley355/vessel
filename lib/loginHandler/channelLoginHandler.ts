@@ -1,9 +1,6 @@
 import getConfig from "next/config";
 import jwtDecode from "jwt-decode";
-import jsCookie from "js-cookie";
 import fetcher from "../fetcher";
-import { WARNING_MSG } from "../warning-messages";
-import Router from "next/router";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
