@@ -13,12 +13,7 @@ const channelLoginHandler = async (token: any) => {
 
   const loginRes = await fetcher(URL, {});
 
-console.log(loginRes);
-  // if (loginRes && loginRes.token) {
-  //   return loginRes.token;
-  // } else {
-  //   return null;
-  // }
+  return loginRes;
 };
 
 export default channelLoginHandler;

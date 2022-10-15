@@ -15,9 +15,6 @@ const ChannelSlug = (props: any) => {
   const { slug, myChannel, channelStats, posts, lastSubscription } = props;
   const isMyChannel = myChannel && myChannel.slug === slug;
 
-
-
-  console.log(lastSubscription);
   const SubscriptionLink = () => (
     <div>
       <div>Anda belum berlangganan Channel ini</div>
