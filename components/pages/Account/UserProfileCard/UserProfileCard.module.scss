@@ -3,5 +3,42 @@
 .profile__card {
   padding: $space--sm;
   border-radius: $space--xs;
-  box-shadow: 0 0 12px 4px $color--gray;
+  box-shadow: 0 0 8px 4px $color--gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+
+  @include desktop-view {
+    width: 100%;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    
+  }
+
+  .profile__image {
+    width: 25%;
+    border-radius: 50%;
+    font-size: $font--xxl;
+    padding: $space--md $space--sm;
+    color: $color--white;
+    text-align: center;
+    background: $color--blue;
+
+    @include desktop-view {
+      width: 60%;
+      margin: auto;
+    }
+  }
+
+  .name {
+    margin: $space--sm;
+    font-size: $font--lg;
+
+    @include desktop-view {
+      margin: $space--xs 0;
+    }
+  }
 }

@@ -5,7 +5,6 @@ import jwtDecode from "jwt-decode";
 import logoutUser from "../../lib/loginHandler/logoutUser";
 import ChannelSection from "../../components/pages/Account/ChannelSection";
 import CreateChannelForm from "../../components/pages/Account/CreateChannelForm";
-import ProfileSection from "../../components/pages/Account/ProfileSection";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
@@ -18,7 +17,6 @@ const Account = (props: any) => {
     <div className="container">
       <div className={styles.account}>
         {profile && <UserProfileCard profile={profile} /> }
-        {/* {profile && <ProfileSection profile={profile} />} */}
         <button className={styles.account__logout} onClick={logoutUser}>
           Logout
         </button>

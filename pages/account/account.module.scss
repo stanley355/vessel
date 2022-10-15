@@ -1,12 +1,6 @@
 @import "../../styles/tokens/all.scss";
 
 .account {
-  @include desktop-view {
-    padding: $space--sm;
-    border-left: 1px solid $color--blue;
-    border-right: 1px solid $color--blue;
-  }
-
   &__logout {
     background: $color--white;
     padding: $space--xs;
