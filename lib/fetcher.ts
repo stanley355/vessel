@@ -1,5 +1,4 @@
 import axios from "axios";
-import getConfig from "next/config";
 
 interface IFetcherConfig {
   method?: any;
@@ -8,23 +7,23 @@ interface IFetcherConfig {
 }
 
 const fetcher = async (url: string, config: IFetcherConfig) => {
-  let response;
-
   try {
-    response = await axios({
+    const { data } = await axios({
       url,
       method: config.method ?? "GET",
-      headers: config.headers ?? { "Content-Type": "application/json" },
-      data: config.data,
+      headers: {
+        "Content-Type": "application/json",
+        ...(config.headers && { ...config.headers }),
+      },
+      data: config.data ?? {},
     });
+    return data;
   } catch (err) {
-    response = {
+    return {
       error: err,
       data: null,
     };
   }
-
-  return response;
 };
 
 export default fetcher;

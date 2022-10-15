@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      clientID: config?.data?.clientID ?? "",
+      clientID: config?.clientID ?? "",
     },
   };
 };

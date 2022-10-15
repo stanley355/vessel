@@ -1,6 +1,6 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import gmailSignInHandler from "../../lib/loginHandler/gmailLoginHandler";
+import gmailLoginHandler from "../../lib/loginHandler/gmailLoginHandler";
 import { WARNING_MSG } from "../../lib/warning-messages";
 
 interface IGoogleSignIn {
@@ -13,7 +13,7 @@ const GoogleSignInBtn = (props: IGoogleSignIn) => {
   return (
     <GoogleOAuthProvider clientId={clientID}>
       <GoogleLogin
-        onSuccess={gmailSignInHandler}
+        onSuccess={gmailLoginHandler}
         onError={() => alert(WARNING_MSG.TRY_AGAIN)}
         logo_alignment="left"
         theme="filled_blue"

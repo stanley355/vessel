@@ -9,17 +9,16 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const channelLoginHandler = async (token: any) => {
   const credential: any = jwtDecode(token);
+  const URL = `${BASE_URL}/api/channel/login/?owner_id=${credential.id}`;
 
-  const loginRes = await fetcher(
-    `${BASE_URL}/api/channel/login/?owner_id=${credential.id}`,
-    {}
-  );
+  const loginRes = await fetcher(URL, {});
 
-  if (loginRes.data && loginRes.data.token) {
-    return loginRes.data.token;
-  } else {
-    return null;
-  }
+console.log(loginRes);
+  // if (loginRes && loginRes.token) {
+  //   return loginRes.token;
+  // } else {
+  //   return null;
+  // }
 };
 
 export default channelLoginHandler;
