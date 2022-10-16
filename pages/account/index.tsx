@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
@@ -14,6 +14,7 @@ import styles from "./account.module.scss";
 const Account = (props: any) => {
   const { profile, channel } = props;
 
+  const [activeTab, setActiveTab] = useState('channel');
   const { isDesktop } = useResponsive();
 
   const LogoutBtn = () => (
@@ -22,15 +23,54 @@ const Account = (props: any) => {
     </button>
   );
 
+  const AccountTabHeader = () => (
+    <div className={styles.account__tabs}>
+      <button
+        type="button"
+        onClick={() => setActiveTab('channel')}
+        className={activeTab === 'channel' ? styles.btn__active : ""}
+      >
+        Channel
+      </button>
+      <button
+        type="button"
+        onClick={() => setActiveTab('profile')}
+        className={activeTab === 'profile' ? styles.btn__active : ""}
+      >
+        Account
+      </button>
+    </div>
+  )
+
+  const ProfileTab = () => (
+    <>
+      <div className={styles.account__user}>
+        {profile && <UserProfileCard profile={profile} />}
+        {isDesktop && <LogoutBtn />}
+      </div>
+      <br />
+      {!isDesktop && <LogoutBtn />}
+    </>
+  );
+
+  const ActiveTabBody = () => {
+    switch (activeTab) {
+      case 'channel':
+        return <div>channel</div>
+      case 'profile':
+        return <ProfileTab />
+      default:
+        return <div>channel</div>;
+    }
+  }
+
   return (
     <div className="container">
       <div className={styles.account}>
-        <div className={styles.account__user}>
-          {profile && <UserProfileCard profile={profile} />}
-          {isDesktop && <LogoutBtn />}
+        <AccountTabHeader />
+        <div className={styles.account__tabs__body}>
+          <ActiveTabBody />
         </div>
-        <br />
-        {!isDesktop && <LogoutBtn />}
       </div>
     </div>
   );
