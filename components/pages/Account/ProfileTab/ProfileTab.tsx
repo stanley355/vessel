@@ -1,9 +1,9 @@
-import React from 'react';
-import LogoutBtn from '../LogoutBtn';
-import UserProfileCard from '../UserProfileCard';
-import useResponsive from '../../../../lib/hooks/useResponsive';
+import React from "react";
+import LogoutBtn from "../LogoutBtn";
+import UserProfileCard from "../UserProfileCard";
+import useResponsive from "../../../../lib/hooks/useResponsive";
 
-import styles from './ProfileTab.module.scss';
+import styles from "./ProfileTab.module.scss";
 
 interface IProfileTab {
   profile: {
@@ -25,7 +25,7 @@ const ProfileTab = (props: IProfileTab) => {
       <br />
       {!isDesktop && <LogoutBtn />}
     </div>
-  )
+  );
 };
 
 export default ProfileTab;
