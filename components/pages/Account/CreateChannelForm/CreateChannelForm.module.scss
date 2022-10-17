@@ -30,6 +30,7 @@
 
     label {
       margin-bottom: $space--xxs;
+
       @include desktop-view {
         font-size: $font--md;
       }
@@ -46,9 +47,12 @@
     }
   }
 
+  .error {
+    color: red;
+  }
 
   .cta {
-    color:$color--white;
+    color: $color--white;
     background: $color--blue;
     border: none;
     border-radius: $space--xs;
