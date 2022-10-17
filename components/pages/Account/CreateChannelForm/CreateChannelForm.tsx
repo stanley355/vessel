@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
-import useFirebaseStorageRef from '../../../../lib/hooks/useFirebaseStorageRef';
+import getFirebaseStorageRef from '../../../../lib/getFirebaseStorageRef';
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './CreateChannelForm.module.scss';
 
 const CreateChannelForm = () => {
-
+  const [profileImageURL, setProfileImageURL] = useState('');
   const [formError, setFormError] = useState('');
 
   const validateInput = (e: any) => {
@@ -50,20 +51,25 @@ const CreateChannelForm = () => {
       const channelPrice = e.target.channel_price.value;
       const profileImage = e.target.profile_img.files[0];
 
-      const storageRef: any = await useFirebaseStorageRef(`/profileImage/${channelName}`);
+      const storageRef: any = await getFirebaseStorageRef(`/profileImage/${channelName}`);
       const uploadTask = uploadBytesResumable(storageRef, profileImage);
 
       uploadTask.on(
         "state_changed",
         (snapshot: any) => { },
-        (error: any) => console.error(error),
+        (error: any) => {
+          console.error(error);
+          alert(WARNING_MSG.TRY_AGAIN);
+        },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log(222, downloadURL);
-            return downloadURL;
+            setProfileImageURL(downloadURL);
           });
         }
       );
+      
+      
+
     }
   }
 

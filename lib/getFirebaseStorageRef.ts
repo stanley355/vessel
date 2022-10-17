@@ -4,11 +4,11 @@ import {
   ref,
   getStorage,
 } from "firebase/storage";
-import fetcher from "../fetcher";
+import fetcher from "./fetcher";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
-const useFirebaseStorageRef = async (fileName: string) => {
+const getFirebaseStorageRef = async (fileName: string) => {
   const configURL = `${BASE_URL}/api/firebase-config/`;
   const firebaseConfig: any = await fetcher(configURL, {});
   const firebaseApp = initializeApp(firebaseConfig);
@@ -18,4 +18,4 @@ const useFirebaseStorageRef = async (fileName: string) => {
   return storageRef;
 };
 
-export default useFirebaseStorageRef;
+export default getFirebaseStorageRef;
