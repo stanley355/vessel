@@ -31,7 +31,6 @@ const Layout = ({ children }: any) => {
       </Head>
       <Navbar />
       <div className="body">{children}</div>
-      {authenticated && <StickyMenu />}
     </div>
   );
 };

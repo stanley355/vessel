@@ -1,0 +1,31 @@
+@import '../../../../styles/tokens/all';
+
+.no__posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include desktop-view {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  svg {
+    font-size: 64px;
+    color: $color--blue;
+  }
+
+  .title {
+    font-size: $font--lg;
+    margin: $space--lg;
+  }
+
+  .cta {
+    color:$color--white;
+    background: $color--blue;
+    border: none;
+    border-radius: $space--xs;
+    font-size: $font--lg;
+    padding: $space--xs $space--sm;
+  }
+}
