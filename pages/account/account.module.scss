@@ -5,6 +5,10 @@
     display: grid;
     grid-template-columns: 50% 50%;
 
+    @include desktop-view {
+      width: 25%;
+    }
+
     &__body {
       padding: $space--lg 0;
     }
@@ -32,17 +36,5 @@
     }
   }
 
-  .logout__btn {
-    background: $color--white;
-    font-size: $font--md;
-    color: $color--blue;
-    border: 1px solid $color--blue;
-
-    &:hover {
-      background: $color--blue;
-      color: $color--white;
-      padding: $space--xs;
-      border-radius: $space--sm;
-    }
-  }
+  
 }

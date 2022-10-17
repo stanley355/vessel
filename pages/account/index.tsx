@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import logoutUser from "../../lib/loginHandler/logoutUser";
 import ChannelSection from "../../components/pages/Account/ChannelSection";
 import CreateChannelForm from "../../components/pages/Account/CreateChannelForm";
+import LogoutBtn from "../../components/pages/Account/LogoutBtn";
 import useResponsive from "../../lib/hooks/useResponsive";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 
@@ -17,11 +17,6 @@ const Account = (props: any) => {
   const [activeTab, setActiveTab] = useState('channel');
   const { isDesktop } = useResponsive();
 
-  const LogoutBtn = () => (
-    <button className={styles.logout__btn} onClick={logoutUser}>
-      Logout
-    </button>
-  );
 
   const AccountTabHeader = () => (
     <div className={styles.account__tabs}>

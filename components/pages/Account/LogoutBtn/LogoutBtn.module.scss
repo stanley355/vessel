@@ -1,0 +1,15 @@
+@import '../../../../styles/tokens/all';
+
+.logout__btn {
+  background: $color--white;
+  font-size: $font--md;
+  color: $color--blue;
+  border: 1px solid $color--blue;
+
+  &:hover {
+    background: $color--blue;
+    color: $color--white;
+    padding: $space--xs;
+    border-radius: $space--sm;
+  }
+}
