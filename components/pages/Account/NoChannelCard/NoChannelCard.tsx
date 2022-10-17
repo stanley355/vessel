@@ -2,12 +2,18 @@ import React from 'react';
 import { FaRegFrownOpen } from 'react-icons/fa';
 import styles from './NoChannelCard.module.scss';
 
-const NoChannelCard = () => {
+interface INoChannel {
+  onCreateChannelClick: () => void;
+}
+
+const NoChannelCard = (props: INoChannel) => {
+  const { onCreateChannelClick } = props;
+  
   return (
     <div className={styles.no__channel}>
       <FaRegFrownOpen />
       <div className={styles.title}>Anda belum mempunyai Channel</div>
-      <button type='button' className={styles.cta}>Buat Channel</button>
+      <button type='button' className={styles.cta} onClick={onCreateChannelClick}>Buat Channel</button>
     </div>
   )
 }
