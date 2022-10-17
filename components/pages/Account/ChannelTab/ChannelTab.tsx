@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import CreateChannelForm from '../CreateChannelForm';
-import ChannelStatus from '../ChannelStatus';
-import NoChannelCard from '../NoChannelCard';
-import NoPostsCard from '../NoPostsCard';
-import UploadPostForm from '../UploadPostForm';
-import styles from './ChannelTab.module.scss';
+import React, { useState } from "react";
+import CreateChannelForm from "../CreateChannelForm";
+import ChannelStatus from "../ChannelStatus";
+import NoChannelCard from "../NoChannelCard";
+import NoPostsCard from "../NoPostsCard";
+import UploadPostForm from "../UploadPostForm";
+import styles from "./ChannelTab.module.scss";
 
 interface IChannelTab {
   channel: any;
@@ -17,12 +17,22 @@ const ChannelTab = (props: IChannelTab) => {
   const [showUploadPostForm, setShowUploadPostForm] = useState(false);
 
   const MainChannelTab = () => {
-    return showUploadPostForm ? <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} /> : <NoPostsCard onUploadClick={() => setShowUploadPostForm(true)} />;
-  }
+    return showUploadPostForm ? (
+      <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} />
+    ) : (
+      <NoPostsCard onUploadClick={() => setShowUploadPostForm(true)} />
+    );
+  };
 
   const NoChannelComponent = () => {
-    return showCreateChannelForm ? <CreateChannelForm /> : <NoChannelCard onCreateChannelClick={() => setShowCreateChannelForm(true)} />;
-  }
+    return showCreateChannelForm ? (
+      <CreateChannelForm />
+    ) : (
+      <NoChannelCard
+        onCreateChannelClick={() => setShowCreateChannelForm(true)}
+      />
+    );
+  };
 
   const HasChannelComponent = () => {
     return (
@@ -33,14 +43,12 @@ const ChannelTab = (props: IChannelTab) => {
           <MainChannelTab />
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
-    <div>
-      {channel ? <HasChannelComponent /> : <NoChannelComponent />}
-    </div>
-  )
-}
+    <div>{channel ? <HasChannelComponent /> : <NoChannelComponent />}</div>
+  );
+};
 
 export default ChannelTab;

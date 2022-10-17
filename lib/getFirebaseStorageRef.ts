@@ -1,9 +1,6 @@
 import getConfig from "next/config";
 import { initializeApp } from "firebase/app";
-import {
-  ref,
-  getStorage,
-} from "firebase/storage";
+import { ref, getStorage } from "firebase/storage";
 import fetcher from "./fetcher";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;

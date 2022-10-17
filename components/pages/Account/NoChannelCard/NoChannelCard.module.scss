@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .no__channel {
   display: flex;
@@ -24,7 +24,7 @@
   }
 
   .cta {
-    color:$color--white;
+    color: $color--white;
     background: $color--blue;
     border: none;
     border-radius: $space--xs;

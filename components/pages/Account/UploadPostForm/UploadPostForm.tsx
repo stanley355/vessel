@@ -1,6 +1,6 @@
-import React from 'react';
-import { FaUpload, FaArrowCircleLeft } from 'react-icons/fa';
-import styles from './UploadPostForm.module.scss';
+import React from "react";
+import { FaUpload, FaArrowCircleLeft } from "react-icons/fa";
+import styles from "./UploadPostForm.module.scss";
 
 interface IUploadPostForm {
   onBackBtnClick: () => void;
@@ -9,9 +9,7 @@ interface IUploadPostForm {
 const UploadPostForm = (props: IUploadPostForm) => {
   const { onBackBtnClick } = props;
 
-  const handleSubmit = (e: any) => {
-
-  }
+  const handleSubmit = (e: any) => {};
 
   return (
     <div className={styles.upload__post}>
@@ -38,11 +36,15 @@ const UploadPostForm = (props: IUploadPostForm) => {
         </button>
       </form>
 
-      <button type='button' className={styles.back__btn} onClick={onBackBtnClick}>
+      <button
+        type="button"
+        className={styles.back__btn}
+        onClick={onBackBtnClick}
+      >
         <FaArrowCircleLeft />
       </button>
     </div>
-  )
-}
+  );
+};
 
 export default UploadPostForm;

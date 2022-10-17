@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .channel__status {
   display: flex;
@@ -20,7 +20,7 @@
 
   .title {
     text-decoration: underline;
-    color:$color--blue;
+    color: $color--blue;
     font-size: $font--xxl;
     font-weight: bold;
     text-align: center;

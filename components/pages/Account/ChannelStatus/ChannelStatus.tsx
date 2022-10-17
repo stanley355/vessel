@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import styles from './ChannelStatus.module.scss';
+import React from "react";
+import Link from "next/link";
+import styles from "./ChannelStatus.module.scss";
 
 interface IChannelStatus {
   channel: {
@@ -18,7 +18,12 @@ const ChannelStatus = (props: IChannelStatus) => {
   return (
     <div className={styles.channel__status}>
       <div className={styles.img__wrap}>
-        <img src={channel.profile_img_url} alt={channel.channel_name} width={300} height={300} />
+        <img
+          src={channel.profile_img_url}
+          alt={channel.channel_name}
+          width={300}
+          height={300}
+        />
       </div>
 
       <Link href={`/channel/${channel.slug}`}>
@@ -39,7 +44,7 @@ const ChannelStatus = (props: IChannelStatus) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ChannelStatus;
