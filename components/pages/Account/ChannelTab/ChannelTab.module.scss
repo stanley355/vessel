@@ -4,6 +4,7 @@
   .main {
     @include desktop-view {
       padding: 0 $space--lg;
+
       h2 {
         margin-top: 0;
       }
