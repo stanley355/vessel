@@ -1,0 +1,38 @@
+@import '../../../../styles/tokens/all';
+
+.channel__status {
+  display: flex;
+  flex-direction: column;
+
+  .img__wrap {
+    display: flex;
+    align-items: center;
+    img {
+      width: 60%;
+      height: auto;
+      margin: 0 20%;
+      border-radius: 50%;
+    }
+  }
+
+  .title {
+    text-decoration: underline;
+    color:$color--blue;
+    font-size: $font--xxl;
+    font-weight: bold;
+    text-align: center;
+    margin: $space--sm 0;
+  }
+
+  .status__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: $font--lg;
+    span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

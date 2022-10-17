@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CreateChannelForm from '../CreateChannelForm';
+import ChannelStatus from '../ChannelStatus';
 import NoChannelCard from '../NoChannelCard';
 
 interface IChannelTab {
@@ -12,12 +13,14 @@ const ChannelTab = (props: IChannelTab) => {
   const [showForm, setShowForm] = useState(false);
 
   const NoChannelComponent = () => {
-    return showForm ? <CreateChannelForm /> : <NoChannelCard onCreateChannelClick={() => setShowForm(true)}/>;
+    return showForm ? <CreateChannelForm /> : <NoChannelCard onCreateChannelClick={() => setShowForm(true)} />;
   }
+
+  console.log(111, channel);
 
   return (
     <div>
-      {channel ? <div>Channel ini</div> : <NoChannelComponent /> }
+      {channel ? <ChannelStatus channel={channel} /> : <NoChannelComponent />}
     </div>
   )
 }
