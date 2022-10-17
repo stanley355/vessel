@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CreateChannelForm from '../CreateChannelForm';
 import ChannelStatus from '../ChannelStatus';
 import NoChannelCard from '../NoChannelCard';
+import styles from './ChannelTab.module.scss';
 
 interface IChannelTab {
   channel: any;
@@ -16,11 +17,18 @@ const ChannelTab = (props: IChannelTab) => {
     return showForm ? <CreateChannelForm /> : <NoChannelCard onCreateChannelClick={() => setShowForm(true)} />;
   }
 
-  console.log(111, channel);
+  const HasChannelComponent = () => {
+    return (
+      <div className={styles.channel__tab}>
+        <ChannelStatus channel={channel} />
+        <div>Posts</div>
+      </div>
+    )
+  }
 
   return (
     <div>
-      {channel ? <ChannelStatus channel={channel} /> : <NoChannelComponent />}
+      {channel ? <HasChannelComponent /> : <NoChannelComponent />}
     </div>
   )
 }

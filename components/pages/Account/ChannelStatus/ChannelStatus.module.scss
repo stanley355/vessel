@@ -3,6 +3,9 @@
 .channel__status {
   display: flex;
   flex-direction: column;
+  padding: $space--sm;
+  border-radius: $space--xs;
+  box-shadow: 0 0 8px 4px $color--gray;
 
   .img__wrap {
     display: flex;

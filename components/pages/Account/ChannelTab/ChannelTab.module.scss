@@ -1,0 +1,8 @@
+@import '../../../../styles/tokens/all';
+
+.channel__tab {
+  @include desktop-view {
+    display: grid;
+    grid-template-columns: 25% 75%;
+  }
+}
