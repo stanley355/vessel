@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import ChannelSection from "../../components/pages/Account/ChannelSection";
-import CreateChannelForm from "../../components/pages/Account/CreateChannelForm";
+import ChannelTab from "../../components/pages/Account/ChannelTab";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import styles from "./account.module.scss";
@@ -35,11 +34,11 @@ const Account = (props: any) => {
   const ActiveTabBody = () => {
     switch (activeTab) {
       case "channel":
-        return <div>channel</div>;
+        return <ChannelTab />;
       case "profile":
         return <ProfileTab profile={profile} />;
       default:
-        return <div>channel</div>;
+        return <ChannelTab />;
     }
   };
 

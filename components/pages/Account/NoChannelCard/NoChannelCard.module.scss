@@ -1,0 +1,29 @@
+@import '../../../../styles/tokens/all';
+
+.no__channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space--sm;
+  border-radius: $space--xs;
+  box-shadow: 0 0 8px 4px $color--gray;
+
+  svg {
+    font-size: 64px;
+    color: $color--blue;
+  }
+
+  .title {
+    font-size: $font--lg;
+    margin: $space--lg;
+  }
+
+  .cta {
+    color:$color--white;
+    background: $color--blue;
+    border: none;
+    border-radius: $space--xs;
+    font-size: $font--lg;
+    padding: $space--xs $space--sm;
+  }
+}
