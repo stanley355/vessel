@@ -4,11 +4,9 @@ import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import ChannelSection from "../../components/pages/Account/ChannelSection";
 import CreateChannelForm from "../../components/pages/Account/CreateChannelForm";
-import LogoutBtn from "../../components/pages/Account/LogoutBtn";
 import useResponsive from "../../lib/hooks/useResponsive";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
-
-import UserProfileCard from "../../components/pages/Account/UserProfileCard";
+import ProfileTab from "../../components/pages/Account/ProfileTab";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
@@ -37,23 +35,12 @@ const Account = (props: any) => {
     </div>
   )
 
-  const ProfileTab = () => (
-    <>
-      <div className={styles.account__user}>
-        {profile && <UserProfileCard profile={profile} />}
-        {isDesktop && <LogoutBtn />}
-      </div>
-      <br />
-      {!isDesktop && <LogoutBtn />}
-    </>
-  );
-
   const ActiveTabBody = () => {
     switch (activeTab) {
       case 'channel':
         return <div>channel</div>
       case 'profile':
-        return <ProfileTab />
+        return <ProfileTab profile={profile}/>
       default:
         return <div>channel</div>;
     }
