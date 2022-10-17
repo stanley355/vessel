@@ -22,11 +22,10 @@ const ChannelTab = (props: IChannelTab) => {
     return (
       <div className={styles.channel__tab}>
         <ChannelStatus channel={channel} />
-        <div>
+        <div className={styles.main}>
           <h2>My Posts</h2>
-          <NoPostsCard onCreateChannelClick={() => { }} />
+          <NoPostsCard onUploadClick={() => { }} />
         </div>
-
       </div>
     )
   }
