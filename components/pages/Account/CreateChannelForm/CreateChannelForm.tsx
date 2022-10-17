@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
+import useFirebaseStorageRef from '../../../../lib/hooks/useFirebaseStorageRef';
+import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import styles from './CreateChannelForm.module.scss';
 
 const CreateChannelForm = () => {
@@ -39,10 +41,30 @@ const CreateChannelForm = () => {
     return true;
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const inputValid = validateInput(e);
 
+    if (inputValid) {
+      const channelName = e.target.channel_name.value;
+      const channelPrice = e.target.channel_price.value;
+      const profileImage = e.target.profile_img.files[0];
+
+      const storageRef: any = await useFirebaseStorageRef(`/profileImage/${channelName}`);
+      const uploadTask = uploadBytesResumable(storageRef, profileImage);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot: any) => { },
+        (error: any) => console.error(error),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log(222, downloadURL);
+            return downloadURL;
+          });
+        }
+      );
+    }
   }
 
   return (
