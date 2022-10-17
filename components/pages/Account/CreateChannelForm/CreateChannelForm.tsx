@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
+import jsCookie from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 import CurrencyInput from 'react-currency-input-field';
 import getFirebaseStorageRef from '../../../../lib/getFirebaseStorageRef';
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import createChannel from '../../../../lib/channelHandler/createChannel';
 import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './CreateChannelForm.module.scss';
+import Router from 'next/router';
 
 const CreateChannelForm = () => {
-  const [profileImageURL, setProfileImageURL] = useState('');
+  const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState('');
 
+  const cleanChannelPrice = (price: string) => {
+    const newPrice = price.replace('Rp', "").replace(",", "");
+    return Number(newPrice);
+  }
+
   const validateInput = (e: any) => {
-    const channelName = e.target.channel_name.value;
-    const channelPrice = e.target.channel_price.value;
+    const channelName = e.target.channel_name.value.trim();
+    const channelPrice = cleanChannelPrice(e.target.channel_price.value);
     const profileImage = e.target.profile_img.files[0];
 
     if (!channelName) {
@@ -45,10 +54,11 @@ const CreateChannelForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const inputValid = validateInput(e);
+    setHasSubmit(inputValid);
 
     if (inputValid) {
-      const channelName = e.target.channel_name.value;
-      const channelPrice = e.target.channel_price.value;
+      const channelName: string = e.target.channel_name.value.trim();
+      const channelPrice: number = cleanChannelPrice(e.target.channel_price.value);
       const profileImage = e.target.profile_img.files[0];
 
       const storageRef: any = await getFirebaseStorageRef(`/profileImage/${channelName}`);
@@ -59,17 +69,34 @@ const CreateChannelForm = () => {
         (snapshot: any) => { },
         (error: any) => {
           console.error(error);
+          setHasSubmit(false);
           alert(WARNING_MSG.TRY_AGAIN);
         },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setProfileImageURL(downloadURL);
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            const token: any = jsCookie.get('token');
+            const user: any = jwtDecode(token);
+
+            const payload = {
+              userID: user.id,
+              channelName: channelName,
+              subscriptionPrice: channelPrice,
+              profileImgURL: downloadURL,
+            }
+            const channel = await createChannel(payload);
+
+            if (channel && channel.token) {
+              jsCookie.set('token_channel', channel.token);
+              Router.reload();
+            }
+
+            if (channel.error) {
+              setFormError(channel.data.error ?? WARNING_MSG.TRY_AGAIN);
+              setHasSubmit(false);
+            }            
           });
         }
       );
-      
-      
-
     }
   }
 
@@ -105,8 +132,8 @@ const CreateChannelForm = () => {
 
         {formError && <div className={styles.error}>{formError}</div>}
 
-        <button type="submit" className={styles.cta}>
-          Buat Channel
+        <button type="submit" className={styles.cta} disabled={hasSubmit}>
+          {hasSubmit ? 'Processing...' : 'Buat Channel'}
         </button>
       </form>
     </div>
