@@ -34,11 +34,11 @@ const Account = (props: any) => {
   const ActiveTabBody = () => {
     switch (activeTab) {
       case "channel":
-        return <ChannelTab />;
+        return <ChannelTab channel={channel} />;
       case "profile":
         return <ProfileTab profile={profile} />;
       default:
-        return <ChannelTab />;
+        return <ChannelTab channel={channel} />;
     }
   };
 
@@ -57,6 +57,7 @@ const Account = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   let profile: any = token ? jwtDecode(token) : "";
+  let channel: any;
 
   if (!token) {
     return {
@@ -74,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const channelLogin = await channelLoginHandler(token);
 
     if (channelLogin && channelLogin.token) {
+      channel = jwtDecode(channelLogin.token);
       jsCookie.set("token_channel", channelLogin.token);
     }
   }
@@ -81,6 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       profile: profile ?? null,
+      channel: channel ?? null,
     },
   };
 };

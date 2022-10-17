@@ -1,10 +1,15 @@
 import React from 'react';
 import NoChannelCard from '../NoChannelCard';
 
-const ChannelTab = () => {
-  return(
+interface IChannelTab {
+  channel: any;
+}
+
+const ChannelTab = (props: IChannelTab) => {
+  const { channel } = props;
+  return (
     <div>
-      <NoChannelCard />
+      {channel ? <div>Channel ini</div> : <NoChannelCard />}
     </div>
   )
 }
