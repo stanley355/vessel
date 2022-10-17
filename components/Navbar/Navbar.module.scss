@@ -6,5 +6,9 @@
   h2 {
     color: $color--blue;
     text-align: center;
+
+    @include desktop-view {
+      font-size: 36px;
+    }
   }
 }

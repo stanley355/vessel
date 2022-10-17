@@ -1,0 +1,60 @@
+@import '../../../../styles/tokens/all';
+
+.create__channel {
+  padding: $space--sm;
+  border-radius: $space--xs;
+  box-shadow: 0 0 8px 4px $color--gray;
+  display: flex;
+  flex-direction: column;
+
+  @include desktop-view {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: $font--xl;
+    margin: $space--sm 0;
+
+    @include desktop-view {
+      font-size: $font--xxl;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $space--sm;
+
+    label {
+      margin-bottom: $space--xxs;
+      @include desktop-view {
+        font-size: $font--md;
+      }
+    }
+
+    input {
+      border-radius: $space--xxs;
+      padding: $space--xs;
+      border: 1px solid $color--blue;
+
+      @include desktop-view {
+        font-size: $font--md;
+      }
+    }
+  }
+
+
+  .cta {
+    color:$color--white;
+    background: $color--blue;
+    border: none;
+    border-radius: $space--xs;
+    font-size: $font--lg;
+    padding: $space--xs $space--sm;
+    width: 100%;
+    margin: $space--md auto;
+  }
+}
