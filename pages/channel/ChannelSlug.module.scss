@@ -1,0 +1,6 @@
+@import '../../styles/tokens/all';
+
+.channel__slug {
+  display: grid;
+  grid-template-columns: 25% 75%;
+}

@@ -1,17 +1,25 @@
 import React from "react";
-import Link from "next/link";
-import jwtDecode from "jwt-decode";
 import getConfig from "next/config";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import fetcher from "../../lib/fetcher";
+import ChannelStatus from "../../components/pages/Account/ChannelStatus";
+import findChannel from "../../lib/channelHandler/findChannel";
+import styles from './ChannelSlug.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
-const ChannelSlug = (props: any) => {
-  
+interface IChannelSlug {
+  slug: string;
+  channel: any;
+}
+
+const ChannelSlug = (props: IChannelSlug) => {
+  const { slug, channel } = props;
+
   return (
     <div className="container">
-      <h2>hi</h2>
+      <div className={styles.channel__slug}>
+        {channel && <ChannelStatus channel={channel} />}
+      </div>
     </div>
   );
 };
@@ -19,13 +27,13 @@ const ChannelSlug = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const slug = context?.params?.slug;
-
+  const slug: any = context?.params?.slug;
+  const channel = await findChannel(slug);
 
   return {
     props: {
       slug: slug ?? "",
-
+      channel: channel ?? null,
     },
   };
 };
