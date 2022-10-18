@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { FaUpload, FaArrowCircleLeft } from "react-icons/fa";
+import jsCookie from 'js-cookie';
+import jwtDecode from "jwt-decode";
+import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
+import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import createPost from "../../../../lib/postHandler/createPost";
+import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./UploadPostForm.module.scss";
 
 interface IUploadPostForm {
@@ -9,42 +15,80 @@ interface IUploadPostForm {
 const UploadPostForm = (props: IUploadPostForm) => {
   const { onBackBtnClick } = props;
 
+  const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState('');
 
   const validateInput = (e: any) => {
     const caption = e.target.caption.value;
     const post = e.target.new_post.files[0];
 
-    if (caption && caption.length > 250) {
-      setFormError("Maximum description is 250 character");
-      return "";
+    if (caption && caption.length > 500) {
+      setFormError("Caption Maksimum 500 karakter");
+      return false;
     }
 
     if (!post) {
       setFormError('File belum di upload!');
-      return '';
+      return false;
     }
 
     const maxAllowedSize = 50 * 1024 * 1024; //50 MB
     if (post && post.size > maxAllowedSize) {
       setFormError("Maximum file size is 50MB");
-      return "";
+      return false;
     }
 
     setFormError('');
-    return "";
+    return true;
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     const caption = e.target.caption.value;
     const post = e.target.new_post.files[0];
-    const post_type = e.target.post_type.value;
+    const free_post = e.target.free_post.value === "Free";
 
     const inputValid = validateInput(e);
+    setHasSubmit(inputValid);
 
+    if (inputValid) {
+      const channelToken: any = jsCookie.get('token_channel');
+      const channel: any = jwtDecode(channelToken);
 
+      const storageRef: any = await getFirebaseStorageRef(
+        `/${channel.slug}/${post.name}`
+      );
+      const uploadTask = uploadBytesResumable(storageRef, post);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot: any) => { },
+        (error: any) => {
+          console.error(error);
+          setHasSubmit(false);
+          alert(WARNING_MSG.TRY_AGAIN);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            const payload = {
+              channelID: channel.id,
+              channelSlug: channel.slug,
+              downloadURL: downloadURL,
+              description: caption,
+              postType: post.type.includes("video") ? "Video" : "Image",
+              isFree: free_post
+            };
+
+            const postResponse = await createPost(payload);
+            console.log(postResponse);
+          });
+        }
+      );
+
+    }
   };
+  // Error:DatabaseError(ForeignKeyViolation, "insert or update on table \"posts\" violates foreign key constraint \"posts_channels_id_fkey\"")
 
   return (
     <div className={styles.upload__post}>
@@ -67,9 +111,9 @@ const UploadPostForm = (props: IUploadPostForm) => {
         </div>
 
         <div className={styles.form__field__drop}>
-          <label htmlFor="post_type">Post Type: </label>
-          <select name="post_type" id="post_type">
-            <option value="Paid" selected>Paid</option>
+          <label htmlFor="free_post">Post Type: </label>
+          <select name="free_post" id="free_post" defaultValue="paid">
+            <option value="Paid">Paid</option>
             <option value="Free" >Free</option>
           </select>
         </div>
@@ -80,8 +124,8 @@ const UploadPostForm = (props: IUploadPostForm) => {
         </div>
 
         {formError && <div className={styles.form__error}>{formError}</div>}
-        <button type="submit" className={styles.cta}>
-          Upload <FaUpload />
+        <button type="submit" className={styles.cta} disabled={hasSubmit}>
+          { hasSubmit ? "Uploading..." : <span>Upload <FaUpload /> </span> }
         </button>
       </form>
 

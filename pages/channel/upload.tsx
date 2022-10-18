@@ -12,7 +12,7 @@ import {
 } from "firebase/storage";
 import fetcher from "../../lib/fetcher";
 import textToHtml from "../../lib/textToHtml";
-import createPostData from "../../lib/postHandler/createPostData";
+import createPostData from "../../lib/postHandler/createPost";
 import { WARNING_MSG } from "../../lib/warning-messages";
 import styles from "./ChannelUpload.module.scss";
 
@@ -66,7 +66,7 @@ const ChannelUpload = (props: any) => {
             description: textToHtml(description),
             postType: file.type.includes("video") ? "Video" : "Image",
           };
-          await createPostData(payload);
+          // await createPostData(payload);
         });
       }
     );
