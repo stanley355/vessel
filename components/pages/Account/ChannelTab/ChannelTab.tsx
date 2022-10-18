@@ -3,20 +3,30 @@ import CreateChannelForm from "../CreateChannelForm";
 import ChannelStatus from "../ChannelStatus";
 import NoChannelCard from "../NoChannelCard";
 import NoPostsCard from "../NoPostsCard";
+import PostCard from "../PostCard";
 import UploadPostForm from "../UploadPostForm";
 import styles from "./ChannelTab.module.scss";
 
 interface IChannelTab {
   channel: any;
+  posts: any[];
 }
 
 const ChannelTab = (props: IChannelTab) => {
-  const { channel } = props;
+  const { channel, posts } = props;
 
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [showUploadPostForm, setShowUploadPostForm] = useState(false);
 
   const MainChannelTab = () => {
+    if (posts && posts.length > 0) {
+      return (
+        <div>
+          {posts.map((post: any) => <PostCard post={post} />)}
+        </div>
+      )
+    }
+    
     return showUploadPostForm ? (
       <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} />
     ) : (
