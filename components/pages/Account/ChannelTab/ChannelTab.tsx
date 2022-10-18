@@ -21,7 +21,7 @@ const ChannelTab = (props: IChannelTab) => {
   const MainChannelTab = () => {
     if (posts && posts.length > 0) {
       return (
-        <div >
+        <div className={styles.posts__wrap}>
           {posts.map((post: any) => <div key={post.id}> <PostCard channel={channel} post={post} /> </div>)}
         </div>
       )

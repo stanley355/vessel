@@ -21,6 +21,11 @@
     .title {
       font-weight: bold;
       font-size: $font--lg;
+
+      @include desktop-view {
+        font-size: $font--xxl;
+        padding: $space--xs 0;
+      }
     }
   }
 
