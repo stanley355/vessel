@@ -129,7 +129,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
         </div>
 
         <div>
-          *Dengan memilih "Post Type" sebagai "Free", pengguna Kontenku dapat melihat konten Anda
+          *Dengan memilih &quot;Post Type&quot; sebagai &quot;Free&quot;, pengguna Kontenku dapat melihat konten Anda
           <b> tanpa</b> berlangganan channel Anda.
         </div>
 
