@@ -15,6 +15,9 @@ const PostCard = (props: IPostCard) => {
     return date;
   }
 
+
+
+  console.log(post);
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
@@ -28,14 +31,22 @@ const PostCard = (props: IPostCard) => {
       </div>
 
 
-      <div className={styles.img__wrap}>
-        <img
-          width={300}
-          height={300}
-          src={post.img_url}
-          alt={post.id}
-        />
-      </div>
+      {post.post_type === "Video" ?
+        <div className={styles.video__wrap}>
+          <video width={300} height={250} controls>
+            <source src={post.img_url} type="video/mp4" />
+            <source src={post.img_url} type="video/ogg" />
+          </video>
+        </div>
+        :
+        <div className={styles.img__wrap}>
+          <img
+            width={300}
+            height={300}
+            src={post.img_url}
+            alt={post.id}
+          />
+        </div>}
       <div>
         {parse(post.description)}
       </div>

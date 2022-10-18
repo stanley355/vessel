@@ -29,6 +29,14 @@
     }
   }
 
+  .video__wrap {
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: $space--xs;
+    }
+  }
+
   .img__wrap {
     display: flex;
     justify-content: center;
