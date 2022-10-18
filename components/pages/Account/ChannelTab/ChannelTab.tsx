@@ -21,12 +21,12 @@ const ChannelTab = (props: IChannelTab) => {
   const MainChannelTab = () => {
     if (posts && posts.length > 0) {
       return (
-        <div>
-          {posts.map((post: any) => <PostCard post={post} />)}
+        <div >
+          {posts.map((post: any) => <div key={post.id}> <PostCard post={post} /> </div>)}
         </div>
       )
     }
-    
+
     return showUploadPostForm ? (
       <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} />
     ) : (
