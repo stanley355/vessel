@@ -1,4 +1,4 @@
-import fetcher from "../../../lib/fetcher";
+import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const viewPostHandler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -80,6 +80,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
+  if (channel && channel.posts_number > 0) {
+
+  }
+
   return {
     props: {
       profile: profile ?? null,
