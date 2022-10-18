@@ -88,8 +88,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      profile,
-      channel,
+      profile: profile ?? null,
+      channel: channel ?? null,
       posts,
     },
   };
