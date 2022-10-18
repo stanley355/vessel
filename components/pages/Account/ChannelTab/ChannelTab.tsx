@@ -18,7 +18,7 @@ const ChannelTab = (props: IChannelTab) => {
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [showUploadPostForm, setShowUploadPostForm] = useState(false);
 
-  const MainChannelTab = () => {
+  const PostSection = () => {
     if (posts && posts.length > 0) {
       return (
         <div className={styles.posts__wrap}>
@@ -26,12 +26,13 @@ const ChannelTab = (props: IChannelTab) => {
         </div>
       )
     }
+    return <NoPostsCard onUploadClick={() => setShowUploadPostForm(true)} />
+  }
 
+  const MainChannelTab = () => {
     return showUploadPostForm ? (
       <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} />
-    ) : (
-      <NoPostsCard onUploadClick={() => setShowUploadPostForm(true)} />
-    );
+    ) : <PostSection />;
   };
 
   const NoChannelComponent = () => {
@@ -49,7 +50,10 @@ const ChannelTab = (props: IChannelTab) => {
       <div className={styles.channel__tab}>
         <ChannelStatus channel={channel} />
         <div className={styles.main}>
-          <h2>My Posts</h2>
+          <div className={styles.main__head}>
+            <h2>My Posts</h2>
+            {!showUploadPostForm && <button type="button" className={styles.upload__btn} onClick={() => setShowUploadPostForm(true)}>Upload</button>}
+          </div>
           <MainChannelTab />
         </div>
       </div>
