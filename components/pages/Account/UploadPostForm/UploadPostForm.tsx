@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaUpload, FaArrowCircleLeft } from "react-icons/fa";
-import jsCookie from 'js-cookie';
+import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
@@ -18,7 +18,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
   const { onBackBtnClick } = props;
 
   const [hasSubmit, setHasSubmit] = useState(false);
-  const [formError, setFormError] = useState('');
+  const [formError, setFormError] = useState("");
 
   const validateInput = (e: any) => {
     const caption = e.target.caption.value;
@@ -30,7 +30,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
     }
 
     if (!post) {
-      setFormError('File belum di upload!');
+      setFormError("File belum di upload!");
       return false;
     }
 
@@ -40,9 +40,9 @@ const UploadPostForm = (props: IUploadPostForm) => {
       return false;
     }
 
-    setFormError('');
+    setFormError("");
     return true;
-  }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
     setHasSubmit(inputValid);
 
     if (inputValid) {
-      const channelToken: any = jsCookie.get('token_channel');
+      const channelToken: any = jsCookie.get("token_channel");
       const channel: any = jwtDecode(channelToken);
 
       const storageRef: any = await getFirebaseStorageRef(
@@ -65,7 +65,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => { },
+        (snapshot: any) => {},
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -79,11 +79,11 @@ const UploadPostForm = (props: IUploadPostForm) => {
               downloadURL: downloadURL,
               description: textToHtml(caption),
               postType: post.type.includes("video") ? "Video" : "Image",
-              isFree: free_post
+              isFree: free_post,
             };
 
             const postResponse = await createPost(payload);
-            
+
             if (postResponse.error) {
               alert(WARNING_MSG.TRY_AGAIN);
               setHasSubmit(false);
@@ -95,7 +95,6 @@ const UploadPostForm = (props: IUploadPostForm) => {
           });
         }
       );
-
     }
   };
   // Error:DatabaseError(ForeignKeyViolation, "insert or update on table \"posts\" violates foreign key constraint \"posts_channels_id_fkey\"")
@@ -124,18 +123,25 @@ const UploadPostForm = (props: IUploadPostForm) => {
           <label htmlFor="free_post">Post Type: </label>
           <select name="free_post" id="free_post" defaultValue="paid">
             <option value="Paid">Paid</option>
-            <option value="Free" >Free</option>
+            <option value="Free">Free</option>
           </select>
         </div>
 
         <div>
-          *Dengan memilih &quot;Post Type&quot; sebagai &quot;Free&quot;, pengguna Kontenku dapat melihat konten Anda
+          *Dengan memilih &quot;Post Type&quot; sebagai &quot;Free&quot;,
+          pengguna Kontenku dapat melihat konten Anda
           <b> tanpa</b> berlangganan channel Anda.
         </div>
 
         {formError && <div className={styles.form__error}>{formError}</div>}
         <button type="submit" className={styles.cta} disabled={hasSubmit}>
-          { hasSubmit ? "Uploading..." : <span>Upload <FaUpload /> </span> }
+          {hasSubmit ? (
+            "Uploading..."
+          ) : (
+            <span>
+              Upload <FaUpload />{" "}
+            </span>
+          )}
         </button>
       </form>
 

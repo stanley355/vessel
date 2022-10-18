@@ -96,11 +96,11 @@ const CreateChannelForm = () => {
                 fullname: user.fullname,
                 email: user.email,
                 has_channel: true,
-              }
+              };
 
               const userDataUpdate = await updateUserData(userPayload);
 
-              jsCookie.set('token', userDataUpdate.token);
+              jsCookie.set("token", userDataUpdate.token);
               jsCookie.set("token_channel", channel.token);
               Router.reload();
             }
