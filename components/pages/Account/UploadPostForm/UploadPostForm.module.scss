@@ -11,24 +11,49 @@
   }
 
   .form {
+    &__error {
+      color: red;
+      margin: $space--sm 0;
+    }
+
     &__field {
       display: flex;
       flex-direction: column;
       margin-bottom: $space--sm;
     }
 
+    &__field__drop {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: $space--sm;
+
+      select {
+        width: 50%;
+        padding: $space--xxs;
+        font-size: $font--md;
+        border-radius: $space--xs;
+        border: 1px solid $color--blue;
+        background: none;
+      }
+    }
+
     label {
-      font-size: $font--lg;
+      font-size: $font--md;
       font-weight: bold;
     }
 
     textarea {
       padding: $space--xs;
       border-radius: $space--xs;
+      border: 1px solid $color--blue;
     }
 
     .file__label {
       width: 100%;
+      border-radius: $space--xs;
+      border: 1px solid $color--blue;
 
       input {
         width: 100%;
