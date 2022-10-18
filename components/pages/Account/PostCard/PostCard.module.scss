@@ -1,0 +1,39 @@
+@import '../../../../styles/tokens/all';
+
+.post__card {
+  padding: $space--xs 0;
+  border-top: 1px solid $color--gray;
+  border-bottom: 1px solid $color--gray;
+
+  &__head {
+    display: grid;
+    grid-gap: 2%;
+    grid-template-columns: 20% 80%;
+    padding: $space--xs 0;
+
+    .channel__img {
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: $font--lg;
+    }
+  }
+
+  .img__wrap {
+    display: flex;
+    justify-content: center;
+    
+
+    img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: $space--xs;
+    }
+  }
+}
