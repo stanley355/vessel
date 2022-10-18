@@ -1,12 +1,12 @@
 import getConfig from "next/config";
-import fetcher from "./fetcher";
+import fetcher from "../fetcher";
 
 interface INewData {
   id: string;
   fullname: string;
   email: string;
-  password: string;
-  phone_number: string;
+  password?: string;
+  phone_number?: string;
   has_channel: boolean;
 }
 

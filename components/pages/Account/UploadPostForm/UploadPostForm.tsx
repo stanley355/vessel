@@ -80,8 +80,11 @@ const UploadPostForm = (props: IUploadPostForm) => {
               isFree: free_post
             };
 
+            console.log(payload);
+
             const postResponse = await createPost(payload);
             console.log(postResponse);
+            setHasSubmit(false);
           });
         }
       );

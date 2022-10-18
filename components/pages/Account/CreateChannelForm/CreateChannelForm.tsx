@@ -5,6 +5,7 @@ import CurrencyInput from "react-currency-input-field";
 import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import createChannel from "../../../../lib/channelHandler/createChannel";
+import updateUserData from "../../../../lib/updateHandler/updateUserData";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./CreateChannelForm.module.scss";
 import Router from "next/router";
@@ -90,6 +91,16 @@ const CreateChannelForm = () => {
             const channel = await createChannel(payload);
 
             if (channel && channel.token) {
+              const userPayload = {
+                id: user.id,
+                fullname: user.fullname,
+                email: user.email,
+                has_channel: true,
+              }
+
+              const userDataUpdate = await updateUserData(userPayload);
+
+              jsCookie.set('token', userDataUpdate.token);
               jsCookie.set("token_channel", channel.token);
               Router.reload();
             }
