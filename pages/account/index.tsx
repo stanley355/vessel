@@ -74,7 +74,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (profile && profile.has_channel) {
     const channelLogin = await channelLoginHandler(token);
 
-    console.log(222, channelLogin);
     if (channelLogin && channelLogin.token) {
       channel = jwtDecode(channelLogin.token);
       jsCookie.set("token_channel", channelLogin.token);

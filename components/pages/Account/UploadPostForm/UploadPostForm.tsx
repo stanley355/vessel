@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { FaUpload, FaArrowCircleLeft } from "react-icons/fa";
 import jsCookie from 'js-cookie';
 import jwtDecode from "jwt-decode";
-import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import createPost from "../../../../lib/postHandler/createPost";
+import textToHtml from "../../../../lib/textToHtml";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./UploadPostForm.module.scss";
+import Router from "next/router";
 
 interface IUploadPostForm {
   onBackBtnClick: () => void;
@@ -75,16 +77,21 @@ const UploadPostForm = (props: IUploadPostForm) => {
               channelID: channel.id,
               channelSlug: channel.slug,
               downloadURL: downloadURL,
-              description: caption,
+              description: textToHtml(caption),
               postType: post.type.includes("video") ? "Video" : "Image",
               isFree: free_post
             };
 
-            console.log(payload);
-
             const postResponse = await createPost(payload);
-            console.log(postResponse);
-            setHasSubmit(false);
+            
+            if (postResponse.error) {
+              alert(WARNING_MSG.TRY_AGAIN);
+              setHasSubmit(false);
+            }
+
+            if (postResponse && postResponse.id) {
+              Router.reload();
+            }
           });
         }
       );
