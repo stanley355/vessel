@@ -2,6 +2,7 @@ import React from "react";
 import getConfig from "next/config";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ChannelStatus from "../../components/pages/Account/ChannelStatus";
+import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import findChannel from "../../lib/channelHandler/findChannel";
 import styles from './ChannelSlug.module.scss';
 
@@ -15,10 +16,19 @@ interface IChannelSlug {
 const ChannelSlug = (props: IChannelSlug) => {
   const { slug, channel } = props;
 
+  const MainSection = () => {
+    return (
+      <div>
+        <ChannelNoPosts />
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       <div className={styles.channel__slug}>
         {channel && <ChannelStatus channel={channel} />}
+        <MainSection />
       </div>
     </div>
   );
