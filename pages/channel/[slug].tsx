@@ -4,6 +4,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ChannelStatus from "../../components/pages/Account/ChannelStatus";
 import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import findChannel from "../../lib/channelHandler/findChannel";
+import fetcher from "../../lib/fetcher";
 import styles from './ChannelSlug.module.scss';
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -45,6 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const slug: any = context?.params?.slug;
   const channel = await findChannel(slug);
+  // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
 
   return {
     props: {
