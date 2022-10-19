@@ -1,6 +1,48 @@
 @import '../../styles/tokens/all';
 
 .channel__slug {
+  .main {
+    &__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+
+      .subscribe__btn {
+        color: $color--white;
+        background: $color--blue;
+        border: none;
+        border-radius: $space--xs;
+        font-size: $font--lg;
+        padding: $space--xs $space--sm;
+      }
+    }
+
+    .posts__wrap {
+      padding: $space--sm 0;
+    }
+
+    @include desktop-view {
+      padding: 0 $space--lg;
+
+      &__head {
+        width: 80%;
+
+        h2 {
+          margin: 0;
+        }
+
+        .subscribe__btn {
+          margin-bottom: $space--xxs;
+        }
+      }
+
+      .posts__wrap {
+        width: 80%;
+      }
+    }
+  }
+
 
   @include desktop-view {
     display: grid;

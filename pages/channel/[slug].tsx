@@ -18,8 +18,14 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const MainSection = () => {
     return (
-      <div>
-        <ChannelNoPosts />
+      <div className={styles.main}>
+        <div className={styles.main__head}>
+          <h2>Posts</h2>
+          <button type="button" className={styles.subscribe__btn}>Subscribe</button>
+        </div>
+        <div className={styles.posts__wrap}>
+          <ChannelNoPosts />
+        </div>
       </div>
     )
   }
