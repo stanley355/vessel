@@ -1,0 +1,26 @@
+@import "../../../../styles/tokens/all";
+
+.not__subscribed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    font-size: 64px;
+    color: $color--blue;
+  }
+
+  .title {
+    font-size: $font--lg;
+    margin: $space--lg;
+  }
+
+  .cta {
+    color: $color--white;
+    background: $color--blue;
+    border: none;
+    border-radius: $space--xs;
+    font-size: $font--lg;
+    padding: $space--xs $space--sm;
+  }
+}

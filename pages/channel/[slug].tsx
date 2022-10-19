@@ -3,6 +3,7 @@ import getConfig from "next/config";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ChannelStatus from "../../components/pages/Account/ChannelStatus";
 import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
+import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubscribed";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
 import styles from './ChannelSlug.module.scss';
@@ -25,7 +26,8 @@ const ChannelSlug = (props: IChannelSlug) => {
           <button type="button" className={styles.subscribe__btn}>Subscribe</button>
         </div>
         <div className={styles.posts__wrap}>
-          <ChannelNoPosts />
+          {/* <ChannelNoPosts /> */}
+          <ChannelNotSubscribed onSubscribeClick={() =>{}} />
         </div>
       </div>
     )
