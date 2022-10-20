@@ -1,9 +1,11 @@
 import React from "react";
 import getConfig from "next/config";
+import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ChannelStatus from "../../components/pages/Account/ChannelStatus";
 import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubscribed";
+import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
 import styles from './ChannelSlug.module.scss';
@@ -12,11 +14,12 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 interface IChannelSlug {
   slug: string;
+  profile: any;
   channel: any;
 }
 
 const ChannelSlug = (props: IChannelSlug) => {
-  const { slug, channel } = props;
+  const { slug, profile, channel } = props;
 
   const MainSection = () => {
     return (
@@ -27,7 +30,8 @@ const ChannelSlug = (props: IChannelSlug) => {
         </div>
         <div className={styles.posts__wrap}>
           {/* <ChannelNoPosts /> */}
-          <ChannelNotSubscribed onSubscribeClick={() =>{}} />
+          {/* <ChannelNotSubscribed onSubscribeClick={() =>{}} /> */}
+          <SubscribeChannelForm profile={profile} channel={channel} />
         </div>
       </div>
     )
@@ -48,6 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const slug: any = context?.params?.slug;
   const token = context.req.cookies["token"];
+  const profile: any = token ? jwtDecode(token) : "";
   const channel = await findChannel(slug);
   // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
 
@@ -63,6 +68,7 @@ export const getServerSideProps: GetServerSideProps = async (
   return {
     props: {
       slug: slug ?? "",
+      profile: profile ?? null,
       channel: channel ?? null,
     },
   };

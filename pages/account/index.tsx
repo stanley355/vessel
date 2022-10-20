@@ -57,7 +57,7 @@ const Account = (props: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
-  let profile: any = token ? jwtDecode(token) : "";
+  const profile: any = token ? jwtDecode(token) : "";
   let channel: any;
   let posts: any[] = [];
 
@@ -69,8 +69,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-
-  if (token) profile = jwtDecode(token);
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
   if (profile && profile.has_channel) {
