@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styles from './SubscribeChannelForm.module.scss';
 
 interface ISubscribeChannel {
   profile: {
@@ -13,6 +14,8 @@ interface ISubscribeChannel {
 
 const SubscribeChannelForm = (props: ISubscribeChannel) => {
   const { profile, channel } = props;
+
+  const [activePlan, setActivePlan] = useState(1);
 
   const PLANS = [
     {
@@ -34,23 +37,28 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
   ];
 
   return (
-    <div>
-      <h3>Subscription</h3>
+    <div className={styles.subscribe__channel}>
+      <h2 className={styles.title}>Subscription</h2>
 
-      <form onSubmit={() =>{}}>
-        <div>Silakan pilih jangka berlangganan untuk <b>{channel.channel_name}</b>  </div>
+      <form onSubmit={() => { }}>
+        <div className={styles.subtitle}>Silakan pilih paket untuk berlangganan channel <b>{channel.channel_name}</b>  </div>
 
-        <div>Nama Pelanggan: {profile.fullname} </div>
-        <div>Email: {profile.email} </div>
+        <div className={styles.user} >Nama pelanggan : {profile.fullname} </div>
+        <div className={styles.user} >Email : {profile.email} </div>
 
-        {PLANS.map((plan): any =>
-          <button type='button'>
-            <div>{plan.month} Bulan</div>
-            <div>Rp{plan.price}</div>
-          </button>
-        )}
+        <div className={styles.plan__wrap}>
+          {PLANS.map((plan): any =>
+            <button type='button' key={plan.month}
+              className={activePlan === plan.month ? styles.btn__active : ""}
+              onClick={() => setActivePlan(plan.month)}
+            >
+              <div>{plan.month} Bulan</div>
+              <div>Rp{plan.price}</div>
+            </button>
+          )}
+        </div>
 
-        <button type='submit'>Lanjutkan</button>
+        <button type='submit' className={styles.cta}>Lanjutkan</button>
       </form>
     </div>
   )
