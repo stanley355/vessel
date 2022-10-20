@@ -47,8 +47,18 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const slug: any = context?.params?.slug;
+  const token = context.req.cookies["token"];
   const channel = await findChannel(slug);
   // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/account/login/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
