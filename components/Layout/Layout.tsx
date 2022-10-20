@@ -1,12 +1,8 @@
 import React from "react";
-import jsCookie from "js-cookie";
 import Head from "next/head";
-import useAuthenticated from "../../lib/hooks/useAuthenticated";
 import Navbar from "../Navbar";
-import StickyMenu from "../StickyMenu";
 
 const Layout = ({ children }: any) => {
-  const authenticated = useAuthenticated();
 
   return (
     <div className="layout">
