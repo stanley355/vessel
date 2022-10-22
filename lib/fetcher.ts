@@ -20,9 +20,9 @@ const fetcher = async (url: string, config: IFetcherConfig) => {
     return data;
   } catch (err: any) {
     return {
-      error: err.response.statusText ?? err,
-      status: err.response.status ?? 500,
-      data: err.response.data ?? null,
+      error: err.response?.statusText ?? err,
+      status: err.response?.status ?? 500,
+      data: err.response?.data ?? null,
     };
   }
 };

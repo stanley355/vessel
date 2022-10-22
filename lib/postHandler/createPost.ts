@@ -1,6 +1,4 @@
 import getConfig from "next/config";
-import Router from "next/router";
-import { WARNING_MSG } from "../warning-messages";
 import fetcher from "../fetcher";
 
 interface ICreatePost {

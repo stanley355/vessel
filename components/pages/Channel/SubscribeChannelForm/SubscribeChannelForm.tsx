@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import createInvoice from '../../../../lib/paymentHandler/createInvoice';
+import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './SubscribeChannelForm.module.scss';
 
 interface ISubscribeChannel {
   profile: {
+    id: string;
     fullname: string;
     email: string;
   };
@@ -15,7 +18,10 @@ interface ISubscribeChannel {
 const SubscribeChannelForm = (props: ISubscribeChannel) => {
   const { profile, channel } = props;
 
-  const [activePlan, setActivePlan] = useState(1);
+  const [activePlan, setActivePlan] = useState({
+    month: 1,
+    price: channel.subscription_price
+  });
 
   const PLANS = [
     {
@@ -36,8 +42,23 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
     },
   ];
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    const invoicePayload = {
+      externalID: `${profile.id}-${new Date().toLocaleString()}`,
+      payerEmail: profile.email,
+      description: `Pembayaran langganan channel ${channel.channel_name}`,
+      amount: activePlan.month,
+    }
+
+    const invoice = await createInvoice(invoicePayload);
+
+    if (invoice && invoice.id) {
+      console.log(invoice);
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN);
+    }
   }
 
   return (
@@ -52,8 +73,8 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
         <div className={styles.plan__wrap}>
           {PLANS.map((plan): any =>
             <button type='button' key={plan.month}
-              className={activePlan === plan.month ? styles.btn__active : ""}
-              onClick={() => setActivePlan(plan.month)}
+              className={activePlan.month === plan.month ? styles.btn__active : ""}
+              onClick={() => setActivePlan(plan)}
             >
               <div>{plan.month} Bulan</div>
               <div>Rp{plan.price}</div>
