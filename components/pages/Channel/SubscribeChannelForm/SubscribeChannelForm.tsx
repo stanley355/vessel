@@ -36,11 +36,14 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
     },
   ];
 
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+  }
+
   return (
     <div className={styles.subscribe__channel}>
       <h2 className={styles.title}>Subscription</h2>
-
-      <form onSubmit={() => { }}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.subtitle}>Silakan pilih paket untuk berlangganan channel <b>{channel.channel_name}</b>  </div>
 
         <div className={styles.user} >Nama pelanggan : {profile.fullname} </div>
