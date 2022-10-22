@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import React, { useState } from 'react';
 import createInvoice from '../../../../lib/paymentHandler/createInvoice';
 import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
@@ -72,7 +73,12 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
 
       const subscription = await createSubscription(subscriptionPayload);
 
-      console.log(subscription);
+      if (subscription && subscription.id) {
+        Router.reload();
+      } else {
+        setHasSubmit(false);
+        alert(WARNING_MSG.TRY_AGAIN);
+      }
     } else {
       setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);
