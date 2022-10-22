@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import createInvoice from '../../../../lib/paymentHandler/createInvoice';
+import createSubscription from '../../../../lib/subscriptionHandler/createSubscription';
 import { WARNING_MSG } from '../../../../lib/warning-messages';
 import styles from './SubscribeChannelForm.module.scss';
 
@@ -10,6 +11,8 @@ interface ISubscribeChannel {
     email: string;
   };
   channel: {
+    id: number;
+    slug: string;
     channel_name: string;
     subscription_price: number;
   }
@@ -58,7 +61,18 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
 
     if (invoice && invoice.id) {
       setHasSubmit(false);
-      console.log(invoice);
+
+      const subscriptionPayload = {
+        userID: profile.id,
+        channelID: channel.id,
+        channelSlug: channel.slug,
+        duration: activePlan.month,
+        invoiceID: invoice.id
+      }
+
+      const subscription = await createSubscription(subscriptionPayload);
+
+      console.log(subscription);
     } else {
       setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);
