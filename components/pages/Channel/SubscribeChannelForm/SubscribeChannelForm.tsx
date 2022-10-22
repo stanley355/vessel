@@ -18,6 +18,7 @@ interface ISubscribeChannel {
 const SubscribeChannelForm = (props: ISubscribeChannel) => {
   const { profile, channel } = props;
 
+  const [hasSubmit, setHasSubmit] = useState(false);
   const [activePlan, setActivePlan] = useState({
     month: 1,
     price: channel.subscription_price
@@ -44,6 +45,7 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setHasSubmit(true);
 
     const invoicePayload = {
       externalID: `${profile.id}-${new Date().toLocaleString()}`,
@@ -55,8 +57,10 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
     const invoice = await createInvoice(invoicePayload);
 
     if (invoice && invoice.id) {
+      setHasSubmit(false);
       console.log(invoice);
     } else {
+      setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);
     }
   }
@@ -82,7 +86,9 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
           )}
         </div>
 
-        <button type='submit' className={styles.cta}>Lanjutkan</button>
+        <button type='submit' className={styles.cta} disabled={hasSubmit}>
+          {hasSubmit ? 'Processing...' : 'Lanjutkan'}
+        </button>
       </form>
     </div>
   )
