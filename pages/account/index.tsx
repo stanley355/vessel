@@ -4,12 +4,13 @@ import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 import viewPost from "../../lib/postHandler/viewPost";
+import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, channel, posts } = props;
+  const { profile, subscriptions, channel, posts,  } = props;
 
   const [activeTab, setActiveTab] = useState("channel");
 
@@ -58,8 +59,10 @@ const Account = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
+  const subscriptions: any = profile ? await viewSubscriptions({userID: profile.id}) : "";
   let channel: any;
   let posts: any[] = [];
+  
 
   if (!token) {
     return {
@@ -89,6 +92,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       profile: profile ?? null,
       channel: channel ?? null,
       posts,
+      subscriptions,
     },
   };
 };
