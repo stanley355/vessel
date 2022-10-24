@@ -1,0 +1,80 @@
+@import '../../../../styles/tokens/all';
+
+.await__payment {
+  padding: $space--lg $space--lg 0;
+  border-radius: $space--xs;
+  box-shadow: 0 0 8px 4px $color--gray;
+
+  @include desktop-view {
+    margin: 0 10%;
+  }
+
+  .title {
+    font-size: $font--xl;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: $space--sm;
+  }
+
+  .subtitle {
+    font-size: $font--lg;
+    text-align: center;
+    margin-bottom: $space--sm;
+  }
+
+  .info {
+    font-size: $font--lg;
+    line-height: 1.5;
+  }
+
+  .confirm {
+    padding: $space--sm 0;
+    display: flex;
+    flex-direction: column;
+
+    a, button {
+      width: 100%;
+      font-size: $font--lg;
+      font-weight: bold;
+      text-align: center;
+      border-radius: $space--xs;
+      padding: $space--xs;
+      margin-bottom: $space--sm;
+    }
+
+    a {
+      color: $color--white;
+      background: $color--blue;
+    }
+
+    button {
+      color: $color--blue;
+      background: none;
+      border: 1px solid $color--blue;
+    }
+  }
+
+  .renew {
+    padding: $space--sm 0;
+    display: flex;
+    flex-direction: column;
+
+    &__info {
+      font-style: italic;
+      font-size: $font--md;
+    }
+
+    button {
+      width: 100%;
+      font-size: $font--lg;
+      font-weight: bold;
+      text-align: center;
+      border-radius: $space--xs;
+      padding: $space--xs;
+      margin: $space--sm 0;
+      color: $color--white;
+      border: none;
+      background: $color--blue;
+    }
+  }
+}

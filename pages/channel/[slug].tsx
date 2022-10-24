@@ -25,13 +25,21 @@ interface IChannelSlug {
 const ChannelSlug = (props: IChannelSlug) => {
   const { profile, channel, subscription, invoice } = props;
 
-  console.log(invoice);
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
       if (subscription) {
-        return <div>hi</div>;
+        return showSubscribeForm ? <SubscribeChannelForm profile={profile} channel={channel} /> :
+          <AwaitingPaymentForm
+            profile={profile}
+            channelName={channel.channel_name}
+            subscriptionDuration={subscription.duration}
+            totalPrice={invoice.amount}
+            invoiceStatus={invoice.status}
+            invoiceLink={invoice.invoice_url}
+            onRenewClick={() => setShowSubscribeForm(true)}
+          />;
       } else {
         return showSubscribeForm ? (
           <SubscribeChannelForm profile={profile} channel={channel} />
@@ -56,8 +64,7 @@ const ChannelSlug = (props: IChannelSlug) => {
           </button>
         </div>
         <div className={styles.posts__wrap}>
-          {/* <ChannelBody /> */}
-          <SubscribeChannelForm profile={profile} channel={channel} />
+          <ChannelBody />
         </div>
       </div>
     );
@@ -111,8 +118,8 @@ export const getServerSideProps: GetServerSideProps = async (
     props: {
       profile,
       channel,
-      subscription,
-      invoice,
+      subscription: subscription ?? null,
+      invoice: invoice ?? null,
     },
   };
 };

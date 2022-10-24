@@ -9,8 +9,6 @@ const invoiceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     data: JSON.stringify(req.body),
   });
 
-  console.log(212, resp);
-
   res.setHeader("Content-Type", "application/json");
   res.json(resp);
 };
