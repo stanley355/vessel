@@ -28,16 +28,20 @@ const ChannelSlug = (props: IChannelSlug) => {
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
       if (subscribing !== "EXPIRED") {
-        return <div>hi</div>
+        return <div>hi</div>;
       } else {
-        return showSubscribeForm ?
-          <SubscribeChannelForm profile={profile} channel={channel} /> :
-          <ChannelNotSubscribed onSubscribeClick={() => setShowSubscribeForm(true)} />;
+        return showSubscribeForm ? (
+          <SubscribeChannelForm profile={profile} channel={channel} />
+        ) : (
+          <ChannelNotSubscribed
+            onSubscribeClick={() => setShowSubscribeForm(true)}
+          />
+        );
       }
     } else {
-      return <ChannelNoPosts />
+      return <ChannelNoPosts />;
     }
-  }
+  };
 
   const MainSection = () => {
     return (
@@ -71,16 +75,19 @@ export const getServerSideProps: GetServerSideProps = async (
   const slug: any = context?.params?.slug ?? "";
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
-  const channel = await findChannel(slug) ?? null;
+  const channel = (await findChannel(slug)) ?? null;
   let subscribing: string = "";
 
   if (profile && channel && channel.id) {
     const payload = {
       userID: profile.id,
-      channelID: channel.id
-    }
+      channelID: channel.id,
+    };
     const subscription = await viewSubscriptions(payload);
-    subscribing = subscription.length > 0 ? checkSubscriptionStatus(subscription[subscription.length - 1]) : "";
+    subscribing =
+      subscription.length > 0
+        ? checkSubscriptionStatus(subscription[subscription.length - 1])
+        : "";
   }
   // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
 

@@ -7,6 +7,6 @@ const checkSubscriptionStatus = (subscription: any) => {
   } else {
     return "UNPAID";
   }
-}
+};
 
 export default checkSubscriptionStatus;
