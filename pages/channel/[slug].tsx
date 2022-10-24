@@ -30,7 +30,9 @@ const ChannelSlug = (props: IChannelSlug) => {
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
       if (subscription) {
-        return showSubscribeForm ? <SubscribeChannelForm profile={profile} channel={channel} /> :
+        return showSubscribeForm ? (
+          <SubscribeChannelForm profile={profile} channel={channel} />
+        ) : (
           <AwaitingPaymentForm
             profile={profile}
             channelName={channel.channel_name}
@@ -39,7 +41,8 @@ const ChannelSlug = (props: IChannelSlug) => {
             invoiceStatus={invoice.status}
             invoiceLink={invoice.invoice_url}
             onRenewClick={() => setShowSubscribeForm(true)}
-          />;
+          />
+        );
       } else {
         return showSubscribeForm ? (
           <SubscribeChannelForm profile={profile} channel={channel} />
