@@ -50,8 +50,7 @@ const Account = (props: any) => {
       <div className={styles.account}>
         <AccountTabHeader />
         <div className={styles.account__tabs__body}>
-          {/* <ActiveTabBody /> */}
-          <ProfileTab profile={profile} subscriptions={subscriptions} />
+          <ActiveTabBody />
         </div>
       </div>
     </div>

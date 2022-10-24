@@ -27,7 +27,7 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
-      if (subscribing !== "EXPIRED") {
+      if (subscribing) {
         return <div>hi</div>;
       } else {
         return showSubscribeForm ? (
@@ -53,7 +53,8 @@ const ChannelSlug = (props: IChannelSlug) => {
           </button>
         </div>
         <div className={styles.posts__wrap}>
-          <ChannelBody />
+          {/* <ChannelBody /> */}
+          <SubscribeChannelForm profile={profile} channel={channel} />
         </div>
       </div>
     );

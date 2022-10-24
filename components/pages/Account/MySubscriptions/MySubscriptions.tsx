@@ -35,7 +35,6 @@ const MySubscriptions = (props: IMySubscriptions) => {
       </div>
     );
   };
-  console.log(subscriptions);
 
   return (
     <div className={styles.my__subscriptions}>
