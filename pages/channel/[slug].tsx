@@ -8,7 +8,7 @@ import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubsc
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
-import styles from './ChannelSlug.module.scss';
+import styles from "./ChannelSlug.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
@@ -26,7 +26,9 @@ const ChannelSlug = (props: IChannelSlug) => {
       <div className={styles.main}>
         <div className={styles.main__head}>
           <h2>Posts</h2>
-          <button type="button" className={styles.subscribe__btn}>Subscribe</button>
+          <button type="button" className={styles.subscribe__btn}>
+            Subscribe
+          </button>
         </div>
         <div className={styles.posts__wrap}>
           {/* <ChannelNoPosts /> */}
@@ -34,8 +36,8 @@ const ChannelSlug = (props: IChannelSlug) => {
           <SubscribeChannelForm profile={profile} channel={channel} />
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="container">

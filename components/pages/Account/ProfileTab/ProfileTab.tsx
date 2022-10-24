@@ -11,7 +11,7 @@ interface IProfileTab {
     fullname: string;
     email: string;
   };
-  subscriptions: any[]
+  subscriptions: any[];
 }
 
 const ProfileTab = (props: IProfileTab) => {
@@ -24,7 +24,7 @@ const ProfileTab = (props: IProfileTab) => {
         {profile && <UserProfileCard profile={profile} />}
         {isDesktop && <LogoutBtn />}
       </div>
-      <MySubscriptions subscriptions={subscriptions}/>
+      <MySubscriptions subscriptions={subscriptions} />
       <br />
       {!isDesktop && <LogoutBtn />}
     </div>

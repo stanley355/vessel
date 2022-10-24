@@ -14,7 +14,7 @@ const viewSubscriptions = async (payload: IViewSubscriptions) => {
   const params = {
     user_id: payload.userID ?? "",
     ...(payload.channelID && { channels_id: String(payload.channelID) }),
-    ...(payload.invoiceID && { invoice_id: payload.invoiceID}),
+    ...(payload.invoiceID && { invoice_id: payload.invoiceID }),
   };
 
   const queryString = new URLSearchParams(params);

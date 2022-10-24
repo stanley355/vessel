@@ -20,7 +20,7 @@ const createSubscription = async (payload: ICreateSubscription) => {
     duration: payload.duration,
     invoice_id: payload.invoiceID,
     channels_name: payload.channelName,
-  }
+  };
 
   const subscriptionRes = await fetcher(`${BASE_URL}/api/subscriptions/`, {
     method: "POST",

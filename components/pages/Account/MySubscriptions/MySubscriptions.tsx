@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import { FaRegFrownOpen } from 'react-icons/fa';
-import styles from './MySubscriptions.module.scss';
+import React from "react";
+import Link from "next/link";
+import { FaRegFrownOpen } from "react-icons/fa";
+import styles from "./MySubscriptions.module.scss";
 
 interface IMySubscriptions {
   subscriptions: any[];
@@ -17,12 +17,13 @@ const MySubscriptions = (props: IMySubscriptions) => {
     </div>
   );
 
-
   const SubscriptionsList = () => {
     return (
       <div>
         <div>
-          <span>Channel</span><span>Status</span><span>.</span>
+          <span>Channel</span>
+          <span>Status</span>
+          <span>.</span>
         </div>
 
         {/* {subscriptions.map((subs:any) => 
@@ -32,8 +33,8 @@ const MySubscriptions = (props: IMySubscriptions) => {
           </div>
         )} */}
       </div>
-    )
-  }
+    );
+  };
   console.log(subscriptions);
 
   return (
@@ -42,7 +43,7 @@ const MySubscriptions = (props: IMySubscriptions) => {
 
       <NoSubscriptions />
     </div>
-  )
-}
+  );
+};
 
 export default MySubscriptions;

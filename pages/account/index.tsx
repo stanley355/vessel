@@ -11,7 +11,7 @@ import ProfileTab from "../../components/pages/Account/ProfileTab";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, subscriptions, channel, posts, } = props;
+  const { profile, subscriptions, channel, posts } = props;
 
   const [activeTab, setActiveTab] = useState("channel");
 
@@ -61,10 +61,11 @@ const Account = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
-  let subscriptions: any = profile ? await viewSubscriptions({ userID: profile.id }) : [];
+  let subscriptions: any = profile
+    ? await viewSubscriptions({ userID: profile.id })
+    : [];
   let channel: any;
   let posts: any[] = [];
-
 
   if (!token) {
     return {

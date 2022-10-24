@@ -1,9 +1,9 @@
 const filterSimilarSubscription = (subscriptions: any[]) => {
-  let filteredList:any[] = [subscriptions[0]];
-  
-  subscriptions.map((subs:any, index: number)=> {
+  let filteredList: any[] = [subscriptions[0]];
+
+  subscriptions.map((subs: any, index: number) => {
     if (index < subscriptions.length) {
-      filteredList.map((filt:any, filtIndex: number) => {
+      filteredList.map((filt: any, filtIndex: number) => {
         if (filt.channels_id === subs.channels_id) {
           filteredList[filtIndex] = subs;
         } else {

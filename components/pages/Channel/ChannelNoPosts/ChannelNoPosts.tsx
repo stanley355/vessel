@@ -3,7 +3,6 @@ import { FaRegFrownOpen } from "react-icons/fa";
 import styles from "./ChannelNoPosts.module.scss";
 
 const ChannelNoPosts = () => {
-
   return (
     <div className={styles.no__posts}>
       <FaRegFrownOpen />

@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .subscribe__channel {
   padding: $space--lg;
@@ -40,7 +40,7 @@
     }
 
     .btn__active {
-      color:$color--blue;
+      color: $color--blue;
       border: 1px solid $color--blue;
     }
   }
@@ -50,7 +50,7 @@
     margin: 0 10%;
     padding: $space--xs 0;
     border: none;
-    color:$color--white;
+    color: $color--white;
     font-weight: bold;
     font-size: $font--lg;
     border-radius: $space--xs;
