@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import getConfig from "next/config";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
@@ -7,19 +7,37 @@ import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubscribed";
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
 import findChannel from "../../lib/channelHandler/findChannel";
+import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
+import checkSubscriptionStatus from "../../lib/subscriptionHandler/checkSubscriptionStatus";
 import fetcher from "../../lib/fetcher";
 import styles from "./ChannelSlug.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 interface IChannelSlug {
-  slug: string;
   profile: any;
   channel: any;
+  subscribing: any;
 }
 
 const ChannelSlug = (props: IChannelSlug) => {
-  const { slug, profile, channel } = props;
+  const { profile, channel, subscribing } = props;
+
+  const [showSubscribeForm, setShowSubscribeForm] = useState(false);
+
+  const ChannelBody = () => {
+    if (channel && channel.posts_number > 0) {
+      if (subscribing !== "EXPIRED") {
+        return <div>hi</div>
+      } else {
+        return showSubscribeForm ?
+          <SubscribeChannelForm profile={profile} channel={channel} /> :
+          <ChannelNotSubscribed onSubscribeClick={() => setShowSubscribeForm(true)} />;
+      }
+    } else {
+      return <ChannelNoPosts />
+    }
+  }
 
   const MainSection = () => {
     return (
@@ -31,9 +49,7 @@ const ChannelSlug = (props: IChannelSlug) => {
           </button>
         </div>
         <div className={styles.posts__wrap}>
-          {/* <ChannelNoPosts /> */}
-          {/* <ChannelNotSubscribed onSubscribeClick={() =>{}} /> */}
-          <SubscribeChannelForm profile={profile} channel={channel} />
+          <ChannelBody />
         </div>
       </div>
     );
@@ -52,10 +68,20 @@ const ChannelSlug = (props: IChannelSlug) => {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const slug: any = context?.params?.slug;
+  const slug: any = context?.params?.slug ?? "";
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
-  const channel = await findChannel(slug);
+  const channel = await findChannel(slug) ?? null;
+  let subscribing: string = "";
+
+  if (profile && channel && channel.id) {
+    const payload = {
+      userID: profile.id,
+      channelID: channel.id
+    }
+    const subscription = await viewSubscriptions(payload);
+    subscribing = subscription.length > 0 ? checkSubscriptionStatus(subscription[subscription.length - 1]) : "";
+  }
   // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
 
   if (!token) {
@@ -69,9 +95,9 @@ export const getServerSideProps: GetServerSideProps = async (
 
   return {
     props: {
-      slug: slug ?? "",
-      profile: profile ?? null,
-      channel: channel ?? null,
+      profile,
+      channel,
+      subscribing,
     },
   };
 };
