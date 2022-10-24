@@ -68,7 +68,8 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
         channelID: channel.id,
         channelSlug: channel.slug,
         duration: activePlan.month,
-        invoiceID: invoice.id
+        invoiceID: invoice.id,
+        channelName: channel.channel_name
       }
 
       const subscription = await createSubscription(subscriptionPayload);
