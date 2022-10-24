@@ -9,7 +9,7 @@ import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChanne
 import AwaitingPaymentForm from "../../components/pages/Channel/AwaitingPaymentForm";
 import findChannel from "../../lib/channelHandler/findChannel";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
-import checkSubscriptionStatus from "../../lib/subscriptionHandler/checkSubscriptionStatus";
+import viewInvoice from "../../lib/paymentHandler/viewInvoice";
 import fetcher from "../../lib/fetcher";
 import styles from "./ChannelSlug.module.scss";
 
@@ -19,11 +19,13 @@ interface IChannelSlug {
   profile: any;
   channel: any;
   subscription: any;
+  invoice: any;
 }
 
 const ChannelSlug = (props: IChannelSlug) => {
-  const { profile, channel, subscription } = props;
+  const { profile, channel, subscription, invoice } = props;
 
+  console.log(invoice);
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
   const ChannelBody = () => {
@@ -89,6 +91,11 @@ export const getServerSideProps: GetServerSideProps = async (
     const subscriptionList = await viewSubscriptions(payload);
     subscription = subscriptionList[subscriptionList.length - 1];
   }
+
+  if (subscription && subscription.invoice_id) {
+    invoice = await viewInvoice(subscription.invoice_id);
+  }
+
   // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
 
   if (!token) {
@@ -105,6 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (
       profile,
       channel,
       subscription,
+      invoice,
     },
   };
 };

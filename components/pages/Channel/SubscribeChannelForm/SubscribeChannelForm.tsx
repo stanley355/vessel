@@ -55,7 +55,7 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
       externalID: `${profile.id}-${new Date().toLocaleString()}`,
       payerEmail: profile.email,
       description: `Pembayaran langganan channel ${channel.channel_name}`,
-      amount: activePlan.month,
+      amount: activePlan.price,
     };
 
     const invoice = await createInvoice(invoicePayload);
