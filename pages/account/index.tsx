@@ -39,7 +39,7 @@ const Account = (props: any) => {
       case "channel":
         return <ChannelTab channel={channel} posts={posts} />;
       case "profile":
-        return <ProfileTab profile={profile} />;
+        return <ProfileTab profile={profile} subscriptions={subscriptions} />;
       default:
         return <ChannelTab channel={channel} posts={posts} />;
     }
@@ -51,7 +51,7 @@ const Account = (props: any) => {
         <AccountTabHeader />
         <div className={styles.account__tabs__body}>
           {/* <ActiveTabBody /> */}
-          <ProfileTab profile={profile} />
+          <ProfileTab profile={profile} subscriptions={subscriptions} />
         </div>
       </div>
     </div>
