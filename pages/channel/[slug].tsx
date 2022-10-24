@@ -6,6 +6,7 @@ import ChannelStatus from "../../components/pages/Account/ChannelStatus";
 import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubscribed";
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
+import AwaitingPaymentForm from "../../components/pages/Channel/AwaitingPaymentForm";
 import findChannel from "../../lib/channelHandler/findChannel";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import checkSubscriptionStatus from "../../lib/subscriptionHandler/checkSubscriptionStatus";
@@ -17,17 +18,17 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 interface IChannelSlug {
   profile: any;
   channel: any;
-  subscribing: any;
+  subscription: any;
 }
 
 const ChannelSlug = (props: IChannelSlug) => {
-  const { profile, channel, subscribing } = props;
+  const { profile, channel, subscription } = props;
 
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
-      if (subscribing) {
+      if (subscription) {
         return <div>hi</div>;
       } else {
         return showSubscribeForm ? (
@@ -77,18 +78,16 @@ export const getServerSideProps: GetServerSideProps = async (
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
   const channel = (await findChannel(slug)) ?? null;
-  let subscribing: string = "";
+  let subscription;
+  let invoice;
 
   if (profile && channel && channel.id) {
     const payload = {
       userID: profile.id,
       channelID: channel.id,
     };
-    const subscription = await viewSubscriptions(payload);
-    subscribing =
-      subscription.length > 0
-        ? checkSubscriptionStatus(subscription[subscription.length - 1])
-        : "";
+    const subscriptionList = await viewSubscriptions(payload);
+    subscription = subscriptionList[subscriptionList.length - 1];
   }
   // const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {});
 
@@ -105,7 +104,7 @@ export const getServerSideProps: GetServerSideProps = async (
     props: {
       profile,
       channel,
-      subscribing,
+      subscription,
     },
   };
 };
