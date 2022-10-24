@@ -13,7 +13,6 @@ import styles from "./account.module.scss";
 const Account = (props: any) => {
   const { profile, subscriptions, channel, posts, } = props;
 
-  console.log(subscriptions);
   const [activeTab, setActiveTab] = useState("channel");
 
   const AccountTabHeader = () => (
@@ -51,7 +50,8 @@ const Account = (props: any) => {
       <div className={styles.account}>
         <AccountTabHeader />
         <div className={styles.account__tabs__body}>
-          <ActiveTabBody />
+          {/* <ActiveTabBody /> */}
+          <ProfileTab profile={profile} />
         </div>
       </div>
     </div>
