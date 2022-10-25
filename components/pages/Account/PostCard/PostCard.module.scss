@@ -12,6 +12,9 @@
     padding: $space--xs 0;
 
     .channel__img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       img {
         width: 100%;
         border-radius: 50%;
