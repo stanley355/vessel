@@ -30,4 +30,34 @@
       text-align: center;
     }
   }
+
+  .list {
+
+    .link {
+      padding: $space--sm 0;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      border-top: 1px solid $color--barely-blue;
+
+      &:hover {
+        background: $color--barely-blue;
+      }
+
+      &__title {
+        color: $color--blue;
+        font-weight: bold;
+      }
+
+      svg {
+        color:$color--blue;
+        font-size: 28px;
+      }
+
+      @include desktop-view {
+        padding: $space--sm  $space--xs;
+      }
+    }
+  }
 }

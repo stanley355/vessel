@@ -3,7 +3,7 @@ const checkSubscriptionStatus = (subscription: any) => {
     const date = new Date().getTime();
     const expDate = new Date(subscription.expired_at).getTime();
 
-    return date > expDate ? "PAID" : "EXPIRED";
+    return date > expDate ? "ONGOING" : "EXPIRED";
   } else {
     return "UNPAID";
   }

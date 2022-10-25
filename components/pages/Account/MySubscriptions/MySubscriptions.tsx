@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { FaRegFrownOpen } from "react-icons/fa";
+import { FaRegFrownOpen, FaAngleRight } from "react-icons/fa";
+import checkSubscriptionStatus from "../../../../lib/subscriptionHandler/checkSubscriptionStatus";
 import styles from "./MySubscriptions.module.scss";
 
 interface IMySubscriptions {
@@ -17,30 +18,29 @@ const MySubscriptions = (props: IMySubscriptions) => {
     </div>
   );
 
-  const SubscriptionsList = () => {
-    return (
-      <div>
-        <div>
-          <span>Channel</span>
-          <span>Status</span>
-          <span>.</span>
-        </div>
-
-        {/* {subscriptions.map((subs:any) => 
-          <div>
-            <span>{subs.channels_name}</span>
-
-          </div>
-        )} */}
-      </div>
-    );
-  };
+  const SubscriptionsList = () => (
+    <div className={styles.list}>
+      {subscriptions.map((subs: any) =>
+        <Link href={`/channel/${subs.channels_slug}`} key={subs.channels_name}>
+          <a title={subs.channels_name} className={styles.link}>
+            <span>
+              <div className={styles.link__title}>{subs.channels_name.toUpperCase()}</div>
+              <div>status: {checkSubscriptionStatus(subs)}</div>
+            </span>
+            <span>
+              <FaAngleRight />
+            </span>
+          </a>
+        </Link>
+      )}
+    </div>
+  );
 
   return (
     <div className={styles.my__subscriptions}>
       <div className={styles.title}>My Subscriptions</div>
 
-      <NoSubscriptions />
+      {subscriptions.length > 0 ? <SubscriptionsList /> : <NoSubscriptions />}
     </div>
   );
 };
