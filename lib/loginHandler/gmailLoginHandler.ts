@@ -5,6 +5,7 @@ import jsCookie from "js-cookie";
 import fetcher from "../fetcher";
 import channelLoginHandler from "./channelLoginHandler";
 import { WARNING_MSG } from "../warning-messages";
+import createBalance from "../paymentHandler/createBalance";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
@@ -25,19 +26,30 @@ const gmailLoginHandler = async (googleRes: any) => {
   if (loginRes && loginRes.token) {
     const user: any = jwtDecode(loginRes.token);
 
-    if (user.has_channel) {
-      const channelLogin: any = await channelLoginHandler(loginRes.token);
+    const balancePayload = {
+      userID: user.id,
+      userName: user.fullname,
+    };
+    const userBalance: any = await createBalance(balancePayload);
+    const hasBalance = userBalance.identifiers|| userBalance.id;
 
-      if (channelLogin && channelLogin.token) {
-        jsCookie.set("token", loginRes.token);
-        jsCookie.set("token_channel", channelLogin.token);
-        Router.push("/account/");
+    if (hasBalance) {
+      if (user.has_channel) {
+        const channelLogin: any = await channelLoginHandler(loginRes.token);
+
+        if (channelLogin && channelLogin.token) {
+          jsCookie.set("token", loginRes.token);
+          jsCookie.set("token_channel", channelLogin.token);
+          Router.push("/account/");
+        } else {
+          alert(WARNING_MSG.TRY_AGAIN);
+        }
       } else {
-        alert(WARNING_MSG.TRY_AGAIN);
+        jsCookie.set("token", loginRes.token);
+        Router.push("/account/");
       }
     } else {
-      jsCookie.set("token", loginRes.token);
-      Router.push("/account/");
+      alert(WARNING_MSG.TRY_AGAIN);
     }
   } else {
     alert(WARNING_MSG.TRY_AGAIN);
