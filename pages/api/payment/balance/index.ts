@@ -1,8 +1,8 @@
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const invoiceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.PAYMENT_URL}/invoice/`;
+const balanceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const URL = `${process.env.PAYMENT_URL}/balance/`;
 
   const resp = await fetcher(URL, {
     method: req.method,
@@ -16,4 +16,4 @@ const invoiceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(resp);
 };
 
-export default invoiceHandler;
+export default balanceHandler;
