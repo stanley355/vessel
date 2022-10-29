@@ -60,9 +60,9 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
-      const subscriptionStatus = checkSubscriptionStatus(subscription);
+      const subscriptionStatus = subscription && checkSubscriptionStatus(subscription);
 
-      if (subscriptionStatus === "ONGOING") {
+      if (subscription && subscriptionStatus === "ONGOING") {
         return <PostsSection postList={posts} />
       } else {
         const freePosts = posts.filter((post: any) => post.is_free);
@@ -109,10 +109,29 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const slug: any = context?.params?.slug ?? "";
   const token = context.req.cookies["token"];
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/account/login/",
+        permanent: false,
+      },
+    };
+  };
+
   const profile: any = token ? jwtDecode(token) : "";
   const channel = (await findChannel(slug)) ?? null;
-  const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {}) ?? [];
 
+  if (profile && (profile.id === channel.owner_id)) {
+    return {
+      redirect: {
+        destination: "/account/",
+        permanent: false,
+      },
+    }
+  }
+
+  const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {}) ?? [];
   let subscription;
   let invoice;
 
@@ -127,17 +146,6 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (subscription && !subscription.paid && !subscription.expired_at) {
     invoice = await viewInvoice(subscription.invoice_id);
-  }
-
-
-
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/account/login/",
-        permanent: false,
-      },
-    };
   }
 
   return {
