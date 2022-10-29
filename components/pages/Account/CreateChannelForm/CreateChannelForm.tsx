@@ -9,6 +9,7 @@ import updateUserData from "../../../../lib/updateHandler/updateUserData";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./CreateChannelForm.module.scss";
 import Router from "next/router";
+import updateBalanceChannel from "../../../../lib/paymentHandler/updateBalanceChannel";
 
 const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -71,7 +72,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
+        (snapshot: any) => { },
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -91,6 +92,8 @@ const CreateChannelForm = () => {
             const channel = await createChannel(payload);
 
             if (channel && channel.token) {
+              const channelData: any = jwtDecode(channel.token);
+
               const userPayload = {
                 id: user.id,
                 fullname: user.fullname,
@@ -100,9 +103,21 @@ const CreateChannelForm = () => {
 
               const userDataUpdate = await updateUserData(userPayload);
 
-              jsCookie.set("token", userDataUpdate.token);
-              jsCookie.set("token_channel", channel.token);
-              Router.reload();
+              const balancePayload = {
+                userID: user.id,
+                channelID: channelData.id,
+                channelName: channelData.channel_name
+              }
+              const balanceChannelUpdate = await updateBalanceChannel(balancePayload);
+              
+              if (userDataUpdate.token && balanceChannelUpdate.affected > 0) {
+                jsCookie.set("token", userDataUpdate.token);
+                jsCookie.set("token_channel", channel.token);
+                Router.reload();
+              } else {
+                setFormError(WARNING_MSG.TRY_AGAIN);
+                setHasSubmit(false);
+              }
             }
 
             if (channel.error) {
