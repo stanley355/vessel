@@ -39,7 +39,13 @@ const Account = (props: any) => {
       case "channel":
         return <ChannelTab channel={channel} posts={posts} />;
       case "profile":
-        return <ProfileTab profile={profile} balance={balance} subscriptions={subscriptions} />;
+        return (
+          <ProfileTab
+            profile={profile}
+            balance={balance}
+            subscriptions={subscriptions}
+          />
+        );
       default:
         return <ChannelTab channel={channel} posts={posts} />;
     }
@@ -76,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
-    subscriptions = await viewSubscriptions({ userID: profile.id })
+    subscriptions = await viewSubscriptions({ userID: profile.id });
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)

@@ -7,7 +7,7 @@ const invoiceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const resp = await fetcher(URL, {
     method: req.method,
     headers: {
-      "Authorization": process.env.PAYMENT_API_TOKEN
+      Authorization: process.env.PAYMENT_API_TOKEN,
     },
     data: JSON.stringify(req.body),
   });

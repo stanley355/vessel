@@ -30,40 +30,44 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
-
   const PostsSection = ({ postList }: any) => (
     <div>
-      {postList.map((post: any) =>
+      {postList.map((post: any) => (
         <div key={post.id}>
           <PostCard channel={channel} post={post} />
         </div>
-      )}
+      ))}
     </div>
-  )
+  );
 
   const SubscriptionSection = () => {
     if (showSubscribeForm) {
-      return <SubscribeChannelForm profile={profile} channel={channel} />
+      return <SubscribeChannelForm profile={profile} channel={channel} />;
     }
-    return subscription ? <AwaitingPaymentForm
-      profile={profile}
-      channelName={channel.channel_name}
-      subscriptionDuration={subscription.duration}
-      totalPrice={invoice.amount}
-      invoiceStatus={invoice.status}
-      invoiceLink={invoice.invoice_url}
-      onRenewClick={() => setShowSubscribeForm(true)}
-    /> : <ChannelNotSubscribed
-      onSubscribeClick={() => setShowSubscribeForm(true)}
-    />
-  }
+    return subscription ? (
+      <AwaitingPaymentForm
+        profile={profile}
+        channelName={channel.channel_name}
+        subscriptionDuration={subscription.duration}
+        totalPrice={invoice.amount}
+        invoiceStatus={invoice.status}
+        invoiceLink={invoice.invoice_url}
+        onRenewClick={() => setShowSubscribeForm(true)}
+      />
+    ) : (
+      <ChannelNotSubscribed
+        onSubscribeClick={() => setShowSubscribeForm(true)}
+      />
+    );
+  };
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
-      const subscriptionStatus = subscription && checkSubscriptionStatus(subscription);
+      const subscriptionStatus =
+        subscription && checkSubscriptionStatus(subscription);
 
       if (subscription && subscriptionStatus === "ONGOING") {
-        return <PostsSection postList={posts} />
+        return <PostsSection postList={posts} />;
       } else {
         const freePosts = posts.filter((post: any) => post.is_free);
         return (
@@ -71,7 +75,7 @@ const ChannelSlug = (props: IChannelSlug) => {
             <SubscriptionSection />
             {freePosts.length > 0 && <PostsSection postList={freePosts} />}
           </>
-        )
+        );
       }
     } else {
       return <ChannelNoPosts />;
@@ -117,21 +121,22 @@ export const getServerSideProps: GetServerSideProps = async (
         permanent: false,
       },
     };
-  };
+  }
 
   const profile: any = token ? jwtDecode(token) : "";
   const channel = (await findChannel(slug)) ?? null;
 
-  if (profile && (profile.id === channel.owner_id)) {
+  if (profile && profile.id === channel.owner_id) {
     return {
       redirect: {
         destination: "/account/",
         permanent: false,
       },
-    }
+    };
   }
 
-  const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {}) ?? [];
+  const posts =
+    (await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {})) ?? [];
   let subscription;
   let invoice;
 

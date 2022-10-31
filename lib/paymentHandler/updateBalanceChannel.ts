@@ -15,7 +15,7 @@ const updateBalanceChannel = async (payload: IUpdateBalanceChannel) => {
     data: payload,
   });
 
-  return balanceRes; 
+  return balanceRes;
 };
 
 export default updateBalanceChannel;

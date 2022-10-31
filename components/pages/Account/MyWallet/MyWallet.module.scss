@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .my__wallet {
   padding: $space--lg 0;
@@ -20,7 +20,7 @@
 
     svg {
       font-size: 36px;
-      color:$color--blue;
+      color: $color--blue;
     }
     span {
       padding: 0 $space--xs;
@@ -37,13 +37,13 @@
   a {
     border: 1px solid $color--blue;
     padding: $space--xxs;
-    color:$color--blue;
+    color: $color--blue;
   }
 
   a:hover {
     background: $color--blue;
     border: none;
-    color:$color--white;
+    color: $color--white;
     border-radius: $space--xs;
   }
 }

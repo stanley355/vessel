@@ -14,7 +14,7 @@ const createBalance = async (payload: ICreateBalance) => {
     data: payload,
   });
 
-  return balanceRes; 
+  return balanceRes;
 };
 
 export default createBalance;

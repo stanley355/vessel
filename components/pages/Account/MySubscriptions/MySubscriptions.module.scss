@@ -32,7 +32,6 @@
   }
 
   .list {
-
     .link {
       padding: $space--sm 0;
       display: flex;
@@ -51,12 +50,12 @@
       }
 
       svg {
-        color:$color--blue;
+        color: $color--blue;
         font-size: 28px;
       }
 
       @include desktop-view {
-        padding: $space--sm  $space--xs;
+        padding: $space--sm $space--xs;
       }
     }
   }
