@@ -3,14 +3,20 @@ import Link from 'next/link';
 import { FaWallet } from 'react-icons/fa';
 import styles from './MyWallet.module.scss';
 
-const MyWallet = () => {
+interface IMyWallet {
+  balance: any;
+}
+
+const MyWallet = (props: IMyWallet) => {
+  const { balance } = props;
+
   return (
     <div className={styles.my__wallet}>
       <div className={styles.balance}>
         <FaWallet />
         <span>
           <div>My Wallet</div>
-          <div>Rp 0</div>
+          <div>Rp {balance && balance.length > 0 ? balance[0].amount : "Terjadi kesalahan saat pengambilan data"}</div>
         </span>
       </div>
 

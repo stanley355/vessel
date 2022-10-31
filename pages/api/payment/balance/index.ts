@@ -2,12 +2,14 @@ import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const balanceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.PAYMENT_URL}/balance/`;
+  const URL = `${process.env.PAYMENT_URL}/balance/${
+    req.query && req.query.userID ? `?userID=${req.query.userID}` : ""
+  }`;
 
   const resp = await fetcher(URL, {
     method: req.method,
     headers: {
-      "Authorization": process.env.PAYMENT_API_TOKEN
+      "Authorization": process.env.PAYMENT_API_TOKEN,
     },
     data: JSON.stringify(req.body),
   });

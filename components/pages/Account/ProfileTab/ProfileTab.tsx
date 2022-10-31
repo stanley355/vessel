@@ -11,11 +11,12 @@ interface IProfileTab {
     fullname: string;
     email: string;
   };
+  balance: any;
   subscriptions: any[];
 }
 
 const ProfileTab = (props: IProfileTab) => {
-  const { profile, subscriptions } = props;
+  const { profile, balance, subscriptions } = props;
   const { isDesktop } = useResponsive();
 
   return (
@@ -24,7 +25,7 @@ const ProfileTab = (props: IProfileTab) => {
         {profile && <UserProfileCard profile={profile} />}
         {isDesktop && <LogoutBtn />}
       </div>
-      <MyWallet />
+      <MyWallet balance={balance}/>
       <MySubscriptions subscriptions={subscriptions} />
       <br />
       {!isDesktop && <LogoutBtn />}

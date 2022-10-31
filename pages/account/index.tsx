@@ -5,14 +5,14 @@ import jwtDecode from "jwt-decode";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 import viewPost from "../../lib/postHandler/viewPost";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
+import viewBalance from "../../lib/paymentHandler/viewBalance";
 import filterSimilarSubscription from "../../lib/filterSimilarSubscription";
 import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, subscriptions, channel, posts } = props;
-
+  const { profile, balance, subscriptions, channel, posts } = props;
   const [activeTab, setActiveTab] = useState("channel");
 
   const AccountTabHeader = () => (
@@ -39,7 +39,7 @@ const Account = (props: any) => {
       case "channel":
         return <ChannelTab channel={channel} posts={posts} />;
       case "profile":
-        return <ProfileTab profile={profile} subscriptions={subscriptions} />;
+        return <ProfileTab profile={profile} balance={balance} subscriptions={subscriptions} />;
       default:
         return <ChannelTab channel={channel} posts={posts} />;
     }
@@ -60,9 +60,8 @@ const Account = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
-  let subscriptions: any = profile
-    ? await viewSubscriptions({ userID: profile.id })
-    : [];
+  let balance: any;
+  let subscriptions: any = [];
   let channel: any;
   let posts: any[] = [];
 
@@ -73,6 +72,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         permanent: false,
       },
     };
+  }
+
+  if (profile && profile.id) {
+    balance = await viewBalance(profile.id);
+    subscriptions = await viewSubscriptions({ userID: profile.id })
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
@@ -96,6 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       profile: profile ?? null,
+      balance: balance ?? null,
       channel: channel ?? null,
       posts,
       subscriptions,
