@@ -1,0 +1,45 @@
+@import '../../../../styles/tokens/all';
+
+.my__wallet {
+  padding: $space--lg 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @include desktop-view {
+    padding-left: $space--lg;
+    padding-top: $space--xl;
+  }
+
+  .balance {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      font-size: 36px;
+      color:$color--blue;
+    }
+    span {
+      padding: 0 $space--xs;
+      div:first-child {
+        font-weight: bold;
+      }
+    }
+  }
+
+  a {
+    border: 1px solid $color--blue;
+    padding: $space--xxs;
+    color:$color--blue;
+  }
+
+  a:hover {
+    background: $color--blue;
+    border: none;
+    color:$color--white;
+    border-radius: $space--xs;
+  }
+}
