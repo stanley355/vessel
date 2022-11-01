@@ -16,8 +16,8 @@ const WalletHead = (props: IWalletHead) => {
         <div className={styles.info}>
           <div>My Wallet</div>
           <div>
-            {balance && balance.length > 0
-              ? `Rp ${balance[0].amount}`
+            {balance ? (balance.amount > 0
+              ? `Rp ${balance.amount}` : "Rp 0")
               : "Terjadi kesalahan saat pengambilan data"}
           </div>
         </div>

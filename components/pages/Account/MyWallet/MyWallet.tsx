@@ -17,9 +17,8 @@ const MyWallet = (props: IMyWallet) => {
         <span>
           <div>My Wallet</div>
           <div>
-            Rp{" "}
-            {balance && balance.length > 0
-              ? balance[0].amount
+            {balance ? (balance.amount > 0
+              ? `Rp ${balance.amount}` : "Rp 0")
               : "Terjadi kesalahan saat pengambilan data"}
           </div>
         </span>
