@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import updatePaidSubscription from "../../../../lib/subscriptionHandler/updatePaidSubscription";
+import updateChannelSubscriber from "../../../../lib/channelHandler/updateChannelSubscriber";
 import styles from "./AwaitingPaymentForm.module.scss";
 
 interface IAwaitingPayment {
@@ -33,7 +34,7 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
   } = props;
 
   const [hasSubmit, setHasSubmit] = useState(false);
-  
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setHasSubmit(true);
@@ -43,7 +44,12 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
       channelID: channel.id,
       invoiceID: invoice.id
     }
+
     // const paidSubscription = await updatePaidSubscription(subscriptionPayload);
+    // console.log(paidSubscription);
+
+    await updateChannelSubscriber(channel.id);
+
 
   }
 
