@@ -29,7 +29,7 @@ const ChannelSlug = (props: IChannelSlug) => {
   const { profile, channel, posts, subscription, invoice } = props;
 
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
-
+  
   const PostsSection = ({ postList }: any) => (
     <div>
       {postList.map((post: any) => (
@@ -47,11 +47,9 @@ const ChannelSlug = (props: IChannelSlug) => {
     return subscription ? (
       <AwaitingPaymentForm
         profile={profile}
-        channelName={channel.channel_name}
+        channel={channel}
+        invoice={invoice}
         subscriptionDuration={subscription.duration}
-        totalPrice={invoice.amount}
-        invoiceStatus={invoice.status}
-        invoiceLink={invoice.invoice_url}
         onRenewClick={() => setShowSubscribeForm(true)}
       />
     ) : (
