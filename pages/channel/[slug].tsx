@@ -29,7 +29,7 @@ const ChannelSlug = (props: IChannelSlug) => {
   const { profile, channel, posts, subscription, invoice } = props;
 
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
-  
+
   const PostsSection = ({ postList }: any) => (
     <div>
       {postList.map((post: any) => (
@@ -75,9 +75,8 @@ const ChannelSlug = (props: IChannelSlug) => {
           </>
         );
       }
-    } else {
-      return <ChannelNoPosts />;
     }
+    return <ChannelNoPosts />;
   };
 
   const MainSection = () => {
@@ -85,9 +84,6 @@ const ChannelSlug = (props: IChannelSlug) => {
       <div className={styles.main}>
         <div className={styles.main__head}>
           <h2>Posts</h2>
-          <button type="button" className={styles.subscribe__btn}>
-            Subscribe
-          </button>
         </div>
         <div className={styles.posts__wrap}>
           <ChannelBody />
