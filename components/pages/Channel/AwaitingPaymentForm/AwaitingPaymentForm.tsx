@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import updatePaidSubscription from "../../../../lib/subscriptionHandler/updatePaidSubscription";
 import updateChannelSubscriber from "../../../../lib/channelHandler/updateChannelSubscriber";
 import styles from "./AwaitingPaymentForm.module.scss";
+import createPayment from "../../../../lib/paymentHandler/createPayment";
+import { WARNING_MSG } from "../../../../lib/warning-messages";
 
 interface IAwaitingPayment {
   profile: {
@@ -45,12 +48,25 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
       invoiceID: invoice.id
     }
 
-    // const paidSubscription = await updatePaidSubscription(subscriptionPayload);
-    // console.log(paidSubscription);
+    const paidSubscription = await updatePaidSubscription(subscriptionPayload);
 
-    await updateChannelSubscriber(channel.id);
+    const paymentPayload = {
+      channelID: channel.id,
+      channelName: channel.channel_name,
+      subscriberID: profile.id,
+      subscriberName: profile.fullname,
+      subscriptionDuration: subscriptionDuration,
+      totalAmount: invoice.amount
+    }
 
+    const userPayment = await createPayment(paymentPayload);
 
+    if (paidSubscription.paid && userPayment.payment.id) {
+      await updateChannelSubscriber(channel.id);
+      Router.reload();
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN);
+    }
   }
 
   const ConfirmPaymentBtn = () => (
