@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./AwaitingPaymentForm.module.scss";
 
@@ -26,12 +26,24 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
     onRenewClick,
   } = props;
 
+  const [hasSubmit, setHasSubmit] = useState(false);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setHasSubmit(true);
+  }
+
   const ConfirmPaymentBtn = () => (
     <div className={styles.confirm}>
-      <Link href={invoiceLink}>
-        <a title="Invoice Link">Link Pembayaran</a>
-      </Link>
-      <button type="submit">Saya sudah bayar</button>
+      {invoiceStatus === 'PAID' ?
+        <button
+          type="submit"
+          disabled={hasSubmit}>
+          {hasSubmit ? 'Memproses...' : 'Saya sudah bayar'}
+        </button> :
+        <Link href={invoiceLink}>
+          <a title="Invoice Link">Link Pembayaran</a>
+        </Link>}
     </div>
   );
 
@@ -54,7 +66,7 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         Menunggu pembayaran untuk langganan Channel {channelName}
       </div>
 
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.info}>Nama pelanggan : {profile.fullname} </div>
         <div className={styles.info}>Email : {profile.email} </div>
         <div className={styles.info}>
@@ -62,7 +74,7 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         </div>
         <div className={styles.info}>Total Harga: {totalPrice}</div>
         <div className={styles.info}>Status: {invoiceStatus}</div>
-
+        {invoiceStatus === 'PAID' ? "*Klik tombol di bawah untuk konfirmasi pembayaran" : "*Harap refresh halaman ini setelah melakukan pembayaran"}
         {invoiceStatus !== "EXPIRED" ? (
           <ConfirmPaymentBtn />
         ) : (
