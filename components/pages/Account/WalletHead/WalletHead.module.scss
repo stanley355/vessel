@@ -1,0 +1,47 @@
+@import '../../../../styles/tokens/all';
+
+.wallet__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      font-size: 36px;
+      color: $color--blue;
+    }
+
+    .info {
+      padding: 0 $space--xs;
+
+      div:first-child {
+        font-weight: bold;
+      }
+
+      div:last-child {
+        font-style: italic;
+      }
+    }
+  }
+
+  button {
+    border: 1px solid $color--blue;
+    padding: $space--xs;
+    font-weight: bold;
+    color: $color--blue;
+    background: none;
+  }
+
+  button:hover {
+    background: $color--blue;
+    border: none;
+    color: $color--white;
+    border-radius: $space--xs;
+  }
+}
