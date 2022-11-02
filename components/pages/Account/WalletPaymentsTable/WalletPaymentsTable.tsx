@@ -36,7 +36,7 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
           {isDesktop && <th>Keterangan</th>}
         </tr>
         {channelPayments.map((payment: any, index: number) =>
-          <tr>
+          <tr key={index}>
             <td>{index + 1}</td>
             <td>{displayDate(payment.created_at)}</td>
             {isDesktop && <td>{payment.total_amount}</td>}
