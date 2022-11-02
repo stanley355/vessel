@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useResponsive from '../../../../lib/hooks/useResponsive';
 import styles from './WalletPaymentsTable.module.scss';
 
 interface IChannelPayments {
@@ -8,6 +9,9 @@ interface IChannelPayments {
 const WalletPaymentsTable = (props: IChannelPayments) => {
   const { payments } = props;
 
+  const { isDesktop } = useResponsive();
+
+  console.log(payments[0]);
   const [channelPayments, setChannelPayments] = useState<any[]>([]);
 
   useEffect(() => {
@@ -26,13 +30,19 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
         <tr>
           <th>No. </th>
           <th>Tanggal</th>
+          {isDesktop && <th>Jumlah Awal</th>}
+          {isDesktop && <th>Biaya Platform</th>}
           <th>Jumlah bersih</th>
+          {isDesktop && <th>Keterangan</th>}
         </tr>
         {channelPayments.map((payment: any, index: number) =>
           <tr>
             <td>{index + 1}</td>
             <td>{displayDate(payment.created_at)}</td>
-            <td>{payment.channel_net_income}</td>
+            {isDesktop && <td>{payment.total_amount}</td>}
+            {isDesktop && <td>{payment.platform_fee}</td>}
+            <td className={styles.net_income}>{payment.channel_net_income}</td>
+            {isDesktop && <td>NEW SUBSCRIBERS</td>}
           </tr>
         )}
       </table>
@@ -43,7 +53,7 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
   return (
     <div className={styles.wallet__payments}>
       <h3>Wallet Transactions</h3>
-
+      {!isDesktop && '*Gunakan laptop/komputer untuk melihat lebih banyak'}
       {channelPayments.length > 0 ?
         <PaymentTable />
         :
