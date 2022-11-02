@@ -3,10 +3,11 @@ import { GetServerSideProps } from "next";
 import jwtDecode from "jwt-decode";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import WalletHead from "../../components/pages/Account/WalletHead";
+import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
 
 const Wallet = (props: any) => {
-  const { balance } = props;
-
+  const { balance, payments } = props;
+  
   return (
     <div className="container">
       <WalletHead balance={balance} />
@@ -17,7 +18,9 @@ const Wallet = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
+  const token_channel = context.req.cookies["token_channel"];
   let balance: any;
+  let payments = [];
 
   if (!token) {
     return {
@@ -32,10 +35,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     balance = await viewBalance(profile.id);
   }
 
+  if (token_channel) {
+    const channel: any = jwtDecode(token_channel);
+    payments = await viewPaymentsByChannel(channel.id);
+  }
+
   return {
     props: {
-      profile: profile ?? null,
       balance: balance ?? null,
+      payments,
     },
   };
 };
