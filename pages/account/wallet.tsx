@@ -1,8 +1,9 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import jwtDecode from "jwt-decode";
-import viewBalance from "../../lib/paymentHandler/viewBalance";
 import WalletHead from "../../components/pages/Account/WalletHead";
+import WalletPaymentsTable from "../../components/pages/Account/WalletPaymentsTable";
+import viewBalance from "../../lib/paymentHandler/viewBalance";
 import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
 
 const Wallet = (props: any) => {
@@ -11,6 +12,7 @@ const Wallet = (props: any) => {
   return (
     <div className="container">
       <WalletHead balance={balance} />
+      <WalletPaymentsTable payments={payments}/>
     </div>
   );
 };

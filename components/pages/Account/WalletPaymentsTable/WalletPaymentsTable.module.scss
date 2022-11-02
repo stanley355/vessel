@@ -1,0 +1,21 @@
+@import '../../../../styles/tokens/all';
+
+.wallet__payments {
+  margin: $space--xxl 0;
+
+  table {
+    width: 100%;
+
+    tr:nth-child(odd) {
+      background: $color--barely-blue;
+    }
+  }
+
+  table tr {
+    display: grid;
+    grid-template-columns: 10% 45% 45%;
+    padding: $space--xs 0;
+    text-align: center;
+    
+  }
+}
