@@ -1,0 +1,54 @@
+@import '../../../../styles/tokens/all';
+
+.withdraw__popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: $popup-background-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space--sm;
+  height: 100%;
+
+  .withdraw__box {
+    display: flex;
+    flex-direction: column;
+    background: $color--white;
+    padding: $space--sm;
+    border-radius: $space--xs;
+    position: relative;
+
+    .close__btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0 $space--xs;
+      font-size: $font--xl;
+      border: none;
+    }
+
+    .title {
+      text-align: center;
+      font-size: $font--xl;
+      color:$color--blue;
+    }
+  }
+
+  form {
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: $space--xs;
+      
+      input, select {
+        padding: $space--xs;
+        border: 1px solid $color--black;
+        background: $color--white;
+        font-size: $font--sm;
+        border-radius: $space--xs;
+      }
+    
+    }
+  }
+}

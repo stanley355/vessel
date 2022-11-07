@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaWallet } from "react-icons/fa";
+import WithdrawPopup from "../WithdrawPopup";
 import styles from "./WalletHead.module.scss";
 
 interface IWalletHead {
@@ -8,6 +9,7 @@ interface IWalletHead {
 
 const WalletHead = (props: IWalletHead) => {
   const { balance } = props;
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className={styles.wallet__head}>
@@ -23,7 +25,8 @@ const WalletHead = (props: IWalletHead) => {
         </div>
       </span>
 
-      <button type="button">Withdraw</button>
+      <button type="button" onClick={() => setShowPopup(true)}>Withdraw</button>
+      {showPopup && <WithdrawPopup onCloseClick={()=> setShowPopup(false)} walletAmount={balance} />}
     </div>
   );
 };
