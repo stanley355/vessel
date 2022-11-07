@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   padding: $space--sm;
+  width: 100%;
   height: 100%;
 
   .withdraw__box {
@@ -19,7 +20,7 @@
     border-radius: $space--xs;
     position: relative;
 
-    .close__btn {
+    .close__btn{
       position: absolute;
       top: 0;
       right: 0;
@@ -48,7 +49,17 @@
         font-size: $font--sm;
         border-radius: $space--xs;
       }
-    
+    }
+
+    .cta {
+      width: 100%;
+      border-radius: $space--xs;
+      margin: $space--xs 0;
+
+      &:hover {
+        background: $color--blue;
+        color:$color--white;
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { XENDIT_DISBURSEMENT_PARTNERS } from '../../../../lib/constants/xenditDisbursementPartners';
 import styles from './WithdrawPopup.module.scss';
 
 interface IWithdrawPopup {
@@ -21,9 +22,9 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
           <div className={styles.field}>
             <label htmlFor="bankName">Nama Bank / eWallet</label>
             <select name="bankName" id="bankName">
-              <option value="BCA">BCA</option>
-
-              <option value="BRI">BRI</option>
+              {XENDIT_DISBURSEMENT_PARTNERS.map((partners: any) =>
+                <option value={partners.value}>{partners.label}</option>)
+              }
             </select>
           </div>
 
@@ -45,7 +46,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
             <input type="number" name="amount" id="amount" placeholder='Rp ...' />
           </div>
 
-          <button type="submit">Tarik</button>
+          <button type="submit" className={styles.cta}>Tarik</button>
 
         </form>
       </div>
