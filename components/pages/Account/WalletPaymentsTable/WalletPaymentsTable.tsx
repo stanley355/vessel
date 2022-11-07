@@ -11,7 +11,6 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
 
   const { isDesktop } = useResponsive();
 
-  console.log(payments[0]);
   const [channelPayments, setChannelPayments] = useState<any[]>([]);
 
   useEffect(() => {
@@ -27,24 +26,28 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
   const PaymentTable = () => {
     return (
       <table>
-        <tr>
-          <th>No. </th>
-          <th>Tanggal</th>
-          {isDesktop && <th>Jumlah Awal</th>}
-          {isDesktop && <th>Biaya Platform</th>}
-          <th>Jumlah bersih</th>
-          {isDesktop && <th>Keterangan</th>}
-        </tr>
-        {channelPayments.map((payment: any, index: number) =>
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{displayDate(payment.created_at)}</td>
-            {isDesktop && <td>{payment.total_amount}</td>}
-            {isDesktop && <td>{payment.platform_fee}</td>}
-            <td className={styles.net_income}>{payment.channel_net_income}</td>
-            {isDesktop && <td>NEW SUBSCRIBERS</td>}
+        <thead>
+          <tr>
+            <th>No. </th>
+            <th>Tanggal</th>
+            {isDesktop && <th>Jumlah Awal</th>}
+            {isDesktop && <th>Biaya Platform</th>}
+            <th>Jumlah bersih</th>
+            {isDesktop && <th>Keterangan</th>}
           </tr>
-        )}
+        </thead>
+        <tbody>
+          {channelPayments.map((payment: any, index: number) =>
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{displayDate(payment.created_at)}</td>
+              {isDesktop && <td>{payment.total_amount}</td>}
+              {isDesktop && <td>{payment.platform_fee}</td>}
+              <td className={styles.net_income}>{payment.channel_net_income}</td>
+              {isDesktop && <td>NEW SUBSCRIBERS</td>}
+            </tr>
+          )}
+        </tbody>
       </table>
     )
   }
