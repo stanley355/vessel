@@ -6,6 +6,7 @@ import { WARNING_MSG } from "../../../../lib/warning-messages";
 import { XENDIT_DISBURSEMENT_PARTNERS } from "../../../../lib/constants/xenditDisbursementPartners";
 import withdrawBalance from "../../../../lib/paymentHandler/withdrawBalance";
 import styles from "./WithdrawPopup.module.scss";
+import Router from "next/router";
 
 interface IWithdrawPopup {
   walletAmount: number;
@@ -61,6 +62,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
     const withdrawRes = await withdrawBalance(withdrawPayload);
 
     if (withdrawRes && withdrawRes.affected > 0) {
+      setTimeout(() => Router.reload(), 2000)
       setHasSubmit(false);
       setWithdrawSuccess(true);
     } else {
