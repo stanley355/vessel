@@ -22,19 +22,14 @@ interface IAwaitingPayment {
     status: string;
     invoice_url: string;
     amount: number;
-  }
+  };
   subscriptionDuration: number;
   onRenewClick: () => void;
 }
 
 const AwaitingPaymentForm = (props: IAwaitingPayment) => {
-  const {
-    profile,
-    channel,
-    invoice,
-    subscriptionDuration,
-    onRenewClick,
-  } = props;
+  const { profile, channel, invoice, subscriptionDuration, onRenewClick } =
+    props;
 
   const [hasSubmit, setHasSubmit] = useState(false);
 
@@ -45,8 +40,8 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
     const subscriptionPayload = {
       userID: profile.id,
       channelID: channel.id,
-      invoiceID: invoice.id
-    }
+      invoiceID: invoice.id,
+    };
 
     const paidSubscription = await updatePaidSubscription(subscriptionPayload);
 
@@ -56,8 +51,8 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
       subscriberID: profile.id,
       subscriberName: profile.fullname,
       subscriptionDuration: subscriptionDuration,
-      totalAmount: invoice.amount
-    }
+      totalAmount: invoice.amount,
+    };
 
     const userPayment = await createPayment(paymentPayload);
 
@@ -67,19 +62,19 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
     }
-  }
+  };
 
   const ConfirmPaymentBtn = () => (
     <div className={styles.confirm}>
-      {invoice.status === 'PAID' ?
-        <button
-          type="submit"
-          disabled={hasSubmit}>
-          {hasSubmit ? 'Memproses...' : 'Saya sudah bayar'}
-        </button> :
+      {invoice.status === "PAID" ? (
+        <button type="submit" disabled={hasSubmit}>
+          {hasSubmit ? "Memproses..." : "Saya sudah bayar"}
+        </button>
+      ) : (
         <Link href={invoice.invoice_url}>
           <a title="Invoice Link">Link Pembayaran</a>
-        </Link>}
+        </Link>
+      )}
     </div>
   );
 
@@ -110,7 +105,9 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         </div>
         <div className={styles.info}>Total Harga: {invoice.amount}</div>
         <div className={styles.info}>Status: {invoice.status}</div>
-        {invoice.status === 'PAID' ? "*Klik tombol di bawah untuk konfirmasi pembayaran" : "*Harap refresh halaman ini setelah melakukan pembayaran"}
+        {invoice.status === "PAID"
+          ? "*Klik tombol di bawah untuk konfirmasi pembayaran"
+          : "*Harap refresh halaman ini setelah melakukan pembayaran"}
         {invoice.status === "EXPIRED" ? (
           <RenewPaymentBtn />
         ) : (

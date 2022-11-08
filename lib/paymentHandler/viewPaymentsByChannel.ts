@@ -4,7 +4,7 @@ import fetcher from "../fetcher";
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const viewPaymentsByChannel = async (channelID: number) => {
-  const URL = `${BASE_URL}/api/payment/channels?channelID=${channelID}`
+  const URL = `${BASE_URL}/api/payment/channels?channelID=${channelID}`;
 
   const paymentRes = await fetcher(URL, {});
 

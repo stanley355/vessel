@@ -8,11 +8,11 @@ import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChanne
 
 const Wallet = (props: any) => {
   const { balance, payments } = props;
-  
+
   return (
     <div className="container">
       <WalletHead balance={balance} />
-      <WalletPaymentsTable payments={payments}/>
+      <WalletPaymentsTable payments={payments} />
     </div>
   );
 };

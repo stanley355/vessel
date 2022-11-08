@@ -12,7 +12,7 @@ interface ICreatePayment {
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
-const createPayment = async (payload: ICreatePayment ) => {
+const createPayment = async (payload: ICreatePayment) => {
   const paymentRes = await fetcher(`${BASE_URL}/api/payment/`, {
     method: "POST",
     data: payload,

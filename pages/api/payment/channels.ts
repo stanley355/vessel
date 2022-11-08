@@ -1,7 +1,10 @@
 import fetcher from "../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const paymentChannelsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const paymentChannelsHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const URL = `${process.env.PAYMENT_URL}/payment/channels?channelID=${req.query.channelID}`;
 
   const resp = await fetcher(URL, {

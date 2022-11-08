@@ -8,7 +8,7 @@ const paidSubscriptionHandler = async (
   const URL = `${process.env.AUTHOR_URL}/subscriptions/paid/`;
 
   const resp = await fetcher(URL, {
-    method: 'PUT',
+    method: "PUT",
     data: JSON.stringify(req.body),
   });
 
