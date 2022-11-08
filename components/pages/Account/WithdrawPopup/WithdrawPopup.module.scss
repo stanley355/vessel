@@ -62,4 +62,17 @@
       }
     }
   }
+
+  .withdraw__success {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      color: $color--blue;
+      padding: $space--sm;
+      font-size: 56px;
+    }
+  }
 }
