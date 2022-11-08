@@ -17,15 +17,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   const profile: any = token ? jwtDecode(token) : "";
   let posts: any[] = [];
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/account/login/",
-        permanent: false,
-      },
-    };
-  }
-
   if (profile && profile.id) {
     const rawSubscriptions = await viewSubscriptions({ userID: profile.id });
     if (rawSubscriptions && rawSubscriptions.length > 0) {
@@ -38,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   } else {
     posts = await viewHomePosts([]);
   }
-  
+
   return {
     props: {
       posts
