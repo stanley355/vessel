@@ -35,7 +35,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     } else {
       posts = await viewHomePosts([]);
     }
+  } else {
+    posts = await viewHomePosts([]);
   }
+  
   return {
     props: {
       posts
