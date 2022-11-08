@@ -17,16 +17,24 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
     setHasSubmit(true);
 
     const { bankName, bankAccount, accountHolderName, amount } = e.target;
-
+    
     if (!bankName.value || !bankAccount.value || !accountHolderName.value || !amount.value) {
       setHasSubmit(false);
       alert('Semua data harus terisi!');
-    } else {
-      if (amount.value < 5000) {
-        setHasSubmit(false);
-        alert('Jumlah Penarikan Minimal Rp5000 !');
-      }
+      return '';
     }
+    if (amount.value < 5000) {
+      setHasSubmit(false);
+      alert('Jumlah Penarikan Minimal Rp5000 !');
+      return '';
+    }
+
+    if (walletAmount < amount.value) {
+      setHasSubmit(false);
+      alert('Jumlah Balance untuk penarikan tidak mencukupi');
+      return '';
+    }
+
   }
 
   return (
@@ -40,16 +48,16 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
         <form onSubmit={handleSubmit}>
           <div className={styles.field}>
             <label htmlFor="bankName">Nama Bank / eWallet</label>
-            <select name="bankName" id="bankName">
+            <select name="bankName" id="bankName" defaultValue="OVO">
               {XENDIT_DISBURSEMENT_PARTNERS.map((partners: any) =>
-                <option value={partners.value}>{partners.label}</option>)
+                <option value={partners.value} key={partners.value}>{partners.label}</option>)
               }
             </select>
           </div>
 
           <div className={styles.field}>
             <label htmlFor="bankAccount">Nomor Akun Bank / eWallet</label>
-            <input type="text" name="bankAccount" id='bankAccount' placeholder='00000000' />
+            <input type="number" name="bankAccount" id='bankAccount' placeholder='00000000' />
           </div>
 
           <div className={styles.field}>
@@ -57,7 +65,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
               <div>Nama pemilik akun</div>
               <div>*Pastikan sesuai dengan nama pada kartu bank / eWallet</div>
             </label>
-            <input type="text" name="bankAccount" id='bankAccount' placeholder='John Doe' />
+            <input type="text" name="accountHolderName" id='accountHolderName' placeholder='John Doe' />
           </div>
 
           <div className={styles.field}>
