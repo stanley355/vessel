@@ -1,0 +1,54 @@
+@import '../../../../styles/tokens/all';
+
+.post__card {
+  padding: $space--xs 0;
+  border-top: 1px solid $color--gray;
+  border-bottom: 1px solid $color--gray;
+
+  &__head {
+    display: grid;
+    grid-gap: 2%;
+    grid-template-columns: 20% 80%;
+    padding: $space--xs 0;
+
+    .channel__img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: $font--lg;
+
+      @include desktop-view {
+        font-size: $font--xxl;
+        padding: $space--xs 0;
+      }
+    }
+  }
+
+  .video__wrap {
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: $space--xs;
+    }
+  }
+
+  .img__wrap {
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: $space--xs;
+    }
+  }
+}

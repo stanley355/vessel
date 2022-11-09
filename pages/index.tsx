@@ -5,10 +5,18 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import viewHomePosts from '../lib/postHandler/viewHomePosts';
 import viewSubscriptions from '../lib/subscriptionHandler/viewSubscriptions';
 import filterSimilarSubscription from '../lib/filterSimilarSubscription';
+import HomePostCard from '../components/pages/Home/HomePostCard';
+import styles from '../styles/pages/home.module.scss';
 
 const Home: NextPage = (props: any) => {
   const { posts } = props;
-  return <div className="container">hi</div>;
+  return (
+    <div className="container">
+      <div>
+        {posts && posts.length && posts.map((post: any) => <HomePostCard post={post} />)}
+      </div>
+    </div>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
