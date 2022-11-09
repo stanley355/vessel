@@ -1,26 +1,29 @@
-import React from 'react';
+import React from "react";
 import type { NextPage } from "next";
-import jwtDecode from 'jwt-decode';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import viewHomePosts from '../lib/postHandler/viewHomePosts';
-import viewSubscriptions from '../lib/subscriptionHandler/viewSubscriptions';
-import filterSimilarSubscription from '../lib/filterSimilarSubscription';
-import HomePostCard from '../components/pages/Home/HomePostCard';
-import styles from '../styles/pages/home.module.scss';
+import jwtDecode from "jwt-decode";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import viewHomePosts from "../lib/postHandler/viewHomePosts";
+import viewSubscriptions from "../lib/subscriptionHandler/viewSubscriptions";
+import filterSimilarSubscription from "../lib/filterSimilarSubscription";
+import HomePostCard from "../components/pages/Home/HomePostCard";
+import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
   const { posts } = props;
   return (
     <div className="container">
       <div>
-        {posts && posts.length && posts.map((post: any) => <HomePostCard post={post} />)}
+        {posts &&
+          posts.length &&
+          posts.map((post: any) => <HomePostCard post={post} />)}
       </div>
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
   let posts: any[] = [];
@@ -29,7 +32,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     const rawSubscriptions = await viewSubscriptions({ userID: profile.id });
     if (rawSubscriptions && rawSubscriptions.length > 0) {
       const subscriptions = filterSimilarSubscription(rawSubscriptions);
-      const subscriptionsChannelID = subscriptions.map((subscription) => Number(subscription.channels_id));
+      const subscriptionsChannelID = subscriptions.map((subscription) =>
+        Number(subscription.channels_id)
+      );
       posts = await viewHomePosts(subscriptionsChannelID);
     } else {
       posts = await viewHomePosts([]);
@@ -40,9 +45,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   return {
     props: {
-      posts
-    }
-  }
-}
+      posts,
+    },
+  };
+};
 
 export default Home;

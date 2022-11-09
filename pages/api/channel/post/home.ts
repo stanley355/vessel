@@ -1,7 +1,10 @@
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const homepagePostsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const homepagePostsHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const URL = `${process.env.CHANNEL_URL}/post/home/`;
 
   const resp = await fetcher(URL, {

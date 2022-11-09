@@ -62,7 +62,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
     const withdrawRes = await withdrawBalance(withdrawPayload);
 
     if (withdrawRes && withdrawRes.affected > 0) {
-      setTimeout(() => Router.reload(), 2000)
+      setTimeout(() => Router.reload(), 2000);
       setHasSubmit(false);
       setWithdrawSuccess(true);
     } else {
