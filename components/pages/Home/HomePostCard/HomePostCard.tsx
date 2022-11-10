@@ -17,11 +17,11 @@ const PostCard = (props: IPostCard) => {
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
-        {/* <span className={styles.channel__img}>
-          <img src={channel.profile_img_url} alt={channel.channel_name} />
-        </span> */}
+        <span className={styles.channel__img}>
+          <img src={post.profile_img_url} alt={post.channel_name} />
+        </span>
         <span>
-          <div className={styles.title}>{post.channel_slug}</div>
+          <div className={styles.title}>{post.channel_name}</div>
           <div>{getPostDate()}</div>
         </span>
       </div>

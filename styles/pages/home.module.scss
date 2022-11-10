@@ -1,4 +1,10 @@
 @import "../tokens/all";
 
 .home {
+  &__posts {
+    @include desktop-view {
+      width: 60%;
+      margin: auto;
+    }
+  }
 }

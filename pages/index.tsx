@@ -12,10 +12,12 @@ const Home: NextPage = (props: any) => {
   const { posts } = props;
   return (
     <div className="container">
-      <div>
-        {posts &&
-          posts.length &&
-          posts.map((post: any) => <HomePostCard post={post} />)}
+      <div className={styles.home}>
+        <div className={styles.home__posts}>
+          {posts &&
+            posts.length &&
+            posts.map((post: any) => <HomePostCard post={post} />)}
+        </div>
       </div>
     </div>
   );
@@ -35,6 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (
       const subscriptionsChannelID = subscriptions.map((subscription) =>
         Number(subscription.channels_id)
       );
+
       posts = await viewHomePosts(subscriptionsChannelID);
     } else {
       posts = await viewHomePosts([]);
