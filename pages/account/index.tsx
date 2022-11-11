@@ -13,7 +13,7 @@ import styles from "./account.module.scss";
 
 const Account = (props: any) => {
   const { profile, balance, subscriptions, channel, posts } = props;
-  const [activeTab, setActiveTab] = useState("channel");
+  const [activeTab, setActiveTab] = useState('channel');
 
   const AccountTabHeader = () => (
     <div className={styles.account__tabs}>
@@ -26,8 +26,8 @@ const Account = (props: any) => {
       </button>
       <button
         type="button"
-        onClick={() => setActiveTab("profile")}
-        className={activeTab === "profile" ? styles.btn__active : ""}
+        onClick={() => setActiveTab("account")}
+        className={activeTab === "account" ? styles.btn__active : ""}
       >
         Account
       </button>
@@ -38,7 +38,7 @@ const Account = (props: any) => {
     switch (activeTab) {
       case "channel":
         return <ChannelTab channel={channel} posts={posts} />;
-      case "profile":
+      case "account":
         return (
           <ProfileTab
             profile={profile}
