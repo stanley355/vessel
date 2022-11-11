@@ -1,13 +1,15 @@
 import React from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Cookies from "js-cookie";
-import NavigationFooter from "../NavigationFooter";
 import useResponsive from "../../lib/hooks/useResponsive";
 
 const Layout = ({ children }: any) => {
   const token: any = Cookies.get('token');
+  const { isDesktop } = useResponsive();
 
-  const {isDesktop} = useResponsive();
+  const Navbar = dynamic(() => import('../Navbar/Navbar'), { ssr: false });
+  const NavigationFooter = dynamic(() => import('../NavigationFooter/NavigationFooter'), { ssr: false });
 
   return (
     <div className="layout">
@@ -30,7 +32,7 @@ const Layout = ({ children }: any) => {
           content="1B5-W9OtAQdiu4XQXrRDfAdNJiVSM9k2GVxupDVJ4fU"
         />
       </Head>
-      {/* <Navbar token={token} isDesktop={isDesktop} /> */}
+      <Navbar token={token} isDesktop={isDesktop} />
       <div className="body">{children}</div>
       {!isDesktop && token && <NavigationFooter />}
     </div>
