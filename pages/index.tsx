@@ -16,7 +16,11 @@ const Home: NextPage = (props: any) => {
         <div className={styles.home__posts}>
           {posts &&
             posts.length &&
-            posts.map((post: any) => <div key={post.id}><HomePostCard post={post} token={token} /></div>)}
+            posts.map((post: any) => (
+              <div key={post.id}>
+                <HomePostCard post={post} token={token} />
+              </div>
+            ))}
         </div>
       </div>
     </div>

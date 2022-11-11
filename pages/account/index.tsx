@@ -13,7 +13,7 @@ import styles from "./account.module.scss";
 
 const Account = (props: any) => {
   const { profile, balance, subscriptions, channel, posts } = props;
-  const [activeTab, setActiveTab] = useState('channel');
+  const [activeTab, setActiveTab] = useState("channel");
 
   const AccountTabHeader = () => (
     <div className={styles.account__tabs}>

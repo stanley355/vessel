@@ -1,4 +1,4 @@
-@import '../../styles/tokens/all';
+@import "../../styles/tokens/all";
 
 .navigation__footer {
   position: fixed;
@@ -11,7 +11,7 @@
   grid-template-columns: 33% 33% 33%;
 
   svg {
-    color:$color--blue;
+    color: $color--blue;
     font-size: 36px;
     border: 1px solid $color--blue;
     padding: $space--xxs;

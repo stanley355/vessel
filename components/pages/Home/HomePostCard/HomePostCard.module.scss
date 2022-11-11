@@ -20,8 +20,8 @@
     }
 
     a {
-      background:$color--blue;
-      color:$color--white;
+      background: $color--blue;
+      color: $color--white;
       padding: $space--xs;
       border-radius: $space--xs;
     }
@@ -39,7 +39,7 @@
 
     .title {
       font-weight: bold;
-      color:$color--blue;
+      color: $color--blue;
       font-size: $font--lg;
 
       @include desktop-view {

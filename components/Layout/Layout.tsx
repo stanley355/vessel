@@ -5,11 +5,14 @@ import Cookies from "js-cookie";
 import useResponsive from "../../lib/hooks/useResponsive";
 
 const Layout = ({ children }: any) => {
-  const token: any = Cookies.get('token');
+  const token: any = Cookies.get("token");
   const { isDesktop } = useResponsive();
 
-  const Navbar = dynamic(() => import('../Navbar/Navbar'), { ssr: false });
-  const NavigationFooter = dynamic(() => import('../NavigationFooter/NavigationFooter'), { ssr: false });
+  const Navbar = dynamic(() => import("../Navbar/Navbar"), { ssr: false });
+  const NavigationFooter = dynamic(
+    () => import("../NavigationFooter/NavigationFooter"),
+    { ssr: false }
+  );
 
   return (
     <div className="layout">

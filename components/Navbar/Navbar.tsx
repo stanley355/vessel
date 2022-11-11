@@ -4,8 +4,8 @@ import { FaHome, FaWallet, FaUser } from "react-icons/fa";
 import styles from "./Navbar.module.scss";
 
 interface INavbar {
-  token: string,
-  isDesktop: boolean
+  token: string;
+  isDesktop: boolean;
 }
 
 const Navbar = (props: INavbar) => {
@@ -17,7 +17,7 @@ const Navbar = (props: INavbar) => {
         <h2>Kontenku</h2>
       </Link>
     </div>
-  )
+  );
 
   const LoginNavbar = () => {
     return (
@@ -27,7 +27,6 @@ const Navbar = (props: INavbar) => {
         </Link>
 
         <div className={styles.menu}>
-
           <Link href="/">
             <a title="home">
               <FaHome /> Home
@@ -45,9 +44,8 @@ const Navbar = (props: INavbar) => {
           </Link>
         </div>
       </div>
-    )
-  }
-
+    );
+  };
 
   return token && isDesktop ? <LoginNavbar /> : <DefaultNavbar />;
 };

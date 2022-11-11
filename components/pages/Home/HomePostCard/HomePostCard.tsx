@@ -19,7 +19,9 @@ const PostCard = (props: IPostCard) => {
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
-        <Link href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}>
+        <Link
+          href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}
+        >
           <div className={styles.post__card__head__info}>
             <span className={styles.channel__img}>
               <img src={post.profile_img_url} alt={post.channel_name} />
@@ -31,10 +33,10 @@ const PostCard = (props: IPostCard) => {
           </div>
         </Link>
 
-        <Link href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}>
-          <a title={post.channels_slug}>
-            Subscribe
-          </a>
+        <Link
+          href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}
+        >
+          <a title={post.channels_slug}>Subscribe</a>
         </Link>
       </div>
 

@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import { FaHome, FaUser, FaWallet } from 'react-icons/fa';
-import styles from './NavigationFooter.module.scss';
+import React from "react";
+import Link from "next/link";
+import { FaHome, FaUser, FaWallet } from "react-icons/fa";
+import styles from "./NavigationFooter.module.scss";
 
 const NavigationFooter = () => {
   return (
@@ -16,7 +16,7 @@ const NavigationFooter = () => {
         <FaUser />
       </Link>
     </div>
-  )
-}
+  );
+};
 
 export default NavigationFooter;
