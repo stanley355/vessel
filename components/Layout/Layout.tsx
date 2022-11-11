@@ -6,8 +6,7 @@ import NavigationFooter from "../NavigationFooter";
 import useResponsive from "../../lib/hooks/useResponsive";
 
 const Layout = ({ children }: any) => {
-
-  const token = Cookies.get('token');
+  const token: any = Cookies.get('token');
   const { isDesktop } = useResponsive();
 
   return (
@@ -31,7 +30,7 @@ const Layout = ({ children }: any) => {
           content="1B5-W9OtAQdiu4XQXrRDfAdNJiVSM9k2GVxupDVJ4fU"
         />
       </Head>
-      <Navbar />
+      <Navbar token={token} />
       <div className="body">{children}</div>
       {!isDesktop && token && <NavigationFooter />}
     </div>

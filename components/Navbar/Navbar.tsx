@@ -2,7 +2,13 @@ import React from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
 
-const Navbar = () => {
+interface INavbar {
+  token: string
+}
+
+const Navbar = (props: INavbar) => {
+  const { token } = props;
+
   return (
     <div className={styles.navbar}>
       <Link href="/account/login">
