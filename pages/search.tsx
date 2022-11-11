@@ -8,7 +8,7 @@ const SearchPage = () => {
       <div>
         <form action="">
           <input type="text" placeholder='Search your favourite Channel' />
-          <button type='submit'><FaSearch /> Search</button>
+          <button type='submit'> Search</button>
         </form>
       </div>
 
