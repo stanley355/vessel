@@ -30,11 +30,12 @@ const PostCard = (props: IPostCard) => {
             </span>
           </div>
         </Link>
-        {!token && <Link href="/account/login/">
+
+        <Link href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}>
           <a title={post.channels_slug}>
             Subscribe
           </a>
-        </Link>}
+        </Link>
       </div>
 
       {post.post_type === "Video" ? (
