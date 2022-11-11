@@ -30,7 +30,7 @@ const Layout = ({ children }: any) => {
           content="1B5-W9OtAQdiu4XQXrRDfAdNJiVSM9k2GVxupDVJ4fU"
         />
       </Head>
-      <Navbar token={token} />
+      <Navbar token={token} isDesktop={isDesktop} />
       <div className="body">{children}</div>
       {!isDesktop && token && <NavigationFooter />}
     </div>
