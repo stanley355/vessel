@@ -10,7 +10,7 @@ interface IPostCard {
 
 const PostCard = (props: IPostCard) => {
   const { token, post } = props;
-  
+
   const getPostDate = () => {
     const date = new Date(post.created_at).toDateString();
     return date;
@@ -19,15 +19,17 @@ const PostCard = (props: IPostCard) => {
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
-        <div className={styles.post__card__head__info}>
-          <span className={styles.channel__img}>
-            <img src={post.profile_img_url} alt={post.channel_name} />
-          </span>
-          <span>
-            <div className={styles.title}>{post.channel_name}</div>
-            <div>{getPostDate()}</div>
-          </span>
-        </div>
+        <Link href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}>
+          <div className={styles.post__card__head__info}>
+            <span className={styles.channel__img}>
+              <img src={post.profile_img_url} alt={post.channel_name} />
+            </span>
+            <span>
+              <div className={styles.title}>{post.channel_name}</div>
+              <div>{getPostDate()}</div>
+            </span>
+          </div>
+        </Link>
         {!token && <Link href="/account/login/">
           <a title={post.channels_slug}>
             Subscribe

@@ -38,6 +38,7 @@
 
     .title {
       font-weight: bold;
+      color:$color--blue;
       font-size: $font--lg;
 
       @include desktop-view {
