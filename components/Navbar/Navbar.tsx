@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaHome, FaWallet, FaUser } from "react-icons/fa";
+import { FaHome, FaSearch, FaWallet, FaUser } from "react-icons/fa";
 import styles from "./Navbar.module.scss";
 
 interface INavbar {
@@ -30,6 +30,11 @@ const Navbar = (props: INavbar) => {
           <Link href="/">
             <a title="home">
               <FaHome /> Home
+            </a>
+          </Link>
+          <Link href="/search/">
+            <a title="search">
+              <FaSearch /> Search
             </a>
           </Link>
           <Link href="/account/wallet/">

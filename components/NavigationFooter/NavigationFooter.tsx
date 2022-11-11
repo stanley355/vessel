@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaHome, FaUser, FaWallet } from "react-icons/fa";
+import { FaHome, FaSearch, FaUser, FaWallet } from "react-icons/fa";
 import styles from "./NavigationFooter.module.scss";
 
 const NavigationFooter = () => {
@@ -8,6 +8,9 @@ const NavigationFooter = () => {
     <div className={styles.navigation__footer}>
       <Link href="/">
         <FaHome />
+      </Link>
+      <Link href="/search/">
+        <FaSearch />
       </Link>
       <Link href="/account/wallet/">
         <FaWallet />
