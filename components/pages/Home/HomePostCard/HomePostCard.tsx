@@ -1,14 +1,16 @@
 import React from "react";
+import Link from "next/link";
 import parse from "html-react-parser";
 import styles from "./HomePostCard.module.scss";
 
 interface IPostCard {
+  token: string;
   post: any;
 }
 
 const PostCard = (props: IPostCard) => {
-  const { post } = props;
-
+  const { token, post } = props;
+  
   const getPostDate = () => {
     const date = new Date(post.created_at).toDateString();
     return date;
@@ -17,13 +19,20 @@ const PostCard = (props: IPostCard) => {
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
-        <span className={styles.channel__img}>
-          <img src={post.profile_img_url} alt={post.channel_name} />
-        </span>
-        <span>
-          <div className={styles.title}>{post.channel_name}</div>
-          <div>{getPostDate()}</div>
-        </span>
+        <div className={styles.post__card__head__info}>
+          <span className={styles.channel__img}>
+            <img src={post.profile_img_url} alt={post.channel_name} />
+          </span>
+          <span>
+            <div className={styles.title}>{post.channel_name}</div>
+            <div>{getPostDate()}</div>
+          </span>
+        </div>
+        {!token && <Link href="/account/login/">
+          <a title={post.channels_slug}>
+            Subscribe
+          </a>
+        </Link>}
       </div>
 
       {post.post_type === "Video" ? (

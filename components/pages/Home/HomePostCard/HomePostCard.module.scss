@@ -6,15 +6,30 @@
   border-bottom: 1px solid $color--gray;
 
   &__head {
-    display: grid;
-    grid-gap: 2%;
-    grid-template-columns: 20% 80%;
-    padding: $space--xs 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    &__info {
+      display: grid;
+      grid-gap: 2%;
+      grid-template-columns: 30% 70%;
+      padding: $space--xs 0;
+    }
+
+    a {
+      background:$color--blue;
+      color:$color--white;
+      padding: $space--xs;
+      border-radius: $space--xs;
+    }
 
     .channel__img {
       display: flex;
       align-items: center;
       justify-content: center;
+
       img {
         width: 100%;
         border-radius: 50%;

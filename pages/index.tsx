@@ -9,14 +9,14 @@ import HomePostCard from "../components/pages/Home/HomePostCard";
 import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
-  const { posts } = props;
+  const { token, posts } = props;
   return (
     <div className="container">
       <div className={styles.home}>
         <div className={styles.home__posts}>
           {posts &&
             posts.length &&
-            posts.map((post: any) => <div key={post.id}><HomePostCard post={post} /></div>)}
+            posts.map((post: any) => <div key={post.id}><HomePostCard post={post} token={token} /></div>)}
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@ const Home: NextPage = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const token = context.req.cookies["token"];
+  const token = context.req.cookies["token"] ?? null;
   const profile: any = token ? jwtDecode(token) : "";
   let posts: any[] = [];
 
@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   return {
     props: {
+      token,
       posts,
     },
   };

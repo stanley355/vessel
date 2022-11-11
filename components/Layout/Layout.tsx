@@ -1,13 +1,13 @@
 import React from "react";
 import Head from "next/head";
 import Cookies from "js-cookie";
-import Navbar from "../Navbar";
 import NavigationFooter from "../NavigationFooter";
 import useResponsive from "../../lib/hooks/useResponsive";
 
 const Layout = ({ children }: any) => {
   const token: any = Cookies.get('token');
-  const { isDesktop } = useResponsive();
+
+  const {isDesktop} = useResponsive();
 
   return (
     <div className="layout">
@@ -30,7 +30,7 @@ const Layout = ({ children }: any) => {
           content="1B5-W9OtAQdiu4XQXrRDfAdNJiVSM9k2GVxupDVJ4fU"
         />
       </Head>
-      <Navbar token={token} isDesktop={isDesktop} />
+      {/* <Navbar token={token} isDesktop={isDesktop} /> */}
       <div className="body">{children}</div>
       {!isDesktop && token && <NavigationFooter />}
     </div>
