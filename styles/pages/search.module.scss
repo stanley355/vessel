@@ -1,0 +1,64 @@
+@import '../tokens/all';
+
+.search__page {
+  @include desktop-view {
+    width: 50%;
+    margin: auto;
+  }
+
+  .title {
+    text-align: center;
+
+    @include desktop-view {
+      font-size: 28px;
+    }
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 80% 20%;
+
+    input {
+      padding: $space--xs;
+      border: 1px solid $primary-color;
+      border-radius: $space--xxs 0 0 $space--xxs;
+      font-size: $font--lg;
+    }
+
+    button {
+      background: $color--blue;
+      border: none;
+      color: $color--white;
+      border-radius: 0 $space--xxs $space--xxs 0;
+      font-size: $font--lg;
+    }
+  }
+
+  .results {
+    margin: $space--sm 0;
+
+    .channel__link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: $font--lg;
+      padding: $space--xs;
+      border-radius: $space--xxs;
+      color:$color--blue;
+
+      &:nth-child(odd) {
+        background: $color--barely-blue;
+
+      }
+    }
+
+    .channel__img {
+      width: 25%;
+      margin-right: $space--xs;
+      img {
+        border-radius: 50%;
+        width: 100%;
+      }
+    }
+  }
+}
