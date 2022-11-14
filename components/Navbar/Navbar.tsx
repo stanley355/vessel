@@ -13,8 +13,11 @@ const Navbar = (props: INavbar) => {
 
   const DefaultNavbar = () => (
     <div className={styles.navbar}>
-      <Link href="/account/login">
+      <Link href="/">
         <h2>Kontenku</h2>
+      </Link>
+      <Link href="/account/login/">
+        <a title="Login">Login</a>
       </Link>
     </div>
   );
