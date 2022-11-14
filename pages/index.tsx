@@ -6,6 +6,7 @@ import viewHomePosts from "../lib/postHandler/viewHomePosts";
 import viewSubscriptions from "../lib/subscriptionHandler/viewSubscriptions";
 import filterSimilarSubscription from "../lib/filterSimilarSubscription";
 import HomePostCard from "../components/pages/Home/HomePostCard";
+import SearchBar from "../components/pages/Home/SearchBar";
 import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
@@ -14,6 +15,7 @@ const Home: NextPage = (props: any) => {
     <div className="container">
       <div className={styles.home}>
         <div className={styles.home__posts}>
+          <SearchBar />
           {posts &&
             posts.length &&
             posts.map((post: any) => (
