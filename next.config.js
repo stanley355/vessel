@@ -7,6 +7,7 @@ const nextConfig = {
     AUTHOR_URL: process.env.AUTHOR_URL,
     PAYMENT_URL: process.env.PAYMENT_URL,
     CHANNEL_URL: process.env.CHANNEL_URL,
+    APP_ENV: process.env.APP_ENV
   },
   serverRuntimeConfig: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,

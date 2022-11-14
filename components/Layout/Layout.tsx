@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import Cookies from "js-cookie";
+import getConfig from "next/config";
 import useResponsive from "../../lib/hooks/useResponsive";
+import initFirebaseAnalytic from "../../lib/analytics/initFirebaseAnalytic";
+
+const { APP_ENV } = getConfig().publicRuntimeConfig;
 
 const Layout = ({ children }: any) => {
   const token: any = Cookies.get("token");
   const { isDesktop } = useResponsive();
+
+  if (typeof window !== 'undefined' && APP_ENV !== 'develop') {
+    initFirebaseAnalytic();
+  }
 
   const Navbar = dynamic(() => import("../Navbar/Navbar"), { ssr: false });
   const NavigationFooter = dynamic(
