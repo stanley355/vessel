@@ -41,7 +41,7 @@ const SearchBar = () => {
   return (
     <div className={styles.searchbar}>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="channelName" placeholder='Search...' onChange={handleInputOnchange} />
+        <input type="text" name="channelName" placeholder='Cari Channel...' onChange={handleInputOnchange} />
         <button type='submit'> <FaSearch /> {isDesktop && 'Search'}</button>
       </form>
       <div className={styles.results}>

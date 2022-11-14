@@ -2,6 +2,7 @@ import React from "react";
 import type { NextPage } from "next";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import useResponsive from "../lib/hooks/useResponsive";
 import viewHomePosts from "../lib/postHandler/viewHomePosts";
 import viewSubscriptions from "../lib/subscriptionHandler/viewSubscriptions";
 import filterSimilarSubscription from "../lib/filterSimilarSubscription";
@@ -11,9 +12,18 @@ import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
   const { token, posts } = props;
+
+  const { isDesktop } = useResponsive();
+
   return (
     <div className="container">
       <div className={styles.home}>
+        <div className={styles.home__hero}>
+          <img src="/images/home_hero.gif" loading="lazy" />
+          <div>Dapatkan Pembayaran untuk Kreasimu</div>
+          <div>{isDesktop ? 'Di kontenku, setiap Channel akan dihargai dan mendapatkan pembayaran untuk setiap Subscribers yand didapat' : 'Upload - Subscribe - Get Paid'}</div>
+        </div>
+
         <div className={styles.home__posts}>
           <SearchBar />
           {posts &&

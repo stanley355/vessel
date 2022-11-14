@@ -1,9 +1,45 @@
 @import "../tokens/all";
 
 .home {
+  @include desktop-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    position: relative;
+  }
+
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    border-radius: $space--xs;
+    padding: $space--xs;
+    margin-bottom: $space--xs;
+    box-shadow: 0 0 8px 4px $color--gray;
+    background: $primary-color;
+
+    @include desktop-view {
+      height: 600px;
+      position: sticky;
+      top: 1%;
+    }
+
+    div {
+      color: $color--white;
+      font-size: 32px;
+      margin-bottom: $space--xs;
+
+      @include desktop-view {
+        font-size: 42px;
+      }
+    }
+
+    div:last-child {
+      font-size: $font--xl;
+    }
+  }
+
   &__posts {
     @include desktop-view {
-      width: 60%;
+      padding: 0 $space--sm;
       margin: auto;
     }
   }
