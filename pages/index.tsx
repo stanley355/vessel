@@ -21,7 +21,11 @@ const Home: NextPage = (props: any) => {
         <div className={styles.home__hero}>
           <img src="/images/home_hero.gif" loading="lazy" />
           <div>Dapatkan Pembayaran untuk Kreasimu</div>
-          <div>{isDesktop ? 'Di kontenku, setiap Channel akan dihargai dan mendapatkan pembayaran untuk setiap Subscribers yand didapat' : 'Upload - Subscribe - Get Paid'}</div>
+          <div>
+            {isDesktop
+              ? "Di kontenku, setiap Channel akan dihargai dan mendapatkan pembayaran untuk setiap Subscribers yand didapat"
+              : "Upload - Subscribe - Get Paid"}
+          </div>
         </div>
 
         <div className={styles.home__posts}>

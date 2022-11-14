@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { FaSearch } from 'react-icons/fa';
-import useResponsive from '../../../../lib/hooks/useResponsive';
-import searchSimilarChannel from '../../../../lib/channelHandler/searchSimilarChannel';
-import styles from './SearBar.module.scss';
+import React, { useState } from "react";
+import Link from "next/link";
+import { FaSearch } from "react-icons/fa";
+import useResponsive from "../../../../lib/hooks/useResponsive";
+import searchSimilarChannel from "../../../../lib/channelHandler/searchSimilarChannel";
+import styles from "./SearBar.module.scss";
 
 const SearchBar = () => {
   const { isDesktop } = useResponsive();
@@ -22,7 +22,7 @@ const SearchBar = () => {
     } else {
       setSimilarChannels([]);
     }
-  }
+  };
 
   const handleInputOnchange = (e: any) => {
     setTimeout(async () => {
@@ -36,27 +36,39 @@ const SearchBar = () => {
         setSimilarChannels([]);
       }
     }, 1000);
-  }
+  };
 
   return (
     <div className={styles.searchbar}>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="channelName" placeholder='Cari Channel...' onChange={handleInputOnchange} />
-        <button type='submit'> <FaSearch /> {isDesktop && 'Search'}</button>
+        <input
+          type="text"
+          name="channelName"
+          placeholder="Cari Channel..."
+          onChange={handleInputOnchange}
+        />
+        <button type="submit">
+          {" "}
+          <FaSearch /> {isDesktop && "Search"}
+        </button>
       </form>
       <div className={styles.results}>
-        {similarChannels.length > 0 && similarChannels.map((channel: any) =>
-          <Link href={`/channel/${channel.slug}`} key={channel.channel_name}>
-            <div className={styles.channel__link}>
-              <div className={styles.channel__img}>
-                <img src={channel.profile_img_url} alt={channel.channel_name} />
+        {similarChannels.length > 0 &&
+          similarChannels.map((channel: any) => (
+            <Link href={`/channel/${channel.slug}`} key={channel.channel_name}>
+              <div className={styles.channel__link}>
+                <div className={styles.channel__img}>
+                  <img
+                    src={channel.profile_img_url}
+                    alt={channel.channel_name}
+                  />
+                </div>
+                {channel.channel_name}
               </div>
-              {channel.channel_name}
-            </div>
-          </Link>
-        )}
+            </Link>
+          ))}
       </div>
     </div>
-  )
-}
+  );
+};
 export default SearchBar;

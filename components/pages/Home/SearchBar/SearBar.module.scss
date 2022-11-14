@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .searchbar {
   position: relative;
@@ -36,11 +36,10 @@
       font-size: $font--lg;
       padding: $space--xs;
       border-radius: $space--xxs;
-      color:$color--blue;
+      color: $color--blue;
 
       &:nth-child(odd) {
         background: $color--barely-blue;
-
       }
     }
 

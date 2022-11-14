@@ -1,4 +1,4 @@
-@import '../tokens/all';
+@import "../tokens/all";
 
 .search__page {
   @include desktop-view {
@@ -44,11 +44,10 @@
       font-size: $font--lg;
       padding: $space--xs;
       border-radius: $space--xxs;
-      color:$color--blue;
+      color: $color--blue;
 
       &:nth-child(odd) {
         background: $color--barely-blue;
-
       }
     }
 
