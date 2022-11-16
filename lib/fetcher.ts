@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as https from "https";
 
 interface IFetcherConfig {
   method?: any;
@@ -8,6 +9,9 @@ interface IFetcherConfig {
 
 const fetcher = async (url: string, config: IFetcherConfig) => {
   try {
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+    });
     const { data } = await axios({
       url,
       method: config.method ?? "GET",
@@ -16,6 +20,7 @@ const fetcher = async (url: string, config: IFetcherConfig) => {
         ...(config.headers && { ...config.headers }),
       },
       data: config.data ?? {},
+      httpsAgent
     });
     return data;
   } catch (err: any) {
