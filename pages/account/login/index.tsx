@@ -10,6 +10,7 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 const AccountLogin = (props: any) => {
   const { clientID } = props;
 
+  console.log(111, clientID)
   return (
     <div className="container">
       <div className={styles.account__login}>
@@ -24,6 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
 
+  console.log(222, config);
   if (token) {
     return {
       redirect: {
