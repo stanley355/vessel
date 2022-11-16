@@ -10,7 +10,6 @@ interface IGoogleSignIn {
 const GoogleSignInBtn = (props: IGoogleSignIn) => {
   const { clientID } = props;
 
-  console.log(333, clientID);
   return (
     <GoogleOAuthProvider clientId={clientID}>
       <GoogleLogin

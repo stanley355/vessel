@@ -24,7 +24,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
 
-  console.log(222, config);
   if (token) {
     return {
       redirect: {
