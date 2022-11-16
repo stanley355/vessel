@@ -23,8 +23,6 @@ const gmailLoginHandler = async (googleRes: any) => {
 
   const loginRes = await fetcher(URL, loginConfig);
 
-  console.log(111, loginRes);
-
   if (loginRes && loginRes.token) {
     const user: any = jwtDecode(loginRes.token);
 
