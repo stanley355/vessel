@@ -7,12 +7,12 @@ import channelLoginHandler from "./channelLoginHandler";
 import { WARNING_MSG } from "../warning-messages";
 import createBalance from "../paymentHandler/createBalance";
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const gmailLoginHandler = async (googleRes: any) => {
   const loginUser: any = jwtDecode(googleRes.credential);
 
-  const URL = `${BASE_URL}/api/account/gmail-login`;
+  const URL = `${KONTENKU_URL}/api/account/gmail-login`;
   const loginConfig = {
     method: "POST",
     data: {

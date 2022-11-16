@@ -10,10 +10,10 @@ interface INewData {
   has_channel: boolean;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const updateUserData = async (newData: INewData) => {
-  const authorRes = await fetcher(`${BASE_URL}/api/account/user/`, {
+  const authorRes = await fetcher(`${KONTENKU_URL}/api/account/user/`, {
     method: "PUT",
     data: newData,
   });

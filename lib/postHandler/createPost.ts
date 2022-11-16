@@ -10,7 +10,7 @@ interface ICreatePost {
   isFree: boolean;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const createPost = async (payload: ICreatePost) => {
   const data = {
@@ -22,7 +22,7 @@ const createPost = async (payload: ICreatePost) => {
     is_free: payload.isFree,
   };
 
-  const postRes = await fetcher(`${BASE_URL}/api/channel/post/`, {
+  const postRes = await fetcher(`${KONTENKU_URL}/api/channel/post/`, {
     method: "POST",
     data: data,
   });

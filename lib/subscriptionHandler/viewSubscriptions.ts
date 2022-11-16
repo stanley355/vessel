@@ -8,7 +8,7 @@ interface IViewSubscriptions {
   invoiceID?: string;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const viewSubscriptions = async (payload: IViewSubscriptions) => {
   const params = {
@@ -18,7 +18,7 @@ const viewSubscriptions = async (payload: IViewSubscriptions) => {
   };
 
   const queryString = new URLSearchParams(params);
-  const URL = `${BASE_URL}/api/subscriptions/view?${queryString}`;
+  const URL = `${KONTENKU_URL}/api/subscriptions/view?${queryString}`;
 
   const subscriptionRes = await fetcher(URL, {});
 

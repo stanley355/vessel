@@ -1,7 +1,7 @@
 import getConfig from "next/config";
 import fetcher from "../fetcher";
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 interface ICreateChannel {
   userID: string;
@@ -18,7 +18,7 @@ const createChannel = async (data: ICreateChannel) => {
     profile_img_url: data.profileImgURL,
   };
 
-  const createChannelRes = await fetcher(`${BASE_URL}/api/channel/`, {
+  const createChannelRes = await fetcher(`${KONTENKU_URL}/api/channel/`, {
     method: "POST",
     data: payload,
   });

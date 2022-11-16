@@ -10,10 +10,10 @@ interface ICreatePayment {
   totalAmount: number;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const createPayment = async (payload: ICreatePayment) => {
-  const paymentRes = await fetcher(`${BASE_URL}/api/payment/`, {
+  const paymentRes = await fetcher(`${KONTENKU_URL}/api/payment/`, {
     method: "POST",
     data: payload,
   });

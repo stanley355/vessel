@@ -7,10 +7,10 @@ interface IUpdateSubscription {
   invoiceID: string;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const updatePaidSubscription = async (payload: IUpdateSubscription) => {
-  const URL = `${BASE_URL}/api/subscriptions/paid/`;
+  const URL = `${KONTENKU_URL}/api/subscriptions/paid/`;
 
   const subscriptionRes = await fetcher(URL, {
     method: "PUT",

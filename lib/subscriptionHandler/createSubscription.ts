@@ -10,7 +10,7 @@ interface ICreateSubscription {
   channelName: string;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const createSubscription = async (payload: ICreateSubscription) => {
   const data = {
@@ -22,7 +22,7 @@ const createSubscription = async (payload: ICreateSubscription) => {
     channels_name: payload.channelName,
   };
 
-  const subscriptionRes = await fetcher(`${BASE_URL}/api/subscriptions/`, {
+  const subscriptionRes = await fetcher(`${KONTENKU_URL}/api/subscriptions/`, {
     method: "POST",
     data: data,
   });

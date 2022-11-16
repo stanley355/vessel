@@ -7,10 +7,10 @@ interface IUpdateBalanceChannel {
   channelName: string;
 }
 
-const { BASE_URL } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const updateBalanceChannel = async (payload: IUpdateBalanceChannel) => {
-  const balanceRes = await fetcher(`${BASE_URL}/api/payment/balance/channel/`, {
+  const balanceRes = await fetcher(`${KONTENKU_URL}/api/payment/balance/channel/`, {
     method: "PUT",
     data: payload,
   });

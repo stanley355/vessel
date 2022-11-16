@@ -10,7 +10,6 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 const AccountLogin = (props: any) => {
   const { clientID } = props;
 
-  console.log(111, clientID)
   return (
     <div className="container">
       <div className={styles.account__login}>
