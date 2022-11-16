@@ -12,9 +12,9 @@ const Layout = ({ children }: any) => {
   const token: any = Cookies.get("token");
   const { isDesktop } = useResponsive();
 
-  if (typeof window !== 'undefined' && APP_ENV !== 'develop') {
-    initFirebaseAnalytic();
-  }
+  // if (typeof window !== 'undefined' && APP_ENV !== 'develop') {
+  //   initFirebaseAnalytic();
+  // }
 
   const Navbar = dynamic(() => import("../Navbar/Navbar"), { ssr: false });
   const NavigationFooter = dynamic(
