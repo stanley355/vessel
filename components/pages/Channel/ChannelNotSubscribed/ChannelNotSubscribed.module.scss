@@ -12,7 +12,12 @@
 
   .title {
     font-size: $font--lg;
-    margin: $space--lg;
+    margin: $space--lg $space--lg $space--xs;
+  }
+
+  .subtitle {
+    font-size: $font--lg;
+    margin: 0 $space--lg $space--lg;
   }
 
   .cta {
