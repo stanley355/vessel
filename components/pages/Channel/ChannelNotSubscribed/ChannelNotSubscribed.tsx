@@ -13,6 +13,7 @@ const ChannelNotSubscribed = (props: IChannelNotSubscribed) => {
     <div className={styles.not__subscribed}>
       <FaRegFrownOpen />
       <div className={styles.title}>Anda belum subscribe Channel ini</div>
+      <div className={styles.title}>Subscribe untuk melihat lebih banyak</div>
       <button type="button" className={styles.cta} onClick={onSubscribeClick}>
         Subscribe
       </button>
