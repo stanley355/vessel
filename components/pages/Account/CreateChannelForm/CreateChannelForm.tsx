@@ -30,9 +30,21 @@ const CreateChannelForm = () => {
       return false;
     }
 
-    if (channelName && channelName.length < 4) {
-      setFormError("Nama Channel Minimal 4 huruf!");
-      return false;
+    if (channelName) {
+      if (channelName.length < 4) {
+        setFormError("Nama Channel Minimal 4 huruf!");
+        return false;
+      }
+
+      if (/\s/g.test(channelName)) {
+        setFormError("Nama Channel tidak boleh ada spasi");
+        return false;
+      }
+
+      if (/[A-Z]/.test(channelName)) {
+        setFormError("Nama Channel tidak boleh ada huruf besar");
+        return false;
+      }
     }
 
     if (!channelPrice) {
@@ -72,7 +84,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
+        (snapshot: any) => { },
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -85,7 +97,7 @@ const CreateChannelForm = () => {
 
             const payload = {
               userID: user.id,
-              channelName: channelName,
+              channelName: channelName.toLowerCase(),
               subscriptionPrice: channelPrice,
               profileImgURL: downloadURL,
             };
