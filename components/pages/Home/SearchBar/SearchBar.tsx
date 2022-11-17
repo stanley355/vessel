@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import useResponsive from "../../../../lib/hooks/useResponsive";
 import searchSimilarChannel from "../../../../lib/channelHandler/searchSimilarChannel";
-import styles from "./SearBar.module.scss";
+import styles from "./SearchBar.module.scss";
 
 const SearchBar = () => {
   const { isDesktop } = useResponsive();
