@@ -9,6 +9,7 @@ import filterSimilarSubscription from "../lib/filterSimilarSubscription";
 import HomePostCard from "../components/pages/Home/HomePostCard";
 import SearchBar from "../components/pages/Home/SearchBar";
 import styles from "../styles/pages/home.module.scss";
+import HomeMetaHead from "../components/pages/Home/HomeMetaHead";
 
 const Home: NextPage = (props: any) => {
   const { token, posts } = props;
@@ -17,6 +18,7 @@ const Home: NextPage = (props: any) => {
 
   return (
     <div className="container">
+      <HomeMetaHead posts={posts} />
       <div className={styles.home}>
         <div className={styles.home__hero}>
           <img src="/images/home_hero.gif" loading="lazy" />
