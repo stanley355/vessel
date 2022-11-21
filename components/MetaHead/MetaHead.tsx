@@ -14,7 +14,7 @@ interface IMetaHead {
 const MetaHead = (props: IMetaHead) => {
   const { meta } = props;
 
-  const URL = window.location.origin + window.location.pathname;
+  const URL = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : "";
 
   return (
     <Head>

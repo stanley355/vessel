@@ -8,6 +8,7 @@ import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubsc
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
 import AwaitingPaymentForm from "../../components/pages/Channel/AwaitingPaymentForm";
 import PostCard from "../../components/pages/Account/PostCard";
+import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
 import checkSubscriptionStatus from "../../lib/subscriptionHandler/checkSubscriptionStatus";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import viewInvoice from "../../lib/paymentHandler/viewInvoice";
@@ -95,6 +96,7 @@ const ChannelSlug = (props: IChannelSlug) => {
   return (
     <div className="container">
       <div className={styles.channel__slug}>
+        {channel && posts.length && <ChannelMetaHead channel={channel} posts={posts} />}
         {channel && <ChannelStatus channel={channel} />}
         <MainSection />
       </div>
