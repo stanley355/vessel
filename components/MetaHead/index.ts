@@ -1,1 +1,1 @@
-export {default} from './MetaHead';
+export { default } from "./MetaHead";

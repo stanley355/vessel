@@ -1,6 +1,12 @@
-import React from 'react';
-import { FaUserCircle, FaSearch, FaPlayCircle, FaMoneyBillWave, FaMoneyCheckAlt} from 'react-icons/fa';
-import styles from './UserFlow.module.scss';
+import React from "react";
+import {
+  FaUserCircle,
+  FaSearch,
+  FaPlayCircle,
+  FaMoneyBillWave,
+  FaMoneyCheckAlt,
+} from "react-icons/fa";
+import styles from "./UserFlow.module.scss";
 
 const UserFlow = () => {
   return (
@@ -25,7 +31,7 @@ const UserFlow = () => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default UserFlow;

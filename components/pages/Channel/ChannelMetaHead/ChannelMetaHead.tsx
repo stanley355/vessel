@@ -1,9 +1,9 @@
-import React from 'react';
-import MetaHead from '../../../MetaHead';
+import React from "react";
+import MetaHead from "../../../MetaHead";
 
 interface IChannelMetaHead {
-  channel: any,
-  posts: any[]
+  channel: any;
+  posts: any[];
 }
 
 const ChannelMetaHead = (props: IChannelMetaHead) => {
@@ -15,9 +15,9 @@ const ChannelMetaHead = (props: IChannelMetaHead) => {
     publishedTime: channel.created_at,
     modifiedTime: posts && posts.length ? posts[0].created_at : "",
     channelName: `${channel.channel_name} | Kontenku`,
-  }
+  };
 
-  return <MetaHead meta={CHANNEL_META} />
-}
+  return <MetaHead meta={CHANNEL_META} />;
+};
 
 export default ChannelMetaHead;

@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .user__flow {
   margin-bottom: $space--xs;
@@ -27,13 +27,13 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      color:$primary-color;
+      color: $primary-color;
       margin-bottom: $space--xs;
     }
 
     svg {
       font-size: 28px;
-      color:$primary-color;
+      color: $primary-color;
       margin-right: $space--xs;
     }
   }

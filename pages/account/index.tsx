@@ -54,7 +54,7 @@ const Account = (props: any) => {
 
   return (
     <div className="container">
-      <HomeMetaHead posts={[]}/>
+      <HomeMetaHead posts={[]} />
       <div className={styles.account}>
         <AccountTabHeader />
         <div className={styles.account__tabs__body}>

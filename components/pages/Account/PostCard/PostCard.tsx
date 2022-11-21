@@ -29,10 +29,13 @@ const PostCard = (props: IPostCard) => {
 
       {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
-          <video width={300} height={250}
+          <video
+            width={300}
+            height={250}
             controls
             preload="auto"
-            poster="/images/video-placeholder.jpg">
+            poster="/images/video-placeholder.jpg"
+          >
             <source src={post.img_url} type="video/mp4" />
             <source src={post.img_url} type="video/ogg" />
           </video>

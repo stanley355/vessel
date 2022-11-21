@@ -10,10 +10,13 @@ interface IUpdateBalanceChannel {
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const updateBalanceChannel = async (payload: IUpdateBalanceChannel) => {
-  const balanceRes = await fetcher(`${KONTENKU_URL}/api/payment/balance/channel/`, {
-    method: "PUT",
-    data: payload,
-  });
+  const balanceRes = await fetcher(
+    `${KONTENKU_URL}/api/payment/balance/channel/`,
+    {
+      method: "PUT",
+      data: payload,
+    }
+  );
 
   return balanceRes;
 };

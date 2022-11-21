@@ -96,7 +96,9 @@ const ChannelSlug = (props: IChannelSlug) => {
   return (
     <div className="container">
       <div className={styles.channel__slug}>
-        {channel && posts.length && <ChannelMetaHead channel={channel} posts={posts} />}
+        {channel && posts.length && (
+          <ChannelMetaHead channel={channel} posts={posts} />
+        )}
         {channel && <ChannelStatus channel={channel} />}
         <MainSection />
       </div>

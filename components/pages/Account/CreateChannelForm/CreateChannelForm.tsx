@@ -84,7 +84,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => { },
+        (snapshot: any) => {},
         (error: any) => {
           console.error(error);
           setHasSubmit(false);

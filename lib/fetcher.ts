@@ -20,7 +20,7 @@ const fetcher = async (url: string, config: IFetcherConfig) => {
         ...(config.headers && { ...config.headers }),
       },
       data: config.data ?? {},
-      httpsAgent
+      httpsAgent,
     });
     return data;
   } catch (err: any) {
