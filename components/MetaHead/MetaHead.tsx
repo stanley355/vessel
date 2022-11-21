@@ -18,7 +18,7 @@ const MetaHead = (props: IMetaHead) => {
 
   return (
     <Head>
-      <title>Kontenku</title>
+      <title>{meta.title}</title>
       <link rel="canonical" key="canonical" href={URL} />
       <meta charSet="utf-8" />
       <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />

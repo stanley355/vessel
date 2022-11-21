@@ -9,7 +9,7 @@ const HomeMetaHead = (props: IHomeMetaHead) => {
   const { posts } = props;
 
   const HOME_META = {
-    title: 'Kontenku - Platform Pembayaran Konten untuk Content Creator',
+    title: 'Kontenku - Platform Konten Berbayar untuk Content Creator',
     description: 'Kontenku - Dapatkan Pembayaran untuk Kreasimu. Di kontenku, content createor akan mendapatkan pembayaran untuk setiap subscribers yang didapat.',
     publishedTime: '',
     modifiedTime: posts && posts.length ? posts[0].created_at : "",
