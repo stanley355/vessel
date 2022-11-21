@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import jwtDecode from "jwt-decode";
 import WalletHead from "../../components/pages/Account/WalletHead";
 import WalletPaymentsTable from "../../components/pages/Account/WalletPaymentsTable";
+import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
 
@@ -11,6 +12,7 @@ const Wallet = (props: any) => {
 
   return (
     <div className="container">
+      <HomeMetaHead posts={[]} />
       <WalletHead balance={balance} />
       <WalletPaymentsTable payments={payments} />
     </div>

@@ -3,6 +3,7 @@ import React from "react";
 import getConfig from "next/config";
 import fetcher from "../../../lib/fetcher";
 import GoogleSignInBtn from "../../../components/GoogleSignInBtn";
+import HomeMetaHead from "../../../components/pages/Home/HomeMetaHead";
 import styles from "./login.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -12,6 +13,7 @@ const AccountLogin = (props: any) => {
 
   return (
     <div className="container">
+      <HomeMetaHead posts={[]} />
       <div className={styles.account__login}>
         <h2 className={styles.title}>Sign In to Kontenku</h2>
         <GoogleSignInBtn clientID={clientID} />

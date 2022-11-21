@@ -9,6 +9,7 @@ import viewBalance from "../../lib/paymentHandler/viewBalance";
 import filterSimilarSubscription from "../../lib/filterSimilarSubscription";
 import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
+import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
@@ -53,6 +54,7 @@ const Account = (props: any) => {
 
   return (
     <div className="container">
+      <HomeMetaHead posts={[]}/>
       <div className={styles.account}>
         <AccountTabHeader />
         <div className={styles.account__tabs__body}>
