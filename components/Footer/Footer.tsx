@@ -10,7 +10,7 @@ const Footer = () => {
           Copyright <FaRegCopyright /> {new Date().getFullYear()} Kontenku
         </div>
         <div>
-          Support <FaPaperPlane /> winatastanley355@gmail.com / 089637789023
+          Support <FaPaperPlane /> winatastanley355@gmail.com / 083807275627 / GG. Langgar no 21
         </div>
       </div>
     </div>
