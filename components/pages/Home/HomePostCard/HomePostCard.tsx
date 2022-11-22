@@ -26,7 +26,7 @@ const PostCard = (props: IPostCard) => {
             <span className={styles.channel__img}>
               <img src={post.profile_img_url} alt={post.channel_name} />
             </span>
-            <span>
+            <span className={styles.post__info}>
               <div className={styles.title}>{post.channel_name}</div>
               <div>{getPostDate()}</div>
             </span>
