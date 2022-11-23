@@ -41,4 +41,8 @@ jobs:
             BASE_URL=http://localhost:3000
             KONTENKU_URL=https://kontenku.net
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vessel:ghpr
+          secrets: |
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            BASE_URL=http://localhost:3000
+            KONTENKU_URL=https://kontenku.net
 
