@@ -5,7 +5,7 @@ const channelSubscriberHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const URL = `${process.env.CHANNEL_URL}/channel/?channel_id=${String(
+  const URL = `${process.env.CHANNEL_URL}/channel/subscribers/?channel_id=${String(
     req.query.channelID
   )}`;
 
