@@ -43,12 +43,21 @@ const Account = (props: any) => {
         return (
           <ProfileTab
             profile={profile}
+            channel={channel}
             balance={balance}
             subscriptions={subscriptions}
           />
         );
       default:
-        return <ChannelTab channel={channel} posts={posts} />;
+        return (
+          <ProfileTab
+            profile={profile}
+            channel={channel}
+            balance={balance}
+            subscriptions={subscriptions}
+          />
+        );
+        // return <ChannelTab channel={channel} posts={posts} />;
     }
   };
 
