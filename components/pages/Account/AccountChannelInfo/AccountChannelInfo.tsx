@@ -9,7 +9,6 @@ interface IAccountChannelInfo {
 const AccountChannelInfo = (props: IAccountChannelInfo) => {
   const { channel } = props;
 
-  console.log(channel);
   return (
     <div className={styles.account__channel}>
       <div className={styles.info}>
