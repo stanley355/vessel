@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegCopyright } from "react-icons/fa";
+import { FaRegCopyright, FaPaperPlane } from "react-icons/fa";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
@@ -8,6 +8,9 @@ const Footer = () => {
       <div className={styles.footer}>
         <div>
           Copyright <FaRegCopyright /> {new Date().getFullYear()} Kontenku
+        </div>
+        <div>
+          Support <FaPaperPlane /> winatastanley355@gmail.com 
         </div>
       </div>
     </div>
