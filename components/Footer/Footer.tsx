@@ -10,7 +10,7 @@ const Footer = () => {
           Copyright <FaRegCopyright /> {new Date().getFullYear()} Kontenku
         </div>
         <div>
-          Support <FaPaperPlane /> winatastanley355@gmail.com 
+          Support <FaPaperPlane /> winatastanley355@gmail.com
         </div>
       </div>
     </div>

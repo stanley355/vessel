@@ -5,9 +5,9 @@ const channelSubscriberHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const URL = `${process.env.CHANNEL_URL}/channel/subscribers/?channel_id=${String(
-    req.query.channelID
-  )}`;
+  const URL = `${
+    process.env.CHANNEL_URL
+  }/channel/subscribers/?channel_id=${String(req.query.channelID)}`;
 
   const resp = await fetcher(URL, {
     method: req.method,
