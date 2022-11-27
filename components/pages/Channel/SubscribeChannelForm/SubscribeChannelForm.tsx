@@ -1,6 +1,5 @@
 import Router from "next/router";
 import React, { useState } from "react";
-import createInvoice from "../../../../lib/paymentHandler/createInvoice";
 import createSubscription from "../../../../lib/subscriptionHandler/createSubscription";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./SubscribeChannelForm.module.scss";
@@ -58,32 +57,32 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
       amount: activePlan.price,
     };
 
-    const invoice = await createInvoice(invoicePayload);
+    // const invoice = await createInvoice(invoicePayload);
 
-    if (invoice && invoice.id) {
-      setHasSubmit(false);
+    // if (invoice && invoice.id) {
+    //   setHasSubmit(false);
 
-      const subscriptionPayload = {
-        userID: profile.id,
-        channelID: channel.id,
-        channelSlug: channel.slug,
-        duration: activePlan.month,
-        invoiceID: invoice.id,
-        channelName: channel.channel_name,
-      };
+    //   const subscriptionPayload = {
+    //     userID: profile.id,
+    //     channelID: channel.id,
+    //     channelSlug: channel.slug,
+    //     duration: activePlan.month,
+    //     invoiceID: invoice.id,
+    //     channelName: channel.channel_name,
+    //   };
 
-      const subscription = await createSubscription(subscriptionPayload);
+    //   const subscription = await createSubscription(subscriptionPayload);
 
-      if (subscription && subscription.id) {
-        Router.reload();
-      } else {
-        setHasSubmit(false);
-        alert(WARNING_MSG.TRY_AGAIN);
-      }
-    } else {
-      setHasSubmit(false);
-      alert(WARNING_MSG.TRY_AGAIN);
-    }
+    //   if (subscription && subscription.id) {
+    //     Router.reload();
+    //   } else {
+    //     setHasSubmit(false);
+    //     alert(WARNING_MSG.TRY_AGAIN);
+    //   }
+    // } else {
+    //   setHasSubmit(false);
+    //   alert(WARNING_MSG.TRY_AGAIN);
+    // }
   };
 
   return (
