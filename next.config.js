@@ -19,6 +19,8 @@ const nextConfig = {
     FIREBASE_MESSAGING_SENDER: process.env.FIREBASE_MESSAGING_SENDER,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     MEASUREMENT_ID: process.env.MEASUREMENT_ID,
+    MIDTRANS_API_URL: process.env.MIDTRANS_API_URL,
+    MIDTRANS_API_KEY: process.env.MIDTRANS_API_KEY
   },
 };
 
