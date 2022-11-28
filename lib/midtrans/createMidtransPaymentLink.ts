@@ -1,73 +1,69 @@
+import { channel } from "diagnostics_channel";
 import getConfig from "next/config";
 import fetcher from "../fetcher";
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
-interface ICreateChannel {
-  userID: string;
-  channelName: string;
-  subscriptionPrice: number;
-  profileImgURL: string;
+interface ICreateMidtransPaymentLink {
+  orderID: string;
+  user: any;
+  channel: any;
+  amount: any;
 }
 
-const createChannel = async (data: ICreateChannel) => {
+const createMidtransPaymentLink = async (data: ICreateMidtransPaymentLink) => {
+  const fullnameArr = data.user.fullname.split(" ");
+
   const payload = {
-    owner_id: data.userID,
-    channel_name: data.channelName,
-    subscription_price: data.subscriptionPrice,
-    profile_img_url: data.profileImgURL,
+    "transaction_details": {
+      "order_id": data.orderID,
+      "gross_amount": data.amount,
+      "payment_link_id": data.orderID,
+    },
+    usage_limit: 5,
+    expiry: {
+      duration: 5,
+      unit: "days",
+    },
+    enabled_payments: [
+      "credit_card",
+      "gopay",
+      "bri_epay",
+      "echannel",
+      "permata_va",
+      "bni_va",
+      "bri_va",
+    ],
+    "item_details": [
+      {
+        "id": data.channel.id,
+        "name": data.channel.channel_name,
+        "price": data.amount,
+        "quantity": 1,
+        "brand": data.channel.channel_name,
+        "category": "Content Subscription",
+        "merchant_name": "Kontenku",
+      },
+    ],
+    "customer_details": {
+      "first_name": fullnameArr[0],
+      "last_name": fullnameArr.length > 0 ? fullnameArr[1] : "",
+      "email": data.user.email,
+      "phone": "089637789023", //TODO: Change with user's phone num
+      "notes":
+        "Terima kasih atas dukungan Anda. Silakan ikuti petunjuk untuk pembayaran.",
+    },
   };
 
-  const createChannelRes = await fetcher(`${KONTENKU_URL}/api/channel/`, {
-    method: "POST",
-    data: payload,
-  });
+  const midtransRes = await fetcher(
+    `${KONTENKU_URL}/api/midtrans/payment-link/`,
+    {
+      method: "POST",
+      data: payload,
+    }
+  );
 
-  return createChannelRes;
+  return midtransRes;
 };
 
-export default createChannel;
-
-
-// {
-//   "transaction_details": {
-//     "order_id": "001",
-//     "gross_amount": 190000,
-//     "payment_link_id": "for-payment-123"
-//   },
-//   "credit_card": {
-//     "secure": true
-//   },
-//   "usage_limit":  1,
-//   "expiry": {
-//     "start_time": "2022-04-01 18:00 +0700",
-//     "duration": 20,
-//     "unit": "days"
-//   },
-//   "enabled_payments": [
-//     "credit_card",
-//     "bca_va",
-//     "indomaret"
-//   ],
-//   "item_details": [
-//     {
-//       "id": "pil-001",
-//       "name": "Pillow",
-//       "price": 95000,
-//       "quantity": 2,
-//       "brand": "Midtrans",
-//       "category": "Furniture",
-//       "merchant_name": "PT. Midtrans"
-//     }
-//   ],
-//   "customer_details": {
-//     "first_name": "John",
-//     "last_name": "Doe",
-//     "email": "john.doe@midtrans.com",
-//     "phone": "+62181000000000",
-//     "notes": "Thank you for your purchase. Please follow the instructions to pay."
-//   },
-// "custom_field1": "custom field 1 content", 
-// "custom_field2": "custom field 2 content", 
-// "custom_field3": "custom field 3 content"
-// }
+export default createMidtransPaymentLink;

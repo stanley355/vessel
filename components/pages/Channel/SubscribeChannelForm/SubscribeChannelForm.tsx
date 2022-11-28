@@ -1,5 +1,6 @@
 import Router from "next/router";
 import React, { useState } from "react";
+import createMidtransPaymentLink from "../../../../lib/midtrans/createMidtransPaymentLink";
 import createSubscription from "../../../../lib/subscriptionHandler/createSubscription";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./SubscribeChannelForm.module.scss";
@@ -50,12 +51,20 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
     e.preventDefault();
     setHasSubmit(true);
 
-    const invoicePayload = {
-      externalID: `${profile.id}-${new Date().toLocaleString()}`,
-      payerEmail: profile.email,
-      description: `Pembayaran langganan channel ${channel.channel_name}`,
-      amount: activePlan.price,
-    };
+    const midtrans = await createMidtransPaymentLink({
+      orderID: `kontenku-${new Date().getUTCDate()}`,
+      user: profile,
+      channel: channel,
+      amount: activePlan.price
+    });
+
+    console.log(222, midtrans);
+    // const invoicePayload = {
+    //   externalID: `${profile.id}-${new Date().toLocaleString()}`,
+    //   payerEmail: profile.email,
+    //   description: `Pembayaran langganan channel ${channel.channel_name}`,
+    //   amount: activePlan.price,
+    // };
 
     // const invoice = await createInvoice(invoicePayload);
 
