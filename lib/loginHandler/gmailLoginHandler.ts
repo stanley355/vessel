@@ -23,6 +23,7 @@ const gmailLoginHandler = async (googleRes: any) => {
 
   const loginRes = await fetcher(URL, loginConfig);
 
+  console.log(111, loginRes);
   if (loginRes && loginRes.token) {
     const user: any = jwtDecode(loginRes.token);
 
@@ -32,10 +33,12 @@ const gmailLoginHandler = async (googleRes: any) => {
     };
     const userBalance: any = await createBalance(balancePayload);
 
+    console.log(222, userBalance);
     if (userBalance.identifiers || userBalance.id) {
       if (user.has_channel) {
         const channelLogin: any = await channelLoginHandler(loginRes.token);
 
+        console.log(333, channelLogin);
         if (channelLogin && channelLogin.token) {
           jsCookie.set("token", loginRes.token);
           jsCookie.set("token_channel", channelLogin.token);
