@@ -11,7 +11,6 @@ import PostCard from "../../components/pages/Account/PostCard";
 import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
 import checkSubscriptionStatus from "../../lib/subscriptionHandler/checkSubscriptionStatus";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
-import viewInvoice from "../../lib/paymentHandler/viewInvoice";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
 import styles from "./ChannelSlug.module.scss";
@@ -147,9 +146,9 @@ export const getServerSideProps: GetServerSideProps = async (
     subscription = subscriptionList[subscriptionList.length - 1];
   }
 
-  if (subscription && !subscription.paid && !subscription.expired_at) {
-    invoice = await viewInvoice(subscription.invoice_id);
-  }
+  // if (subscription && !subscription.paid && !subscription.expired_at) {
+  //   invoice = await viewInvoice(subscription.invoice_id);
+  // }
 
   return {
     props: {

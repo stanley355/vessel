@@ -25,7 +25,7 @@ const ProfileTab = (props: IProfileTab) => {
         {profile && <UserProfileCard profile={profile} />}
         {isDesktop && <LogoutBtn />}
       </div>
-      <MyWallet balance={balance} />
+      {/* <MyWallet balance={balance} /> */}
       <MySubscriptions subscriptions={subscriptions} />
       <br />
       {!isDesktop && <LogoutBtn />}

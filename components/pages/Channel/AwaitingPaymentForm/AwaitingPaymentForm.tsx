@@ -54,14 +54,15 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
       totalAmount: invoice.amount,
     };
 
-    const userPayment = await createPayment(paymentPayload);
+    // const userPayment = await createPayment(paymentPayload);
 
-    if (paidSubscription.paid && userPayment.payment.id) {
-      await updateChannelSubscriber(channel.id);
-      Router.reload();
-    } else {
-      alert(WARNING_MSG.TRY_AGAIN);
-    }
+    // if (paidSubscription.paid && userPayment.payment.id) {
+    //   await updateChannelSubscriber(channel.id);
+    //   Router.reload();
+    // } else {
+    //   alert(WARNING_MSG.TRY_AGAIN);
+    // }
+    alert(WARNING_MSG.TRY_AGAIN);
   };
 
   const ConfirmPaymentBtn = () => (
