@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaWallet } from "react-icons/fa";
+import { FaWallet, FaMoneyBillAlt } from "react-icons/fa";
 import WithdrawPopup from "../WithdrawPopup";
 import styles from "./WalletHead.module.scss";
 
@@ -14,9 +14,9 @@ const WalletHead = (props: IWalletHead) => {
   return (
     <div className={styles.wallet__head}>
       <span>
-        <FaWallet />
+        <FaMoneyBillAlt />
         <div className={styles.info}>
-          <div>My Wallet</div>
+          <div>My Income</div>
           <div>
             {balance
               ? balance.amount > 0

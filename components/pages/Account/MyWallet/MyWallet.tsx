@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaWallet } from "react-icons/fa";
+import { FaWallet, FaMoneyBillAlt } from "react-icons/fa";
 import styles from "./MyWallet.module.scss";
 
 interface IMyWallet {
@@ -13,9 +13,9 @@ const MyWallet = (props: IMyWallet) => {
   return (
     <div className={styles.my__wallet}>
       <div className={styles.balance}>
-        <FaWallet />
+        <FaMoneyBillAlt />
         <span>
-          <div>My Wallet</div>
+          <div>My Income</div>
           <div>
             {balance
               ? balance.amount > 0

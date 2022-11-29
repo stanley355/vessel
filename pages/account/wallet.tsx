@@ -14,6 +14,9 @@ const Wallet = (props: any) => {
     <div className="container">
       <HomeMetaHead posts={[]} />
       <WalletHead balance={balance} />
+      <span>
+        *Income Anda akan di transfer dalam 3 hari kerja setelah penarikan
+      </span>
       <WalletPaymentsTable payments={payments} />
     </div>
   );
