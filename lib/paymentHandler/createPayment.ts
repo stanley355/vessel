@@ -3,11 +3,12 @@ import fetcher from "../fetcher";
 
 interface ICreatePayment {
   channelID: number;
-  channelName: string;
   subscriberID: string;
-  subscriberName: string;
   subscriptionDuration: number;
   totalAmount: number;
+  merchant: string;
+  merchantOrderID: string;
+  merchantPaymentLink: string;
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
