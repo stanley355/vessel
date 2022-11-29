@@ -72,7 +72,13 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
         merchantPaymentLink: midtrans.payment_url
       }
       const paymentRes = await createPayment(paymentData);
-      // TODO: Reload page after checking payment
+
+      if (paymentRes && paymentRes.identifiers.length) {
+        Router.push(midtrans.payment_url);
+      } else {
+        setHasSubmit(false)
+        alert(WARNING_MSG.TRY_AGAIN);
+      }
     } else {
       setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);
