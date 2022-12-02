@@ -29,7 +29,7 @@ const SearchPage = () => {
     setTimeout(async () => {
       if (e.target.value.length > 0) {
         const channels = await searchSimilarChannel(e.target.value);
-        
+
         if (channels && channels.length > 0) {
           setSimilarChannels(channels);
         }

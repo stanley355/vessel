@@ -9,6 +9,7 @@ const nextConfig = {
     CHANNEL_URL: process.env.CHANNEL_URL,
     APP_ENV: process.env.APP_ENV,
     KONTENKU_URL: process.env.KONTENKU_URL,
+    MIDTRANS_API_URL: process.env.MIDTRANS_API_URL,
   },
   serverRuntimeConfig: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
@@ -19,6 +20,7 @@ const nextConfig = {
     FIREBASE_MESSAGING_SENDER: process.env.FIREBASE_MESSAGING_SENDER,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     MEASUREMENT_ID: process.env.MEASUREMENT_ID,
+    MIDTRANS_API_KEY: process.env.MIDTRANS_API_KEY
   },
 };
 

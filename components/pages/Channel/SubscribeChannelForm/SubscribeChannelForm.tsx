@@ -1,7 +1,7 @@
 import Router from "next/router";
 import React, { useState } from "react";
-import createInvoice from "../../../../lib/paymentHandler/createInvoice";
-import createSubscription from "../../../../lib/subscriptionHandler/createSubscription";
+import createMidtransPaymentLink from "../../../../lib/midtrans/createMidtransPaymentLink";
+import createPayment from "../../../../lib/paymentHandler/createPayment";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./SubscribeChannelForm.module.scss";
 
@@ -51,33 +51,32 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
     e.preventDefault();
     setHasSubmit(true);
 
-    const invoicePayload = {
-      externalID: `${profile.id}-${new Date().toLocaleString()}`,
-      payerEmail: profile.email,
-      description: `Pembayaran langganan channel ${channel.channel_name}`,
-      amount: activePlan.price,
-    };
+    const orderID = `kontenku-${channel.id}-${new Date().toISOString()}`.replace(/[^\w\s\']|_/g, "");
 
-    const invoice = await createInvoice(invoicePayload);
+    const midtrans = await createMidtransPaymentLink({
+      orderID: orderID,
+      user: profile,
+      channel: channel,
+      amount: activePlan.price
+    });
 
-    if (invoice && invoice.id) {
-      setHasSubmit(false);
 
-      const subscriptionPayload = {
-        userID: profile.id,
+    if (midtrans && midtrans.order_id) {
+      const paymentData = {
         channelID: channel.id,
-        channelSlug: channel.slug,
-        duration: activePlan.month,
-        invoiceID: invoice.id,
-        channelName: channel.channel_name,
-      };
+        subscriberID: profile.id,
+        subscriptionDuration: activePlan.month,
+        totalAmount: activePlan.price,
+        merchant: 'MIDTRANS',
+        merchantOrderID: midtrans.order_id,
+        merchantPaymentLink: midtrans.payment_url
+      }
+      const paymentRes = await createPayment(paymentData);
 
-      const subscription = await createSubscription(subscriptionPayload);
-
-      if (subscription && subscription.id) {
-        Router.reload();
+      if (paymentRes && paymentRes.identifiers.length) {
+        Router.push(midtrans.payment_url);
       } else {
-        setHasSubmit(false);
+        setHasSubmit(false)
         alert(WARNING_MSG.TRY_AGAIN);
       }
     } else {
