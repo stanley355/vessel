@@ -3,13 +3,15 @@ import { GetServerSideProps } from "next";
 import jwtDecode from "jwt-decode";
 import WalletHead from "../../components/pages/Account/WalletHead";
 import WalletPaymentsTable from "../../components/pages/Account/WalletPaymentsTable";
+import WalletWithdrawalTable from "../../components/pages/Account/WalletWithdrawalTable";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
+import findAllUserWithdrawal from "../../lib/withdrawalHandler/findAllUserWithdrawal";
 import styles from '../../styles/pages/wallet.module.scss';
 
 const Wallet = (props: any) => {
-  const { balance, payments } = props;
+  const { balance, payments, withdrawal } = props;
 
   const [activeTab, setActiveTab] = useState("payment");
 
@@ -33,7 +35,7 @@ const Wallet = (props: any) => {
       case "payment":
         return <WalletPaymentsTable payments={payments} />;
       case "withdrawal":
-        return <h1>Withdrawal Tab</h1>
+        return <WalletWithdrawalTable withdrawal={withdrawal}/>
       default:
         return <WalletPaymentsTable payments={payments} />
     }
@@ -56,7 +58,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const profile: any = token ? jwtDecode(token) : "";
   const token_channel = context.req.cookies["token_channel"];
   let balance: any;
-  let payments = [];
+  let payments = []; //Payments from subscribers to creator
+  let withdrawal = [];
 
   if (!token) {
     return {
@@ -69,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
+    withdrawal = await findAllUserWithdrawal(profile.id);
   }
 
   if (token_channel) {
@@ -79,7 +83,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       balance: balance ?? null,
-      payments,
+      payments: payments ?? [],
+      withdrawal: withdrawal ?? [],
     },
   };
 };

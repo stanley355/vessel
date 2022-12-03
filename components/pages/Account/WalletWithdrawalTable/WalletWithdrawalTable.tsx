@@ -11,19 +11,43 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
 
   const { isDesktop } = useResponsive();
 
-  // const [channelPayments, setChannelPayments] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     setChannelPayments(payments);
-  //   }
-  // }, [payments]);
+  //   {
+  //     "id": "08cccd17-e93c-44c3-a2a4-d6e53ea2f2b0",
+  //     "created_at": "2022-12-02T09:24:13.000Z",
+  //     "updated_at": "2022-12-03T08:35:24.346Z",
+  //     "user_id": "73034da5-d327-45fb-b9b3-d3577ed6ef7e",
+  //     "bank_name": "BCA",
+  //     "account_number": "38",
+  //     "account_owner_name": "stan",
+  //     "amount": 2000,
+  //     "status": "REJECTED",
+  //     "message": "Akun bank tidak ditemukan"
+  // }
 
   const displayDate = (date: string) => {
     return new Date(date).toDateString();
   };
 
-  const PaymentTable = () => {
+  const WithdrawalList = () => {
+    return (
+      <div className={styles.list}>
+        {withdrawal.map((withdraw: any, index: number) => (
+          <div className={styles.row}>
+            <span>
+              <div>Tgl: {displayDate(withdraw.created_at)}</div>
+              <div>Via: {withdraw.bank_name} / {withdraw.account_number}</div>
+              <div>Jumlah: {withdraw.amount}</div>
+            </span>
+            <span className={styles.row__status}>
+              {withdraw.status}
+            </span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  const WithdrawalTable = () => {
     return (
       <table>
         <thead>
@@ -37,6 +61,13 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
           </tr>
         </thead>
         <tbody>
+          {withdrawal.map((withdraw: any, index) => (
+            <tr key={withdraw.id}>
+
+              <td>{index + 1}</td>
+              <td>{displayDate(withdraw.created_at)}</td>
+            </tr>
+          ))}
           {/* {channelPayments.map((payment: any, index: number) => (
             <tr key={index}>
               <td>{index + 1}</td>
@@ -55,9 +86,10 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
   };
 
   return (
-    <div className={styles.wallet__payments}>
+    <div className={styles.wallet__withdrawal}>
       <h3>Wallet Withdrawal</h3>
       {!isDesktop && "*Gunakan laptop/komputer untuk melihat lebih banyak"}
+      <WithdrawalList />
       {/* {channelPayments.length > 0 ? (
         <PaymentTable />
       ) : (

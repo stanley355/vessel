@@ -3,6 +3,27 @@
 .wallet__withdrawal {
   margin: $space--xxl 0;
 
+  .list {
+    margin: $space--sm 0;
+
+    .row:nth-child(odd) {
+      background: $color--barely-blue;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: $space--sm $space--xs;
+
+      &__status {
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+      }
+    }
+  }
+
   table {
     width: 100%;
 
