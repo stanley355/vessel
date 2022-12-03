@@ -2,7 +2,7 @@ import fetcher from "../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const paymentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.PAYMENT_URL}/payment/`;
+  const URL = `${process.env.PAYMENT_URL}/v2/payment/`;
 
   const resp = await fetcher(URL, {
     method: req.method,

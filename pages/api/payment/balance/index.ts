@@ -2,7 +2,7 @@ import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const balanceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.PAYMENT_URL}/balance${
+  const URL = `${process.env.PAYMENT_URL}/v2/balance${
     req.query && req.query.userID ? `?userID=${req.query.userID}` : ""
   }`;
 
