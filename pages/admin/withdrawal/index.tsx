@@ -1,13 +1,14 @@
 import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import findAllOngoingWithdrawal from '../../../lib/withdrawalHandler/findAllOngoingWithdrawal';
+import AdminLoginForm from '../../../components/pages/Admin/AdminLoginForm';
 
 const WithdrawalPage = (props: any) => {
   const { ongoingWithdrawals } = props;
 
   return (
-    <div>
-      hi
+    <div className='container'>
+      <AdminLoginForm />
     </div>
   )
 }

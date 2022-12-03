@@ -1,0 +1,30 @@
+@import '../../../../styles/tokens/all';
+
+.login__form {
+  border: 1px solid $primary-color;
+  padding: $space--sm;
+  margin: auto;
+  border-radius: $space--xs;
+
+  @include desktop-view {
+    width: 30%;
+  }
+
+  input {
+    padding: $space--xs;
+    font-size: $font--sm;
+    margin: $space--xs 0;
+    width: 100%;
+    border-radius: $space--xs;
+  }
+
+  button {
+    width: 100%;
+    background: $primary-color;
+    padding: $space--xs;
+    border: none;
+    border-radius: $space--xs;
+    color: $color--white;
+    font-size: $font--sm;
+  }
+}
