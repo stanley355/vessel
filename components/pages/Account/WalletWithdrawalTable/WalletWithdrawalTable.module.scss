@@ -1,0 +1,29 @@
+@import "../../../../styles/tokens/all";
+
+.wallet__withdrawal {
+  margin: $space--xxl 0;
+
+  table {
+    width: 100%;
+
+    tr:nth-child(odd) {
+      background: $color--barely-blue;
+    }
+  }
+
+  table tr {
+    display: grid;
+    grid-template-columns: 10% 45% 45%;
+    padding: $space--xs 0;
+    text-align: center;
+
+    .net_income {
+      color: green;
+      font-weight: bold;
+    }
+
+    @include desktop-view {
+      grid-template-columns: 5% 17% 17% 17% 17% 17%;
+    }
+  }
+}
