@@ -4,22 +4,34 @@ import findAllOngoingWithdrawal from '../../../lib/withdrawalHandler/findAllOngo
 import AdminLoginForm from '../../../components/pages/Admin/AdminLoginForm';
 
 const WithdrawalPage = (props: any) => {
-  const { ongoingWithdrawals } = props;
+  const { token_admin, ongoingWithdrawals } = props;
 
   return (
     <div className='container'>
-      <AdminLoginForm />
+      {token_admin ? <h1>hi</h1> : <AdminLoginForm />}
     </div>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-  const ongoingWithdrawals = await findAllOngoingWithdrawal() ?? [];
+  const token = context.req.cookies["token"];
+  const token_admin = context.req.cookies["token_admin"] ?? null;
 
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/account/login/",
+        permanent: false,
+      },
+    };
+  } 
+
+  const ongoingWithdrawals = await findAllOngoingWithdrawal();
 
   return {
     props: {
-      ongoingWithdrawals: ongoingWithdrawals ?? []
+      token_admin,
+      ongoingWithdrawals,
     }
   }
 }

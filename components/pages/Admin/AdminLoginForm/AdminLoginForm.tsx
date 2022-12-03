@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import fetcher from '../../../../lib/fetcher';
 import styles from './AdminLoginForm.module.scss';
 
-const { BASE_URL, ADMIN_CRYPTO_SECRET } = getConfig().publicRuntimeConfig;
+const { KONTENKU_URL, ADMIN_CRYPTO_SECRET } = getConfig().publicRuntimeConfig;
 
 const AdminLoginForm = () => {
   const [errorMsg, setErrorMsg] = useState("");
@@ -15,7 +15,7 @@ const AdminLoginForm = () => {
     e.preventDefault();
     const { email, password } = e.target;
 
-    const URL = `${BASE_URL}/api/payment/withdrawal/admin/`;
+    const URL = `${KONTENKU_URL}/api/payment/withdrawal/admin/`;
     const admin = await fetcher(URL, {});
 
     const bytes = CryptoJS.AES.decrypt(admin, ADMIN_CRYPTO_SECRET);
