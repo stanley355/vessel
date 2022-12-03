@@ -32,7 +32,7 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
     return (
       <div className={styles.list}>
         {withdrawal.map((withdraw: any, index: number) => (
-          <div className={styles.row}>
+          <div className={styles.row} key={index}>
             <span>
               <div>Tgl: {displayDate(withdraw.created_at)}</div>
               <div>Via: {withdraw.bank_name} / {withdraw.account_number}</div>
