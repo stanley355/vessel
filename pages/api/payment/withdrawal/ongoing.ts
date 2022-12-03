@@ -1,9 +1,8 @@
-
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const withdrawalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.PAYMENT_URL}/v2/withdrawal/`;
+const ongoinWithdrawalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const URL = `${process.env.PAYMENT_URL}/v2/withdrawal/ongoing/`;
 
   const resp = await fetcher(URL, {
     method: req.method,
@@ -17,4 +16,4 @@ const withdrawalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(resp);
 };
 
-export default withdrawalHandler;
+export default ongoinWithdrawalHandler;
