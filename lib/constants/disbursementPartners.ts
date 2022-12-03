@@ -1,7 +1,7 @@
 export const DISBURSEMENT_PARTNERS = [
   {
     label: "GOPAY",
-    value: "GOPAY",
+    value: "GO_PAY",
   },
   {
     label: "Bank BCA",
