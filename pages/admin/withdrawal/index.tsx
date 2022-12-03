@@ -10,8 +10,7 @@ const WithdrawalPage = (props: any) => {
 
   return (
     <div className={styles.withdrawal__page}>
-      <OngoingWithdrawalTable ongoingWithdrawals={ongoingWithdrawals} />
-      {/* {token_admin ? <OngoingWithdrawalTable ongoingWithdrawals={ongoingWithdrawals} /> : <AdminLoginForm />} */}
+      {token_admin ? <OngoingWithdrawalTable ongoingWithdrawals={ongoingWithdrawals} /> : <AdminLoginForm />}
     </div>
   )
 }
