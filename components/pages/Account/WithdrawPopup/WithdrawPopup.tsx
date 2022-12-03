@@ -3,7 +3,7 @@ import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { FaWallet, FaPiggyBank, FaLongArrowAltRight } from "react-icons/fa";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
-import { DISBURSEMENT_PARTNERS } from "../../../../lib/constants/xenditDisbursementPartners";
+import { DISBURSEMENT_PARTNERS } from "../../../../lib/constants/disbursementPartners";
 import withdrawBalance from "../../../../lib/paymentHandler/withdrawBalance";
 import styles from "./WithdrawPopup.module.scss";
 import Router from "next/router";
