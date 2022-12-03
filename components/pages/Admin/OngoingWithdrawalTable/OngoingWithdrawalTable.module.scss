@@ -1,0 +1,38 @@
+@import '../../../../styles/tokens/all';
+
+.withdrawal__table {
+  table {
+    border-collapse: collapse;
+  }
+
+  table tr td {
+    padding: $space--xs;
+    border: 1px solid $color--black;
+  }
+
+  table tr:nth-child(even) {
+    background: $color--barely-blue;
+  }
+
+  .action__column {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      font-weight: bold;
+      color: $color--white;
+      padding: $space--xs;
+      margin: $space--xs;
+      border-radius: $space--xs;
+      border: none;
+    }
+
+    button:first-child {
+      background: green;
+    }
+
+    button:last-child {
+      background: red;
+    }
+  }
+}

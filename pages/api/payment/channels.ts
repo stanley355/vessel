@@ -5,7 +5,7 @@ const paymentChannelsHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const URL = `${process.env.PAYMENT_URL}/payment/channels?channelID=${req.query.channelID}`;
+  const URL = `${process.env.PAYMENT_URL}/v2/payment/channels?channelID=${req.query.channelID}`;
 
   const resp = await fetcher(URL, {
     method: "GET",

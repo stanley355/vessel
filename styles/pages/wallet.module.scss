@@ -1,0 +1,31 @@
+@import '../tokens/all';
+
+.wallet {
+  &__tabs {
+    margin: $space--sm 0;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    @include desktop-view {
+      width: 25%;
+    }
+
+    &__body {
+      padding: $space--lg 0;
+    }
+
+    button {
+      padding: $space--sm;
+      font-size: $font--xl;
+      background: none;
+      border: none;
+      border-bottom: 1px solid $color--gray;
+    }
+
+    .btn__active {
+      color: $color--blue;
+      font-weight: bold;
+      border-bottom: 2px solid $color--blue;
+    }
+  }
+}

@@ -1,11 +1,9 @@
+
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const balanceChannelHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const URL = `${process.env.PAYMENT_URL}/v2/balance/channel/`;
+const withdrawalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const URL = `${process.env.PAYMENT_URL}/v2/withdrawal/`;
 
   const resp = await fetcher(URL, {
     method: req.method,
@@ -19,4 +17,4 @@ const balanceChannelHandler = async (
   res.json(resp);
 };
 
-export default balanceChannelHandler;
+export default withdrawalHandler;
