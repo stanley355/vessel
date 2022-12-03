@@ -4,18 +4,18 @@ import fetcher from "../fetcher";
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
-const handleAcceptedWithdrawal = async (withdrawal: any) => {
+const handleRejectedWithdrawal = async (withdrawal: any, message: string) => {
   const URL = `${KONTENKU_URL}/api/payment/withdrawal/`;
   const withdrawalRes = await fetcher(URL, {
     method: "PUT",
     data: {
       withdrawalID: withdrawal.id,
-      status: "SUCCESS",
-      message: `Telah di transfer pada ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
+      status: "REJECTED",
+      message: message,
     },
   });
 
-  if (withdrawalRes.status === "SUCCESS") {
+  if (withdrawalRes.status === "REJECTED") {
     Router.reload();
   } else {
     alert("Withdrawal Update fail");
@@ -23,4 +23,4 @@ const handleAcceptedWithdrawal = async (withdrawal: any) => {
   }
 };
 
-export default handleAcceptedWithdrawal;
+export default handleRejectedWithdrawal;
