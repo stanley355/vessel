@@ -11,17 +11,19 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
 
   const { isDesktop } = useResponsive();
 
-  const [channelPayments, setChannelPayments] = useState<any[]>([]);
+  console.log(payments);
+  // const [channelPayments, setChannelPayments] = useState<any[]>([]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setChannelPayments(payments);
-    }
-  }, [payments]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     setChannelPayments(payments);
+  //   }
+  // }, [payments]);
 
   const displayDate = (date: string) => {
-    return new Date(date).toDateString();
+    return new Date(date).toLocaleDateString() + " " + new Date(date).toLocaleTimeString();
   };
+
 
   const PaymentTable = () => {
     return (
@@ -30,23 +32,17 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
           <tr>
             <th>No. </th>
             <th>Tanggal</th>
-            {isDesktop && <th>Jumlah Awal</th>}
-            {isDesktop && <th>Biaya Platform</th>}
-            <th>Jumlah bersih</th>
-            {isDesktop && <th>Keterangan</th>}
+            <th>Jumlah</th>
+            <th>Keterangan</th>
           </tr>
         </thead>
         <tbody>
-          {channelPayments.map((payment: any, index: number) => (
+          {payments.map((payment: any, index: number) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{displayDate(payment.created_at)}</td>
-              {isDesktop && <td>{payment.total_amount}</td>}
-              {isDesktop && <td>{payment.platform_fee}</td>}
-              <td className={styles.net_income}>
-                {payment.channel_net_income}
-              </td>
-              {isDesktop && <td>NEW SUBSCRIBERS</td>}
+              <td className={styles.total_amount}>{payment.total_amount}</td>
+              <td>NEW SUBSCRIBERS</td>
             </tr>
           ))}
         </tbody>
@@ -56,9 +52,8 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
 
   return (
     <div className={styles.wallet__payments}>
-      <h3>Wallet Transactions</h3>
-      {!isDesktop && "*Gunakan laptop/komputer untuk melihat lebih banyak"}
-      {channelPayments.length > 0 ? (
+      <h3>Wallet Income</h3>
+      {payments.length > 0 ? (
         <PaymentTable />
       ) : (
         <div>Belum ada pembayaran Subscriber ke Channel Anda</div>
