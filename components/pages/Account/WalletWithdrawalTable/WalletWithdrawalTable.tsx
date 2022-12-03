@@ -52,36 +52,30 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
       <table>
         <thead>
           <tr>
-            <th>No. </th>
-            <th>Tanggal</th>
-            {isDesktop && <th>Jumlah Awal</th>}
-            {isDesktop && <th>Biaya Platform</th>}
-            <th>Jumlah bersih</th>
-            {isDesktop && <th>Keterangan</th>}
+            <td>Withdrawal ID</td>
+            <td>Created At</td>
+            <td>Bank</td>
+            <td>Acc No.</td>
+            <td>Amount</td>
+            <td>Status</td>
+            <td>Message</td>
           </tr>
         </thead>
         <tbody>
-          {withdrawal.map((withdraw: any, index) => (
+          {withdrawal.map((withdraw: any) =>
             <tr key={withdraw.id}>
-
-              <td>{index + 1}</td>
-              <td>{displayDate(withdraw.created_at)}</td>
+              <td>{withdraw.id}</td>
+              <td>{new Date(withdraw.created_at).toDateString()}</td>
+              <td>{withdraw.bank_name}</td>
+              <td>{withdraw.account_number}</td>
+              <td>{withdraw.amount}</td>
+              <td>{withdraw.status}</td>
+              <td>{withdraw.message}</td>
             </tr>
-          ))}
-          {/* {channelPayments.map((payment: any, index: number) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{displayDate(payment.created_at)}</td>
-              {isDesktop && <td>{payment.total_amount}</td>}
-              {isDesktop && <td>{payment.platform_fee}</td>}
-              <td className={styles.net_income}>
-                {payment.channel_net_income}
-              </td>
-              {isDesktop && <td>NEW SUBSCRIBERS</td>}
-            </tr>
-          ))} */}
+          )}
         </tbody>
       </table>
+
     );
   };
 
@@ -89,12 +83,11 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
     <div className={styles.wallet__withdrawal}>
       <h3>Wallet Withdrawal</h3>
       {!isDesktop && "*Gunakan laptop/komputer untuk melihat lebih banyak"}
-      <WithdrawalList />
-      {/* {channelPayments.length > 0 ? (
-        <PaymentTable />
+      {withdrawal.length > 0 ? (
+        isDesktop ? <WithdrawalTable /> : <WithdrawalList />
       ) : (
         <div>Belum ada pembayaran Subscriber ke Channel Anda</div>
-      )} */}
+      )}
     </div>
   );
 };
