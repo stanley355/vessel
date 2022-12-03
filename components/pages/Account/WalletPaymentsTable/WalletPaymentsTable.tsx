@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import useResponsive from "../../../../lib/hooks/useResponsive";
+import React from "react";
 import styles from "./WalletPaymentsTable.module.scss";
 
 interface IChannelPayments {
@@ -8,17 +7,6 @@ interface IChannelPayments {
 
 const WalletPaymentsTable = (props: IChannelPayments) => {
   const { payments } = props;
-
-  const { isDesktop } = useResponsive();
-
-  console.log(payments);
-  // const [channelPayments, setChannelPayments] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     setChannelPayments(payments);
-  //   }
-  // }, [payments]);
 
   const displayDate = (date: string) => {
     return new Date(date).toLocaleDateString() + " " + new Date(date).toLocaleTimeString();

@@ -20,8 +20,8 @@ const AccountChannelInfo = (props: IAccountChannelInfo) => {
           <span>Subscription price: {channel.subscription_price}</span>
         </div>
       </div>
-      <Link href="/account/channel">
-        <a href="">
+      <Link href="//channel/setting/">
+        <a title='setting'>
           Setting
         </a>
       </Link>
