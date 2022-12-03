@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 import getConfig from 'next/config';
 import fetcher from '../../../../lib/fetcher';
 import handleAcceptedWithdrawal from '../../../../lib/withdrawalHandler/handleAcceptedWithdrawal';
 import styles from './OngoingWithdrawalTable.module.scss';
+import RejectedWithdrawalForm from '../RejectedWithdrawalForm';
 
 interface IWithdrawalTable {
   ongoingWithdrawals: any[]
@@ -14,9 +15,11 @@ const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 const OngoingWithdrawalTable = (props: IWithdrawalTable) => {
   const { ongoingWithdrawals } = props;
 
+  const [rejectedWithdraw, setRejectedWithdraw] = useState({id: ""});
 
   return (
     <div className={styles.withdrawal__table}>
+      {rejectedWithdraw.id && <RejectedWithdrawalForm withdrawal={rejectedWithdraw} onCloseClick={() => setRejectedWithdraw({id: ""})} />}
       <table>
         <thead>
           <tr>
@@ -44,8 +47,8 @@ const OngoingWithdrawalTable = (props: IWithdrawalTable) => {
                 <td>{withdrawal.amount}</td>
                 <td>{withdrawal.status}</td>
                 <td className={styles.action__column}>
-                  <button onClick={()=> handleAcceptedWithdrawal(withdrawal)  }>Accept</button>
-                  <button>Reject</button>
+                  <button onClick={() => handleAcceptedWithdrawal(withdrawal)}>Accept</button>
+                  <button onClick={() => setRejectedWithdraw(withdrawal)}>Reject</button>
                 </td>
               </tr>
             )}
