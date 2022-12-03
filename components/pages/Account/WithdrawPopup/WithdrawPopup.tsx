@@ -3,7 +3,7 @@ import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { FaWallet, FaPiggyBank, FaLongArrowAltRight } from "react-icons/fa";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
-import { XENDIT_DISBURSEMENT_PARTNERS } from "../../../../lib/constants/xenditDisbursementPartners";
+import { DISBURSEMENT_PARTNERS } from "../../../../lib/constants/xenditDisbursementPartners";
 import withdrawBalance from "../../../../lib/paymentHandler/withdrawBalance";
 import styles from "./WithdrawPopup.module.scss";
 import Router from "next/router";
@@ -35,9 +35,9 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
       alert("Semua data harus terisi!");
       return "";
     }
-    if (amount.value < 5000) {
+    if (amount.value < 11000) {
       setHasSubmit(false);
-      alert("Jumlah Penarikan Minimal Rp5000 !");
+      alert("Jumlah Penarikan Minimal Rp 11.000 !");
       return "";
     }
 
@@ -77,7 +77,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
       <div className={styles.field}>
         <label htmlFor="bankName">Nama Bank / eWallet</label>
         <select name="bankName" id="bankName" defaultValue="OVO">
-          {XENDIT_DISBURSEMENT_PARTNERS.map((partners: any) => (
+          {DISBURSEMENT_PARTNERS.map((partners: any) => (
             <option value={partners.value} key={partners.value}>
               {partners.label}
             </option>
@@ -110,7 +110,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
 
       <div className={styles.field}>
         <label htmlFor="amount">Jumlah Penarikan</label>
-        <input type="number" name="amount" id="amount" placeholder="Rp 5000" />
+        <input type="number" name="amount" id="amount" placeholder="Rp 11.000" />
       </div>
 
       <button type="submit" className={styles.cta} disabled={hasSubmit}>

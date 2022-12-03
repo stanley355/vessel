@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaWallet, FaMoneyBillAlt } from "react-icons/fa";
+import { FaMoneyBillAlt } from "react-icons/fa";
 import WithdrawPopup from "../WithdrawPopup";
 import styles from "./WalletHead.module.scss";
 

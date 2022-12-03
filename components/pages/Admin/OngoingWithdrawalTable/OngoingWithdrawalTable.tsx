@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
 import getConfig from 'next/config';
-import fetcher from '../../../../lib/fetcher';
 import handleAcceptedWithdrawal from '../../../../lib/withdrawalHandler/handleAcceptedWithdrawal';
 import styles from './OngoingWithdrawalTable.module.scss';
 import RejectedWithdrawalForm from '../RejectedWithdrawalForm';
