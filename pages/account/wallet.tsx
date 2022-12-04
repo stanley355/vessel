@@ -1,23 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import jwtDecode from "jwt-decode";
 import WalletHead from "../../components/pages/Account/WalletHead";
 import WalletPaymentsTable from "../../components/pages/Account/WalletPaymentsTable";
+import WalletWithdrawalTable from "../../components/pages/Account/WalletWithdrawalTable";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
+import findAllUserWithdrawal from "../../lib/withdrawalHandler/findAllUserWithdrawal";
+import styles from '../../styles/pages/wallet.module.scss';
 
 const Wallet = (props: any) => {
-  const { balance, payments } = props;
+  const { balance, payments, withdrawal } = props;
+
+  const [activeTab, setActiveTab] = useState("payment");
+
+  const WalletTab = () => {
+    return (
+      <div className={styles.wallet__tabs}>
+        <button
+          onClick={() => setActiveTab("payment")}
+          className={activeTab === "payment" ? styles.btn__active : ""}
+        >Income</button>
+        <button
+          onClick={() => setActiveTab("withdrawal")}
+          className={activeTab === "withdrawal" ? styles.btn__active : ""}
+        >Withdrawal</button>
+      </div>
+    )
+  }
+
+  const WalletBody = () => {
+    switch (activeTab) {
+      case "payment":
+        return <WalletPaymentsTable payments={payments} />;
+      case "withdrawal":
+        return <WalletWithdrawalTable withdrawal={withdrawal}/>
+      default:
+        return <WalletPaymentsTable payments={payments} />
+    }
+  }
 
   return (
     <div className="container">
       <HomeMetaHead posts={[]} />
-      <WalletHead balance={balance} />
-      <span>
-        *Income Anda akan di transfer dalam 3 hari kerja setelah penarikan
-      </span>
-      <WalletPaymentsTable payments={payments} />
+      <div className={styles.wallet}>
+        <WalletHead balance={balance} />
+        <WalletTab />
+        <WalletBody />
+      </div>
     </div>
   );
 };
@@ -27,7 +58,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const profile: any = token ? jwtDecode(token) : "";
   const token_channel = context.req.cookies["token_channel"];
   let balance: any;
-  let payments = [];
+  let payments = []; //Payments from subscribers to creator
+  let withdrawal = [];
 
   if (!token) {
     return {
@@ -40,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
+    withdrawal = await findAllUserWithdrawal(profile.id);
   }
 
   if (token_channel) {
@@ -50,7 +83,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       balance: balance ?? null,
-      payments,
+      payments: payments ?? [],
+      withdrawal: withdrawal ?? [],
     },
   };
 };

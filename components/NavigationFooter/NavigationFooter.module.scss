@@ -10,6 +10,11 @@
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
 
+  span {
+    display: grid;
+    place-items: center;
+  }
+
   svg {
     color: $color--blue;
     font-size: 36px;

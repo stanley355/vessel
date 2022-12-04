@@ -7,16 +7,25 @@ const NavigationFooter = () => {
   return (
     <div className={styles.navigation__footer}>
       <Link href="/">
-        <FaHome />
+        <span>
+          <FaHome />
+        </span>
       </Link>
       <Link href="/search/">
-        <FaSearch />
+        <span>
+          <FaSearch />
+        </span>
       </Link>
       <Link href="/account/wallet/">
-        <FaWallet />
+        <span>
+
+          <FaWallet />
+        </span>
       </Link>
       <Link href="/account/">
-        <FaUser />
+        <span>
+          <FaUser />
+        </span>
       </Link>
     </div>
   );
