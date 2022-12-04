@@ -36,6 +36,7 @@
   .name {
     margin: $space--sm;
     font-size: $font--lg;
+    font-weight: bold;
     text-align: center;
 
     @include desktop-view {

@@ -1,0 +1,51 @@
+@import '../../../styles/tokens/all';
+
+.setting {
+  padding: $space--sm;
+  border-radius: $space--xs;
+  box-shadow: 0 0 8px 4px $color--gray;
+
+  @include desktop-view {
+    width: 40%;
+    margin: 0 auto;
+  }
+
+  .form {
+    .img_wrap {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    button[type=submit] {
+      width: 100%;
+      background: $primary-color;
+      color: $color--white;
+      padding: $space--xs;
+      margin: $space--xs 0;
+      border-radius: $space--xs;
+      font-size: $font--lg;
+      border: none;
+    }
+
+    .error {
+      color: red;
+    }
+  }
+
+  .field {
+    padding: $space--xs 0;
+
+    input {
+      width: 100%;
+      padding: $space--xs;
+      border-radius: $space--xs;
+    }
+  }
+}
