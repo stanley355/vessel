@@ -52,8 +52,8 @@ const CreateChannelForm = () => {
       return false;
     }
 
-    if (channelPrice && channelPrice < 5000) {
-      setFormError("Harga Berlangganan minimal Rp5.000 / bulan!");
+    if (channelPrice && channelPrice < 10000) {
+      setFormError("Harga Berlangganan minimal Rp10.000 / bulan!");
       return false;
     }
 
