@@ -2,7 +2,10 @@ import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import jwtDecode from 'jwt-decode';
 
-const ChannelSetting = () => {
+const ChannelSetting = (props: any) => {
+  const { profile, channel } = props;
+  console.log(222, channel);
+
   return (
     <div className="container">
 
@@ -40,18 +43,14 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   const profile: any = token ? jwtDecode(token) : "";
+  const channel: any = token_channel ? jwtDecode(token_channel) : "";
 
-  if (profile && profile.id) {
-
-  }
-
-  // const channel = (await findChannel(slug)) ?? null;
 
 
   return {
     props: {
       profile,
-      // channel,
+      channel,
     },
   };
 };
