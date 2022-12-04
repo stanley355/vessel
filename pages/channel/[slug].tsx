@@ -39,11 +39,13 @@ const ChannelSlug = (props: IChannelSlug) => {
     </div>
   );
 
-  console.log(pendingOrder);
-
   const SubscriptionSection = () => {
     if (showSubscribeForm) {
       return <SubscribeChannelForm profile={profile} channel={channel} />;
+    }
+
+    if (pendingOrder && pendingOrder.status === "PENDING") {
+      return <AwaitingPaymentForm profile={profile} channel={channel} pendingOrder={pendingOrder} onRenewClick={()=> setShowSubscribeForm(true)} />
     }
 
     // TODO: Add awaiting payment form
