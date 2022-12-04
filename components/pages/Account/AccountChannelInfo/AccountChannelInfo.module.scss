@@ -1,0 +1,58 @@
+@import '../../../../styles/tokens/all';
+
+.account__channel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: $space--lg;
+
+  .info {
+    display: grid;
+    grid-template-columns: 25% 100%;
+
+    @include desktop-view {
+      grid-template-columns: 40% 100%;
+    }
+
+    .img__wrap {
+      width: 50px;
+      height: 50px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      @include desktop-view {
+        width: 60px;
+        height: 60px;
+        margin: auto;
+      }
+    }
+
+    .texts {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      span:first-child {
+        font-weight: bold;
+        font-size: $font--lg;
+      }
+    }
+  }
+
+  a {
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    padding: $space--xxs;
+    margin: auto 0;
+
+    &:hover {
+      background: $primary-color;
+      color:$color--white;
+      border-radius: $space--xs;
+    }
+  }
+}

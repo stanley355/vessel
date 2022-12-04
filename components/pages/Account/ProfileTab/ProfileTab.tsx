@@ -3,6 +3,7 @@ import LogoutBtn from "../LogoutBtn";
 import UserProfileCard from "../UserProfileCard";
 import MySubscriptions from "../MySubscriptions";
 import MyWallet from "../MyWallet";
+import AccountChannelInfo from "../AccountChannelInfo";
 import useResponsive from "../../../../lib/hooks/useResponsive";
 import styles from "./ProfileTab.module.scss";
 
@@ -11,12 +12,13 @@ interface IProfileTab {
     fullname: string;
     email: string;
   };
+  channel:any;
   balance: any;
   subscriptions: any[];
 }
 
 const ProfileTab = (props: IProfileTab) => {
-  const { profile, balance, subscriptions } = props;
+  const { profile, channel, balance, subscriptions } = props;
   const { isDesktop } = useResponsive();
 
   return (
@@ -25,6 +27,7 @@ const ProfileTab = (props: IProfileTab) => {
         {profile && <UserProfileCard profile={profile} />}
         {isDesktop && <LogoutBtn />}
       </div>
+      {channel && <AccountChannelInfo channel={channel} /> }
       <MyWallet balance={balance} />
       <MySubscriptions subscriptions={subscriptions} />
       <br />
