@@ -10,7 +10,7 @@ interface IUpdateChannelData {
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
-const updateChannelData = async (payload: IUpdateChannelData) => {
+export const updateChannelData = async (payload: IUpdateChannelData) => {
   const URL = `${KONTENKU_URL}/api/channel/`;
 
   const channelRes = await fetcher(URL, {
@@ -19,7 +19,7 @@ const updateChannelData = async (payload: IUpdateChannelData) => {
       channel_id: payload.channelID,
       ...(payload.channelName && { channel_name: payload.channelName }),
       ...(payload.subscriptionPrice && {
-        subscription_price: payload.subscriptionPrice,
+        subscription_price: Number(payload.subscriptionPrice),
       }),
       ...(payload.profileImgURL && { profile_img_url: payload.profileImgURL }),
     },
@@ -27,5 +27,3 @@ const updateChannelData = async (payload: IUpdateChannelData) => {
 
   return channelRes;
 };
-
-export default updateChannelData;

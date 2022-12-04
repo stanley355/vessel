@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import jwtDecode from 'jwt-decode';
 import { WARNING_MSG } from '../../../lib/warning-messages';
 import getFirebaseStorageRef from '../../../lib/getFirebaseStorageRef';
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { updateChannelData } from '../../../lib/channelHandler/updateChannelData';
 import styles from './setting.module.scss';
 
 const ChannelSetting = (props: any) => {
@@ -38,8 +40,32 @@ const ChannelSetting = (props: any) => {
       return false;
     }
 
+    setFormError("");
     return true;
   };
+
+  const handleChannelUpdateRes = async (payload: any) => {
+    const channelUpdateRes = await updateChannelData(payload);
+
+    if (channelUpdateRes) {
+      if (channelUpdateRes.error) {
+        if (channelUpdateRes.data && channelUpdateRes.data.error) {
+          setFormError(channelUpdateRes.data.error);
+        } else {
+          setFormError(WARNING_MSG.TRY_AGAIN);
+        }
+
+        setHasSubmit(false);
+        return ""
+      } else {
+        Router.push("/account/")
+      }
+    } else {
+      setFormError(WARNING_MSG.TRY_AGAIN);
+      setHasSubmit(false);
+      return ""
+    }
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -47,21 +73,19 @@ const ChannelSetting = (props: any) => {
     setHasSubmit(inputValid);
 
     if (inputValid) {
-      const channelName = e.target.newChannelName.value.trim();
-      const channelPrice = e.target.newSubscriptionPrice.value;
-      const profileImage = e.target.profileImg.files[0];
+      const newChannelName = e.target.newChannelName.value.trim();
+      const newChannelPrice = e.target.newSubscriptionPrice.value;
+      const newProfileImage = e.target.profileImg.files[0];
 
-      if (profileImage) {
-        const profileImage = e.target.profile_img.files[0];
-
+      if (newProfileImage) {
         const storageRef: any = await getFirebaseStorageRef(
-          `/profileImage/${channelName}`
+          `/profileImage/${newChannelName}`
         );
-        const uploadTask = uploadBytesResumable(storageRef, profileImage);
+        const uploadTask = uploadBytesResumable(storageRef, newProfileImage);
 
         uploadTask.on(
           "state_changed",
-          (snapshot: any) => {},
+          (snapshot: any) => { },
           (error: any) => {
             console.error(error);
             setHasSubmit(false);
@@ -69,11 +93,23 @@ const ChannelSetting = (props: any) => {
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              const payload = {
+                channelID: channel.id,
+                ...(newChannelName && { channelName: newChannelName }),
+                ...(newChannelPrice && { subscriptionPrice: newChannelPrice }),
+                profileImgUrl: downloadURL
+              }
+              await handleChannelUpdateRes(payload);
             });
           }
         );
       } else {
-        
+        const payload = {
+          channelID: channel.id,
+          ...(newChannelName && { channelName: newChannelName }),
+          ...(newChannelPrice && { subscriptionPrice: newChannelPrice })
+        }
+        await handleChannelUpdateRes(payload);
       }
     }
   }
@@ -113,7 +149,7 @@ const ChannelSetting = (props: any) => {
 
           <span>*Pastikan data Anda sudah benar sebelum mensubmit</span>
 
-          <button type="submit" disabled={hasSubmit}>Submit</button>
+          <button type="submit" disabled={hasSubmit}>{hasSubmit ? "Loading..." : "Submit"}</button>
 
           {formError && <div className={styles.error}>{formError}</div>}
         </form>
@@ -149,8 +185,6 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const profile: any = token ? jwtDecode(token) : "";
   const channel: any = token_channel ? jwtDecode(token_channel) : "";
-
-
 
   return {
     props: {
