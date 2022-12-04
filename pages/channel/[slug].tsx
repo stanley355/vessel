@@ -44,19 +44,11 @@ const ChannelSlug = (props: IChannelSlug) => {
     if (showSubscribeForm) {
       return <SubscribeChannelForm profile={profile} channel={channel} />;
     }
-    return subscription ? (
-      <AwaitingPaymentForm
-        profile={profile}
-        channel={channel}
-        invoice={invoice}
-        subscriptionDuration={subscription.duration}
-        onRenewClick={() => setShowSubscribeForm(true)}
-      />
-    ) : (
-      <ChannelNotSubscribed
-        onSubscribeClick={() => setShowSubscribeForm(true)}
-      />
-    );
+
+    // TODO: Add awaiting payment form
+    return <ChannelNotSubscribed
+      onSubscribeClick={() => setShowSubscribeForm(true)}
+    />
   };
 
   const ChannelBody = () => {
@@ -137,14 +129,14 @@ export const getServerSideProps: GetServerSideProps = async (
   let subscription;
   let invoice;
 
-  if (profile && channel && channel.id) {
-    const payload = {
-      userID: profile.id,
-      channelID: channel.id,
-    };
-    const subscriptionList = await viewSubscriptions(payload);
-    subscription = subscriptionList[subscriptionList.length - 1];
-  }
+  // if (profile && channel && channel.id) {
+  //   const payload = {
+  //     userID: profile.id,
+  //     channelID: channel.id,
+  //   };
+  //   const subscriptionList = await viewSubscriptions(payload);
+  //   subscription = subscriptionList[subscriptionList.length - 1];
+  // }
 
   // if (subscription && !subscription.paid && !subscription.expired_at) {
   //   invoice = await viewInvoice(subscription.invoice_id);
