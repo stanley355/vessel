@@ -104,8 +104,6 @@ const CreateChannelForm = () => {
             const channel = await createChannel(payload);
 
             if (channel && channel.token) {
-              const channelData: any = jwtDecode(channel.token);
-
               const userPayload = {
                 id: user.id,
                 fullname: user.fullname,
@@ -115,16 +113,7 @@ const CreateChannelForm = () => {
 
               const userDataUpdate = await updateUserData(userPayload);
 
-              const balancePayload = {
-                userID: user.id,
-                channelID: channelData.id,
-                channelName: channelData.channel_name,
-              };
-              const balanceChannelUpdate = await updateBalanceChannel(
-                balancePayload
-              );
-
-              if (userDataUpdate.token && balanceChannelUpdate.affected > 0) {
+              if (userDataUpdate.token) {
                 jsCookie.set("token", userDataUpdate.token);
                 jsCookie.set("token_channel", channel.token);
                 Router.reload();
@@ -164,7 +153,7 @@ const CreateChannelForm = () => {
             prefix="Rp"
             id="channel_price"
             name="channel_price"
-            placeholder="Rp5,000"
+            placeholder="Rp10,000"
             decimalsLimit={2}
           />
         </div>
