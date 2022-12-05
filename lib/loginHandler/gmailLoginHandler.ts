@@ -31,7 +31,6 @@ const gmailLoginHandler = async (googleRes: any) => {
     };
     const userBalance: any = await createBalance(balancePayload);
 
-    console.log(333, userBalance);
     if (userBalance.identifiers || userBalance.id) {
       if (user.has_channel) {
         const channelLogin: any = await channelLoginHandler(loginRes.token);

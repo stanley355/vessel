@@ -14,7 +14,6 @@ const balanceHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     data: JSON.stringify(req.body),
   });
 
-  console.log(333, resp)
   res.setHeader("Content-Type", "application/json");
   res.json(resp);
 };
