@@ -37,6 +37,7 @@ const gmailLoginHandler = async (googleRes: any) => {
       if (user.has_channel) {
         const channelLogin: any = await channelLoginHandler(loginRes.token);
 
+        console.log(333, channelLogin);
         if (channelLogin && channelLogin.token) {
           jsCookie.set("token", loginRes.token);
           jsCookie.set("token_channel", channelLogin.token);
