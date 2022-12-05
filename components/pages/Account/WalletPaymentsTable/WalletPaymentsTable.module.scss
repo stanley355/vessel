@@ -12,18 +12,15 @@
   }
 
   table tr {
-    display: grid;
-    grid-template-columns: 10% 45% 45%;
-    padding: $space--xs 0;
     text-align: center;
 
-    .net_income {
-      color: green;
-      font-weight: bold;
+    td {
+      padding: $space--xs;
     }
 
-    @include desktop-view {
-      grid-template-columns: 5% 17% 17% 17% 17% 17%;
-    }
+    .total_amount {
+      color: green;
+      font-weight: bold;
+    } 
   }
 }

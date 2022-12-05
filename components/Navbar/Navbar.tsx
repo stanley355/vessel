@@ -16,9 +16,9 @@ const Navbar = (props: INavbar) => {
       <Link href="/">
         <h2>Kontenku</h2>
       </Link>
-      <Link href="/account/login/">
+      {!token && <Link href="/account/login/">
         <a title="Login">Login</a>
-      </Link>
+      </Link>}
     </div>
   );
 

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { FaWallet, FaPiggyBank, FaLongArrowAltRight } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
-import { XENDIT_DISBURSEMENT_PARTNERS } from "../../../../lib/constants/xenditDisbursementPartners";
-import withdrawBalance from "../../../../lib/paymentHandler/withdrawBalance";
+import { DISBURSEMENT_PARTNERS } from "../../../../lib/constants/disbursementPartners";
+import createWithdrawal from "../../../../lib/withdrawalHandler/createWithdrawal";
 import styles from "./WithdrawPopup.module.scss";
-import Router from "next/router";
 
 interface IWithdrawPopup {
   walletAmount: number;
@@ -35,9 +35,9 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
       alert("Semua data harus terisi!");
       return "";
     }
-    if (amount.value < 5000) {
+    if (amount.value < 11000) {
       setHasSubmit(false);
-      alert("Jumlah Penarikan Minimal Rp5000 !");
+      alert("Jumlah Penarikan Minimal Rp 11.000 !");
       return "";
     }
 
@@ -52,19 +52,26 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
 
     const withdrawPayload = {
       userID: profile.id,
-      userName: profile.fullname,
-      userEmail: profile.email,
       bankName: bankName.value,
-      bankAccount: bankAccount.value,
-      accountHolderName: accountHolderName.value,
+      accountNumber: bankAccount.value,
+      accountOwnerName: accountHolderName.value,
       amount: amount.value,
     };
-    const withdrawRes = await withdrawBalance(withdrawPayload);
 
-    if (withdrawRes && withdrawRes.affected > 0) {
-      setTimeout(() => Router.reload(), 2000);
-      setHasSubmit(false);
-      setWithdrawSuccess(true);
+    const withdrawRes = await createWithdrawal(withdrawPayload);
+
+    if (withdrawRes) {
+      if (withdrawRes.identifiers.length) {
+        setTimeout(() => Router.reload(), 2000);
+        setHasSubmit(false);
+        setWithdrawSuccess(true);
+      }
+
+      if (withdrawRes.error && withdrawRes.message) {
+        setHasSubmit(false);
+        alert(withdrawRes.message);
+        return ""
+      }
     } else {
       setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);
@@ -77,7 +84,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
       <div className={styles.field}>
         <label htmlFor="bankName">Nama Bank / eWallet</label>
         <select name="bankName" id="bankName" defaultValue="OVO">
-          {XENDIT_DISBURSEMENT_PARTNERS.map((partners: any) => (
+          {DISBURSEMENT_PARTNERS.map((partners: any) => (
             <option value={partners.value} key={partners.value}>
               {partners.label}
             </option>
@@ -88,7 +95,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
       <div className={styles.field}>
         <label htmlFor="bankAccount">Nomor Akun Bank / eWallet</label>
         <input
-          type="number"
+          type="text"
           name="bankAccount"
           id="bankAccount"
           placeholder="00000000"
@@ -110,7 +117,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
 
       <div className={styles.field}>
         <label htmlFor="amount">Jumlah Penarikan</label>
-        <input type="number" name="amount" id="amount" placeholder="Rp 5000" />
+        <input type="number" name="amount" id="amount" placeholder="Rp 11.000" />
       </div>
 
       <button type="submit" className={styles.cta} disabled={hasSubmit}>
@@ -121,9 +128,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
 
   const WithdrawSuccess = () => (
     <div className={styles.withdraw__success}>
-      <FaWallet />
-      <FaLongArrowAltRight />
-      <FaPiggyBank />
+      <FaCheckCircle />
     </div>
   );
 
@@ -142,7 +147,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
         </button>
 
         <h3 className={styles.title}>
-          {withdrawSuccess ? "Penarikan Berhasil" : " Penarikan Dana"}
+          {withdrawSuccess ? "Pengajuan penarikan berhasil dibuat, silakan melihat status di tab Withdrawal" : " Penarikan Income"}
         </h3>
         {withdrawSuccess ? <WithdrawSuccess /> : <WithdrawForm />}
       </div>
