@@ -21,25 +21,29 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
     props;
 
   const orderExpiryDate = () => {
-    const startDate = new Date(pendingOrder.created_at);
+    if (pendingOrder.merchant) {
+      return new Date(pendingOrder.expired_at).toLocaleString();
+    } else {
+      const startDate = new Date(pendingOrder.created_at);
 
-    // seconds * minutes * hours * milliseconds = 1 day 
-    const day = 60 * 60 * 24 * 1000;
+      // seconds * minutes * hours * milliseconds = 1 day 
+      const day = 60 * 60 * 24 * 1000;
 
-    const endDate = new Date(startDate.getTime() + day);
-    return endDate.toLocaleString();
+      const endDate = new Date(startDate.getTime() + day);
+      return endDate.toLocaleString();
+    }
   }
 
   const isOrderExpired = () => {
-    const orderDate = new Date(pendingOrder.created_at);
-    const currentDate = new Date();
+    if (pendingOrder.merchant) {
+      const expDate = new Date(pendingOrder.expired_at);
+      const currentDate = new Date();
 
-    const timeDifference = currentDate.getTime() - orderDate.getTime();
+      return currentDate.getTime() > expDate.getTime();
+    }
 
-    // To calculate the no. of days between two dates
-    const dayDiffernce = timeDifference / (60 * 60 * 24 * 1000);
+    return false;
 
-    return dayDiffernce > 1;
   }
 
   const RenewPaymentBtn = () => (
@@ -68,7 +72,7 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
       </div>
       <div className={styles.info}>Total Harga: {pendingOrder.amount}</div>
       <div className={styles.info}>Batas Pembayaran: {orderExpiryDate()}</div>
-      
+
       {isOrderExpired() ? (
         <RenewPaymentBtn />
       ) : (
