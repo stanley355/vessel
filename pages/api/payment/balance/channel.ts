@@ -5,7 +5,7 @@ const balanceChannelHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const URL = `${process.env.PAYMENT_URL}/balance/channel/`;
+  const URL = `${process.env.PAYMENT_URL}/v2/balance/channel/`;
 
   const resp = await fetcher(URL, {
     method: req.method,

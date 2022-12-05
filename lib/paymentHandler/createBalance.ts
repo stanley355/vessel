@@ -3,7 +3,6 @@ import fetcher from "../fetcher";
 
 interface ICreateBalance {
   userID: string;
-  userName: string;
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
