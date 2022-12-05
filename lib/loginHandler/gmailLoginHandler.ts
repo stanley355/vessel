@@ -28,7 +28,6 @@ const gmailLoginHandler = async (googleRes: any) => {
 
     const balancePayload = {
       userID: user.id,
-      userName: user.fullname,
     };
     const userBalance: any = await createBalance(balancePayload);
 
