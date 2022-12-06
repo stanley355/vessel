@@ -1,1 +1,1 @@
-export {default} from './OngoingWithdrawalTable';
+export { default } from "./OngoingWithdrawalTable";

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import getConfig from 'next/config';
-import Router from 'next/router';
-import fetcher from '../../../../lib/fetcher';
-import { WARNING_MSG } from '../../../../lib/warning-messages';
-import styles from './CancelConfirmation.module.scss';
-
+import React, { useState } from "react";
+import getConfig from "next/config";
+import Router from "next/router";
+import fetcher from "../../../../lib/fetcher";
+import { WARNING_MSG } from "../../../../lib/warning-messages";
+import styles from "./CancelConfirmation.module.scss";
 
 interface ICancelConfirmation {
   orderID: string;
   channel: string;
-  onNoClick: () => void
+  onNoClick: () => void;
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
@@ -20,7 +19,7 @@ const CancelConfirmation = (props: ICancelConfirmation) => {
   const [confirm, setConfirm] = useState(false);
 
   const handleCancel = async () => {
-    setConfirm(true)
+    setConfirm(true);
     const url = `${KONTENKU_URL}/api/payment/order/cancel?orderID=${orderID}`;
     const orderCancelRes = await fetcher(url, { method: "PUT" });
 
@@ -30,7 +29,7 @@ const CancelConfirmation = (props: ICancelConfirmation) => {
       alert(WARNING_MSG.TRY_AGAIN);
       onNoClick();
     }
-  }
+  };
 
   return (
     <div className={styles.cancel__confirmation}>
@@ -39,17 +38,25 @@ const CancelConfirmation = (props: ICancelConfirmation) => {
         <div>Order ID: {orderID}</div>
         <div>Channel: {channel}</div>
 
-        {confirm ?
+        {confirm ? (
           <div className={styles.cta__wrap}>
-            <button disabled type="button">Loading...</button>
-          </div> :
+            <button disabled type="button">
+              Loading...
+            </button>
+          </div>
+        ) : (
           <div className={styles.cta__wrap}>
-            <button type='button' onClick={handleCancel}>Ya</button>
-            <button type='button' onClick={onNoClick}>Tidak</button>
-          </div>}
+            <button type="button" onClick={handleCancel}>
+              Ya
+            </button>
+            <button type="button" onClick={onNoClick}>
+              Tidak
+            </button>
+          </div>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CancelConfirmation;

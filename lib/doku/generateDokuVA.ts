@@ -20,21 +20,21 @@ const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const generateDokuVA = async (payload: IDokuVA) => {
   const dokuPayload = {
-    "order": {
-      "invoice_number": payload.order.id,
-      "amount": payload.order.amount,
+    order: {
+      invoice_number: payload.order.id,
+      amount: payload.order.amount,
     },
-    "virtual_account_info": {
-      "expired_time": 60 * 24, //One day
-      "reusable_status": false,
-      "info1": `${payload.channel} Subscription`,
+    virtual_account_info: {
+      expired_time: 60 * 24, //One day
+      reusable_status: false,
+      info1: `${payload.channel} Subscription`,
       ...(payload.bankName === "BNI" && {
-        "merchant_unique_reference": generateUniqueReference(payload.order.id),
+        merchant_unique_reference: generateUniqueReference(payload.order.id),
       }),
     },
-    "customer": {
-      "name": payload.profile.fullname,
-      "email": payload.profile.email,
+    customer: {
+      name: payload.profile.fullname,
+      email: payload.profile.email,
     },
   };
 

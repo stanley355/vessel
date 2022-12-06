@@ -41,7 +41,7 @@ const dokuHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       "Client-Id": "BRN-0263-1669701997867",
       "Request-Id": `kontenku-${new Date().toISOString()}`,
       "Request-Timestamp": new Date().toISOString(),
-      "Signature": `HMACSHA256=${generateSignatureKey(req.body)}`,
+      Signature: `HMACSHA256=${generateSignatureKey(req.body)}`,
     },
     data: JSON.stringify(req.body),
   });

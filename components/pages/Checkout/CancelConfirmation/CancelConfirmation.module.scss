@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .cancel__confirmation {
   background: $popup-background-color;
@@ -34,7 +34,7 @@
 
       button:first-child {
         background: red;
-        color:$color--white;
+        color: $color--white;
       }
 
       button:last-child {
@@ -42,7 +42,6 @@
         border: 1px solid $primary-color;
         color: $primary-color;
       }
-
     }
   }
 }

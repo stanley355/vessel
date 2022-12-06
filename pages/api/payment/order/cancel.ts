@@ -1,7 +1,10 @@
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const cancelOrderHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const cancelOrderHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const URL = `${process.env.PAYMENT_URL}/v2/order/cancel?orderID=${req.query.orderID}`;
 
   const resp = await fetcher(URL, {

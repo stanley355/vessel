@@ -1,7 +1,10 @@
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const currentChannelPendingOrder = async (req: NextApiRequest, res: NextApiResponse) => {
+const currentChannelPendingOrder = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const URL = `${process.env.PAYMENT_URL}/v2/order/channel/pending?channelID=${req.query.channelID}&subscriberID=${req.query.subscriberID}`;
 
   const resp = await fetcher(URL, {

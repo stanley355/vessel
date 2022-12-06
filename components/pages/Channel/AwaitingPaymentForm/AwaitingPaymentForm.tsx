@@ -17,8 +17,7 @@ interface IAwaitingPayment {
 }
 
 const AwaitingPaymentForm = (props: IAwaitingPayment) => {
-  const { profile, channel, pendingOrder, onRenewClick } =
-    props;
+  const { profile, channel, pendingOrder, onRenewClick } = props;
 
   const orderExpiryDate = () => {
     if (pendingOrder.merchant) {
@@ -26,13 +25,13 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
     } else {
       const startDate = new Date(pendingOrder.created_at);
 
-      // seconds * minutes * hours * milliseconds = 1 day 
+      // seconds * minutes * hours * milliseconds = 1 day
       const day = 60 * 60 * 24 * 1000;
 
       const endDate = new Date(startDate.getTime() + day);
       return endDate.toLocaleString();
     }
-  }
+  };
 
   const isOrderExpired = () => {
     if (pendingOrder.merchant) {
@@ -43,8 +42,7 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
     }
 
     return false;
-
-  }
+  };
 
   const RenewPaymentBtn = () => (
     <div className={styles.renew}>
@@ -76,7 +74,9 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
       {isOrderExpired() ? (
         <RenewPaymentBtn />
       ) : (
-        <Link href={`/checkout/${pendingOrder.id}?channel=${channel.channel_name}`}>
+        <Link
+          href={`/checkout/${pendingOrder.id}?channel=${channel.channel_name}`}
+        >
           <a title="Link Pembayaran" className={styles.payment__link}>
             Link Pembayaran
           </a>

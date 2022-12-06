@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .reject__form {
   position: fixed;
@@ -23,7 +23,7 @@
       right: 0;
       font-size: $font--lg;
       background: $primary-color;
-      color:$color--white;
+      color: $color--white;
     }
 
     input {
@@ -37,10 +37,9 @@
       width: 100%;
       background: red;
       padding: $space--xs;
-      color:$color--white;
+      color: $color--white;
       font-size: $font--sm;
       border-radius: $space--xs;
     }
   }
-
 }

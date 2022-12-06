@@ -56,11 +56,11 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
       channelID: channel.id,
       subscriberID: profile.id,
       subscriptionDuration: activePlan.month,
-      amount: activePlan.price
-    }
+      amount: activePlan.price,
+    };
 
     const order = await createOrder(orderPayload);
-    
+
     if (order && order.id) {
       Router.push(`/checkout/${order.id}`);
     } else {

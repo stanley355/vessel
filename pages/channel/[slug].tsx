@@ -45,12 +45,21 @@ const ChannelSlug = (props: IChannelSlug) => {
     }
 
     if (pendingOrder && pendingOrder.status === "PENDING") {
-      return <AwaitingPaymentForm profile={profile} channel={channel} pendingOrder={pendingOrder} onRenewClick={()=> setShowSubscribeForm(true)} />
+      return (
+        <AwaitingPaymentForm
+          profile={profile}
+          channel={channel}
+          pendingOrder={pendingOrder}
+          onRenewClick={() => setShowSubscribeForm(true)}
+        />
+      );
     }
 
-    return <ChannelNotSubscribed
-      onSubscribeClick={() => setShowSubscribeForm(true)}
-    />
+    return (
+      <ChannelNotSubscribed
+        onSubscribeClick={() => setShowSubscribeForm(true)}
+      />
+    );
   };
 
   const ChannelBody = () => {
@@ -90,7 +99,7 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   return (
     <div className="container">
-      {(channel && posts.length) && (
+      {channel && posts.length && (
         <ChannelMetaHead channel={channel} posts={posts} />
       )}
       <div className={styles.channel__slug}>
@@ -117,7 +126,7 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   const profile: any = token ? jwtDecode(token) : "";
-  const channel = await findChannel(slug) ?? null;
+  const channel = (await findChannel(slug)) ?? null;
 
   if (profile.id === channel.owner_id) {
     return {
@@ -128,17 +137,22 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
 
-  const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {}) ?? [];
+  const posts =
+    (await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {})) ?? [];
 
-  const pendingOrders = await fetcher(`${BASE_URL}/api/payment/order/channel-pending?channelID=${channel.id}&subscriberID=${profile.id}`, {}) ?? [];
-
+  const pendingOrders =
+    (await fetcher(
+      `${BASE_URL}/api/payment/order/channel-pending?channelID=${channel.id}&subscriberID=${profile.id}`,
+      {}
+    )) ?? [];
 
   return {
     props: {
       profile,
       channel,
       posts,
-      pendingOrder: pendingOrders && pendingOrders.length > 0 ? pendingOrders[0] : null
+      pendingOrder:
+        pendingOrders && pendingOrders.length > 0 ? pendingOrders[0] : null,
     },
   };
 };

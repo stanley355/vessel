@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .dropdown__va {
   padding: $space--sm 0;
@@ -11,11 +11,11 @@
     display: grid;
     grid-gap: 2%;
     grid-template-columns: 20% 80%;
-  
+
     img {
       width: 100%;
     }
-  
+
     span:last-child {
       display: flex;
       align-items: center;

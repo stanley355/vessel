@@ -10,7 +10,7 @@ const nextConfig = {
     APP_ENV: process.env.APP_ENV,
     KONTENKU_URL: process.env.KONTENKU_URL,
     ADMIN_CRYPTO_SECRET: process.env.ADMIN_CRYPTO_SECRET,
-    DOKU_API_URL: process.env.DOKU_API_URL
+    DOKU_API_URL: process.env.DOKU_API_URL,
   },
   serverRuntimeConfig: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
@@ -25,7 +25,7 @@ const nextConfig = {
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
     DOKU_CLIENT_ID: process.env.DOKU_CLIENT_ID,
-    DOKU_SECRET_KEY: process.env.DOKU_SECRET_KEY
+    DOKU_SECRET_KEY: process.env.DOKU_SECRET_KEY,
   },
 };
 

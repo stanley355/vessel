@@ -24,11 +24,11 @@ const Layout = ({ children }: any) => {
   });
 
   const isCheckoutPage = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       return Router.asPath.includes("/checkout");
     }
     return false;
-  }
+  };
 
   return (
     <div className="layout">

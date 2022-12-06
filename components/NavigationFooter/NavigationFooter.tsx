@@ -18,7 +18,6 @@ const NavigationFooter = () => {
       </Link>
       <Link href="/account/wallet/">
         <span>
-
           <FaWallet />
         </span>
       </Link>
