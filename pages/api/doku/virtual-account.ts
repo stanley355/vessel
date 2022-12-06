@@ -46,13 +46,14 @@ const dokuVAHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     method: "POST",
     headers: {
       "Client-Id": process.env.DOKU_CLIENT_ID,
-      "Request-Id": req.body.request_id,
+      "Request-Id": req.body.order_id,
       "Request-Timestamp": new Date().toISOString(),
       "Signature": `HMACSHA256=${generateDokuSignatureKey(req.body.doku_payload)}`,
     },
     data: JSON.stringify(req.body.doku_payload),
   });
 
+  console.log(222, req.body);
   res.setHeader("Content-Type", "application/json");
   res.json(resp);
 };

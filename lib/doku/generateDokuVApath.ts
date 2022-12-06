@@ -12,12 +12,8 @@ const generateDokuVApath = (bankName: string) => {
         return "/bri-virtual-account";
       case "CIMB":
         return "/cimb-virtual-account";
-      case "PERMATA":
-        return "/permata-virtual-account";
       case "BNI":
         return "/bni-virtual-account";
-      case "DANAMON":
-        return "/danamon-virtual-account";
       default:
         return "/doku-virtual-account";
     }

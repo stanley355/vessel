@@ -3,6 +3,12 @@ import getConfig from "next/config";
 import fetcher from "../fetcher";
 import generateDokuVApath from "./generateDokuVApath";
 
+const generateUniqueReference = (orderID: string) => {
+  const orderIDarr = orderID.split("-");
+
+  return orderIDarr[0] + "-" + new Date().getSeconds();
+};
+
 interface IDokuVA {
   bankName: string;
   profile: any;
@@ -15,13 +21,16 @@ const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 const generateDokuVA = async (payload: IDokuVA) => {
   const dokuPayload = {
     "order": {
-      "invoice_number": payload.order.id + new Date().toISOString(),
+      "invoice_number": payload.order.id,
       "amount": payload.order.amount,
     },
     "virtual_account_info": {
       "expired_time": 60 * 24, //One day
       "reusable_status": false,
-      "info1": `Pembayaran Langganan Channel ${payload.channel}`,
+      "info1": `${payload.channel} Subscription`,
+      ...(payload.bankName === "BNI" && {
+        "merchant_unique_reference": generateUniqueReference(payload.order.id),
+      }),
     },
     "customer": {
       "name": payload.profile.fullname,
@@ -35,10 +44,13 @@ const generateDokuVA = async (payload: IDokuVA) => {
     doku_payload: dokuPayload,
   };
 
-  return await fetcher(`${KONTENKU_URL}/api/doku/virtual-account/`, {
+  const abc = await fetcher(`${KONTENKU_URL}/api/doku/virtual-account/`, {
     method: "POST",
-    data: apiPayload
+    data: apiPayload,
   });
+
+  console.log(333, abc);
+  return abc;
 };
 
 export default generateDokuVA;

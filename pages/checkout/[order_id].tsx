@@ -7,6 +7,7 @@ import Select from 'react-select';
 import { VIRTUAL_ACCOUNT_PARTNERS } from '../../lib/constants/vaPartners';
 import fetcher from '../../lib/fetcher';
 import generateDokuVA from '../../lib/doku/generateDokuVA';
+import HomeMetaHead from '../../components/pages/Home/HomeMetaHead';
 import styles from './checkout.module.scss';
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
@@ -42,6 +43,7 @@ const CheckoutPage = (props: any) => {
 
   return (
     <div className='container'>
+      <HomeMetaHead posts={[]} />
       <div className={styles.checkout}>
         <div className={styles.logo__wrap}>
           <img src="/images/kontenku-logo-short.png" alt="kontenku" />

@@ -27,12 +27,4 @@ export const VIRTUAL_ACCOUNT_PARTNERS = [
     label: "Doku Virtual Account",
     value: "DOKU",
   },
-  {
-    label: "Bank Danamon",
-    value: "DANAMON",
-  },
-  {
-    label: "Bank Permata",
-    value: "PERMATA",
-  },
 ];
