@@ -2,7 +2,8 @@ import React from 'react';
 import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import jwtDecode from 'jwt-decode';
-import Select from 'react-select'
+import Select from 'react-select';
+import { VIRTUAL_ACCOUNT_PARTNERS } from '../../lib/constants/vaPartners';
 import fetcher from '../../lib/fetcher';
 import styles from './checkout.module.scss';
 
@@ -11,6 +12,18 @@ const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const CheckoutPage = (props: any) => {
   const { profile, channel, order } = props;
+
+  const createVAoptions = () => {
+    return VIRTUAL_ACCOUNT_PARTNERS.map((va: any) => {
+      return {
+        label: <div className={styles.va__options}>
+          <span><img src={`/images/partners/${va.value.toLowerCase()}.png`} alt={va.value} /></span>
+          <span>{va.label}</span>
+        </div>,
+        value: va.value
+      }
+    })
+  }
 
   //   {
   //   id: 'a22d23ab-8002-4f87-baeb-c56cdb899c3b',
@@ -28,6 +41,8 @@ const CheckoutPage = (props: any) => {
   //   merchant_va_number: null
   // }
 
+
+
   return (
     <div className='container'>
       <div className={styles.checkout}>
@@ -44,9 +59,9 @@ const CheckoutPage = (props: any) => {
           </div>
           <div >Total Harga: {order.amount}</div>
         </div>
-
-        <div>
-          
+        <div className={styles.payment__method}>
+          <div className={styles.title}>Pilih Bank Pembayaran (Virtual Account): </div>
+          <Select options={createVAoptions()} />
         </div>
       </div>
     </div>
