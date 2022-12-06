@@ -4,7 +4,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { FaTrash } from 'react-icons/fa';
 import jwtDecode from 'jwt-decode';
 import Select from 'react-select';
-import { VIRTUAL_ACCOUNT_PARTNERS } from '../../lib/constants/vaPartners';
+import DropdownVA from '../../components/pages/Checkout/DropdownVA';
 import fetcher from '../../lib/fetcher';
 import generateDokuVA from '../../lib/doku/generateDokuVA';
 import HomeMetaHead from '../../components/pages/Home/HomeMetaHead';
@@ -17,18 +17,6 @@ const CheckoutPage = (props: any) => {
 
   const [bankName, setBankName] = useState("");
 
-  const createVAoptions = () => {
-    return VIRTUAL_ACCOUNT_PARTNERS.map((va: any) => {
-      return {
-        label: <div className={styles.va__options} key={va.value}>
-          <span><img src={`/images/partners/${va.value.toLowerCase()}.png`} alt={va.value} /></span>
-          <span>{va.label}</span>
-        </div>,
-        value: va.value
-      }
-    })
-  }
-
   const handleVAcreation = async () => {
     const payload = {
       bankName,
@@ -39,7 +27,6 @@ const CheckoutPage = (props: any) => {
     const dokuVA = await generateDokuVA(payload);
     // TODO: Show VA
   }
-
 
   return (
     <div className='container'>
@@ -59,15 +46,7 @@ const CheckoutPage = (props: any) => {
           <div >Total Harga: {order.amount}</div>
         </div>
 
-        {!order.merchant && !order.merchant_order_id && <div className={styles.payment__method}>
-          <div className={styles.title}>Pilih Bank Pembayaran (Virtual Account): </div>
-          <Select
-            id='bankName'
-            instanceId="bankName"
-            options={createVAoptions()}
-            onChange={(e: any) => { setBankName(e.value) }}
-          />
-        </div>}
+        {!order.merchant && !order.merchant_order_id && <DropdownVA onSelectChange={(option: any) => setBankName(option.value)} />}
         <div className={styles.cta__btn}>
           <button>
             <FaTrash />
