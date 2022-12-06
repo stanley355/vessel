@@ -59,5 +59,49 @@
     .enabled__cta {
       background: $primary-color;
     }
+
+    a {
+      display: grid;
+      place-items: center;
+      padding: $space--xs 0;
+      border-radius: $space--xxs;
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      font-size: $font--lg;
+    }
+  }
+
+  .va__section {
+    padding: $space--sm 0;
+
+    .title {
+      margin-bottom: $space--xs;
+    }
+
+    .va__number {
+      padding: $space--sm $space--xs;
+      display: grid;
+      grid-template-columns: 80% 20%;
+      background: $color--barely-blue;
+
+      span {
+        display: grid;
+        place-items: center;
+        font-style: italic;
+      }
+
+      button {
+        padding: $space--xs;
+        border-radius: $space--xxs;
+        border: 1px solid $primary-color;
+        background: $color--white;
+        color:$primary-color;
+      }
+
+      button:hover {
+        background: $primary-color;
+        color: $color--white;
+      }
+    }
   }
 }
