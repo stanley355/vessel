@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { FaTrash } from 'react-icons/fa';
@@ -6,18 +6,20 @@ import jwtDecode from 'jwt-decode';
 import Select from 'react-select';
 import { VIRTUAL_ACCOUNT_PARTNERS } from '../../lib/constants/vaPartners';
 import fetcher from '../../lib/fetcher';
+import generateDokuVA from '../../lib/doku/generateDokuVA';
 import styles from './checkout.module.scss';
-
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const CheckoutPage = (props: any) => {
   const { profile, channel, order } = props;
 
+  const [bankName, setBankName] = useState("");
+
   const createVAoptions = () => {
     return VIRTUAL_ACCOUNT_PARTNERS.map((va: any) => {
       return {
-        label: <div className={styles.va__options}>
+        label: <div className={styles.va__options} key={va.value}>
           <span><img src={`/images/partners/${va.value.toLowerCase()}.png`} alt={va.value} /></span>
           <span>{va.label}</span>
         </div>,
@@ -26,29 +28,15 @@ const CheckoutPage = (props: any) => {
     })
   }
 
-  //   {
-  //   id: 'a22d23ab-8002-4f87-baeb-c56cdb899c3b',
-  //   created_at: '2022-12-06T01:26:11.000Z',
-  //   updated_at: '2022-12-06T01:26:11.000Z',
-  //   expired_at: '2022-12-06T01:26:11.000Z',
-  //   channel_id: 8,
-  //   subscriber_id: '3586a3c5-a8c3-42f4-92f8-a9a940738802',
-  //   subscription_duration: 1,
-  //   amount: 15000,
-  //   merchant: null,
-  //   merchant_order_id: null,
-  //   merchant_payment_link: null,
-  //   status: 'PENDING',
-  //   merchant_va_number: null
-  // }
-
-  const SelectPaymentMethod = () => {
-    return (
-      <div className={styles.payment__method}>
-        <div className={styles.title}>Pilih Bank Pembayaran (Virtual Account): </div>
-        <Select options={createVAoptions()} />
-      </div>
-    )
+  const handleVAcreation = async () => {
+    const payload = {
+      bankName,
+      profile,
+      channel,
+      order
+    }
+    const vaResponse = await generateDokuVA(payload);
+    console.log(vaResponse);
   }
 
 
@@ -68,12 +56,27 @@ const CheckoutPage = (props: any) => {
           </div>
           <div >Total Harga: {order.amount}</div>
         </div>
-        {!order.merchant && !order.merchant_order_id && <SelectPaymentMethod />}
+
+        {!order.merchant && !order.merchant_order_id && <div className={styles.payment__method}>
+          <div className={styles.title}>Pilih Bank Pembayaran (Virtual Account): </div>
+          <Select
+            id='bankName'
+            instanceId="bankName"
+            options={createVAoptions()}
+            onChange={(e: any) => { setBankName(e.value) }}
+          />
+        </div>}
         <div className={styles.cta__btn}>
           <button>
             <FaTrash />
           </button>
-          <button>Lanjut</button>
+          <button
+            onClick={handleVAcreation}
+            disabled={!bankName}
+            className={!bankName ? styles.disabled__cta : styles.enabled__cta}
+          >
+            Lanjut
+          </button>
         </div>
       </div>
     </div>
