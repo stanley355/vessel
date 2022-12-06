@@ -1,8 +1,14 @@
 import React from 'react';
+import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import fetcher from '../../lib/fetcher';
 
-const CheckoutPage = () => {
-  return(
+const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
+
+const CheckoutPage = (props: any) => {
+  const { order } = props;
+
+  return (
     <div className='container'>
       <h1>hi</h1>
     </div>
@@ -12,10 +18,13 @@ const CheckoutPage = () => {
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 
   const orderID = context.query.order_id ?? "";
-  
-  console.log(orderID);
+
+  const order = await fetcher(`${KONTENKU_URL}/api/payment/order/id?orderID=${orderID}`, {}) ?? null;
+
   return {
-    props: {}
+    props: {
+      order
+    }
   }
 }
 

@@ -48,7 +48,6 @@ const ChannelSlug = (props: IChannelSlug) => {
       return <AwaitingPaymentForm profile={profile} channel={channel} pendingOrder={pendingOrder} onRenewClick={()=> setShowSubscribeForm(true)} />
     }
 
-    // TODO: Add awaiting payment form
     return <ChannelNotSubscribed
       onSubscribeClick={() => setShowSubscribeForm(true)}
     />
@@ -56,12 +55,14 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
+      // TODO: Add all post after subscription
       // const subscriptionStatus =
       //   subscription && checkSubscriptionStatus(subscription);
 
       // if (subscription && subscriptionStatus === "ONGOING") {
       //   return <PostsSection postList={posts} />;
       // } else {
+
       const freePosts = posts.filter((post: any) => post.is_free);
       return (
         <>
@@ -129,6 +130,8 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {}) ?? [];
 
+  console.log(222, profile.id);
+  console.log(333, channel.id);
   const pendingOrders = await fetcher(`${BASE_URL}/api/payment/order/channel-pending?channelID=${channel.id}&subscriberID=${profile.id}`, {}) ?? [];
 
 
