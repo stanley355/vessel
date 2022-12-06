@@ -44,13 +44,10 @@ const generateDokuVA = async (payload: IDokuVA) => {
     doku_payload: dokuPayload,
   };
 
-  const abc = await fetcher(`${KONTENKU_URL}/api/doku/virtual-account/`, {
+  return await fetcher(`${KONTENKU_URL}/api/doku/virtual-account/`, {
     method: "POST",
     data: apiPayload,
   });
-
-  console.log(333, abc);
-  return abc;
 };
 
 export default generateDokuVA;

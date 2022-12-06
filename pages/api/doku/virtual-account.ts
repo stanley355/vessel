@@ -53,7 +53,6 @@ const dokuVAHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     data: JSON.stringify(req.body.doku_payload),
   });
 
-  console.log(222, req.body);
   res.setHeader("Content-Type", "application/json");
   res.json(resp);
 };

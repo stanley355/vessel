@@ -36,8 +36,8 @@ const CheckoutPage = (props: any) => {
       channel,
       order
     }
-    const vaResponse = await generateDokuVA(payload);
-    console.log(vaResponse);
+    const dokuVA = await generateDokuVA(payload);
+    // TODO: Show VA
   }
 
 

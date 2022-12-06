@@ -130,8 +130,6 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const posts = await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {}) ?? [];
 
-  console.log(222, profile.id);
-  console.log(333, channel.id);
   const pendingOrders = await fetcher(`${BASE_URL}/api/payment/order/channel-pending?channelID=${channel.id}&subscriberID=${profile.id}`, {}) ?? [];
 
 
