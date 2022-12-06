@@ -44,9 +44,9 @@ const ChannelSlug = (props: IChannelSlug) => {
       return <SubscribeChannelForm profile={profile} channel={channel} />;
     }
 
-    // if (pendingOrder && pendingOrder.status === "PENDING") {
-    //   return <AwaitingPaymentForm profile={profile} channel={channel} pendingOrder={pendingOrder} onRenewClick={()=> setShowSubscribeForm(true)} />
-    // }
+    if (pendingOrder && pendingOrder.status === "PENDING") {
+      return <AwaitingPaymentForm profile={profile} channel={channel} pendingOrder={pendingOrder} onRenewClick={()=> setShowSubscribeForm(true)} />
+    }
 
     return <ChannelNotSubscribed
       onSubscribeClick={() => setShowSubscribeForm(true)}
