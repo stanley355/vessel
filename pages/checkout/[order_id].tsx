@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { FaTrash } from 'react-icons/fa';
 import jwtDecode from 'jwt-decode';
-import Select from 'react-select';
 import DropdownVA from '../../components/pages/Checkout/DropdownVA';
 import fetcher from '../../lib/fetcher';
 import generateDokuVA from '../../lib/doku/generateDokuVA';
@@ -15,6 +15,7 @@ const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 const CheckoutPage = (props: any) => {
   const { profile, channel, order } = props;
 
+  const [showCancel, setShowCancel] = useState(false);
   const [bankName, setBankName] = useState("");
 
   const handleVAcreation = async () => {
@@ -27,6 +28,8 @@ const CheckoutPage = (props: any) => {
     const dokuVA = await generateDokuVA(payload);
     // TODO: Show VA
   }
+
+  const CancelConfirmation = dynamic(() => import("../../components/pages/Checkout/CancelConfirmation"), { ssr: false });
 
   return (
     <div className='container'>
@@ -48,7 +51,7 @@ const CheckoutPage = (props: any) => {
 
         {!order.merchant && !order.merchant_order_id && <DropdownVA onSelectChange={(option: any) => setBankName(option.value)} />}
         <div className={styles.cta__btn}>
-          <button>
+          <button onClick={() => setShowCancel(true)}>
             <FaTrash />
           </button>
           <button
@@ -60,6 +63,7 @@ const CheckoutPage = (props: any) => {
           </button>
         </div>
       </div>
+      {showCancel && <CancelConfirmation orderID={order.id} channel={channel} onNoClick={() => setShowCancel(false)} />}
     </div>
   )
 }
