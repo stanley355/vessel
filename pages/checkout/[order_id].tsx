@@ -1,6 +1,7 @@
 import React from 'react';
 import getConfig from 'next/config';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { FaTrash } from 'react-icons/fa';
 import jwtDecode from 'jwt-decode';
 import Select from 'react-select';
 import { VIRTUAL_ACCOUNT_PARTNERS } from '../../lib/constants/vaPartners';
@@ -41,6 +42,14 @@ const CheckoutPage = (props: any) => {
   //   merchant_va_number: null
   // }
 
+  const SelectPaymentMethod = () => {
+    return (
+      <div className={styles.payment__method}>
+        <div className={styles.title}>Pilih Bank Pembayaran (Virtual Account): </div>
+        <Select options={createVAoptions()} />
+      </div>
+    )
+  }
 
 
   return (
@@ -59,9 +68,12 @@ const CheckoutPage = (props: any) => {
           </div>
           <div >Total Harga: {order.amount}</div>
         </div>
-        <div className={styles.payment__method}>
-          <div className={styles.title}>Pilih Bank Pembayaran (Virtual Account): </div>
-          <Select options={createVAoptions()} />
+        {!order.merchant && !order.merchant_order_id && <SelectPaymentMethod />}
+        <div className={styles.cta__btn}>
+          <button>
+            <FaTrash />
+          </button>
+          <button>Lanjut</button>
         </div>
       </div>
     </div>

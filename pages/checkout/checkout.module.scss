@@ -3,6 +3,13 @@
 .checkout {
   width: 100%;
 
+  @include desktop-view {
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    font-size: $font--lg;
+  }
+
   .logo__wrap {
     width: 100%;
     border-bottom: 1px dotted $color--black;
@@ -44,6 +51,29 @@
     span:last-child {
       display: flex;
       align-items: center;
+    }
+  }
+
+  .cta__btn {
+    display: grid;
+    grid-gap: 1%;
+    grid-template-columns: 15% 85%;
+    margin: $space--sm 0;
+
+    button {
+      padding: $space--xs 0;
+      border-radius: $space--xxs;
+      border: none;
+      color:$color--white;
+      font-size: $font--lg;
+    }
+
+    button:first-child {
+      background: red;
+    }
+
+    button:last-child {
+      background: $primary-color;
     }
   }
 }
