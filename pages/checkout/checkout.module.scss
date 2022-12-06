@@ -1,0 +1,28 @@
+@import '../../styles/tokens/all';
+
+.checkout {
+  width: 100%;
+
+  .logo__wrap {
+    width: 100%;
+    border-bottom: 1px dotted $color--black;
+    padding-bottom: $space--sm;
+    img {
+      width: 50%;
+      margin: 0 25%;
+    }
+  }
+
+  .info {
+    padding: $space--sm 0;
+    border-bottom: 1px dotted $color--black;
+
+    h3 {
+      text-align: center;
+    }
+
+    div {
+      line-height: 1.5;
+    }
+  }
+}
