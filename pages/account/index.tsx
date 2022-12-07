@@ -11,9 +11,10 @@ import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import styles from "./account.module.scss";
+import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, channel, posts } = props;
+  const { profile, balance, subscriptions, channel, posts, pendingOrder } = props;
   const [activeTab, setActiveTab] = useState("channel");
 
   const AccountTabHeader = () => (
@@ -57,6 +58,7 @@ const Account = (props: any) => {
             channel={channel}
             balance={balance}
             subscriptions={subscriptions}
+            pendingOrder={pendingOrder}
           />
   };
 
@@ -78,6 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const profile: any = token ? jwtDecode(token) : "";
   let balance: any;
   let subscriptions: any = [];
+  let pendingOrder:any = [];
   let channel: any;
   let posts: any[] = [];
 
@@ -93,6 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
     subscriptions = await viewSubscriptions({ userID: profile.id });
+    pendingOrder = await findUserPendingOrder(profile.id);
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
@@ -120,6 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       channel: channel ?? null,
       posts,
       subscriptions,
+      pendingOrder
     },
   };
 };

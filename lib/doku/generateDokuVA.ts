@@ -1,4 +1,3 @@
-import { profile } from "console";
 import getConfig from "next/config";
 import fetcher from "../fetcher";
 import generateDokuVApath from "./generateDokuVApath";

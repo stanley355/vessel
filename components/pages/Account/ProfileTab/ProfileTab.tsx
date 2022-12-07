@@ -14,10 +14,11 @@ interface IProfileTab {
   channel: any;
   balance: any;
   subscriptions: any[];
+  pendingOrder: any[];
 }
 
 const ProfileTab = (props: IProfileTab) => {
-  const { profile, channel, balance, subscriptions } = props;
+  const { profile, channel, balance, subscriptions, pendingOrder } = props;
 
   const [activeTab, setActiveTab] = useState("subscriptions");
 

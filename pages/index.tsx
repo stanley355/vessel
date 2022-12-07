@@ -2,7 +2,6 @@ import React from "react";
 import type { NextPage } from "next";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import useResponsive from "../lib/hooks/useResponsive";
 import viewHomePosts from "../lib/postHandler/viewHomePosts";
 import viewSubscriptions from "../lib/subscriptionHandler/viewSubscriptions";
 import filterSimilarSubscription from "../lib/filterSimilarSubscription";
@@ -14,8 +13,6 @@ import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
   const { token, posts } = props;
-
-  const { isDesktop } = useResponsive();
 
   return (
     <div className="container">
