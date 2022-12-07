@@ -36,21 +36,28 @@ const Account = (props: any) => {
   );
 
   const ActiveTabBody = () => {
-    switch (activeTab) {
-      case "channel":
-        return <ChannelTab channel={channel} posts={posts} />;
-      case "account":
-        return (
-          <ProfileTab
+    // switch (activeTab) {
+    //   case "channel":
+    //     return <ChannelTab channel={channel} posts={posts} />;
+    //   case "account":
+    //     return (
+    //       <ProfileTab
+    //         profile={profile}
+    //         channel={channel}
+    //         balance={balance}
+    //         subscriptions={subscriptions}
+    //       />
+    //     );
+    //   default:
+    //     return <ChannelTab channel={channel} posts={posts} />;
+    // }
+
+    return <ProfileTab
             profile={profile}
             channel={channel}
             balance={balance}
             subscriptions={subscriptions}
           />
-        );
-      default:
-        return <ChannelTab channel={channel} posts={posts} />;
-    }
   };
 
   return (

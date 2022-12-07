@@ -4,7 +4,6 @@ import UserProfileCard from "../UserProfileCard";
 import MySubscriptions from "../MySubscriptions";
 import MyWallet from "../MyWallet";
 import AccountChannelInfo from "../AccountChannelInfo";
-import useResponsive from "../../../../lib/hooks/useResponsive";
 import styles from "./ProfileTab.module.scss";
 
 interface IProfileTab {
@@ -19,19 +18,16 @@ interface IProfileTab {
 
 const ProfileTab = (props: IProfileTab) => {
   const { profile, channel, balance, subscriptions } = props;
-  const { isDesktop } = useResponsive();
 
   return (
     <div className={styles.profile__tab}>
       <div className={styles.profile__tab__user}>
         {profile && <UserProfileCard profile={profile} />}
-        {isDesktop && <LogoutBtn />}
+        <LogoutBtn />
       </div>
       {channel && <AccountChannelInfo channel={channel} />}
       <MyWallet balance={balance} />
       <MySubscriptions subscriptions={subscriptions} />
-      <br />
-      {!isDesktop && <LogoutBtn />}
     </div>
   );
 };
