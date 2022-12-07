@@ -10,16 +10,19 @@ import DropdownVA from "../../components/pages/Checkout/DropdownVA";
 import fetcher from "../../lib/fetcher";
 import generateDokuVA from "../../lib/doku/generateDokuVA";
 import updateOrderMerchant from "../../lib/orderHandler/updateOrderMerchant";
+import setOrderExpiryDate from "../../lib/orderHandler/setOrderExpiryDate";
+import isOrderExpired from "../../lib/orderHandler/isOrderExpired";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import { WARNING_MSG } from "../../lib/warning-messages";
 import copyToClipboard from "../../lib/copyToClipboard";
 import styles from "./checkout.module.scss";
 
 
+
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const CheckoutPage = (props: any) => {
-  const { profile, channelName, order } = props;
+  const { profile, channel, order } = props;
 
   const [showCancel, setShowCancel] = useState(false);
   const [bankName, setBankName] = useState("");
@@ -30,7 +33,7 @@ const CheckoutPage = (props: any) => {
     const payload = {
       bankName,
       profile,
-      channel: channelName,
+      channel: channel.channel_name,
       order,
     };
     const dokuVA = await generateDokuVA(payload);
@@ -98,6 +101,19 @@ const CheckoutPage = (props: any) => {
     )
   }
 
+  const OrderExpiredSection = () => {
+    return (
+      <div className={styles.order__expired}>
+        <div>Waktu Pembayaran telah berakhir</div>
+        <Link href={`/channel/${channel.slug}/`}>
+          <a title={channel.channel_name}>
+            Berlangganan Ulang
+          </a>
+        </Link>
+      </div>
+    )
+  }
+
   const CancelConfirmation = dynamic(
     () => import("../../components/pages/Checkout/CancelConfirmation"),
     { ssr: false }
@@ -111,28 +127,32 @@ const CheckoutPage = (props: any) => {
           <img src="/images/kontenku-logo-short.png" alt="kontenku" />
         </div>
         <div className={styles.info}>
-          <h3>Subscription channel: {channelName}</h3>
+          <h3>Subscription channel: {channel.channel_name}</h3>
           <div>Order ID: {order.id}</div>
           <div>Nama pelanggan : {profile.fullname} </div>
           <div>Email : {profile.email} </div>
           <div>Durasi Langganan: {order.subscription_duration} Bulan</div>
           <div>Total Harga: {order.amount}</div>
+          <div>Batas Pembayaran: {setOrderExpiryDate(order)}</div>
         </div>
 
-        {order.merchant && order.merchant_va_number ?
-          <VAdataSection /> :
-          <>
-            <DropdownVA
-              onSelectChange={(option: any) => setBankName(option.value)}
-            />
-            <VAcreationBtn />
-          </>
+
+        {isOrderExpired(order) ?
+          <OrderExpiredSection /> :
+          order.merchant_va_number ?
+            <VAdataSection /> :
+            <>
+              <DropdownVA
+                onSelectChange={(option: any) => setBankName(option.value)}
+              />
+              <VAcreationBtn />
+            </>
         }
       </div>
       {showCancel && (
         <CancelConfirmation
           orderID={order.id}
-          channel={channelName}
+          channel={channel.channel_name}
           onNoClick={() => setShowCancel(false)}
         />
       )}
@@ -145,25 +165,45 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/account/login/",
+        permanent: false,
+      },
+    };
+  }
+
   const orderID = context.query.order_id ?? "";
-  let channelName = "";
+  let channel: any;
 
   const orderURL = `${KONTENKU_URL}/api/payment/order/id?orderID=${orderID}`;
   const order = await fetcher(orderURL, {}) ?? null;
 
   if (order && order.id) {
+
     const url = `${KONTENKU_URL}/api/channel/${order.channel_id}`;
     const channelRes = await fetcher(url, {}) ?? null;
     if (channelRes && channelRes.token) {
-      const channel: any = jwtDecode(channelRes.token);
-      channelName = channel.channel_name;
+      channel = jwtDecode(channelRes.token);
+
+      if (order.status === "CANCELLED") {
+        return {
+          redirect: {
+            destination: `/channel/${channel.slug}`,
+            permanent: false,
+          },
+        };
+      }
+      
     }
   }
 
   return {
     props: {
       profile,
-      channelName,
+      channel,
       order,
     },
   };
