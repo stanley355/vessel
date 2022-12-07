@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import Router from 'next/router';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import jwtDecode from 'jwt-decode';
-import { WARNING_MSG } from '../../../lib/warning-messages';
-import getFirebaseStorageRef from '../../../lib/getFirebaseStorageRef';
-import { uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { updateChannelData } from '../../../lib/channelHandler/updateChannelData';
-import styles from './setting.module.scss';
+import React, { useState } from "react";
+import Router from "next/router";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import jwtDecode from "jwt-decode";
+import { WARNING_MSG } from "../../../lib/warning-messages";
+import getFirebaseStorageRef from "../../../lib/getFirebaseStorageRef";
+import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { updateChannelData } from "../../../lib/channelHandler/updateChannelData";
+import styles from "./setting.module.scss";
 
 const ChannelSetting = (props: any) => {
   const { profile, channel } = props;
@@ -56,16 +56,16 @@ const ChannelSetting = (props: any) => {
         }
 
         setHasSubmit(false);
-        return ""
+        return "";
       } else {
-        Router.push("/account/")
+        Router.push("/account/");
       }
     } else {
       setFormError(WARNING_MSG.TRY_AGAIN);
       setHasSubmit(false);
-      return ""
+      return "";
     }
-  }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -85,34 +85,38 @@ const ChannelSetting = (props: any) => {
 
         uploadTask.on(
           "state_changed",
-          (snapshot: any) => { },
+          (snapshot: any) => {},
           (error: any) => {
             console.error(error);
             setHasSubmit(false);
             alert(WARNING_MSG.TRY_AGAIN);
           },
           () => {
-            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-              const payload = {
-                channelID: channel.id,
-                ...(newChannelName && { channelName: newChannelName }),
-                ...(newChannelPrice && { subscriptionPrice: newChannelPrice }),
-                profileImgUrl: downloadURL
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                const payload = {
+                  channelID: channel.id,
+                  ...(newChannelName && { channelName: newChannelName }),
+                  ...(newChannelPrice && {
+                    subscriptionPrice: newChannelPrice,
+                  }),
+                  profileImgUrl: downloadURL,
+                };
+                await handleChannelUpdateRes(payload);
               }
-              await handleChannelUpdateRes(payload);
-            });
+            );
           }
         );
       } else {
         const payload = {
           channelID: channel.id,
           ...(newChannelName && { channelName: newChannelName }),
-          ...(newChannelPrice && { subscriptionPrice: newChannelPrice })
-        }
+          ...(newChannelPrice && { subscriptionPrice: newChannelPrice }),
+        };
         await handleChannelUpdateRes(payload);
       }
     }
-  }
+  };
 
   return (
     <div className="container">
@@ -128,36 +132,41 @@ const ChannelSetting = (props: any) => {
             <label htmlFor="newChannelName">
               Current Channel Name: {channel.channel_name}
             </label>
-            <input type="text" placeholder='Insert here for new Channel Name' name='newChannelName' />
+            <input
+              type="text"
+              placeholder="Insert here for new Channel Name"
+              name="newChannelName"
+            />
           </div>
 
           <div className={styles.field}>
             <label htmlFor="newSubscriptionPrice">
               Current Subscription Price: {channel.subscription_price}
             </label>
-            <input type="number" placeholder='Insert here for new Channel Name' name='newSubscriptionPrice' />
+            <input
+              type="number"
+              placeholder="Insert here for new Channel Name"
+              name="newSubscriptionPrice"
+            />
           </div>
 
           <div className={styles.field}>
             <label htmlFor="profileImg">New Profile Image</label>
-            <input
-              type="file"
-              name='profileImg'
-              accept="image/*"
-            />
+            <input type="file" name="profileImg" accept="image/*" />
           </div>
 
           <span>*Pastikan data Anda sudah benar sebelum mensubmit</span>
 
-          <button type="submit" disabled={hasSubmit}>{hasSubmit ? "Loading..." : "Submit"}</button>
+          <button type="submit" disabled={hasSubmit}>
+            {hasSubmit ? "Loading..." : "Submit"}
+          </button>
 
           {formError && <div className={styles.error}>{formError}</div>}
         </form>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
@@ -193,6 +202,5 @@ export const getServerSideProps: GetServerSideProps = async (
     },
   };
 };
-
 
 export default ChannelSetting;

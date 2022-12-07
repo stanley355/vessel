@@ -1,7 +1,10 @@
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const userWithdrawalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const userWithdrawalHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const URL = `${process.env.PAYMENT_URL}/v2/withdrawal?userID=${req.query.userID}`;
 
   const resp = await fetcher(URL, {

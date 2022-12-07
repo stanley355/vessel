@@ -35,17 +35,17 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
           <div className={styles.row} key={index}>
             <span>
               <div>Tgl: {displayDate(withdraw.created_at)}</div>
-              <div>Via: {withdraw.bank_name} / {withdraw.account_number}</div>
+              <div>
+                Via: {withdraw.bank_name} / {withdraw.account_number}
+              </div>
               <div>Jumlah: {withdraw.amount}</div>
             </span>
-            <span className={styles.row__status}>
-              {withdraw.status}
-            </span>
+            <span className={styles.row__status}>{withdraw.status}</span>
           </div>
         ))}
       </div>
-    )
-  }
+    );
+  };
 
   const WithdrawalTable = () => {
     return (
@@ -62,7 +62,7 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
           </tr>
         </thead>
         <tbody>
-          {withdrawal.map((withdraw: any) =>
+          {withdrawal.map((withdraw: any) => (
             <tr key={withdraw.id}>
               <td>{withdraw.id}</td>
               <td>{new Date(withdraw.created_at).toDateString()}</td>
@@ -72,10 +72,9 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
               <td>{withdraw.status}</td>
               <td>{withdraw.message}</td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
-
     );
   };
 
@@ -84,7 +83,11 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
       <h3>Wallet Withdrawal</h3>
       {!isDesktop && "*Gunakan laptop/komputer untuk melihat lebih banyak"}
       {withdrawal.length > 0 ? (
-        isDesktop ? <WithdrawalTable /> : <WithdrawalList />
+        isDesktop ? (
+          <WithdrawalTable />
+        ) : (
+          <WithdrawalList />
+        )
       ) : (
         <div>Belum ada pembayaran Subscriber ke Channel Anda</div>
       )}

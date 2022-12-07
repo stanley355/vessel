@@ -7,6 +7,7 @@
 
   @include desktop-view {
     margin: 0 10%;
+    padding-bottom: $space--lg;
   }
 
   .title {
@@ -25,34 +26,6 @@
   .info {
     font-size: $font--lg;
     line-height: 1.5;
-  }
-
-  .confirm {
-    padding: $space--sm 0;
-    display: flex;
-    flex-direction: column;
-
-    a,
-    button {
-      width: 100%;
-      font-size: $font--lg;
-      font-weight: bold;
-      text-align: center;
-      border-radius: $space--xs;
-      padding: $space--xs;
-      margin-bottom: $space--sm;
-    }
-
-    a {
-      color: $color--white;
-      background: $color--blue;
-    }
-
-    button {
-      color: $color--blue;
-      background: none;
-      border: 1px solid $color--blue;
-    }
   }
 
   .renew {
@@ -77,5 +50,16 @@
       border: none;
       background: $color--blue;
     }
+  }
+
+  .payment__link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: $primary-color;
+    color: $color--white;
+    padding: $space--xs 0;
+    margin: $space--sm 0;
+    border-radius: $space--xs;
   }
 }

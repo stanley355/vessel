@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import getConfig from 'next/config';
-import handleAcceptedWithdrawal from '../../../../lib/withdrawalHandler/handleAcceptedWithdrawal';
-import styles from './OngoingWithdrawalTable.module.scss';
-import RejectedWithdrawalForm from '../RejectedWithdrawalForm';
+import React, { useState } from "react";
+import getConfig from "next/config";
+import handleAcceptedWithdrawal from "../../../../lib/withdrawalHandler/handleAcceptedWithdrawal";
+import styles from "./OngoingWithdrawalTable.module.scss";
+import RejectedWithdrawalForm from "../RejectedWithdrawalForm";
 
 interface IWithdrawalTable {
-  ongoingWithdrawals: any[]
+  ongoingWithdrawals: any[];
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
@@ -13,11 +13,16 @@ const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 const OngoingWithdrawalTable = (props: IWithdrawalTable) => {
   const { ongoingWithdrawals } = props;
 
-  const [rejectedWithdraw, setRejectedWithdraw] = useState({id: ""});
+  const [rejectedWithdraw, setRejectedWithdraw] = useState({ id: "" });
 
   return (
     <div className={styles.withdrawal__table}>
-      {rejectedWithdraw.id && <RejectedWithdrawalForm withdrawal={rejectedWithdraw} onCloseClick={() => setRejectedWithdraw({id: ""})} />}
+      {rejectedWithdraw.id && (
+        <RejectedWithdrawalForm
+          withdrawal={rejectedWithdraw}
+          onCloseClick={() => setRejectedWithdraw({ id: "" })}
+        />
+      )}
       <table>
         <thead>
           <tr>
@@ -34,7 +39,7 @@ const OngoingWithdrawalTable = (props: IWithdrawalTable) => {
         </thead>
         <tbody>
           {ongoingWithdrawals.length > 0 &&
-            ongoingWithdrawals.map((withdrawal: any) =>
+            ongoingWithdrawals.map((withdrawal: any) => (
               <tr key={withdrawal.id}>
                 <td>{withdrawal.id}</td>
                 <td>{withdrawal.user_id}</td>
@@ -45,15 +50,19 @@ const OngoingWithdrawalTable = (props: IWithdrawalTable) => {
                 <td>{withdrawal.amount}</td>
                 <td>{withdrawal.status}</td>
                 <td className={styles.action__column}>
-                  <button onClick={() => handleAcceptedWithdrawal(withdrawal)}>Accept</button>
-                  <button onClick={() => setRejectedWithdraw(withdrawal)}>Reject</button>
+                  <button onClick={() => handleAcceptedWithdrawal(withdrawal)}>
+                    Accept
+                  </button>
+                  <button onClick={() => setRejectedWithdraw(withdrawal)}>
+                    Reject
+                  </button>
                 </td>
               </tr>
-            )}
+            ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
 export default OngoingWithdrawalTable;

@@ -70,7 +70,7 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
       if (withdrawRes.error && withdrawRes.message) {
         setHasSubmit(false);
         alert(withdrawRes.message);
-        return ""
+        return "";
       }
     } else {
       setHasSubmit(false);
@@ -117,7 +117,12 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
 
       <div className={styles.field}>
         <label htmlFor="amount">Jumlah Penarikan</label>
-        <input type="number" name="amount" id="amount" placeholder="Rp 11.000" />
+        <input
+          type="number"
+          name="amount"
+          id="amount"
+          placeholder="Rp 11.000"
+        />
       </div>
 
       <button type="submit" className={styles.cta} disabled={hasSubmit}>
@@ -147,7 +152,9 @@ const WithdrawPopup = (props: IWithdrawPopup) => {
         </button>
 
         <h3 className={styles.title}>
-          {withdrawSuccess ? "Pengajuan penarikan berhasil dibuat, silakan melihat status di tab Withdrawal" : " Penarikan Income"}
+          {withdrawSuccess
+            ? "Pengajuan penarikan berhasil dibuat, silakan melihat status di tab Withdrawal"
+            : " Penarikan Income"}
         </h3>
         {withdrawSuccess ? <WithdrawSuccess /> : <WithdrawForm />}
       </div>

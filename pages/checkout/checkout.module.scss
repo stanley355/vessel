@@ -1,0 +1,107 @@
+@import "../../styles/tokens/all";
+
+.checkout {
+  width: 100%;
+
+  @include desktop-view {
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    font-size: $font--lg;
+  }
+
+  .logo__wrap {
+    width: 100%;
+    border-bottom: 1px dotted $color--black;
+    padding-bottom: $space--sm;
+
+    img {
+      width: 50%;
+      margin: 0 25%;
+    }
+  }
+
+  .info {
+    padding: $space--sm 0;
+    border-bottom: 1px dotted $color--black;
+
+    h3 {
+      text-align: center;
+    }
+
+    div {
+      line-height: 1.5;
+    }
+  }
+
+  .cta__btn {
+    display: grid;
+    grid-gap: 1%;
+    grid-template-columns: 15% 85%;
+    margin: $space--sm 0;
+
+    button {
+      padding: $space--xs 0;
+      border-radius: $space--xxs;
+      border: none;
+      color: $color--white;
+      font-size: $font--lg;
+    }
+
+    button:first-child {
+      background: red;
+    }
+
+    .disabled__cta {
+      background: gray;
+    }
+
+    .enabled__cta {
+      background: $primary-color;
+    }
+
+    a {
+      display: grid;
+      place-items: center;
+      padding: $space--xs 0;
+      border-radius: $space--xxs;
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      font-size: $font--lg;
+    }
+  }
+
+  .va__section {
+    padding: $space--sm 0;
+
+    .title {
+      margin-bottom: $space--xs;
+    }
+
+    .va__number {
+      padding: $space--sm $space--xs;
+      display: grid;
+      grid-template-columns: 80% 20%;
+      background: $color--barely-blue;
+
+      span {
+        display: grid;
+        place-items: center;
+        font-style: italic;
+      }
+
+      button {
+        padding: $space--xs;
+        border-radius: $space--xxs;
+        border: 1px solid $primary-color;
+        background: $color--white;
+        color:$primary-color;
+      }
+
+      button:hover {
+        background: $primary-color;
+        color: $color--white;
+      }
+    }
+  }
+}

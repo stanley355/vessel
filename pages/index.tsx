@@ -26,7 +26,9 @@ const Home: NextPage = (props: any) => {
           <img src="/images/home_hero.gif" loading="lazy" />
           <div>Kontenku - Platform Membership Konten #1 Indonesia</div>
           <div>
-            Kontenku adalah Platform Service tempat content creator dapat memposting content, lalu para subscriber content dapat mendukung content creator dengan cara mensubscribe channel content creator.
+            Kontenku adalah Platform Service tempat content creator dapat
+            memposting content, lalu para subscriber content dapat mendukung
+            content creator dengan cara mensubscribe channel content creator.
           </div>
         </div>
 

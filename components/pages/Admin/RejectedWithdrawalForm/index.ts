@@ -1,1 +1,1 @@
-export {default} from './RejectedWithdrawalForm';
+export { default } from "./RejectedWithdrawalForm";
