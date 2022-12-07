@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import setOrderExpiryDate from "../../../../lib/orderHandler/setOrderExpiryDate";
+import isOrderExpired from "../../../../lib/orderHandler/isOrderExpired";
 import styles from "./AwaitingPaymentForm.module.scss";
 
 interface IAwaitingPayment {
@@ -18,31 +20,6 @@ interface IAwaitingPayment {
 
 const AwaitingPaymentForm = (props: IAwaitingPayment) => {
   const { profile, channel, pendingOrder, onRenewClick } = props;
-
-  const orderExpiryDate = () => {
-    if (pendingOrder.merchant) {
-      return new Date(pendingOrder.expired_at).toLocaleString();
-    } else {
-      const startDate = new Date(pendingOrder.created_at);
-
-      // seconds * minutes * hours * milliseconds = 1 day
-      const day = 60 * 60 * 24 * 1000;
-
-      const endDate = new Date(startDate.getTime() + day);
-      return endDate.toLocaleString();
-    }
-  };
-
-  const isOrderExpired = () => {
-    if (pendingOrder.merchant) {
-      const expDate = new Date(pendingOrder.expired_at);
-      const currentDate = new Date();
-
-      return currentDate.getTime() > expDate.getTime();
-    }
-
-    return false;
-  };
 
   const RenewPaymentBtn = () => (
     <div className={styles.renew}>
@@ -69,9 +46,9 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         Durasi Langganan: {pendingOrder.subscription_duration} Bulan
       </div>
       <div className={styles.info}>Total Harga: {pendingOrder.amount}</div>
-      <div className={styles.info}>Batas Pembayaran: {orderExpiryDate()}</div>
+      <div className={styles.info}>Batas Pembayaran: {setOrderExpiryDate(pendingOrder)}</div>
 
-      {isOrderExpired() ? (
+      {isOrderExpired(pendingOrder) ? (
         <RenewPaymentBtn />
       ) : (
         <Link
