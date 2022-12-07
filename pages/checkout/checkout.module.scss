@@ -104,4 +104,26 @@
       }
     }
   }
+
+  .order__expired {
+    padding: $space--xs;
+
+    div {
+      font-size: $font--lg;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    a {
+      margin: $space--xs;
+      border-radius: $space--xxs;
+      color: $color--white;
+      justify-content: center;
+      display: flex;
+      width: 100%;
+      background: $primary-color;
+      padding: $space--xs;
+      font-size: $font--lg;
+    }
+  }
 }

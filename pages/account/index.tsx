@@ -11,9 +11,10 @@ import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import styles from "./account.module.scss";
+import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, channel, posts } = props;
+  const { profile, balance, subscriptions, channel, posts, pendingOrder } = props;
   const [activeTab, setActiveTab] = useState("channel");
 
   const AccountTabHeader = () => (
@@ -36,21 +37,29 @@ const Account = (props: any) => {
   );
 
   const ActiveTabBody = () => {
-    switch (activeTab) {
-      case "channel":
-        return <ChannelTab channel={channel} posts={posts} />;
-      case "account":
-        return (
-          <ProfileTab
+    // switch (activeTab) {
+    //   case "channel":
+    //     return <ChannelTab channel={channel} posts={posts} />;
+    //   case "account":
+    //     return (
+    //       <ProfileTab
+    //         profile={profile}
+    //         channel={channel}
+    //         balance={balance}
+    //         subscriptions={subscriptions}
+    //       />
+    //     );
+    //   default:
+    //     return <ChannelTab channel={channel} posts={posts} />;
+    // }
+
+    return <ProfileTab
             profile={profile}
             channel={channel}
             balance={balance}
             subscriptions={subscriptions}
+            pendingOrder={pendingOrder}
           />
-        );
-      default:
-        return <ChannelTab channel={channel} posts={posts} />;
-    }
   };
 
   return (
@@ -71,6 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const profile: any = token ? jwtDecode(token) : "";
   let balance: any;
   let subscriptions: any = [];
+  let pendingOrder:any = [];
   let channel: any;
   let posts: any[] = [];
 
@@ -86,6 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
     subscriptions = await viewSubscriptions({ userID: profile.id });
+    pendingOrder = await findUserPendingOrder(profile.id);
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
@@ -113,6 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       channel: channel ?? null,
       posts,
       subscriptions,
+      pendingOrder
     },
   };
 };
