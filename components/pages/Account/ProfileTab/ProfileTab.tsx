@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LogoutBtn from "../LogoutBtn";
 import UserProfileCard from "../UserProfileCard";
 import MySubscriptions from "../MySubscriptions";
@@ -19,6 +19,26 @@ interface IProfileTab {
 const ProfileTab = (props: IProfileTab) => {
   const { profile, channel, balance, subscriptions } = props;
 
+  const [activeTab, setActiveTab] = useState("subscriptions");
+
+  const SubscriptionsTab = () => (
+    <div className={styles.subscriptions__tab}>
+      <button
+        type="button"
+        onClick={() => setActiveTab("subscriptions")}
+        className={activeTab === "subscriptions" ? styles.active__btn : ""}
+      >
+        Subscriptions
+      </button>
+      <button
+        type="button"
+        onClick={() => setActiveTab("pending_subs")}
+        className={activeTab === "pending_subs" ? styles.active__btn : ""}>
+        Pending Subscriptions
+      </button>
+    </div>
+  )
+
   return (
     <div className={styles.profile__tab}>
       <div className={styles.profile__tab__user}>
@@ -27,6 +47,7 @@ const ProfileTab = (props: IProfileTab) => {
       </div>
       {channel && <AccountChannelInfo channel={channel} />}
       <MyWallet balance={balance} />
+      <SubscriptionsTab />
       <MySubscriptions subscriptions={subscriptions} />
     </div>
   );

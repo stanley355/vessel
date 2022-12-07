@@ -40,8 +40,6 @@ const MySubscriptions = (props: IMySubscriptions) => {
 
   return (
     <div className={styles.my__subscriptions}>
-      <div className={styles.title}>My Subscriptions</div>
-
       {subscriptions.length > 0 ? <SubscriptionsList /> : <NoSubscriptions />}
     </div>
   );
