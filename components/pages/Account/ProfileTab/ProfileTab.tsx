@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LogoutBtn from "../LogoutBtn";
 import UserProfileCard from "../UserProfileCard";
 import MySubscriptions from "../MySubscriptions";
+import MyPendingSubscriptions from "../MyPendingSubscriptions";
 import MyWallet from "../MyWallet";
 import AccountChannelInfo from "../AccountChannelInfo";
 import styles from "./ProfileTab.module.scss";
@@ -49,7 +50,10 @@ const ProfileTab = (props: IProfileTab) => {
       {channel && <AccountChannelInfo channel={channel} />}
       <MyWallet balance={balance} />
       <SubscriptionsTab />
-      <MySubscriptions subscriptions={subscriptions} />
+      {activeTab === "subscriptions" ?
+        <MySubscriptions subscriptions={subscriptions} /> :
+        <MyPendingSubscriptions pendingSubscriptions={pendingOrder} />
+      }
     </div>
   );
 };
