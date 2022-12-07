@@ -19,7 +19,7 @@ import styles from "./checkout.module.scss";
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
 const CheckoutPage = (props: any) => {
-  const { profile, channel, order } = props;
+  const { profile, channelName, order } = props;
 
   const [showCancel, setShowCancel] = useState(false);
   const [bankName, setBankName] = useState("");
@@ -30,7 +30,7 @@ const CheckoutPage = (props: any) => {
     const payload = {
       bankName,
       profile,
-      channel,
+      channel: channelName,
       order,
     };
     const dokuVA = await generateDokuVA(payload);
@@ -87,7 +87,7 @@ const CheckoutPage = (props: any) => {
           <button type="button" onClick={() => copyToClipboard(order.merchant_va_number)}>Copy</button>
         </div>
         <div className={styles.cta__btn}>
-          <button onClick={()=> setShowCancel(true)}>
+          <button onClick={() => setShowCancel(true)}>
             <FaTrash />
           </button>
           <Link href={order.merchant_payment_link}>
@@ -111,7 +111,7 @@ const CheckoutPage = (props: any) => {
           <img src="/images/kontenku-logo-short.png" alt="kontenku" />
         </div>
         <div className={styles.info}>
-          <h3>Subscription channel: {channel}</h3>
+          <h3>Subscription channel: {channelName}</h3>
           <div>Order ID: {order.id}</div>
           <div>Nama pelanggan : {profile.fullname} </div>
           <div>Email : {profile.email} </div>
@@ -132,7 +132,7 @@ const CheckoutPage = (props: any) => {
       {showCancel && (
         <CancelConfirmation
           orderID={order.id}
-          channel={channel}
+          channel={channelName}
           onNoClick={() => setShowCancel(false)}
         />
       )}
@@ -146,6 +146,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
   const orderID = context.query.order_id ?? "";
+  let channelName = "";
 
   const order =
     (await fetcher(
@@ -153,10 +154,20 @@ export const getServerSideProps: GetServerSideProps = async (
       {}
     )) ?? null;
 
+  if (order && order.id) {
+    const url = `${KONTENKU_URL}/api/channel/${order.channel_id}`;
+    const channelRes = await fetcher(url, {}) ?? null;
+    if (channelRes && channelRes.token) {
+      const channel: any = jwtDecode(channelRes.token);
+      channelName = channel.channel_name;
+    }
+  }
+
+
   return {
     props: {
       profile,
-      channel: context.query.channel ?? "",
+      channelName,
       order,
     },
   };

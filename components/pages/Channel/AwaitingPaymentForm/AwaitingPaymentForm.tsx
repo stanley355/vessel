@@ -75,7 +75,7 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         <RenewPaymentBtn />
       ) : (
         <Link
-          href={`/checkout/${pendingOrder.id}?channel=${channel.channel_name}`}
+          href={`/checkout/${pendingOrder.id}/`}
         >
           <a title="Link Pembayaran" className={styles.payment__link}>
             Link Pembayaran
