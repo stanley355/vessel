@@ -12,7 +12,7 @@ interface IProfileTab {
     fullname: string;
     email: string;
   };
-  channel:any;
+  channel: any;
   balance: any;
   subscriptions: any[];
 }
@@ -27,7 +27,7 @@ const ProfileTab = (props: IProfileTab) => {
         {profile && <UserProfileCard profile={profile} />}
         {isDesktop && <LogoutBtn />}
       </div>
-      {channel && <AccountChannelInfo channel={channel} /> }
+      {channel && <AccountChannelInfo channel={channel} />}
       <MyWallet balance={balance} />
       <MySubscriptions subscriptions={subscriptions} />
       <br />

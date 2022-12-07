@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 import dynamic from "next/dynamic";
 import Cookies from "js-cookie";
 import getConfig from "next/config";
@@ -22,12 +23,19 @@ const Layout = ({ children }: any) => {
     ssr: false,
   });
 
+  const isCheckoutPage = () => {
+    if (typeof window !== "undefined") {
+      return Router.asPath.includes("/checkout");
+    }
+    return false;
+  };
+
   return (
     <div className="layout">
       <Navbar token={token} isDesktop={isDesktop} />
       <div className={styles.body}>{children}</div>
-      <Footer />
-      {!isDesktop && token && <NavigationFooter />}
+      {!isCheckoutPage() && <Footer />}
+      {!isCheckoutPage() && !isDesktop && token && <NavigationFooter />}
     </div>
   );
 };

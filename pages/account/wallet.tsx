@@ -8,7 +8,7 @@ import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
 import findAllUserWithdrawal from "../../lib/withdrawalHandler/findAllUserWithdrawal";
-import styles from '../../styles/pages/wallet.module.scss';
+import styles from "../../styles/pages/wallet.module.scss";
 
 const Wallet = (props: any) => {
   const { balance, payments, withdrawal } = props;
@@ -21,25 +21,29 @@ const Wallet = (props: any) => {
         <button
           onClick={() => setActiveTab("payment")}
           className={activeTab === "payment" ? styles.btn__active : ""}
-        >Income</button>
+        >
+          Income
+        </button>
         <button
           onClick={() => setActiveTab("withdrawal")}
           className={activeTab === "withdrawal" ? styles.btn__active : ""}
-        >Withdrawal</button>
+        >
+          Withdrawal
+        </button>
       </div>
-    )
-  }
+    );
+  };
 
   const WalletBody = () => {
     switch (activeTab) {
       case "payment":
         return <WalletPaymentsTable payments={payments} />;
       case "withdrawal":
-        return <WalletWithdrawalTable withdrawal={withdrawal}/>
+        return <WalletWithdrawalTable withdrawal={withdrawal} />;
       default:
-        return <WalletPaymentsTable payments={payments} />
+        return <WalletPaymentsTable payments={payments} />;
     }
-  }
+  };
 
   return (
     <div className="container">

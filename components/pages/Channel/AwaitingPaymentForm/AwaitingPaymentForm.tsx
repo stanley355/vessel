@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import Router from "next/router";
-import updatePaidSubscription from "../../../../lib/subscriptionHandler/updatePaidSubscription";
-import updateChannelSubscriber from "../../../../lib/channelHandler/updateChannelSubscriber";
 import styles from "./AwaitingPaymentForm.module.scss";
-import createPayment from "../../../../lib/paymentHandler/createPayment";
-import { WARNING_MSG } from "../../../../lib/warning-messages";
 
 interface IAwaitingPayment {
   profile: {
@@ -17,67 +12,37 @@ interface IAwaitingPayment {
     id: number;
     channel_name: string;
   };
-  invoice: {
-    id: string;
-    status: string;
-    invoice_url: string;
-    amount: number;
-  };
-  subscriptionDuration: number;
+  pendingOrder: any;
   onRenewClick: () => void;
 }
 
 const AwaitingPaymentForm = (props: IAwaitingPayment) => {
-  const { profile, channel, invoice, subscriptionDuration, onRenewClick } =
-    props;
+  const { profile, channel, pendingOrder, onRenewClick } = props;
 
-  const [hasSubmit, setHasSubmit] = useState(false);
+  const orderExpiryDate = () => {
+    if (pendingOrder.merchant) {
+      return new Date(pendingOrder.expired_at).toLocaleString();
+    } else {
+      const startDate = new Date(pendingOrder.created_at);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setHasSubmit(true);
+      // seconds * minutes * hours * milliseconds = 1 day
+      const day = 60 * 60 * 24 * 1000;
 
-    const subscriptionPayload = {
-      userID: profile.id,
-      channelID: channel.id,
-      invoiceID: invoice.id,
-    };
-
-    const paidSubscription = await updatePaidSubscription(subscriptionPayload);
-
-    const paymentPayload = {
-      channelID: channel.id,
-      channelName: channel.channel_name,
-      subscriberID: profile.id,
-      subscriberName: profile.fullname,
-      subscriptionDuration: subscriptionDuration,
-      totalAmount: invoice.amount,
-    };
-
-    // const userPayment = await createPayment(paymentPayload);
-
-    // if (paidSubscription.paid && userPayment.payment.id) {
-    //   await updateChannelSubscriber(channel.id);
-    //   Router.reload();
-    // } else {
-    //   alert(WARNING_MSG.TRY_AGAIN);
-    // }
-    alert(WARNING_MSG.TRY_AGAIN);
+      const endDate = new Date(startDate.getTime() + day);
+      return endDate.toLocaleString();
+    }
   };
 
-  const ConfirmPaymentBtn = () => (
-    <div className={styles.confirm}>
-      {invoice.status === "PAID" ? (
-        <button type="submit" disabled={hasSubmit}>
-          {hasSubmit ? "Memproses..." : "Saya sudah bayar"}
-        </button>
-      ) : (
-        <Link href={invoice.invoice_url}>
-          <a title="Invoice Link">Link Pembayaran</a>
-        </Link>
-      )}
-    </div>
-  );
+  const isOrderExpired = () => {
+    if (pendingOrder.merchant) {
+      const expDate = new Date(pendingOrder.expired_at);
+      const currentDate = new Date();
+
+      return currentDate.getTime() > expDate.getTime();
+    }
+
+    return false;
+  };
 
   const RenewPaymentBtn = () => (
     <div className={styles.renew}>
@@ -98,23 +63,25 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         Menunggu pembayaran untuk langganan Channel {channel.channel_name}
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className={styles.info}>Nama pelanggan : {profile.fullname} </div>
-        <div className={styles.info}>Email : {profile.email} </div>
-        <div className={styles.info}>
-          Durasi Langganan: {subscriptionDuration} Bulan
-        </div>
-        <div className={styles.info}>Total Harga: {invoice.amount}</div>
-        <div className={styles.info}>Status: {invoice.status}</div>
-        {invoice.status === "PAID"
-          ? "*Klik tombol di bawah untuk konfirmasi pembayaran"
-          : "*Harap refresh halaman ini setelah melakukan pembayaran"}
-        {invoice.status === "EXPIRED" ? (
-          <RenewPaymentBtn />
-        ) : (
-          <ConfirmPaymentBtn />
-        )}
-      </form>
+      <div className={styles.info}>Nama pelanggan : {profile.fullname} </div>
+      <div className={styles.info}>Email : {profile.email} </div>
+      <div className={styles.info}>
+        Durasi Langganan: {pendingOrder.subscription_duration} Bulan
+      </div>
+      <div className={styles.info}>Total Harga: {pendingOrder.amount}</div>
+      <div className={styles.info}>Batas Pembayaran: {orderExpiryDate()}</div>
+
+      {isOrderExpired() ? (
+        <RenewPaymentBtn />
+      ) : (
+        <Link
+          href={`/checkout/${pendingOrder.id}?channel=${channel.channel_name}`}
+        >
+          <a title="Link Pembayaran" className={styles.payment__link}>
+            Link Pembayaran
+          </a>
+        </Link>
+      )}
     </div>
   );
 };

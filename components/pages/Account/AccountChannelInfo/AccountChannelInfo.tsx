@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import styles from './AccountChannelInfo.module.scss';
+import React from "react";
+import Link from "next/link";
+import styles from "./AccountChannelInfo.module.scss";
 
 interface IAccountChannelInfo {
   channel: any;
@@ -21,12 +21,10 @@ const AccountChannelInfo = (props: IAccountChannelInfo) => {
         </div>
       </div>
       <Link href="/channel/setting/">
-        <a title='setting'>
-          Setting
-        </a>
+        <a title="setting">Setting</a>
       </Link>
     </div>
-  )
-}
+  );
+};
 
 export default AccountChannelInfo;

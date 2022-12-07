@@ -1,4 +1,4 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .account__channel {
   display: flex;
@@ -51,7 +51,7 @@
 
     &:hover {
       background: $primary-color;
-      color:$color--white;
+      color: $color--white;
       border-radius: $space--xs;
     }
   }

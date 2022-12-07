@@ -1,7 +1,6 @@
 import Router from "next/router";
 import React, { useState } from "react";
-import createMidtransPaymentLink from "../../../../lib/midtrans/createMidtransPaymentLink";
-import createPayment from "../../../../lib/paymentHandler/createPayment";
+import createOrder from "../../../../lib/orderHandler/createOrder";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import styles from "./SubscribeChannelForm.module.scss";
 
@@ -51,34 +50,17 @@ const SubscribeChannelForm = (props: ISubscribeChannel) => {
     e.preventDefault();
     setHasSubmit(true);
 
-    const orderID = `kontenku-${channel.id}-${new Date().toISOString()}`.replace(/[^\w\s\']|_/g, "");
+    const orderPayload = {
+      channelID: channel.id,
+      subscriberID: profile.id,
+      subscriptionDuration: activePlan.month,
+      amount: activePlan.price,
+    };
 
-    const midtrans = await createMidtransPaymentLink({
-      orderID: orderID,
-      user: profile,
-      channel: channel,
-      amount: activePlan.price
-    });
+    const order = await createOrder(orderPayload);
 
-
-    if (midtrans && midtrans.order_id) {
-      const paymentData = {
-        channelID: channel.id,
-        subscriberID: profile.id,
-        subscriptionDuration: activePlan.month,
-        totalAmount: activePlan.price,
-        merchant: 'MIDTRANS',
-        merchantOrderID: midtrans.order_id,
-        merchantPaymentLink: midtrans.payment_url
-      }
-      const paymentRes = await createPayment(paymentData);
-
-      if (paymentRes && paymentRes.identifiers.length) {
-        Router.push(midtrans.payment_url);
-      } else {
-        setHasSubmit(false)
-        alert(WARNING_MSG.TRY_AGAIN);
-      }
+    if (order && order.id) {
+      Router.push(`/checkout/${order.id}`);
     } else {
       setHasSubmit(false);
       alert(WARNING_MSG.TRY_AGAIN);

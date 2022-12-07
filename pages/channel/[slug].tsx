@@ -21,12 +21,11 @@ interface IChannelSlug {
   profile: any;
   channel: any;
   posts: any[];
-  subscription: any;
-  invoice: any;
+  pendingOrder: any;
 }
 
 const ChannelSlug = (props: IChannelSlug) => {
-  const { profile, channel, posts, subscription, invoice } = props;
+  const { profile, channel, posts, pendingOrder } = props;
 
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
@@ -44,15 +43,19 @@ const ChannelSlug = (props: IChannelSlug) => {
     if (showSubscribeForm) {
       return <SubscribeChannelForm profile={profile} channel={channel} />;
     }
-    return subscription ? (
-      <AwaitingPaymentForm
-        profile={profile}
-        channel={channel}
-        invoice={invoice}
-        subscriptionDuration={subscription.duration}
-        onRenewClick={() => setShowSubscribeForm(true)}
-      />
-    ) : (
+
+    if (pendingOrder && pendingOrder.status === "PENDING") {
+      return (
+        <AwaitingPaymentForm
+          profile={profile}
+          channel={channel}
+          pendingOrder={pendingOrder}
+          onRenewClick={() => setShowSubscribeForm(true)}
+        />
+      );
+    }
+
+    return (
       <ChannelNotSubscribed
         onSubscribeClick={() => setShowSubscribeForm(true)}
       />
@@ -61,20 +64,22 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
-      const subscriptionStatus =
-        subscription && checkSubscriptionStatus(subscription);
+      // TODO: Add all post after subscription
+      // const subscriptionStatus =
+      //   subscription && checkSubscriptionStatus(subscription);
 
-      if (subscription && subscriptionStatus === "ONGOING") {
-        return <PostsSection postList={posts} />;
-      } else {
-        const freePosts = posts.filter((post: any) => post.is_free);
-        return (
-          <>
-            <SubscriptionSection />
-            {freePosts.length > 0 && <PostsSection postList={freePosts} />}
-          </>
-        );
-      }
+      // if (subscription && subscriptionStatus === "ONGOING") {
+      //   return <PostsSection postList={posts} />;
+      // } else {
+
+      const freePosts = posts.filter((post: any) => post.is_free);
+      return (
+        <>
+          <SubscriptionSection />
+          {freePosts.length > 0 && <PostsSection postList={freePosts} />}
+        </>
+      );
+      // }
     }
     return <ChannelNoPosts />;
   };
@@ -94,7 +99,7 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   return (
     <div className="container">
-      {(channel && posts.length) && (
+      {channel && posts.length && (
         <ChannelMetaHead channel={channel} posts={posts} />
       )}
       <div className={styles.channel__slug}>
@@ -123,7 +128,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const profile: any = token ? jwtDecode(token) : "";
   const channel = (await findChannel(slug)) ?? null;
 
-  if (profile && profile.id === channel.owner_id) {
+  if (profile.id === channel.owner_id) {
     return {
       redirect: {
         destination: "/account/",
@@ -134,29 +139,20 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const posts =
     (await fetcher(`${BASE_URL}/api/channel/post/view?slug=${slug}`, {})) ?? [];
-  let subscription;
-  let invoice;
 
-  if (profile && channel && channel.id) {
-    const payload = {
-      userID: profile.id,
-      channelID: channel.id,
-    };
-    const subscriptionList = await viewSubscriptions(payload);
-    subscription = subscriptionList[subscriptionList.length - 1];
-  }
-
-  // if (subscription && !subscription.paid && !subscription.expired_at) {
-  //   invoice = await viewInvoice(subscription.invoice_id);
-  // }
+  const pendingOrders =
+    (await fetcher(
+      `${BASE_URL}/api/payment/order/channel-pending?channelID=${channel.id}&subscriberID=${profile.id}`,
+      {}
+    )) ?? [];
 
   return {
     props: {
       profile,
       channel,
       posts,
-      subscription: subscription ?? null,
-      invoice: invoice ?? null,
+      pendingOrder:
+        pendingOrders && pendingOrders.length > 0 ? pendingOrders[0] : null,
     },
   };
 };

@@ -9,9 +9,12 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
   const { payments } = props;
 
   const displayDate = (date: string) => {
-    return new Date(date).toLocaleDateString() + " " + new Date(date).toLocaleTimeString();
+    return (
+      new Date(date).toLocaleDateString() +
+      " " +
+      new Date(date).toLocaleTimeString()
+    );
   };
-
 
   const PaymentTable = () => {
     return (
