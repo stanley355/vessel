@@ -86,7 +86,7 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
       {withdrawal.length > 0 ? (
         isDesktop ? <WithdrawalTable /> : <WithdrawalList />
       ) : (
-        <div>Belum ada pembayaran Subscriber ke Channel Anda</div>
+        <div>Belum ada penarikan</div>
       )}
     </div>
   );
