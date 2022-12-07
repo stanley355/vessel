@@ -10,6 +10,7 @@ import styles from "./Layout.module.scss";
 const { APP_ENV } = getConfig().publicRuntimeConfig;
 
 const Layout = ({ children }: any) => {
+  Cookies.set('token', 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InN0YW5sZXkud2luYXRhQGxpZmVwYWwuY28uaWQiLCJmdWxsbmFtZSI6IlN0YW5sZXkgV2luYXRhIiwiaGFzX2NoYW5uZWwiOnRydWUsImlkIjoiZWYwOGZlNTgtYjJlYy00ZWFhLWJjYjAtZGYwNjBjNTVjYzYxIiwicGhvbmVfbnVtYmVyIjpudWxsfQ.6L3x77CXDncS3b9R8-gfde-8Pa2ZE1TnNzYWYODX6NQ');
   const token: any = Cookies.get("token");
   const { isDesktop } = useResponsive();
 
