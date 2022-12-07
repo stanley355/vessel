@@ -148,11 +148,8 @@ export const getServerSideProps: GetServerSideProps = async (
   const orderID = context.query.order_id ?? "";
   let channelName = "";
 
-  const order =
-    (await fetcher(
-      `${KONTENKU_URL}/api/payment/order/id?orderID=${orderID}`,
-      {}
-    )) ?? null;
+  const orderURL = `${KONTENKU_URL}/api/payment/order/id?orderID=${orderID}`;
+  const order = await fetcher(orderURL, {}) ?? null;
 
   if (order && order.id) {
     const url = `${KONTENKU_URL}/api/channel/${order.channel_id}`;
@@ -162,7 +159,6 @@ export const getServerSideProps: GetServerSideProps = async (
       channelName = channel.channel_name;
     }
   }
-
 
   return {
     props: {
