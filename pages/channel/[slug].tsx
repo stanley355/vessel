@@ -12,10 +12,12 @@ import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
 import styles from "./ChannelSlug.module.scss";
+import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 interface IChannelSlug {
+  isSubscribing: boolean;
   profile: any;
   channel: any;
   posts: any[];
@@ -23,7 +25,7 @@ interface IChannelSlug {
 }
 
 const ChannelSlug = (props: IChannelSlug) => {
-  const { profile, channel, posts, pendingOrder } = props;
+  const { isSubscribing, profile, channel, posts, pendingOrder } = props;
 
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
@@ -62,22 +64,17 @@ const ChannelSlug = (props: IChannelSlug) => {
 
   const ChannelBody = () => {
     if (channel && channel.posts_number > 0) {
-      // TODO: Add all post after subscription
-      // const subscriptionStatus =
-      //   subscription && checkSubscriptionStatus(subscription);
-
-      // if (subscription && subscriptionStatus === "ONGOING") {
-      //   return <PostsSection postList={posts} />;
-      // } else {
-
-      const freePosts = posts.filter((post: any) => post.is_free);
-      return (
-        <>
-          <SubscriptionSection />
-          {freePosts.length > 0 && <PostsSection postList={freePosts} />}
-        </>
-      );
-      // }
+      if (isSubscribing) {
+        return <PostsSection postList={posts} />;
+      } else {
+        const freePosts = posts.filter((post: any) => post.is_free);
+        return (
+          <>
+            <SubscriptionSection />
+            {freePosts.length > 0 && <PostsSection postList={freePosts} />}
+          </>
+        );
+      }
     }
     return <ChannelNoPosts />;
   };
@@ -125,6 +122,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const profile: any = token ? jwtDecode(token) : "";
   const channel = (await findChannel(slug)) ?? null;
+  let isSubscribing: boolean = false;
 
   if (profile.id === channel.owner_id) {
     return {
@@ -133,6 +131,18 @@ export const getServerSideProps: GetServerSideProps = async (
         permanent: false,
       },
     };
+  }
+
+  const subscription = await viewSubscriptions(profile.id);
+
+  if (subscription && subscription.length > 0) {
+    const runningSubscriptions = subscription.map((subs: any) => {
+      const date = new Date();
+      const isExpired = date.getTime() > new Date(subs.expired_at).getTime();
+      if (!isExpired) return subs.id;
+    })
+
+    isSubscribing = runningSubscriptions.includes(channel.id);
   }
 
   const posts =
@@ -146,6 +156,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   return {
     props: {
+      isSubscribing,
       profile,
       channel,
       posts,
