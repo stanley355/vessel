@@ -6,12 +6,12 @@ import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 import viewPost from "../../lib/postHandler/viewPost";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
-import filterSimilarSubscription from "../../lib/filterSimilarSubscription";
+import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
+import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
 import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import styles from "./account.module.scss";
-import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 
 const Account = (props: any) => {
   const { profile, balance, subscriptions, channel, posts, pendingOrder } = props;
@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const profile: any = token ? jwtDecode(token) : "";
   let balance: any;
   let subscriptions: any = [];
-  let pendingOrder:any = [];
+  let pendingOrder: any = [];
   let channel: any;
   let posts: any[] = [];
 
@@ -88,8 +88,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
-    subscriptions = await viewSubscriptions(profile.id);
     pendingOrder = await findUserPendingOrder(profile.id);
+    const subscriptionsID = await viewSubscriptions(profile.id);
+
+    if (subscriptionsID && subscriptionsID.length > 0) {
+      subscriptions = await findSubscribedChannel(subscriptionsID) ?? [];
+    }
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
@@ -106,9 +110,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     posts = await viewPost(channel.slug);
   }
 
-  if (subscriptions && subscriptions.length > 0) {
-    subscriptions = filterSimilarSubscription(subscriptions);
-  }
 
   return {
     props: {

@@ -1,5 +1,4 @@
 import getConfig from "next/config";
-import { URLSearchParams } from "url";
 import fetcher from "../fetcher";
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
