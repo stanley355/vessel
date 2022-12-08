@@ -50,10 +50,10 @@ const ProfileTab = (props: IProfileTab) => {
       {channel && <AccountChannelInfo channel={channel} />}
       <MyWallet balance={balance} />
       <SubscriptionsTab />
-      {/* {activeTab === "subscriptions" ?
+      {activeTab === "subscriptions" ?
         <MySubscriptions subscriptions={subscriptions} /> :
         <MyPendingSubscriptions pendingSubscriptions={pendingOrder} />
-      } */}
+      }
     </div>
   );
 };
