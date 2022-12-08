@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (
   let posts: any[] = [];
 
   if (profile && profile.id) {
-    const rawSubscriptions = await viewSubscriptions({ userID: profile.id });
+    const rawSubscriptions = await viewSubscriptions(profile.id);
     if (rawSubscriptions && rawSubscriptions.length > 0) {
       const subscriptions = filterSimilarSubscription(rawSubscriptions);
       const subscriptionsChannelID = subscriptions.map((subscription) =>

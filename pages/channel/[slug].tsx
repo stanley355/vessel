@@ -9,8 +9,6 @@ import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChanne
 import AwaitingPaymentForm from "../../components/pages/Channel/AwaitingPaymentForm";
 import PostCard from "../../components/pages/Account/PostCard";
 import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
-import checkSubscriptionStatus from "../../lib/subscriptionHandler/checkSubscriptionStatus";
-import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
 import styles from "./ChannelSlug.module.scss";

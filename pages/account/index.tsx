@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
-    subscriptions = await viewSubscriptions({ userID: profile.id });
+    subscriptions = await viewSubscriptions(profile.id);
     pendingOrder = await findUserPendingOrder(profile.id);
   }
 

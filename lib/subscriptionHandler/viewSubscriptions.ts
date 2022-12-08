@@ -2,23 +2,10 @@ import getConfig from "next/config";
 import { URLSearchParams } from "url";
 import fetcher from "../fetcher";
 
-interface IViewSubscriptions {
-  userID: string;
-  channelID?: number;
-  invoiceID?: string;
-}
-
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
-const viewSubscriptions = async (payload: IViewSubscriptions) => {
-  const params = {
-    user_id: payload.userID ?? "",
-    ...(payload.channelID && { channels_id: String(payload.channelID) }),
-    ...(payload.invoiceID && { invoice_id: payload.invoiceID }),
-  };
-
-  const queryString = new URLSearchParams(params);
-  const URL = `${KONTENKU_URL}/api/subscriptions/view?${queryString}`;
+const viewSubscriptions = async (userID: string): Promise<number[]> => {
+  const URL = `${KONTENKU_URL}/api/subscriptions/view?user_id=${userID}`;
 
   const subscriptionRes = await fetcher(URL, {});
 
