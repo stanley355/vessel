@@ -67,10 +67,11 @@ const CheckoutPage = (props: any) => {
   const VAcreationBtn = () => {
     return (
       <div className={styles.cta__btn}>
-        <button onClick={() => setShowCancel(true)}>
+        <button onClick={() => setShowCancel(true)} type="button">
           <FaTrash />
         </button>
         <button
+          type="button"
           onClick={handleVAcreation}
           disabled={!bankName || submitVA}
           className={!bankName || submitVA ? styles.disabled__cta : styles.enabled__cta}
@@ -90,7 +91,7 @@ const CheckoutPage = (props: any) => {
           <button type="button" onClick={() => copyToClipboard(order.merchant_va_number)}>Copy</button>
         </div>
         <div className={styles.cta__btn}>
-          <button onClick={() => setShowCancel(true)}>
+          <button onClick={() => setShowCancel(true)} type="button">
             <FaTrash />
           </button>
           <Link href={order.merchant_payment_link}>

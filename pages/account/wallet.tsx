@@ -19,12 +19,14 @@ const Wallet = (props: any) => {
     return (
       <div className={styles.wallet__tabs}>
         <button
+          type="button"
           onClick={() => setActiveTab("payment")}
           className={activeTab === "payment" ? styles.btn__active : ""}
         >
           Income
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab("withdrawal")}
           className={activeTab === "withdrawal" ? styles.btn__active : ""}
         >

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./AccountChannelInfo.module.scss";
 
 interface IAccountChannelInfo {
@@ -13,7 +14,7 @@ const AccountChannelInfo = (props: IAccountChannelInfo) => {
     <div className={styles.account__channel}>
       <div className={styles.info}>
         <div className={styles.img__wrap}>
-          <img src={channel.profile_img_url} alt={channel.channel_name} />
+          <Image src={channel.profile_img_url} alt={channel.channel_name} width={50} height={50} />
         </div>
         <div className={styles.texts}>
           <span>{channel.channel_name}</span>

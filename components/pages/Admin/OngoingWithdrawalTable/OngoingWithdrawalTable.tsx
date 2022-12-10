@@ -50,10 +50,10 @@ const OngoingWithdrawalTable = (props: IWithdrawalTable) => {
                 <td>{withdrawal.amount}</td>
                 <td>{withdrawal.status}</td>
                 <td className={styles.action__column}>
-                  <button onClick={() => handleAcceptedWithdrawal(withdrawal)}>
+                  <button onClick={() => handleAcceptedWithdrawal(withdrawal)} type="button">
                     Accept
                   </button>
-                  <button onClick={() => setRejectedWithdraw(withdrawal)}>
+                  <button onClick={() => setRejectedWithdraw(withdrawal)} type="button">
                     Reject
                   </button>
                 </td>

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import parse from "html-react-parser";
 import styles from "./HomePostCard.module.scss";
 
@@ -19,12 +20,10 @@ const PostCard = (props: IPostCard) => {
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
-        <Link
-          href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}
-        >
+        <Link href={token ? `/channel/${post.channels_slug}/` : "/account/login/"} >
           <div className={styles.post__card__head__info}>
             <span className={styles.channel__img}>
-              <img src={post.profile_img_url} alt={post.channel_name} />
+              <Image src={post.profile_img_url} alt={post.channel_name} width={50} height={50} />
             </span>
             <span className={styles.post__info}>
               <div className={styles.title}>{post.channel_name}</div>
@@ -49,7 +48,7 @@ const PostCard = (props: IPostCard) => {
         </div>
       ) : (
         <div className={styles.img__wrap}>
-          <img width={300} height={300} src={post.img_url} alt={post.id} />
+          <Image width={300} height={300} src={post.img_url} alt={post.id} />
         </div>
       )}
       <div>{parse(post.description)}</div>
