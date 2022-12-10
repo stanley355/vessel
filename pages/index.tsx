@@ -20,11 +20,10 @@ const Home: NextPage = (props: any) => {
       <div className={styles.home}>
         <div className={styles.home__hero}>
           <Image src="/images/home_hero.webp" alt="hero" width={490} height={390} />
-          <div>Kontenku - Platform Membership Konten #1 Indonesia</div>
+          <div>Kontenku - Konten Service #1 Indonesia</div>
           <div>
-            Kontenku adalah Platform Service tempat content creator dapat
-            memposting content, lalu para subscriber content dapat mendukung
-            content creator dengan cara mensubscribe channel content creator.
+            Kontenku adalah tempat bagi Content Creator untuk menawarkan konten eksklusif yang dapat dibayar oleh subscriber dengan harga premium.
+            Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya untuk para fans, teman, keluarga, dan dunia di Kontenku.
           </div>
         </div>
 
