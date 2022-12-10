@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
 Allow: /channel/*
+Disallow: /account/*
+Disallow: /api/*
+Disallow: /checkout/*
+Disallow: /admin/*
