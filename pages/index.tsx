@@ -6,7 +6,6 @@ import viewHomePosts from "../lib/postHandler/viewHomePosts";
 import viewSubscriptions from "../lib/subscriptionHandler/viewSubscriptions";
 import HomePostCard from "../components/pages/Home/HomePostCard";
 import SearchBar from "../components/pages/Home/SearchBar";
-import UserFlow from "../components/pages/Home/UserFlow";
 import HomeMetaHead from "../components/pages/Home/HomeMetaHead";
 import findSubscribedChannel from "../lib/channelHandler/findSubscribedChannel";
 import styles from "../styles/pages/home.module.scss";
@@ -17,7 +16,6 @@ const Home: NextPage = (props: any) => {
   return (
     <div className="container">
       <HomeMetaHead posts={posts} />
-      <UserFlow />
       <div className={styles.home}>
         <div className={styles.home__hero}>
           <img src="/images/home_hero.gif" loading="lazy" />
