@@ -46,6 +46,16 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const token = context.req.cookies["token"] ?? null;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/account/login/",
+        permanent: false,
+      },
+    };
+  }
+
   const profile: any = token ? jwtDecode(token) : "";
   let posts: any[] = [];
 
