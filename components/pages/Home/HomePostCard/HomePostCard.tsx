@@ -48,7 +48,7 @@ const PostCard = (props: IPostCard) => {
         </div>
       ) : (
         <div className={styles.img__wrap}>
-          <Image width={300} height={300} src={post.img_url} alt={post.id} />
+          <img width={300} height={300} src={post.img_url} alt={post.id} />
         </div>
       )}
       <div>{parse(post.description)}</div>

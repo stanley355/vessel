@@ -3,6 +3,7 @@
 .my__subscriptions {
   display: flex;
   flex-direction: column;
+  padding: $space--sm 0;
 
   .no__subscriptions {
     display: flex;

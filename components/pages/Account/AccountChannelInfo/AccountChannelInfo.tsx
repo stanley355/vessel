@@ -14,7 +14,7 @@ const AccountChannelInfo = (props: IAccountChannelInfo) => {
     <div className={styles.account__channel}>
       <div className={styles.info}>
         <div className={styles.img__wrap}>
-          <Image src={channel.profile_img_url} alt={channel.channel_name} width={50} height={50} />
+          <Image src={channel.profile_img_url} alt={channel.channel_name} width={65} height={65} />
         </div>
         <div className={styles.texts}>
           <span>{channel.channel_name}</span>
