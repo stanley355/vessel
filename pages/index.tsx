@@ -4,11 +4,11 @@ import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import viewHomePosts from "../lib/postHandler/viewHomePosts";
 import viewSubscriptions from "../lib/subscriptionHandler/viewSubscriptions";
-import filterSimilarSubscription from "../lib/filterSimilarSubscription";
 import HomePostCard from "../components/pages/Home/HomePostCard";
 import SearchBar from "../components/pages/Home/SearchBar";
 import UserFlow from "../components/pages/Home/UserFlow";
 import HomeMetaHead from "../components/pages/Home/HomeMetaHead";
+import findSubscribedChannel from "../lib/channelHandler/findSubscribedChannel";
 import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
@@ -52,14 +52,14 @@ export const getServerSideProps: GetServerSideProps = async (
   let posts: any[] = [];
 
   if (profile && profile.id) {
-    const rawSubscriptions = await viewSubscriptions({ userID: profile.id });
-    if (rawSubscriptions && rawSubscriptions.length > 0) {
-      const subscriptions = filterSimilarSubscription(rawSubscriptions);
-      const subscriptionsChannelID = subscriptions.map((subscription) =>
-        Number(subscription.channels_id)
-      );
+    const subscriptions = await viewSubscriptions(profile.id);
+    if (subscriptions && subscriptions.length > 0) {
+      const subscribedChannels = await findSubscribedChannel(subscriptions);
 
-      posts = await viewHomePosts(subscriptionsChannelID);
+      if (subscribedChannels && subscribedChannels.length > 0) {
+        const subscribedChannelsID = subscribedChannels.map((subs: any) => subs.id);
+        posts = await viewHomePosts(subscribedChannelsID);
+      }
     } else {
       posts = await viewHomePosts([]);
     }

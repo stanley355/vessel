@@ -84,7 +84,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
+        (snapshot: any) => { },
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -104,6 +104,8 @@ const CreateChannelForm = () => {
             const channel = await createChannel(payload);
 
             if (channel && channel.token) {
+              const channelData: any = jwtDecode(channel.token);
+
               const userPayload = {
                 id: user.id,
                 fullname: user.fullname,
@@ -112,8 +114,12 @@ const CreateChannelForm = () => {
               };
 
               const userDataUpdate = await updateUserData(userPayload);
+              const balanceChannel = await updateBalanceChannel({
+                userID: user.id,
+                channelID: channelData.id
+              })
 
-              if (userDataUpdate.token) {
+              if (userDataUpdate.token && balanceChannel.id) {
                 jsCookie.set("token", userDataUpdate.token);
                 jsCookie.set("token_channel", channel.token);
                 Router.reload();

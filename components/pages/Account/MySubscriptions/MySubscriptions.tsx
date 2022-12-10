@@ -21,13 +21,12 @@ const MySubscriptions = (props: IMySubscriptions) => {
   const SubscriptionsList = () => (
     <div className={styles.list}>
       {subscriptions.map((subs: any) => (
-        <Link href={`/channel/${subs.channels_slug}`} key={subs.channels_name}>
-          <a title={subs.channels_name} className={styles.link}>
+        <Link href={`/channel/${subs.slug}`} key={subs.channel_name}>
+          <a title={subs.channel_name} className={styles.link}>
             <span>
               <div className={styles.link__title}>
-                {subs.channels_name.toUpperCase()}
+                {subs.channel_name.toUpperCase()}
               </div>
-              <div>status: {checkSubscriptionStatus(subs)}</div>
             </span>
             <span>
               <FaAngleRight />

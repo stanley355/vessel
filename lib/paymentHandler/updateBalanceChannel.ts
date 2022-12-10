@@ -4,7 +4,6 @@ import fetcher from "../fetcher";
 interface IUpdateBalanceChannel {
   userID: string;
   channelID: number;
-  channelName: string;
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
