@@ -6,8 +6,6 @@ const dokuNotificationHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  console.log("Begin: ", req);
-  console.log(111, req.body);
   await NextCors(req, res, {
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     origin: "*",
@@ -16,7 +14,6 @@ const dokuNotificationHandler = async (
 
   let response = {};
 
-  console.log(222, req.body);
   if (req.body && req.body.order) {
     const orderURL = `${process.env.PAYMENT_URL}/v2/order/paid?orderID=${req.body.order.invoice_number}`;
 
@@ -28,7 +25,6 @@ const dokuNotificationHandler = async (
       data: JSON.stringify(req.body),
     });
 
-    console.log(333, orderRes);
     if (orderRes && orderRes.id) {
       const authorURL = `${process.env.AUTHOR_URL}/subscriptions/`;
 
@@ -43,7 +39,6 @@ const dokuNotificationHandler = async (
       });
     }
 
-    console.log(444, response);
   }
   res.setHeader("Content-Type", "application/json");
   res.json(response);
