@@ -9,15 +9,14 @@ const dokuNotificationHandler = async (
   console.log("Begin: ", req);
   console.log(111, req.body);
   await NextCors(req, res, {
-    methods: ["POST"],
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     origin: "*",
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
 
   let response = {};
 
-
-    console.log(222, req.body);
+  console.log(222, req.body);
   if (req.body && req.body.order) {
     const orderURL = `${process.env.PAYMENT_URL}/v2/order/paid?orderID=${req.body.order.invoice_number}`;
 
@@ -28,7 +27,6 @@ const dokuNotificationHandler = async (
       },
       data: JSON.stringify(req.body),
     });
-
 
     console.log(333, orderRes);
     if (orderRes && orderRes.id) {
@@ -44,7 +42,6 @@ const dokuNotificationHandler = async (
         data: JSON.stringify(authorPayload),
       });
     }
-
 
     console.log(444, response);
   }
