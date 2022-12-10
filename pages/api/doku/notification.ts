@@ -6,6 +6,7 @@ const dokuNotificationHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
+  console.log("Begin: ", req);
   console.log(111, req.body);
   await NextCors(req, res, {
     methods: ["POST"],
