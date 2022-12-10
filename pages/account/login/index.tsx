@@ -15,7 +15,7 @@ const AccountLogin = (props: any) => {
     <div className="container">
       <HomeMetaHead posts={[]} />
       <div className={styles.account__login}>
-        <h2 className={styles.title}>Sign In to Kontenku</h2>
+        <h2 className={styles.title}>Langsung Daftar dan Masuk Yuk! ^_^</h2>
         <GoogleSignInBtn clientID={clientID} />
       </div>
     </div>
