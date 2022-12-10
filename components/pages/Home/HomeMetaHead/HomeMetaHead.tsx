@@ -9,9 +9,8 @@ const HomeMetaHead = (props: IHomeMetaHead) => {
   const { posts } = props;
 
   const HOME_META = {
-    title: "Kontenku - Platform Konten Berbayar untuk Content Creator",
-    description:
-      "Kontenku - Dapatkan Pembayaran untuk Kreasimu. Di kontenku, content createor akan mendapatkan pembayaran untuk setiap subscribers yang didapat.",
+    title: "Kontenku - video dan musik kesukaanmu",
+    description:"Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya dengan teman, keluarga, dan dunia di Kontenku.",
     publishedTime: "",
     modifiedTime: posts && posts.length ? posts[0].created_at : "",
     channelName: "Kontenku",
