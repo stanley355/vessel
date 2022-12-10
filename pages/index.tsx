@@ -1,5 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
+import Image from "next/image";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import viewHomePosts from "../lib/postHandler/viewHomePosts";
@@ -18,7 +19,7 @@ const Home: NextPage = (props: any) => {
       <HomeMetaHead posts={posts} />
       <div className={styles.home}>
         <div className={styles.home__hero}>
-          <img src="/images/home_hero.gif" loading="lazy" />
+          <Image src="/images/home_hero.webp" alt="hero" width={490} height={390} />
           <div>Kontenku - Platform Membership Konten #1 Indonesia</div>
           <div>
             Kontenku adalah Platform Service tempat content creator dapat

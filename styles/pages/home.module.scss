@@ -40,7 +40,7 @@
   &__posts {
     @include desktop-view {
       padding: 0 $space--sm;
-      margin: auto;
+      margin: 0 auto;
     }
   }
 }
