@@ -90,12 +90,20 @@ const CheckoutPage = (props: any) => {
           <span id="copyClipboard">{order.merchant_va_number}</span>
           <button type="button" onClick={() => copyToClipboard(order.merchant_va_number)}>Copy</button>
         </div>
-        <div className={styles.cta__btn}>
+        <div className={styles.confirm__btn}>
           <button onClick={() => setShowCancel(true)} type="button">
             <FaTrash />
           </button>
+          <button onClick={() => { }} className={styles.enabled__cta} >
+            Saya Sudah Bayar
+          </button>
+        </div>
+        <div className={styles.payment__link}>
+          <span>
+            Cara Pembayaran : 
+          </span>
           <Link href={order.merchant_payment_link}>
-            <a title="payment_link">Cara Pembayaran</a>
+            <a title="payment_link">Link</a>
           </Link>
         </div>
       </div>
@@ -197,7 +205,7 @@ export const getServerSideProps: GetServerSideProps = async (
           },
         };
       }
-      
+
     }
   }
 

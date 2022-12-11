@@ -95,7 +95,7 @@
         border-radius: $space--xxs;
         border: 1px solid $primary-color;
         background: $color--white;
-        color:$primary-color;
+        color: $primary-color;
       }
 
       button:hover {
@@ -124,6 +124,52 @@
       background: $primary-color;
       padding: $space--xs;
       font-size: $font--lg;
+    }
+  }
+
+
+  .confirm__btn {
+    display: grid;
+    grid-gap: 1%;
+    grid-template-columns: 15% 85%;
+    margin: $space--sm 0;
+
+    button {
+      padding: $space--xs 0;
+      border-radius: $space--xxs;
+      border: none;
+      color: $color--white;
+      font-size: $font--lg;
+    }
+
+    button:first-child {
+      background: red;
+    }
+
+    .disabled__cta {
+      background: gray;
+    }
+
+    .enabled__cta {
+      background: $primary-color;
+    }
+
+    a {
+      display: grid;
+      place-items: center;
+      padding: $space--xs 0;
+      border-radius: $space--xxs;
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      font-size: $font--lg;
+    }
+  }
+
+  .payment__link {
+    a {
+      margin-left: $space--xs;
+      color: $primary-color;
+      text-decoration: underline;
     }
   }
 }
