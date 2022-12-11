@@ -1,4 +1,3 @@
-
 import fetcher from "../../../../lib/fetcher";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -6,7 +5,9 @@ const orderConfirmationHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const URL = `${process.env.PAYMENT_URL}/v2/order/confirmation?orderID=${req.query.orderID}`;
+  const URL = `${process.env.PAYMENT_URL}/v2/order/confirmation/${
+    req.query.orderID && `?orderID=${req.query.orderID}`
+  }`;
 
   const resp = await fetcher(URL, {
     method: req.method,
