@@ -6,18 +6,17 @@ import getConfig from "next/config";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { FaTrash } from "react-icons/fa";
 import jwtDecode from "jwt-decode";
-import DropdownVA from "../../components/pages/Checkout/DropdownVA";
 import fetcher from "../../lib/fetcher";
 import generateDokuVA from "../../lib/doku/generateDokuVA";
 import updateOrderMerchant from "../../lib/orderHandler/updateOrderMerchant";
 import setOrderExpiryDate from "../../lib/orderHandler/setOrderExpiryDate";
 import isOrderExpired from "../../lib/orderHandler/isOrderExpired";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
+import DropdownVA from "../../components/pages/Checkout/DropdownVA";
+import WaitingConfirmation from "../../components/pages/Checkout/WaitingConfirmation";
 import { WARNING_MSG } from "../../lib/warning-messages";
 import copyToClipboard from "../../lib/copyToClipboard";
 import styles from "./checkout.module.scss";
-
-
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
 
@@ -145,8 +144,9 @@ const CheckoutPage = (props: any) => {
           <div>Batas Pembayaran: {setOrderExpiryDate(order)}</div>
         </div>
 
+        <WaitingConfirmation />
 
-        {isOrderExpired(order) ?
+        {/* {isOrderExpired(order) ?
           <OrderExpiredSection /> :
           order.merchant_va_number ?
             <VAdataSection /> :
@@ -156,7 +156,7 @@ const CheckoutPage = (props: any) => {
               />
               <VAcreationBtn />
             </>
-        }
+        } */}
       </div>
       {showCancel && (
         <CancelConfirmation
