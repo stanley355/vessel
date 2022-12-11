@@ -108,7 +108,10 @@ const CheckoutPage = (props: any) => {
           <button onClick={() => setShowCancel(true)} type="button">
             <FaTrash />
           </button>
-          <button onClick={handlePaidConfirmation} className={confirmPaid ? styles.enabled__cta : styles.disabled__cta} >
+          <button onClick={handlePaidConfirmation}
+            className={confirmPaid ? styles.disabled__cta : styles.enabled__cta}
+            disabled={confirmPaid}
+          >
             Saya Sudah Bayar
           </button>
         </div>
