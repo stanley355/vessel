@@ -28,6 +28,26 @@ const ConfirmingOrderTable = (props: IConfirmingOrder) => {
     }
   }
 
+
+  const handlePaidOrder = async (orderID: string) => {
+    const url = `${KONTENKU_URL}/api/doku/notification/`;
+    const orderRes = await fetcher(url, {
+      method: "POST", data: {
+        order: {
+          invoice_number: orderID
+        }
+      }
+    });
+
+    if (orderRes && orderRes.id) {
+      alert("Success");
+      Router.reload();
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN);
+      return "";
+    }
+  }
+
   return (
     <div className={styles.order__table}>
       <table>
@@ -49,7 +69,7 @@ const ConfirmingOrderTable = (props: IConfirmingOrder) => {
                 <td>{new Date(order.created_at).toDateString()}</td>
                 <td>{order.status}</td>
                 <td className={styles.action__column}>
-                  <button onClick={() => { }} type="button">
+                  <button onClick={() => handlePaidOrder(order.id)} type="button">
                     Accept
                   </button>
                   <button onClick={() => handleRejectedOrder(order.id)} type="button">
