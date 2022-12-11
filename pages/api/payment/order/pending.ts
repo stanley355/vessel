@@ -9,8 +9,6 @@ const pendingOrderHandler = async (
     req.query.orderID ? `?orderID=${req.query.orderID}` : ""
   }`;
 
-  console.log(444, URL);
-
   const resp = await fetcher(URL, {
     method: req.method,
     headers: {
