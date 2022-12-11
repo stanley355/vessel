@@ -6,7 +6,7 @@ const pendingOrderHandler = async (
   res: NextApiResponse
 ) => {
   const URL = `${process.env.PAYMENT_URL}/v2/order/pending/${
-    req.query.orderID && `?orderID=${req.query.orderID}`
+    req.query.orderID ? `?orderID=${req.query.orderID}` : ""
   }`;
 
   const resp = await fetcher(URL, {
