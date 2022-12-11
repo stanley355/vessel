@@ -26,6 +26,21 @@ const CheckoutPage = (props: any) => {
   const [showCancel, setShowCancel] = useState(false);
   const [bankName, setBankName] = useState("");
   const [submitVA, setSubmitVA] = useState(false);
+  const [confirmPaid, setConfirmPaid] = useState(false);
+
+  const handlePaidConfirmation = async () => {
+    const orderRes = await fetcher(`${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`, { method: "PUT" });
+
+    if (orderRes && orderRes.id) {
+      setConfirmPaid(false);
+      Router.reload();
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN);
+      setConfirmPaid(false);
+      return "";
+    }
+  }
+
 
   const handleVAcreation = async () => {
     setSubmitVA(true);
@@ -93,13 +108,13 @@ const CheckoutPage = (props: any) => {
           <button onClick={() => setShowCancel(true)} type="button">
             <FaTrash />
           </button>
-          <button onClick={() => { }} className={styles.enabled__cta} >
+          <button onClick={handlePaidConfirmation} className={confirmPaid ? styles.enabled__cta : styles.disabled__cta} >
             Saya Sudah Bayar
           </button>
         </div>
         <div className={styles.payment__link}>
           <span>
-            Cara Pembayaran : 
+            Cara Pembayaran :
           </span>
           <Link href={order.merchant_payment_link}>
             <a title="payment_link">Link</a>
@@ -144,19 +159,19 @@ const CheckoutPage = (props: any) => {
           <div>Batas Pembayaran: {setOrderExpiryDate(order)}</div>
         </div>
 
-        <WaitingConfirmation />
-
-        {/* {isOrderExpired(order) ?
+        {isOrderExpired(order) ?
           <OrderExpiredSection /> :
-          order.merchant_va_number ?
-            <VAdataSection /> :
-            <>
-              <DropdownVA
-                onSelectChange={(option: any) => setBankName(option.value)}
-              />
-              <VAcreationBtn />
-            </>
-        } */}
+          order.status === "CONFIRMING" ?
+            <WaitingConfirmation /> :
+            order.merchant_va_number ?
+              <VAdataSection /> :
+              <>
+                <DropdownVA
+                  onSelectChange={(option: any) => setBankName(option.value)}
+                />
+                <VAcreationBtn />
+              </>
+        }
       </div>
       {showCancel && (
         <CancelConfirmation
