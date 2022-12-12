@@ -29,7 +29,7 @@ const Home: NextPage = (props: any) => {
         <div className={styles.home__posts}>
           <SearchBar />
           {(posts &&
-            posts.length) &&
+            posts.length > 0) &&
             posts.map((post: any) => (
               <div key={post.id}>
                 <HomePostCard post={post} token={token} />
