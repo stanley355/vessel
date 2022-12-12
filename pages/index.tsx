@@ -1,6 +1,5 @@
 import React from "react";
 import type { NextPage } from "next";
-import Image from "next/image";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import viewHomePosts from "../lib/postHandler/viewHomePosts";
@@ -19,7 +18,7 @@ const Home: NextPage = (props: any) => {
       <HomeMetaHead posts={posts} />
       <div className={styles.home}>
         <div className={styles.home__hero}>
-          <Image src="/images/home_hero.webp" alt="hero" width={490} height={390} />
+          <img src="/images/home_hero.webp" alt="hero" width={490} height={390} />
           <div>Kontenku - Konten Service #1 Indonesia</div>
           <div>
             Kontenku adalah tempat bagi Content Creator untuk menawarkan konten eksklusif yang dapat dibayar oleh subscriber dengan harga premium.
