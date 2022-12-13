@@ -23,7 +23,9 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
           <tr>
             <th>No. </th>
             <th>Tanggal</th>
-            <th>Jumlah</th>
+            <th>Jumlah awal</th>
+            <th>Jumlah Bersih</th>
+            <th>Platform Fee</th>
             <th>Keterangan</th>
           </tr>
         </thead>
@@ -33,6 +35,8 @@ const WalletPaymentsTable = (props: IChannelPayments) => {
               <td>{index + 1}</td>
               <td>{displayDate(payment.created_at)}</td>
               <td className={styles.total_amount}>{payment.total_amount}</td>
+              <td>{payment.net_amount}</td>
+              <td>{payment.platform_fee}</td>
               <td>NEW SUBSCRIBERS</td>
             </tr>
           ))}
