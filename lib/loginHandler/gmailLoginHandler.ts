@@ -36,14 +36,14 @@ const gmailLoginHandler = async (googleRes: any) => {
         const channelLogin: any = await channelLoginHandler(loginRes.token);
 
         if (channelLogin && channelLogin.token) {
-          jsCookie.set("token", loginRes.token);
-          jsCookie.set("token_channel", channelLogin.token);
+          jsCookie.set("token", loginRes.token, { expires: 15 });
+          jsCookie.set("token_channel", channelLogin.token, { expires: 15 });
           Router.push("/");
         } else {
           alert(WARNING_MSG.TRY_AGAIN);
         }
       } else {
-        jsCookie.set("token", loginRes.token);
+        jsCookie.set("token", loginRes.token, { expires: 15 });
         Router.push("/account/");
       }
     } else {

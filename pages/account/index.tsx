@@ -102,7 +102,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     if (channelLogin && channelLogin.token) {
       channel = jwtDecode(channelLogin.token);
-      jsCookie.set("token_channel", channelLogin.token);
+      jsCookie.set("token_channel", channelLogin.token, { expires: 15 });
     }
   }
 
