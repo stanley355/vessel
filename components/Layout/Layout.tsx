@@ -11,7 +11,6 @@ import styles from "./Layout.module.scss";
 const { APP_ENV } = getConfig().publicRuntimeConfig;
 
 const Layout = ({ children }: any) => {
-  Cookies.set('token', 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IndpbmF0YXN0YW5sZXkzNTVAZ21haWwuY29tIiwiZnVsbG5hbWUiOiJTdGFubGV5IHdpbmF0YSIsImhhc19jaGFubmVsIjp0cnVlLCJpZCI6ImVkZTM3NzA4LWQyODgtNDRjYi1hNDE0LTVkMWJlMjcwZjQzNSIsInBob25lX251bWJlciI6bnVsbH0.f1AadCKSVzJVIahrWi-h3JRcB40poWSzsbu0PC6Jio0', { expires: 1 });
   const token: any = Cookies.get("token");
   const { isDesktop } = useResponsive();
 
