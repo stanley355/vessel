@@ -8,23 +8,30 @@ import HomePostCard from "../components/pages/Home/HomePostCard";
 import SearchBar from "../components/pages/Home/SearchBar";
 import HomeMetaHead from "../components/pages/Home/HomeMetaHead";
 import findSubscribedChannel from "../lib/channelHandler/findSubscribedChannel";
+import useResponsive from "../lib/hooks/useResponsive";
 import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
   const { token, posts } = props;
 
+  const { isDesktop } = useResponsive();
+
+  const HomeHero = () => (
+    <div className={styles.home__hero}>
+      {isDesktop && <img src="/images/home_hero.webp" alt="hero" width={490} height={390} />}
+      <div>Kontenku - Konten Service #1 Indonesia</div>
+      <div>
+        Kontenku adalah tempat bagi Content Creator untuk menawarkan konten eksklusif yang dapat dibayar oleh subscriber dengan harga premium.
+        Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya untuk para fans, teman, keluarga, dan dunia di Kontenku.
+      </div>
+    </div>
+  );
+
   return (
     <div className="container">
       <HomeMetaHead posts={posts} />
       <div className={styles.home}>
-        <div className={styles.home__hero}>
-          <img src="/images/home_hero.webp" alt="hero" width={490} height={390} />
-          <div>Kontenku - Konten Service #1 Indonesia</div>
-          <div>
-            Kontenku adalah tempat bagi Content Creator untuk menawarkan konten eksklusif yang dapat dibayar oleh subscriber dengan harga premium.
-            Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya untuk para fans, teman, keluarga, dan dunia di Kontenku.
-          </div>
-        </div>
+        {!isDesktop && <HomeHero /> }
 
         <div className={styles.home__posts}>
           <SearchBar />
@@ -36,6 +43,8 @@ const Home: NextPage = (props: any) => {
               </div>
             ))}
         </div>
+
+        {isDesktop && <HomeHero /> }
       </div>
     </div>
   );
