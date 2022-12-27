@@ -17,6 +17,7 @@ interface IUploadPostForm {
 const UploadPostForm = (props: IUploadPostForm) => {
   const { onBackBtnClick } = props;
 
+  const [uploadPercent, setUploadPercent] = useState(0);
   const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -65,7 +66,11 @@ const UploadPostForm = (props: IUploadPostForm) => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
+        (snapshot) => {
+          const progress =
+            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          setUploadPercent(progress);
+        },
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -135,13 +140,15 @@ const UploadPostForm = (props: IUploadPostForm) => {
 
         {formError && <div className={styles.form__error}>{formError}</div>}
         <button type="submit" className={styles.cta} disabled={hasSubmit}>
-          {hasSubmit ? (
-            "Uploading..."
-          ) : (
+          {hasSubmit ?
+            <span>
+              Uploading ...{uploadPercent}%
+            </span>
+            :
             <span>
               Upload <FaUpload />{" "}
             </span>
-          )}
+          }
         </button>
       </form>
 
