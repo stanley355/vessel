@@ -5,7 +5,7 @@ interface IUpdateChannelData {
   channelID: number;
   channelName?: number;
   subscriptionPrice?: number;
-  profileImgURL?: number;
+  profileImgUrl?: string;
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
@@ -21,7 +21,7 @@ export const updateChannelData = async (payload: IUpdateChannelData) => {
       ...(payload.subscriptionPrice && {
         subscription_price: Number(payload.subscriptionPrice),
       }),
-      ...(payload.profileImgURL && { profile_img_url: payload.profileImgURL }),
+      ...(payload.profileImgUrl && { profile_img_url: payload.profileImgUrl }),
     },
   });
 
