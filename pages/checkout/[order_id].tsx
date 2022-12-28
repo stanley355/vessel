@@ -29,7 +29,10 @@ const CheckoutPage = (props: any) => {
   const [confirmPaid, setConfirmPaid] = useState(false);
 
   const handlePaidConfirmation = async () => {
-    const orderRes = await fetcher(`${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`, { method: "PUT" });
+    const orderRes = await fetcher(
+      `${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`,
+      { method: "PUT" }
+    );
 
     if (orderRes && orderRes.id) {
       setConfirmPaid(false);
@@ -39,8 +42,7 @@ const CheckoutPage = (props: any) => {
       setConfirmPaid(false);
       return "";
     }
-  }
-
+  };
 
   const handleVAcreation = async () => {
     setSubmitVA(true);
@@ -59,8 +61,10 @@ const CheckoutPage = (props: any) => {
         merchantOrderID: dokuVA.order.invoice_number,
         merchantVAnumber: dokuVA.virtual_account_info.virtual_account_number,
         merchantPaymentLink: dokuVA.virtual_account_info.how_to_pay_page,
-        expiredAt: new Date(dokuVA.virtual_account_info.expired_date_utc).toISOString()
-      }
+        expiredAt: new Date(
+          dokuVA.virtual_account_info.expired_date_utc
+        ).toISOString(),
+      };
 
       const updateRes = await updateOrderMerchant(updatePayload);
 
@@ -88,13 +92,15 @@ const CheckoutPage = (props: any) => {
           type="button"
           onClick={handleVAcreation}
           disabled={!bankName || submitVA}
-          className={!bankName || submitVA ? styles.disabled__cta : styles.enabled__cta}
+          className={
+            !bankName || submitVA ? styles.disabled__cta : styles.enabled__cta
+          }
         >
           {submitVA ? "Loading..." : "Lanjut"}
         </button>
       </div>
-    )
-  }
+    );
+  };
 
   const VAdataSection = () => {
     return (
@@ -102,13 +108,19 @@ const CheckoutPage = (props: any) => {
         <div className={styles.title}>Nomor Virtual Account:</div>
         <div className={styles.va__number}>
           <span id="copyClipboard">{order.merchant_va_number}</span>
-          <button type="button" onClick={() => copyToClipboard(order.merchant_va_number)}>Copy</button>
+          <button
+            type="button"
+            onClick={() => copyToClipboard(order.merchant_va_number)}
+          >
+            Copy
+          </button>
         </div>
         <div className={styles.confirm__btn}>
           <button onClick={() => setShowCancel(true)} type="button">
             <FaTrash />
           </button>
-          <button onClick={handlePaidConfirmation}
+          <button
+            onClick={handlePaidConfirmation}
             className={confirmPaid ? styles.disabled__cta : styles.enabled__cta}
             disabled={confirmPaid}
           >
@@ -116,29 +128,25 @@ const CheckoutPage = (props: any) => {
           </button>
         </div>
         <div className={styles.payment__link}>
-          <span>
-            Cara Pembayaran :
-          </span>
+          <span>Cara Pembayaran :</span>
           <Link href={order.merchant_payment_link}>
             <a title="payment_link">Link</a>
           </Link>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const OrderExpiredSection = () => {
     return (
       <div className={styles.order__expired}>
         <div>Waktu Pembayaran telah berakhir</div>
         <Link href={`/channel/${channel.slug}/`}>
-          <a title={channel.channel_name}>
-            Berlangganan Ulang
-          </a>
+          <a title={channel.channel_name}>Berlangganan Ulang</a>
         </Link>
       </div>
-    )
-  }
+    );
+  };
 
   const CancelConfirmation = dynamic(
     () => import("../../components/pages/Checkout/CancelConfirmation"),
@@ -162,19 +170,20 @@ const CheckoutPage = (props: any) => {
           <div>Batas Pembayaran: {setOrderExpiryDate(order)}</div>
         </div>
 
-        {isOrderExpired(order) ?
-          <OrderExpiredSection /> :
-          order.status === "CONFIRMING" ?
-            <WaitingConfirmation /> :
-            order.merchant_va_number ?
-              <VAdataSection /> :
-              <>
-                <DropdownVA
-                  onSelectChange={(option: any) => setBankName(option.value)}
-                />
-                <VAcreationBtn />
-              </>
-        }
+        {isOrderExpired(order) ? (
+          <OrderExpiredSection />
+        ) : order.status === "CONFIRMING" ? (
+          <WaitingConfirmation />
+        ) : order.merchant_va_number ? (
+          <VAdataSection />
+        ) : (
+          <>
+            <DropdownVA
+              onSelectChange={(option: any) => setBankName(option.value)}
+            />
+            <VAcreationBtn />
+          </>
+        )}
       </div>
       {showCancel && (
         <CancelConfirmation
@@ -206,12 +215,11 @@ export const getServerSideProps: GetServerSideProps = async (
   let channel: any;
 
   const orderURL = `${KONTENKU_URL}/api/payment/order/id?orderID=${orderID}`;
-  const order = await fetcher(orderURL, {}) ?? null;
+  const order = (await fetcher(orderURL, {})) ?? null;
 
   if (order && order.id) {
-
     const url = `${KONTENKU_URL}/api/channel/${order.channel_id}`;
-    const channelRes = await fetcher(url, {}) ?? null;
+    const channelRes = (await fetcher(url, {})) ?? null;
     if (channelRes && channelRes.token) {
       channel = jwtDecode(channelRes.token);
 
@@ -223,7 +231,6 @@ export const getServerSideProps: GetServerSideProps = async (
           },
         };
       }
-
     }
   }
 

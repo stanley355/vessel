@@ -46,14 +46,14 @@ const AwaitingPaymentForm = (props: IAwaitingPayment) => {
         Durasi Langganan: {pendingOrder.subscription_duration} Bulan
       </div>
       <div className={styles.info}>Total Harga: {pendingOrder.amount}</div>
-      <div className={styles.info}>Batas Pembayaran: {setOrderExpiryDate(pendingOrder)}</div>
+      <div className={styles.info}>
+        Batas Pembayaran: {setOrderExpiryDate(pendingOrder)}
+      </div>
 
       {isOrderExpired(pendingOrder) ? (
         <RenewPaymentBtn />
       ) : (
-        <Link
-          href={`/checkout/${pendingOrder.id}/`}
-        >
+        <Link href={`/checkout/${pendingOrder.id}/`}>
           <a title="Link Pembayaran" className={styles.payment__link}>
             Link Pembayaran
           </a>

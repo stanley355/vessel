@@ -84,7 +84,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => { },
+        (snapshot: any) => {},
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -116,8 +116,8 @@ const CreateChannelForm = () => {
               const userDataUpdate = await updateUserData(userPayload);
               const balanceChannel = await updateBalanceChannel({
                 userID: user.id,
-                channelID: channelData.id
-              })
+                channelID: channelData.id,
+              });
 
               if (userDataUpdate.token && balanceChannel.id) {
                 jsCookie.set("token", userDataUpdate.token);

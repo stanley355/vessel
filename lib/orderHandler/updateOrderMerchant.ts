@@ -4,8 +4,8 @@ import fetcher from "../fetcher";
 interface IUpdateOrderMerchant {
   orderID: string;
   merchant: string;
-  merchantOrderID?:string;
-  merchantPaymentLink?:string;
+  merchantOrderID?: string;
+  merchantPaymentLink?: string;
   merchantVAnumber?: string;
   expiredAt?: string;
 }

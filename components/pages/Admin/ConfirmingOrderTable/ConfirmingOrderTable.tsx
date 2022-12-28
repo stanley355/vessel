@@ -5,7 +5,6 @@ import fetcher from "../../../../lib/fetcher";
 import styles from "./ConfirmingOrderTable.module.scss";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 
-
 interface IConfirmingOrder {
   confirmingOrders: any[];
 }
@@ -26,17 +25,17 @@ const ConfirmingOrderTable = (props: IConfirmingOrder) => {
       alert(WARNING_MSG.TRY_AGAIN);
       return "";
     }
-  }
-
+  };
 
   const handlePaidOrder = async (orderID: string) => {
     const url = `${KONTENKU_URL}/api/doku/notification/`;
     const orderRes = await fetcher(url, {
-      method: "POST", data: {
+      method: "POST",
+      data: {
         order: {
-          invoice_number: orderID
-        }
-      }
+          invoice_number: orderID,
+        },
+      },
     });
 
     if (orderRes && orderRes.id) {
@@ -46,7 +45,7 @@ const ConfirmingOrderTable = (props: IConfirmingOrder) => {
       alert(WARNING_MSG.TRY_AGAIN);
       return "";
     }
-  }
+  };
 
   return (
     <div className={styles.order__table}>
@@ -69,10 +68,16 @@ const ConfirmingOrderTable = (props: IConfirmingOrder) => {
                 <td>{new Date(order.created_at).toDateString()}</td>
                 <td>{order.status}</td>
                 <td className={styles.action__column}>
-                  <button onClick={() => handlePaidOrder(order.id)} type="button">
+                  <button
+                    onClick={() => handlePaidOrder(order.id)}
+                    type="button"
+                  >
                     Accept
                   </button>
-                  <button onClick={() => handleRejectedOrder(order.id)} type="button">
+                  <button
+                    onClick={() => handleRejectedOrder(order.id)}
+                    type="button"
+                  >
                     Reject
                   </button>
                 </td>

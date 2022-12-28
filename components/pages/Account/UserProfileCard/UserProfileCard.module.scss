@@ -2,16 +2,16 @@
 
 .profile__card {
   border-radius: $space--xs;
-    width: 100%;
-    padding: 0;
-    display: grid;
-    grid-gap:2%;
-    grid-template-columns: 15% 85%;
+  width: 100%;
+  padding: 0;
+  display: grid;
+  grid-gap: 2%;
+  grid-template-columns: 15% 85%;
 
-    @include desktop-view {
-      grid-gap: 0;
-      grid-template-columns: 10% 90%;
-    }
+  @include desktop-view {
+    grid-gap: 0;
+    grid-template-columns: 10% 90%;
+  }
 
   .profile__image {
     width: 100%;

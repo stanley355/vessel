@@ -35,11 +35,12 @@ const ProfileTab = (props: IProfileTab) => {
       <button
         type="button"
         onClick={() => setActiveTab("pending_subs")}
-        className={activeTab === "pending_subs" ? styles.active__btn : ""}>
+        className={activeTab === "pending_subs" ? styles.active__btn : ""}
+      >
         Pending Subscriptions
       </button>
     </div>
-  )
+  );
 
   return (
     <div className={styles.profile__tab}>
@@ -50,10 +51,11 @@ const ProfileTab = (props: IProfileTab) => {
       {channel && <AccountChannelInfo channel={channel} />}
       <MyWallet balance={balance} />
       <SubscriptionsTab />
-      {activeTab === "subscriptions" ?
-        <MySubscriptions subscriptions={subscriptions} /> :
+      {activeTab === "subscriptions" ? (
+        <MySubscriptions subscriptions={subscriptions} />
+      ) : (
         <MyPendingSubscriptions pendingSubscriptions={pendingOrder} />
-      }
+      )}
     </div>
   );
 };

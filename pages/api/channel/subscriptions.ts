@@ -9,7 +9,7 @@ const subscribedChannelsHandler = async (
 
   const resp = await fetcher(URL, {
     method: req.method,
-    data: JSON.stringify(req.body)
+    data: JSON.stringify(req.body),
   });
 
   res.setHeader("Content-Type", "application/json");

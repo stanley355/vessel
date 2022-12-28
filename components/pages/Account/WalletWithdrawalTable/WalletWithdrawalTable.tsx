@@ -81,7 +81,9 @@ const WalletWithdrawalTable = (props: IWithdrawalTable) => {
   return (
     <div className={styles.wallet__withdrawal}>
       <h3>Wallet Withdrawal</h3>
-      {!isDesktop && <div>*Gunakan laptop/komputer untuk melihat lebih banyak</div>}
+      {!isDesktop && (
+        <div>*Gunakan laptop/komputer untuk melihat lebih banyak</div>
+      )}
       {withdrawal.length > 0 ? (
         isDesktop ? (
           <WithdrawalTable />

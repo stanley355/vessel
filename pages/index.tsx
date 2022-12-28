@@ -18,11 +18,16 @@ const Home: NextPage = (props: any) => {
 
   const HomeHero = () => (
     <div className={styles.home__hero}>
-      {isDesktop && <img src="/images/home_hero.webp" alt="hero" width={490} height={390} />}
+      {isDesktop && (
+        <img src="/images/home_hero.webp" alt="hero" width={490} height={390} />
+      )}
       <div>Kontenku - Konten Service #1 Indonesia</div>
       <div>
-        Kontenku adalah tempat bagi Content Creator untuk menawarkan konten eksklusif yang dapat dibayar oleh subscriber dengan harga premium.
-        Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya untuk para fans, teman, keluarga, dan dunia di Kontenku.
+        Kontenku adalah tempat bagi Content Creator untuk menawarkan konten
+        eksklusif yang dapat dibayar oleh subscriber dengan harga premium.
+        Nikmati video dan musik yang Anda sukai, unggah konten original, dan
+        bagikan semuanya untuk para fans, teman, keluarga, dan dunia di
+        Kontenku.
       </div>
     </div>
   );
@@ -31,12 +36,12 @@ const Home: NextPage = (props: any) => {
     <div className="container">
       <HomeMetaHead posts={posts} />
       <div className={styles.home}>
-        {!isDesktop && <HomeHero /> }
+        {!isDesktop && <HomeHero />}
 
         <div className={styles.home__posts}>
           <SearchBar />
-          {(posts &&
-            posts.length > 0) &&
+          {posts &&
+            posts.length > 0 &&
             posts.map((post: any) => (
               <div key={post.id}>
                 <HomePostCard post={post} token={token} />
@@ -44,7 +49,7 @@ const Home: NextPage = (props: any) => {
             ))}
         </div>
 
-        {isDesktop && <HomeHero /> }
+        {isDesktop && <HomeHero />}
       </div>
     </div>
   );
@@ -73,7 +78,9 @@ export const getServerSideProps: GetServerSideProps = async (
       const subscribedChannels = await findSubscribedChannel(subscriptions);
 
       if (subscribedChannels && subscribedChannels.length > 0) {
-        const subscribedChannelsID = subscribedChannels.map((subs: any) => subs.id);
+        const subscribedChannelsID = subscribedChannels.map(
+          (subs: any) => subs.id
+        );
         posts = await viewHomePosts(subscribedChannelsID);
       }
     } else {

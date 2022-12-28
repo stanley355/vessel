@@ -14,7 +14,8 @@ import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, channel, posts, pendingOrder } = props;
+  const { profile, balance, subscriptions, channel, posts, pendingOrder } =
+    props;
   const [activeTab, setActiveTab] = useState("channel");
 
   const AccountTabHeader = () => (
@@ -92,7 +93,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const subscriptionsID = await viewSubscriptions(profile.id);
 
     if (subscriptionsID && subscriptionsID.length > 0) {
-      subscriptions = await findSubscribedChannel(subscriptionsID) ?? [];
+      subscriptions = (await findSubscribedChannel(subscriptionsID)) ?? [];
     }
   }
 
@@ -110,7 +111,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     posts = await viewPost(channel.slug);
   }
 
-
   return {
     props: {
       profile: profile ?? null,
@@ -118,7 +118,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       channel: channel ?? null,
       posts,
       subscriptions,
-      pendingOrder
+      pendingOrder,
     },
   };
 };

@@ -23,7 +23,7 @@ const AdminLoginForm = () => {
 
     if (email.value === decrypt.email && password.value === decrypt.password) {
       const thiryMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
-      Cookies.set("token_admin", admin, { expires: thiryMinutes});
+      Cookies.set("token_admin", admin, { expires: thiryMinutes });
       Router.reload();
     } else {
       setErrorMsg("Not Admin");

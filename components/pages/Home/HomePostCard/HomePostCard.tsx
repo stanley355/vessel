@@ -20,10 +20,17 @@ const PostCard = (props: IPostCard) => {
   return (
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
-        <Link href={token ? `/channel/${post.channels_slug}/` : "/account/login/"} >
+        <Link
+          href={token ? `/channel/${post.channels_slug}/` : "/account/login/"}
+        >
           <div className={styles.post__card__head__info}>
             <span className={styles.channel__img}>
-              <Image src={post.profile_img_url} alt={post.channel_name} width={50} height={50} />
+              <Image
+                src={post.profile_img_url}
+                alt={post.channel_name}
+                width={50}
+                height={50}
+              />
             </span>
             <span className={styles.post__info}>
               <div className={styles.title}>{post.channel_name}</div>
@@ -41,8 +48,8 @@ const PostCard = (props: IPostCard) => {
 
       {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
-          <video 
-            width={300} 
+          <video
+            width={300}
             height={250}
             controls
             preload="auto"

@@ -1,6 +1,6 @@
-import React from 'react';
-import { FaGrin } from 'react-icons/fa';
-import styles from './WaitingConfirmation.module.scss';
+import React from "react";
+import { FaGrin } from "react-icons/fa";
+import styles from "./WaitingConfirmation.module.scss";
 
 const WaitingConfirmation = () => {
   return (
@@ -13,6 +13,6 @@ const WaitingConfirmation = () => {
       </div>
     </div>
   );
-}
+};
 
 export default WaitingConfirmation;

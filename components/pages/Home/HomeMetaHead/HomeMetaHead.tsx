@@ -10,7 +10,8 @@ const HomeMetaHead = (props: IHomeMetaHead) => {
 
   const HOME_META = {
     title: "Kontenku - video dan musik kesukaanmu",
-    description:"Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya dengan teman, keluarga, dan dunia di Kontenku.",
+    description:
+      "Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya dengan teman, keluarga, dan dunia di Kontenku.",
     publishedTime: "",
     modifiedTime: posts && posts.length ? posts[0].created_at : "",
     channelName: "Kontenku",

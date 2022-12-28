@@ -140,7 +140,7 @@ export const getServerSideProps: GetServerSideProps = async (
       const date = new Date();
       const isExpired = date.getTime() > new Date(subs.expired_at).getTime();
       if (!isExpired) return subs.channels_id;
-    })
+    });
 
     isSubscribing = runningSubscriptions.includes(channel.id);
   }

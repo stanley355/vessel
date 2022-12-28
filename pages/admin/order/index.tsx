@@ -37,8 +37,8 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
 
-  const URL = `${KONTENKU_URL}/api/payment/order/confirmation/`
-  const confirmingOrders = await fetcher(URL, {}) ?? [];
+  const URL = `${KONTENKU_URL}/api/payment/order/confirmation/`;
+  const confirmingOrders = (await fetcher(URL, {})) ?? [];
 
   return {
     props: {

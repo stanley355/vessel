@@ -67,8 +67,9 @@ const UploadPostForm = (props: IUploadPostForm) => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress =
-            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
           setUploadPercent(progress);
         },
         (error: any) => {
@@ -140,15 +141,13 @@ const UploadPostForm = (props: IUploadPostForm) => {
 
         {formError && <div className={styles.form__error}>{formError}</div>}
         <button type="submit" className={styles.cta} disabled={hasSubmit}>
-          {hasSubmit ?
-            <span>
-              Uploading ...{uploadPercent}%
-            </span>
-            :
+          {hasSubmit ? (
+            <span>Uploading ...{uploadPercent}%</span>
+          ) : (
             <span>
               Upload <FaUpload />{" "}
             </span>
-          }
+          )}
         </button>
       </form>
 

@@ -38,7 +38,6 @@ const dokuNotificationHandler = async (
         data: JSON.stringify(authorPayload),
       });
     }
-
   }
   res.setHeader("Content-Type", "application/json");
   res.status(200);

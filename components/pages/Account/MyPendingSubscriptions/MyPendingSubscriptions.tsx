@@ -18,7 +18,7 @@ const MyPendingSubscriptions = (props: IMyPendingSubscriptions) => {
       <FaRegFrownOpen />
       <div className={styles.text}>Tidak ada item</div>
     </div>
-  );  
+  );
 
   const SubscriptionsList = () => (
     <div className={styles.list}>
@@ -44,7 +44,11 @@ const MyPendingSubscriptions = (props: IMyPendingSubscriptions) => {
 
   return (
     <div className={styles.my__subscriptions}>
-      {pendingSubscriptions.length > 0 ? <SubscriptionsList /> : <NoSubscriptions />}
+      {pendingSubscriptions.length > 0 ? (
+        <SubscriptionsList />
+      ) : (
+        <NoSubscriptions />
+      )}
     </div>
   );
 };

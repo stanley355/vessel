@@ -20,7 +20,12 @@ const PostCard = (props: IPostCard) => {
     <div className={styles.post__card}>
       <div className={styles.post__card__head}>
         <span className={styles.channel__img}>
-          <Image src={channel.profile_img_url} alt={post.channel_name} width={75} height={75} />
+          <Image
+            src={channel.profile_img_url}
+            alt={post.channel_name}
+            width={75}
+            height={75}
+          />
         </span>
         <span className={styles.post_info}>
           <div className={styles.title}>{channel.channel_name}</div>

@@ -25,7 +25,11 @@ const RejectedWithdrawalForm = (props: IRejectedWithdrawal) => {
   return (
     <div className={styles.reject__form}>
       <div className={styles.box}>
-        <button onClick={onCloseClick} className={styles.close__btn} type="button">
+        <button
+          onClick={onCloseClick}
+          className={styles.close__btn}
+          type="button"
+        >
           X
         </button>
         <h3>Withdrawal Rejection</h3>
