@@ -20,13 +20,12 @@ const generateSignatureString = (payload: any) => {
   const clientID = `Client-Id:${process.env.DOKU_CLIENT_ID}`;
   const reqID = `Request-Id:${payload.order_id}`;
   const reqTimestamp = `Request-Timestamp:${new Date().toISOString()}`;
-  const reqTarget = `Request-Target:${payload.doku_va_path}`;
-  const baseString =
-    clientID + "\n" + reqID + "\n" + reqTimestamp + "\n" + reqTarget;
+  const baseString = clientID + "\n" + reqID + "\n" + reqTimestamp;
 
   if (payload.doku_payload) {
+    const reqTarget = `Request-Target:${payload.doku_va_path}`;
     const digest = generateDokuDigest(payload);
-    return baseString + "\n" + digest;
+    return baseString + "\n" + reqTarget + "\n" + digest;
   }
 
   return baseString;
