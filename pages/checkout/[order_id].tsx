@@ -29,6 +29,7 @@ const CheckoutPage = (props: any) => {
   const [confirmPaid, setConfirmPaid] = useState(false);
 
   const handlePaidConfirmation = async () => {
+    setConfirmPaid(true);
 
     const dokuRes = await fetcher(
       `${KONTENKU_URL}/api/doku/status`,
@@ -41,20 +42,31 @@ const CheckoutPage = (props: any) => {
       }
     );
 
-    console.log(dokuRes);
-    // const orderRes = await fetcher(
-    //   `${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`,
-    //   { method: "PUT" }
-    // );
+    if (dokuRes && dokuRes.transaction) {
+      if (dokuRes.transaction.status === "SUCCESS") {
+        const url = `${KONTENKU_URL}/api/doku/notification/`;
+        const orderRes = await fetcher(url, {
+          method: "POST",
+          data: dokuRes,
+        });
 
-    // if (orderRes && orderRes.id) {
-    //   setConfirmPaid(false);
-    //   Router.reload();
-    // } else {
-    //   alert(WARNING_MSG.TRY_AGAIN);
-    //   setConfirmPaid(false);
-    //   return "";
-    // }
+        if (orderRes && orderRes.id) {
+          Router.push(`/channel/${channel.slug}`);
+        } else {
+          alert(WARNING_MSG.TRY_AGAIN);
+          return "";
+        }
+
+      } else {
+        alert("Pembayaran Belum Diterima");
+        setConfirmPaid(false);
+        return "";
+      }
+    } else {
+      alert(WARNING_MSG.TRY_AGAIN);
+      setConfirmPaid(false);
+      return "";
+    }
   };
 
   const handleVAcreation = async () => {
@@ -137,7 +149,7 @@ const CheckoutPage = (props: any) => {
             className={confirmPaid ? styles.disabled__cta : styles.enabled__cta}
             disabled={confirmPaid}
           >
-            Saya Sudah Bayar
+            {confirmPaid ? 'Loading...' : 'Saya Sudah Bayar'}
           </button>
         </div>
         <div className={styles.payment__link}>
