@@ -29,14 +29,39 @@ const CheckoutPage = (props: any) => {
   const [confirmPaid, setConfirmPaid] = useState(false);
 
   const handlePaidConfirmation = async () => {
-    const orderRes = await fetcher(
-      `${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`,
-      { method: "PUT" }
+    setConfirmPaid(true);
+
+    const dokuRes = await fetcher(
+      `${KONTENKU_URL}/api/doku/status`,
+      {
+        method: "POST",
+        data: {
+          order_id: order.id,
+          doku_va_path: `/orders/v1/status/${order.id}`
+        }
+      }
     );
 
-    if (orderRes && orderRes.id) {
-      setConfirmPaid(false);
-      Router.reload();
+    if (dokuRes && dokuRes.transaction) {
+      if (dokuRes.transaction.status === "SUCCESS") {
+        const url = `${KONTENKU_URL}/api/doku/notification/`;
+        const orderRes = await fetcher(url, {
+          method: "POST",
+          data: dokuRes,
+        });
+
+        if (orderRes && orderRes.id) {
+          Router.push(`/channel/${channel.slug}`);
+        } else {
+          alert(WARNING_MSG.TRY_AGAIN);
+          return "";
+        }
+
+      } else {
+        alert("Pembayaran Belum Diterima");
+        setConfirmPaid(false);
+        return "";
+      }
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
       setConfirmPaid(false);
@@ -124,7 +149,7 @@ const CheckoutPage = (props: any) => {
             className={confirmPaid ? styles.disabled__cta : styles.enabled__cta}
             disabled={confirmPaid}
           >
-            Saya Sudah Bayar
+            {confirmPaid ? 'Loading...' : 'Saya Sudah Bayar'}
           </button>
         </div>
         <div className={styles.payment__link}>
@@ -223,7 +248,7 @@ export const getServerSideProps: GetServerSideProps = async (
     if (channelRes && channelRes.token) {
       channel = jwtDecode(channelRes.token);
 
-      if (order.status === "CANCELLED") {
+      if (order.status === "CANCELLED" || order.status === "PAID") {
         return {
           redirect: {
             destination: `/channel/${channel.slug}`,
