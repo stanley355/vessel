@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import generateDokuSignatureKey from "../../../lib/doku/generateDokuSignatureKey";
 
 const dokuStatusHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const URL = `${process.env.DOKU_API_URL}/v1/status/${req.body.order_id}`;
+  const URL = `${process.env.DOKU_API_URL}/orders/v1/status/${req.body.order_id}`;
 
   const resp = await fetcher(URL, {
     method: "GET",
