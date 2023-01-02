@@ -248,7 +248,7 @@ export const getServerSideProps: GetServerSideProps = async (
     if (channelRes && channelRes.token) {
       channel = jwtDecode(channelRes.token);
 
-      if (order.status === "CANCELLED") {
+      if (order.status === "CANCELLED" || order.status === "PAID") {
         return {
           redirect: {
             destination: `/channel/${channel.slug}`,
