@@ -58,7 +58,7 @@ const CheckoutPage = (props: any) => {
         }
 
       } else {
-        alert("Pembayaran Belum Diterima");
+        alert("Pembayaran Belum Diterima, Silakan coba beberapa saat lagi");
         setConfirmPaid(false);
         return "";
       }
