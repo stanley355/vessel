@@ -8,27 +8,33 @@ interface IReqBody {
   doku_payload: any;
 }
 
-// WARNING! Must be called on server side
-const generateDokuSignatureKey = (payload: IReqBody) => {
-  const clientID = `Client-Id:${process.env.DOKU_CLIENT_ID}`;
-  const reqID = `Request-Id:${payload.order_id}`;
-  const reqTimestamp = `Request-Timestamp:${new Date().toISOString()}`;
-  const reqTarget = `Request-Target:${payload.doku_va_path}`;
-
+const generateDokuDigest = (payload: any) => {
   const hashDigest = sha256(payload.doku_payload);
   const hmacDigest = Base64.stringify(hashDigest);
   const digest = `Digest:${hmacDigest}`;
 
-  const signatureString =
-    clientID +
-    "\n" +
-    reqID +
-    "\n" +
-    reqTimestamp +
-    "\n" +
-    reqTarget +
-    "\n" +
-    digest;
+  return digest;
+};
+
+const generateSignatureString = (payload: any) => {
+  const clientID = `Client-Id:${process.env.DOKU_CLIENT_ID}`;
+  const reqID = `Request-Id:${payload.order_id}`;
+  const reqTimestamp = `Request-Timestamp:${new Date().toISOString()}`;
+  const reqTarget = `Request-Target:${payload.doku_va_path}`;
+  const baseString =
+    clientID + "\n" + reqID + "\n" + reqTimestamp + "\n" + reqTarget;
+
+  if (payload.doku_payload) {
+    const digest = generateDokuDigest(payload);
+    return baseString + "\n" + digest;
+  }
+
+  return baseString;
+};
+
+// WARNING! Must be called on server side
+const generateDokuSignatureKey = (payload: IReqBody) => {
+  const signatureString = generateSignatureString(payload);
 
   const privateKey = process.env.DOKU_SECRET_KEY ?? "";
   const hmacSignature = Base64.stringify(
