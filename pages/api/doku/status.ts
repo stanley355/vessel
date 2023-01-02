@@ -13,7 +13,6 @@ const dokuStatusHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       "Request-Timestamp": new Date().toISOString(),
       Signature: `HMACSHA256=${generateDokuSignatureKey(req.body)}`,
     },
-    data: JSON.stringify(req.body.doku_payload),
   });
 
   res.setHeader("Content-Type", "application/json");

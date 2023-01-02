@@ -29,19 +29,32 @@ const CheckoutPage = (props: any) => {
   const [confirmPaid, setConfirmPaid] = useState(false);
 
   const handlePaidConfirmation = async () => {
-    const orderRes = await fetcher(
-      `${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`,
-      { method: "PUT" }
+
+    const dokuRes = await fetcher(
+      `${KONTENKU_URL}/api/doku/status`,
+      {
+        method: "POST",
+        data: {
+          order_id: order.id,
+          doku_va_path: `/orders/v1/status/${order.id}`
+        }
+      }
     );
 
-    if (orderRes && orderRes.id) {
-      setConfirmPaid(false);
-      Router.reload();
-    } else {
-      alert(WARNING_MSG.TRY_AGAIN);
-      setConfirmPaid(false);
-      return "";
-    }
+    console.log(dokuRes);
+    // const orderRes = await fetcher(
+    //   `${KONTENKU_URL}/api/payment/order/confirmation?orderID=${order.id}`,
+    //   { method: "PUT" }
+    // );
+
+    // if (orderRes && orderRes.id) {
+    //   setConfirmPaid(false);
+    //   Router.reload();
+    // } else {
+    //   alert(WARNING_MSG.TRY_AGAIN);
+    //   setConfirmPaid(false);
+    //   return "";
+    // }
   };
 
   const handleVAcreation = async () => {
