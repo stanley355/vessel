@@ -7,12 +7,13 @@ import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubscribed";
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
 import AwaitingPaymentForm from "../../components/pages/Channel/AwaitingPaymentForm";
+import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import PostCard from "../../components/pages/Account/PostCard";
 import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
+import "node_modules/video-react/dist/video-react.css";
 import styles from "./ChannelSlug.module.scss";
-import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
 

@@ -11,6 +11,7 @@ import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChanne
 import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
+import "node_modules/video-react/dist/video-react.css";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {

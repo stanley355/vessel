@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
+import { Player, BigPlayButton, ControlBar, ReplayControl, ForwardControl } from 'video-react';
 import styles from "./PostCard.module.scss";
 
 interface IPostCard {
@@ -35,16 +36,14 @@ const PostCard = (props: IPostCard) => {
 
       {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
-          <video
-            width={300}
-            height={250}
-            controls
-            preload="auto"
-            poster="/images/video-placeholder.jpg"
-          >
-            <source src={post.img_url} type="video/mp4" />
-            <source src={post.img_url} type="video/ogg" />
-          </video>
+          <Player playsInline>
+            <BigPlayButton position="center" />
+            <ControlBar autoHide={false}>
+              <ReplayControl seconds={10} />
+              <ForwardControl seconds={10} />
+            </ControlBar>
+            <source src={post.img_url} />
+          </Player>
         </div>
       ) : (
         <div className={styles.img__wrap}>

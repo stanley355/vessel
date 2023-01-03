@@ -9,6 +9,7 @@ import SearchBar from "../components/pages/Home/SearchBar";
 import HomeMetaHead from "../components/pages/Home/HomeMetaHead";
 import findSubscribedChannel from "../lib/channelHandler/findSubscribedChannel";
 import useResponsive from "../lib/hooks/useResponsive";
+import "node_modules/video-react/dist/video-react.css";
 import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
