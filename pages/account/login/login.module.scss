@@ -9,25 +9,70 @@
     border-radius: $space--sm;
     width: 75%;
     margin: 0 auto;
+
     img {
       width: 100%;
       height: auto;
     }
 
   }
-    .subtitle {
-      color:$color--white;
-      font-weight: bolder;
-      font-size: $font--xxl;
-      text-align: center;
-      font-style: italic;
-      padding: $space--xs 0;
-    }
 
-    .gsignin__wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: $space--xl;
-    }
+  .subtitle {
+    color: $color--white;
+    font-weight: bolder;
+    font-size: $font--xxl;
+    text-align: center;
+    font-style: italic;
+    padding: $space--xs 0;
+  }
+
+  .text {
+    margin-top: $space--sm;
+    color:$color--white;
+    font-weight: bold;
+    padding: $space--sm 0;
+    font-size: $font--lg;
+    margin-left: 10%;
+  }
+
+  .gsignin__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.banner {
+  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .title {
+    font-weight: bolder;
+    border-radius: $space--xs;
+    background: $color-white-transparent;
+    color: $color--black;
+    position: absolute;
+    top: $space--lg;
+    left: $space--sm;
+    padding: $space--xs;
+    margin: 0;
+    font-size: $font--xl;
+  }
+
+  .description {
+    border-radius: $space--xs;
+    background: $color-white-transparent;
+    color: $color--black;
+    position: absolute;
+    bottom: $space--xxl;
+    right: $space--sm;
+    padding: $space--xs;
+    margin: 0;
+    font-size: $font--md;
+    max-width: 70%;
+  }
 }
