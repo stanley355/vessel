@@ -16,7 +16,6 @@ const GoogleSignInBtn = (props: IGoogleSignIn) => {
         onSuccess={gmailLoginHandler}
         onError={() => alert(WARNING_MSG.TRY_AGAIN)}
         logo_alignment="left"
-        theme="filled_blue"
         shape="rectangular"
         width="300"
       />

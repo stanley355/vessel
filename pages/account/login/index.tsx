@@ -12,11 +12,18 @@ const AccountLogin = (props: any) => {
   const { clientID } = props;
 
   return (
-    <div className="container">
+    <div>
       <HomeMetaHead posts={[]} />
       <div className={styles.account__login}>
-        <h2 className={styles.title}>Langsung Daftar dan Masuk Yuk! ^_^</h2>
-        <GoogleSignInBtn clientID={clientID} />
+        <div className="container">
+          <div className={styles.logo__wrap}>
+            <img src="/images/kontenku-logo-short.png" alt="Kontenku" width={360} height={150} />
+          </div>
+          <div className={styles.subtitle}>Exclusive for the Fans</div>
+          <div className={styles.gsignin__wrap}>
+            <GoogleSignInBtn clientID={clientID} />
+          </div>
+        </div>
       </div>
     </div>
   );

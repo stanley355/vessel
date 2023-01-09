@@ -1,8 +1,33 @@
 @import "../../../styles/tokens/all.scss";
 
 .account__login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background: $primary-color;
+  padding-top: $space--sm;
+
+  .logo__wrap {
+    background: $color--white;
+    border-radius: $space--sm;
+    width: 75%;
+    margin: 0 auto;
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+  }
+    .subtitle {
+      color:$color--white;
+      font-weight: bolder;
+      font-size: $font--xxl;
+      text-align: center;
+      font-style: italic;
+      padding: $space--xs 0;
+    }
+
+    .gsignin__wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: $space--xl;
+    }
 }
