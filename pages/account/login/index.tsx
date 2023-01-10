@@ -20,16 +20,11 @@ const AccountLogin = (props: any) => {
             <img src="/images/kontenku-logo-short.png" alt="Kontenku" width={360} height={150} />
           </div>
           <div className={styles.subtitle}>Exclusive for the Fans</div>
-          <div className={styles.text}>Masuk / Daftar</div>
+          <div className={styles.text}>Masuk / Daftar langsung</div>
           <div className={styles.gsignin__wrap}>
             <GoogleSignInBtn clientID={clientID} />
           </div>
         </div>
-      </div>
-      <div className={styles.banner}>
-        <img src="/images/actress/anadearmas.webp" alt="Ana De Armas" width={360} height={400} loading="lazy"/>
-        <h1 className={styles.title}>Apa itu Kontenku?</h1>
-        <div className={styles.description}>Kontenku adalah Platform bagi para Content Creator untuk menjual hasil kreasi mereka kepada para followers dan mendapatkan penghasilan dari langganan konten mereka </div>
       </div>
     </div>
   );

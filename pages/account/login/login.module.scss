@@ -3,27 +3,35 @@
 .account__login {
   background: $primary-color;
   padding-top: $space--sm;
+  height: 1000px;
 
   .logo__wrap {
     background: $color--white;
     border-radius: $space--sm;
-    width: 75%;
+    width: 65%;
     margin: 0 auto;
+
+    @include desktop-view {
+      width: 30%;
+    }
 
     img {
       width: 100%;
       height: auto;
     }
-
   }
 
   .subtitle {
     color: $color--white;
     font-weight: bolder;
-    font-size: $font--xxl;
+    font-size: 36px;
     text-align: center;
     font-style: italic;
     padding: $space--xs 0;
+
+    @include desktop-view {
+      font-size: 48px;
+    }
   }
 
   .text {
@@ -33,46 +41,17 @@
     padding: $space--sm 0;
     font-size: $font--lg;
     margin-left: 10%;
+
+    @include desktop-view {
+      font-size: $font--xxl;
+      text-align: center;
+      margin-left: 0;
+    }
   }
 
   .gsignin__wrap {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-}
-
-.banner {
-  position: relative;
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-  .title {
-    font-weight: bolder;
-    border-radius: $space--xs;
-    background: $color-white-transparent;
-    color: $color--black;
-    position: absolute;
-    top: $space--lg;
-    left: $space--sm;
-    padding: $space--xs;
-    margin: 0;
-    font-size: $font--xl;
-  }
-
-  .description {
-    border-radius: $space--xs;
-    background: $color-white-transparent;
-    color: $color--black;
-    position: absolute;
-    bottom: $space--xxl;
-    right: $space--sm;
-    padding: $space--xs;
-    margin: 0;
-    font-size: $font--md;
-    max-width: 70%;
   }
 }

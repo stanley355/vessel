@@ -10,6 +10,7 @@
 
   @include desktop-view {
     width: 1024px;
+    max-height: 75px;
   }
 
   h2 {
