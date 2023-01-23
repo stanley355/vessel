@@ -13,7 +13,7 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 const AccountLogin = (props: any) => {
   const { clientID } = props;
 
-  useEffect(()=> {
+  useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
       Router.push('/account/');
@@ -24,15 +24,36 @@ const AccountLogin = (props: any) => {
     <div className={styles.account__login}>
       <HomeMetaHead posts={[]} />
       <AccountLoginHero clientID={clientID} />
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/42HB6oHm-X4?autoplay=1&mute=1"
-        title="Kontenku"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
+      <div className={styles.info}>
+        <div className={styles.head}>
+          <h1 className={styles.title}>Apa itu Kontenku?</h1>
+          <div>
+            <img src="/images/home_hero.webp" alt="hero" />
+          </div>
+        </div>
+        <div className={styles.subtitle}>
+          Kontenku adalah platform konten berbasis subscription.
+          Creator dapat membuat content dan memasang harga
+          subscription untuk diakses oleh para fans. Setelah
+          pembayaran subscription diterima, kami akan mengirimkan
+          uang tersebut kepada creator dalam 1 hari kerja.
+        </div>
+      </div>
+      <div className={styles.benefit__container}>
+        <div className={styles.benefit}>
+          <div className={styles.title}>Keuntungan memulai di Kontenku</div>
+
+          <ul>
+            <li>Bebas Biaya</li>
+            <li>Penarikan Uang Cepat</li>
+            <li>Penerimaan Uang Otomatis</li>
+            <li>Kustomisasi Konten</li>
+            <li>Penghasilan Konten Tambahan</li>
+            <li>Full Fitur untuk Creator</li>
+            <li>dan masih banyak lagi</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

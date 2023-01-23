@@ -2,11 +2,12 @@
 
 .login__hero {
   background: url("/images/actress/anadearmas.webp");
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   padding-top: $space--sm;
   width: 100%;
-  height: 500px;
+  height: 450px;
 
   .logo__wrap {
     background: $color--white;
@@ -38,7 +39,6 @@
   }
 
   .login__text {
-    margin-top: 42px;
     color: $color--white;
     font-weight: bold;
     padding: $space--sm 0;

@@ -1,7 +1,63 @@
 @import "../../../styles/tokens/all.scss";
 
 .account__login {
-  iframe {
-    width: 100%;
+  .info {
+    background: $color--barely-blue;
+    border-radius: $space--xs;
+    padding: $space--md $space--xs;
+    color: $primary-color;
+
+    .head {
+      display: grid;
+      grid-template-columns: 55% 45%;
+
+      img {
+        width: 60%;
+        height: auto;
+        margin: 0 20%;
+      }
+
+      .title {
+        font-size: $font--xxl;
+        font-weight: bolder;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .subtitle {
+      font-size: $font--lg;
+      line-height: 1.5;
+      font-style: italic;
+    }
+  }
+
+  .benefit {
+    background: $color-white-transparent;
+    padding: $space--xs;
+    border-radius: $space--xs;
+    height: 100%;
+
+    &__container {
+      background: url('/images/actress/alcockmillie.jpg');
+      background-attachment: fixed;
+      background-size: contain;
+      background-position: bottom;
+      background-repeat: no-repeat;
+      height: 400px;
+      padding: $space--md $space--xs;
+    }
+
+    .title {
+      font-size: $font--xxl;
+      text-align: center;
+      font-weight: bolder;
+    }
+
+    ul li {
+      font-size: $font--xl;
+      margin-bottom: $space--sm;
+    }
+
   }
 }
