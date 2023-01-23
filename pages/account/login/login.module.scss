@@ -1,2 +1,7 @@
 @import "../../../styles/tokens/all.scss";
 
+.account__login {
+  iframe {
+    width: 100%;
+  }
+}
