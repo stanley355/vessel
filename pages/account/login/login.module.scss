@@ -1,7 +1,9 @@
 @import "../../../styles/tokens/all.scss";
 
 .account__login {
-  background: $primary-color;
+  background: url('/images/actress/anadearmas.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
   padding-top: $space--sm;
   height: 1000px;
 
@@ -22,7 +24,7 @@
   }
 
   .subtitle {
-    color: $color--white;
+    color: $primary-color;
     font-weight: bolder;
     font-size: 36px;
     text-align: center;
@@ -35,12 +37,12 @@
   }
 
   .text {
-    margin-top: $space--sm;
+    margin-top: 56px;
     color:$color--white;
     font-weight: bold;
     padding: $space--sm 0;
     font-size: $font--lg;
-    margin-left: 10%;
+    text-align: center;
 
     @include desktop-view {
       font-size: $font--xxl;

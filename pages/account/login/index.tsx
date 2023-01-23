@@ -16,11 +16,13 @@ const AccountLogin = (props: any) => {
       <HomeMetaHead posts={[]} />
       <div className={styles.account__login}>
         <div className="container">
-          <div className={styles.logo__wrap}>
-            <img src="/images/kontenku-logo-short.png" alt="Kontenku" width={360} height={150} />
+          <div className={styles.copywriting}>
+            <div className={styles.logo__wrap}>
+              <img src="/images/kontenku-logo-short.png" alt="Kontenku" width={360} height={150} />
+            </div>
+            <div className={styles.subtitle}>Exclusive for the Fans</div>
           </div>
-          <div className={styles.subtitle}>Exclusive for the Fans</div>
-          <div className={styles.text}>Masuk / Daftar langsung</div>
+          <div className={styles.text}>Masuk / Daftar</div>
           <div className={styles.gsignin__wrap}>
             <GoogleSignInBtn clientID={clientID} />
           </div>
