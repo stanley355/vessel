@@ -1,6 +1,8 @@
-import React from "react";
-import { GetServerSideProps } from "next";
+import React, { useEffect } from "react";
+import { GetStaticProps } from "next";
 import getConfig from "next/config";
+import Router from "next/router";
+import Cookies from "js-cookie";
 import fetcher from "../../../lib/fetcher";
 import AccountLoginHero from "../../../components/pages/Account/AccountLoginHero/AccountLoginHero";
 import HomeMetaHead from "../../../components/pages/Home/HomeMetaHead";
@@ -10,6 +12,13 @@ const { BASE_URL } = getConfig().publicRuntimeConfig;
 
 const AccountLogin = (props: any) => {
   const { clientID } = props;
+
+  useEffect(()=> {
+    const token = Cookies.get('token');
+    if (token) {
+      Router.push('/account/');
+    }
+  }, [clientID]);
 
   return (
     <div className={styles.account__login}>
@@ -28,18 +37,8 @@ const AccountLogin = (props: any) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const token = context.req.cookies["token"];
+export const getStaticProps: GetStaticProps = async () => {
   const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
-
-  if (token) {
-    return {
-      redirect: {
-        destination: "/account/",
-        permanent: false,
-      },
-    };
-  }
 
   return {
     props: {
