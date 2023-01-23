@@ -1,7 +1,7 @@
-@import '../../../../styles/tokens/all';
+@import "../../../../styles/tokens/all";
 
 .login__hero {
-  background: url('/images/actress/anadearmas.webp');
+  background: url("/images/actress/anadearmas.webp");
   background-size: cover;
   background-repeat: no-repeat;
   padding-top: $space--sm;
@@ -39,7 +39,7 @@
 
   .login__text {
     margin-top: 42px;
-    color:$color--white;
+    color: $color--white;
     font-weight: bold;
     padding: $space--sm 0;
     font-size: $font--lg;

@@ -31,16 +31,13 @@ const CheckoutPage = (props: any) => {
   const handlePaidConfirmation = async () => {
     setConfirmPaid(true);
 
-    const dokuRes = await fetcher(
-      `${KONTENKU_URL}/api/doku/status`,
-      {
-        method: "POST",
-        data: {
-          order_id: order.id,
-          doku_va_path: `/orders/v1/status/${order.id}`
-        }
-      }
-    );
+    const dokuRes = await fetcher(`${KONTENKU_URL}/api/doku/status`, {
+      method: "POST",
+      data: {
+        order_id: order.id,
+        doku_va_path: `/orders/v1/status/${order.id}`,
+      },
+    });
 
     if (dokuRes && dokuRes.transaction) {
       if (dokuRes.transaction.status === "SUCCESS") {
@@ -56,7 +53,6 @@ const CheckoutPage = (props: any) => {
           alert(WARNING_MSG.TRY_AGAIN);
           return "";
         }
-
       } else {
         alert("Pembayaran Belum Diterima, Silakan coba beberapa saat lagi");
         setConfirmPaid(false);
@@ -149,7 +145,7 @@ const CheckoutPage = (props: any) => {
             className={confirmPaid ? styles.disabled__cta : styles.enabled__cta}
             disabled={confirmPaid}
           >
-            {confirmPaid ? 'Loading...' : 'Saya Sudah Bayar'}
+            {confirmPaid ? "Loading..." : "Saya Sudah Bayar"}
           </button>
         </div>
         <div className={styles.payment__link}>

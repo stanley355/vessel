@@ -1,7 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
-import { Player, BigPlayButton, ControlBar, ReplayControl, ForwardControl } from 'video-react';
+import {
+  Player,
+  BigPlayButton,
+  ControlBar,
+  ReplayControl,
+  ForwardControl,
+} from "video-react";
 import styles from "./PostCard.module.scss";
 
 interface IPostCard {

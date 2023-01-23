@@ -15,7 +15,15 @@ const AccountLogin = (props: any) => {
     <div className={styles.account__login}>
       <HomeMetaHead posts={[]} />
       <AccountLoginHero clientID={clientID} />
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/42HB6oHm-X4?autoplay=1&mute=1" title="Kontenku" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/42HB6oHm-X4?autoplay=1&mute=1"
+        title="Kontenku"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
     </div>
   );
 };
