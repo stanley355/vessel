@@ -1,1 +1,1 @@
-export {default} from './AccountLoginHero';
+export { default } from "./AccountLoginHero";

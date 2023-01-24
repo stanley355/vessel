@@ -18,9 +18,9 @@ const AccountLogin = (props: any) => {
   const { isDesktop } = useResponsive();
 
   useEffect(() => {
-    const token = Cookies.get('token');
+    const token = Cookies.get("token");
     if (token) {
-      Router.push('/account/');
+      Router.push("/account/");
     }
   }, [clientID]);
 
@@ -32,28 +32,30 @@ const AccountLogin = (props: any) => {
             <div className={styles.head__container}>
               <div className={styles.head}>
                 <h1 className={styles.title}>Apa itu Kontenku?</h1>
-                {!isDesktop &&
+                {!isDesktop && (
                   <div>
                     <img src="/images/home_hero.webp" alt="hero" />
-                  </div>}
+                  </div>
+                )}
               </div>
               <div className={styles.subtitle}>
-                Kontenku adalah platform konten berbasis subscription.
-                Creator dapat membuat content dan memasang harga
-                subscription untuk diakses oleh para fans. Setelah
-                pembayaran subscription diterima, kami akan mengirimkan
-                uang tersebut kepada creator dalam 1 hari kerja.
+                Kontenku adalah platform konten berbasis subscription. Creator
+                dapat membuat content dan memasang harga subscription untuk
+                diakses oleh para fans. Setelah pembayaran subscription
+                diterima, kami akan mengirimkan uang tersebut kepada creator
+                dalam 1 hari kerja.
               </div>
             </div>
-            {isDesktop &&
+            {isDesktop && (
               <div>
                 <img src="/images/home_hero.webp" alt="hero" />
-              </div>}
+              </div>
+            )}
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className={styles.account__login}>
@@ -77,7 +79,9 @@ const AccountLogin = (props: any) => {
         </div>
       </div>
       <div className={styles.invitation}>
-        <h3>Ayo Tunggu Apa Lagi? Buruan Daftar di <strong> Kontenku</strong> </h3>
+        <h3>
+          Ayo Tunggu Apa Lagi? Buruan Daftar di <strong> Kontenku</strong>{" "}
+        </h3>
         <GoogleSignInBtn clientID={clientID} />
       </div>
     </div>

@@ -64,7 +64,7 @@
     }
 
     &__container {
-      background: url('/images/actress/alcockmillie.jpg');
+      background: url("/images/actress/alcockmillie.jpg");
       background-attachment: fixed;
       background-size: contain;
       background-position: bottom;
@@ -83,7 +83,6 @@
       font-size: $font--xl;
       margin-bottom: $space--sm;
     }
-
   }
 
   .invitation {
