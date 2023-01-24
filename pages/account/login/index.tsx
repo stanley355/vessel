@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { GetServerSideProps } from "next";
 import getConfig from "next/config";
-import Router from "next/router";
-import Cookies from "js-cookie";
 import fetcher from "../../../lib/fetcher";
 import useResponsive from "../../../lib/hooks/useResponsive";
 import AccountLoginHero from "../../../components/pages/Account/AccountLoginHero";
@@ -16,13 +14,6 @@ const AccountLogin = (props: any) => {
   const { clientID } = props;
 
   const { isDesktop } = useResponsive();
-
-  useEffect(() => {
-    const token = Cookies.get("token");
-    if (token) {
-      Router.push("/account/");
-    }
-  }, [clientID]);
 
   const KontenkuInfo = () => {
     return (
