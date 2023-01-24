@@ -14,7 +14,7 @@
   }
 
   h2 {
-    color: $color--blue;
+    color: $primary-color;
     text-align: center;
     cursor: pointer;
 
@@ -28,16 +28,25 @@
     font-size: $font--lg;
   }
 
+  &__blue {
+    background: $primary-color;
+    h2 {
+      margin: 0;
+      padding: $space--sm;
+      color: $color--white;
+    }
+  }
+
   &__login {
-    width: 1024px;
-    margin: auto;
+    background: $primary-color;
+    width: 100%;
     padding: 0 $space--xs;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
     h2 {
-      color: $color--blue;
+      color: $color--white;
       text-align: center;
 
       @include desktop-view {
@@ -46,7 +55,6 @@
     }
 
     .menu {
-      background: $color--white;
       padding: $space--xs;
       display: flex;
       flex-direction: row;
@@ -58,13 +66,12 @@
         flex-direction: row;
         align-items: center;
         padding: 0 $space--xs;
-        color: $color--blue;
+        color: $color--white;
       }
 
       svg {
-        color: $color--blue;
+        color: $color--white;
         font-size: 36px;
-        border: 1px solid $color--blue;
         padding: $space--xxs;
         border-radius: 50%;
         margin: auto;

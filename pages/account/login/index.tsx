@@ -78,7 +78,7 @@ const AccountLogin = (props: any) => {
 
   return (
     <div className={styles.account__login}>
-      <HomeMetaHead posts={[]} />
+      <HomeMetaHead />
       <AccountLoginHero clientID={clientID} />
       <KontenkuInfo />
       <KontenkuBenefit />

@@ -49,7 +49,7 @@ const Wallet = (props: any) => {
 
   return (
     <div className="container">
-      <HomeMetaHead posts={[]} />
+      <HomeMetaHead />
       <div className={styles.wallet}>
         <WalletHead balance={balance} />
         <WalletTab />

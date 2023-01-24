@@ -176,7 +176,7 @@ const CheckoutPage = (props: any) => {
 
   return (
     <div className="container">
-      <HomeMetaHead posts={[]} />
+      <HomeMetaHead />
       <div className={styles.checkout}>
         <div className={styles.logo__wrap}>
           <img src="/images/kontenku-logo-short.png" alt="kontenku" />
