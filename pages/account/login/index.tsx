@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import getConfig from "next/config";
 import Router from "next/router";
 import Cookies from "js-cookie";
@@ -92,9 +92,19 @@ const AccountLogin = (props: any) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+// API can't be correctly fetched with static rendering
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const token = context.req.cookies["token"];
   const config = await fetcher(`${BASE_URL}/api/google-client-id/`, {});
-
+  if (token) {
+    return {
+      redirect: {
+        destination: "/account/login/",
+        permanent: false,
+      },
+    };
+  }
+  
   return {
     props: {
       clientID: config?.clientID ?? "",
