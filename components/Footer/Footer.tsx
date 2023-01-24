@@ -1,10 +1,11 @@
 import React from "react";
-import { FaRegCopyright, FaPaperPlane } from "react-icons/fa";
+import { FaRegCopyright } from "react-icons/fa";
+import classNames from "classnames";
 import styles from "./Footer.module.scss";
 
-const Footer = () => {
+const Footer = ({ token }: any) => {
   return (
-    <div className={styles.footer}>
+    <div className={classNames(styles.footer, token ? styles.footer__login : "")}>
       <div>
         Copyright <FaRegCopyright /> {new Date().getFullYear()} Kontenku
       </div>

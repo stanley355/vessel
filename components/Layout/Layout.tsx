@@ -58,7 +58,7 @@ const Layout = ({ children }: any) => {
       </Head>
       <Navbar token={token} isDesktop={isDesktop} />
       <div className={styles.body}>{children}</div>
-      {!isCheckoutPage() && <Footer />}
+      {!isCheckoutPage() && <Footer token={token} />}
       {!isCheckoutPage() && !isDesktop && token && <NavigationFooter />}
     </div>
   );

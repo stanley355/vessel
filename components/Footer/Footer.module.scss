@@ -6,4 +6,9 @@
   color: $primary-color;
   font-size: $font--lg;
   padding: $space--sm 0;
+
+  &__login {
+    background: $primary-color;
+    color: $color--white;
+  }
 }
