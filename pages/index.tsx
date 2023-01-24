@@ -35,7 +35,7 @@ const Home: NextPage = (props: any) => {
 
   return (
     <div className="container">
-      <HomeMetaHead posts={posts} />
+      <HomeMetaHead />
       <div className={styles.home}>
         {!isDesktop && <HomeHero />}
 

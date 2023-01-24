@@ -1,20 +1,12 @@
 import React from "react";
 import MetaHead from "../../../MetaHead";
 
-interface IHomeMetaHead {
-  posts: any[];
-}
-
-const HomeMetaHead = (props: IHomeMetaHead) => {
-  const { posts } = props;
+const HomeMetaHead = () => {
 
   const HOME_META = {
-    title: "Kontenku - video dan musik kesukaanmu",
+    title: "Kontenku - Exclusive Content for The Fans",
     description:
-      "Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya dengan teman, keluarga, dan dunia di Kontenku.",
-    publishedTime: "",
-    modifiedTime: posts && posts.length ? posts[0].created_at : "",
-    channelName: "Kontenku",
+      "Kontenku - Tempat Content Creator menawarkan konten eksklusif yang dapat dibayar dengan harga premium. Nikmati video dan musik yang Anda sukai, unggah konten original, dan bagikan semuanya untuk para fans.",
   };
 
   return <MetaHead meta={HOME_META} />;
