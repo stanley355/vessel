@@ -12,7 +12,7 @@ const Navbar = (props: INavbar) => {
   const { token, isDesktop } = props;
 
   const DefaultNavbar = () => (
-    <div className={styles.navbar}>
+    <div className={token ? styles.navbar__blue : styles.navbar}>
       <Link href="/">
         <h2>Kontenku</h2>
       </Link>
