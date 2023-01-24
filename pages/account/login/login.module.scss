@@ -1,57 +1,111 @@
 @import "../../../styles/tokens/all.scss";
 
 .account__login {
-  background: $primary-color;
-  padding-top: $space--sm;
-  height: 1000px;
+  .info {
+    background: $color--barely-blue;
+    padding: $space--md $space--xs;
+    color: $primary-color;
 
-  .logo__wrap {
-    background: $color--white;
-    border-radius: $space--sm;
-    width: 65%;
-    margin: 0 auto;
+    &__content {
+      @include desktop-view {
+        display: grid;
+        grid-template-columns: 50% 50%;
 
-    @include desktop-view {
-      width: 30%;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
 
-    img {
-      width: 100%;
-      height: auto;
+    .head {
+      display: grid;
+      grid-template-columns: 55% 45%;
+
+      &__container {
+        @include desktop-view {
+          display: flex;
+          flex-direction: column;
+          align-items: left;
+          justify-content: center;
+        }
+      }
+
+      img {
+        width: 60%;
+        height: auto;
+        margin: 0 20%;
+      }
+
+      .title {
+        font-size: $font--xxl;
+        font-weight: bolder;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .subtitle {
+      font-size: $font--lg;
+      line-height: 1.5;
+      font-style: italic;
     }
   }
 
-  .subtitle {
-    color: $color--white;
-    font-weight: bolder;
-    font-size: 36px;
-    text-align: center;
-    font-style: italic;
-    padding: $space--xs 0;
+  .benefit {
+    background: $color-white-transparent;
+    padding: $space--xs;
+    border-radius: $space--xs;
+    height: 100%;
 
     @include desktop-view {
-      font-size: 48px;
+      width: 60%;
+      margin: 0 auto;
     }
-  }
 
-  .text {
-    margin-top: $space--sm;
-    color:$color--white;
-    font-weight: bold;
-    padding: $space--sm 0;
-    font-size: $font--lg;
-    margin-left: 10%;
+    &__container {
+      background: url("/images/actress/alcockmillie.jpg");
+      background-attachment: fixed;
+      background-size: contain;
+      background-position: bottom;
+      background-repeat: no-repeat;
+      height: 400px;
+      padding: $space--md $space--xs;
+    }
 
-    @include desktop-view {
+    .title {
       font-size: $font--xxl;
       text-align: center;
-      margin-left: 0;
+      font-weight: bolder;
+    }
+
+    ul li {
+      font-size: $font--xl;
+      margin-bottom: $space--sm;
     }
   }
 
-  .gsignin__wrap {
+  .invitation {
+    background: $color--barely-blue;
+    padding: $space--xxl $space--xs;
+    color: $primary-color;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    h3 {
+      font-size: $font--xl;
+      text-align: center;
+      padding: 0 $space--xxl;
+    }
+
+    @include desktop-view {
+      height: 400px;
+
+      h3 {
+        font-size: 36px;
+      }
+    }
   }
 }
