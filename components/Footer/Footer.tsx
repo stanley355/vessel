@@ -4,16 +4,11 @@ import styles from "./Footer.module.scss";
 
 const Footer = () => {
   return (
-    <div className="container">
       <div className={styles.footer}>
         <div>
           Copyright <FaRegCopyright /> {new Date().getFullYear()} Kontenku
         </div>
-        <div>
-          Support <FaPaperPlane /> winatastanley355@yahoo.com
-        </div>
       </div>
-    </div>
   );
 };
 

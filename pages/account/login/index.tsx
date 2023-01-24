@@ -4,8 +4,9 @@ import getConfig from "next/config";
 import Router from "next/router";
 import Cookies from "js-cookie";
 import fetcher from "../../../lib/fetcher";
-import AccountLoginHero from "../../../components/pages/Account/AccountLoginHero/AccountLoginHero";
+import AccountLoginHero from "../../../components/pages/Account/AccountLoginHero";
 import HomeMetaHead from "../../../components/pages/Home/HomeMetaHead";
+import GoogleSignInBtn from "../../../components/GoogleSignInBtn";
 import styles from "./login.module.scss";
 
 const { BASE_URL } = getConfig().publicRuntimeConfig;
@@ -41,7 +42,7 @@ const AccountLogin = (props: any) => {
       </div>
       <div className={styles.benefit__container}>
         <div className={styles.benefit}>
-          <div className={styles.title}>Keuntungan memulai di Kontenku</div>
+          <h3 className={styles.title}>Keuntungan memulai di Kontenku</h3>
 
           <ul>
             <li>Bebas Biaya</li>
@@ -49,10 +50,14 @@ const AccountLogin = (props: any) => {
             <li>Penerimaan Uang Otomatis</li>
             <li>Kustomisasi Konten</li>
             <li>Penghasilan Konten Tambahan</li>
-            <li>Full Fitur untuk Creator</li>
+            <li>Full Support untuk Creator</li>
             <li>dan masih banyak lagi</li>
           </ul>
         </div>
+      </div>
+      <div className={styles.invitation}>
+        <h3>Ayo Tunggu Apa Lagi? Buruan Daftar di <strong> Kontenku</strong> </h3>
+        <GoogleSignInBtn clientID={clientID} />
       </div>
     </div>
   );
