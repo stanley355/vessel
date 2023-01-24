@@ -34,7 +34,7 @@ const AccountLogin = (props: any) => {
                 <h1 className={styles.title}>Apa itu Kontenku?</h1>
                 {!isDesktop && (
                   <div>
-                    <img src="/images/home_hero.webp" alt="hero" />
+                    <img src="/images/home_hero.webp" alt="hero" width={400} height={400} />
                   </div>
                 )}
               </div>
@@ -48,7 +48,7 @@ const AccountLogin = (props: any) => {
             </div>
             {isDesktop && (
               <div>
-                <img src="/images/home_hero.webp" alt="hero" />
+                <img src="/images/home_hero.webp" alt="hero" width={400} height={400} />
               </div>
             )}
           </div>
@@ -57,27 +57,31 @@ const AccountLogin = (props: any) => {
     );
   };
 
+  const KontenkuBenefit = () => (
+    <div className={styles.benefit__container}>
+      <div className={isDesktop ? "container" : ""}>
+        <div className={styles.benefit}>
+          <h3 className={styles.title}>Keuntungan memulai di Kontenku</h3>
+          <ul>
+            <li>Bebas Biaya</li>
+            <li>Penarikan Uang Cepat</li>
+            <li>Penerimaan Uang Otomatis</li>
+            <li>Kustomisasi Konten</li>
+            <li>Penghasilan Konten Tambahan</li>
+            <li>Full Support untuk Creator</li>
+            <li>dan masih banyak lagi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.account__login}>
       <HomeMetaHead posts={[]} />
       <AccountLoginHero clientID={clientID} />
       <KontenkuInfo />
-      <div className={styles.benefit__container}>
-        <div className={isDesktop ? "container" : ""}>
-          <div className={styles.benefit}>
-            <h3 className={styles.title}>Keuntungan memulai di Kontenku</h3>
-            <ul>
-              <li>Bebas Biaya</li>
-              <li>Penarikan Uang Cepat</li>
-              <li>Penerimaan Uang Otomatis</li>
-              <li>Kustomisasi Konten</li>
-              <li>Penghasilan Konten Tambahan</li>
-              <li>Full Support untuk Creator</li>
-              <li>dan masih banyak lagi</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <KontenkuBenefit />
       <div className={styles.invitation}>
         <h3>
           Ayo Tunggu Apa Lagi? Buruan Daftar di <strong> Kontenku</strong>{" "}
