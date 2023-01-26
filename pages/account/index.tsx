@@ -1,70 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
-import viewPost from "../../lib/postHandler/viewPost";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
-import ChannelTab from "../../components/pages/Account/ChannelTab";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
-import "node_modules/video-react/dist/video-react.css";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, channel, posts, pendingOrder } =
+  const { profile, balance, subscriptions, channel, pendingOrder } =
     props;
-  const [activeTab, setActiveTab] = useState("channel");
-
-  const AccountTabHeader = () => (
-    <div className={styles.account__tabs}>
-      <button
-        type="button"
-        onClick={() => setActiveTab("channel")}
-        className={activeTab === "channel" ? styles.btn__active : ""}
-      >
-        Channel
-      </button>
-      <button
-        type="button"
-        onClick={() => setActiveTab("account")}
-        className={activeTab === "account" ? styles.btn__active : ""}
-      >
-        Account
-      </button>
-    </div>
-  );
-
-  const ActiveTabBody = () => {
-    switch (activeTab) {
-      case "channel":
-        return <ChannelTab channel={channel} posts={posts} />;
-      case "account":
-        return (
-          <ProfileTab
-            profile={profile}
-            channel={channel}
-            balance={balance}
-            subscriptions={subscriptions}
-            pendingOrder={pendingOrder}
-          />
-        );
-      default:
-        return <ChannelTab channel={channel} posts={posts} />;
-    }
-  };
 
   return (
     <div className="container">
-      <HomeMetaHead/>
+      <HomeMetaHead />
       <div className={styles.account}>
-        <AccountTabHeader />
-        <div className={styles.account__tabs__body}>
-          <ActiveTabBody />
-        </div>
+        <ProfileTab
+          profile={profile}
+          channel={channel}
+          balance={balance}
+          subscriptions={subscriptions}
+          pendingOrder={pendingOrder}
+        />
       </div>
     </div>
   );
@@ -77,7 +38,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let subscriptions: any = [];
   let pendingOrder: any = [];
   let channel: any;
-  let posts: any[] = [];
 
   if (!token) {
     return {
@@ -108,16 +68,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  if (channel && channel.posts_number > 0) {
-    posts = await viewPost(channel.slug);
-  }
-
   return {
     props: {
       profile: profile ?? null,
       balance: balance ?? null,
       channel: channel ?? null,
-      posts,
       subscriptions,
       pendingOrder,
     },
