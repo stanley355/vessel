@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaHome, FaSearch, FaUser, FaWallet } from "react-icons/fa";
+import { FaHome, FaPlayCircle, FaSearch, FaUser } from "react-icons/fa";
 import styles from "./NavigationFooter.module.scss";
 
 const NavigationFooter = () => {
@@ -16,9 +16,9 @@ const NavigationFooter = () => {
           <FaSearch />
         </span>
       </Link>
-      <Link href="/account/wallet/">
+      <Link href="/account/channel/">
         <span>
-          <FaWallet />
+          <FaPlayCircle />
         </span>
       </Link>
       <Link href="/account/">
