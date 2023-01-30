@@ -1,20 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaBell, FaChevronCircleRight } from "react-icons/fa";
-import styles from './AccountSubscriptionLink.module.scss';
+import { FaPlayCircle, FaChevronCircleRight } from "react-icons/fa";
+import styles from './AccountChannelLink.module.scss';
 
-const AccountSubscriptionLink = () => {
+const AccountChannelLink = () => {
   return (
-    <Link href="/account/subscription/">
-      <div className={styles.subscription__link}>
+    <Link href="/account/channel/">
+      <div className={styles.channel__link}>
         <div className={styles.main}>
-          <span><FaBell /></span>
+          <span><FaPlayCircle /></span>
           <span className={styles.content}>
             <div className={styles.title}>
-              Subscription Saya
+              Channel Saya
             </div>
             <div>
-              Ongoing/Pending Subscription
+              Belum Ada Channel
             </div>
           </span>
         </div>
@@ -26,4 +26,4 @@ const AccountSubscriptionLink = () => {
   )
 }
 
-export default AccountSubscriptionLink;
+export default AccountChannelLink;

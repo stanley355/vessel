@@ -18,7 +18,7 @@ const AccountWalletLink = (props: IAccountWalletLink) => {
   }
 
   return (
-    <Link href="/account/wallet">
+    <Link href="/account/wallet/">
       <div className={styles.my__wallet}>
         <div className={styles.balance}>
           <FaWallet />

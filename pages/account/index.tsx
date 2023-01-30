@@ -8,6 +8,7 @@ import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
 import AccountWalletLink from "../../components/pages/Account/AccountWalletLink";
 import AccountSubscriptionLink from "../../components/pages/Account/AccountSubscriptionLink";
+import AccountChannelLink from "../../components/pages/Account/AccountChannelLink";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
@@ -18,6 +19,7 @@ const Account = (props: any) => {
       <HomeMetaHead />
       <div className={styles.account}>
         <UserProfileCard profile={profile} />
+        <AccountChannelLink />
         <AccountWalletLink balance={balance} />
         <AccountSubscriptionLink />
       </div>

@@ -1,44 +1,40 @@
-@import "../../../../styles/tokens/all";
+@import '../../../../styles/tokens/all';
 
-.my__wallet {
+.channel__link {
   padding: $space--xs;
-  border-radius: $space--xs;
   border: 1px solid $primary-color;
+  border-radius: $space--xs;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin-bottom: $space--sm;
 
-  .balance {
+  .main {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    .content {
+      padding: 0 $space--xs;
+    }
 
     svg {
       font-size: 36px;
       color: $color--blue;
     }
 
-    span {
-      padding: 0 $space--xs;
-
-      div:first-child {
-        font-weight: bold;
-      }
-
-      div:last-child {
-        color: green;
-        font-style: italic;
-      }
+    .title {
+      font-weight: bold;
     }
   }
 
-  a {
+  .arrow {
     display: grid;
     place-items: center;
     font-size: 24px;
     color: $color--blue;
   }
+
 }
