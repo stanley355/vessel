@@ -9,19 +9,18 @@ import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
-import MyWallet from "../../components/pages/Account/MyWallet";
+import AccountWalletLink from "../../components/pages/Account/AccountWalletLink";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, channel, pendingOrder } =
-    props;
+  const { profile, balance, subscriptions, pendingOrder } = props;
 
   return (
     <div className="container">
       <HomeMetaHead />
       <div className={styles.account}>
         <UserProfileCard profile={profile} />
-      <MyWallet balance={balance} />
+        <AccountWalletLink balance={balance} />
       </div>
     </div>
   );

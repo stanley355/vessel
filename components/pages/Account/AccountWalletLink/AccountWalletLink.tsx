@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { FaWallet, FaChevronCircleRight } from "react-icons/fa";
-import styles from "./MyWallet.module.scss";
+import styles from "./AccountWalletLink.module.scss";
 
-interface IMyWallet {
+interface IAccountWalletLink {
   balance: any;
 }
 
-const MyWallet = (props: IMyWallet) => {
+const AccountWalletLink = (props: IAccountWalletLink) => {
   const { balance } = props;
 
   const handleBalanceDisplay = () => {
@@ -36,4 +36,4 @@ const MyWallet = (props: IMyWallet) => {
   );
 };
 
-export default MyWallet;
+export default AccountWalletLink;
