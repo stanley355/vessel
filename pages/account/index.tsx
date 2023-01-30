@@ -7,7 +7,6 @@ import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
-import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
 import MyWallet from "../../components/pages/Account/MyWallet";
@@ -22,14 +21,7 @@ const Account = (props: any) => {
       <HomeMetaHead />
       <div className={styles.account}>
         <UserProfileCard profile={profile} />
-        <MyWallet balance={balance} />
-        <ProfileTab
-          profile={profile}
-          channel={channel}
-          balance={balance}
-          subscriptions={subscriptions}
-          pendingOrder={pendingOrder}
-        />
+      <MyWallet balance={balance} />
       </div>
     </div>
   );

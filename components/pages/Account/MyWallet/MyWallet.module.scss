@@ -1,16 +1,13 @@
 @import "../../../../styles/tokens/all";
 
 .my__wallet {
-  padding: $space--lg 0;
+  padding: $space--xs;
+  border-radius: $space--xs;
+  border: 1px solid $primary-color;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
-  @include desktop-view {
-    padding-left: $space--lg;
-    padding-top: $space--xl;
-  }
 
   .balance {
     display: flex;
@@ -22,28 +19,25 @@
       font-size: 36px;
       color: $color--blue;
     }
+
     span {
       padding: 0 $space--xs;
+
       div:first-child {
         font-weight: bold;
       }
 
       div:last-child {
+        color: green;
         font-style: italic;
       }
     }
   }
 
   a {
-    border: 1px solid $color--blue;
-    padding: $space--xxs;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
     color: $color--blue;
-  }
-
-  a:hover {
-    background: $color--blue;
-    border: none;
-    color: $color--white;
-    border-radius: $space--xs;
   }
 }
