@@ -1,3 +1,15 @@
 @import "../../styles/tokens/all.scss";
 
-.account {}
+.account {
+  .hero {
+    padding: $space--sm 0;
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    h3 {
+      text-align: center;
+    }
+  }
+}

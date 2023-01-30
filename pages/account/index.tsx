@@ -14,10 +14,20 @@ import styles from "./account.module.scss";
 const Account = (props: any) => {
   const { profile, balance } = props;
 
+  const AccountHero = () => (
+    <div className={styles.hero}>
+      <div>
+        <img src="/images/cartoon/explore.png" alt="explore" width={360} height={300} />
+      </div>
+      <h3>Ayo, Jelajahi Kontenku Sekarang!</h3>
+    </div>
+  )
+
   return (
     <div className="container">
       <HomeMetaHead />
       <div className={styles.account}>
+        <AccountHero />
         <UserProfileCard profile={profile} />
         <AccountChannelLink />
         <AccountWalletLink balance={balance} />

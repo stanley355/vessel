@@ -28,9 +28,10 @@ body {
 }
 
 .container {
-  padding: $space--sm $space--xs 56px;
+  padding: $space--sm $space--xs;
   margin: auto;
   @include desktop-view {
     width: 1024px;
+    padding: $space--sm 0;
   }
 }
