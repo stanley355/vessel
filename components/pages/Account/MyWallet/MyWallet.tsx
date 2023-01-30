@@ -15,7 +15,7 @@ const MyWallet = (props: IMyWallet) => {
       <div className={styles.balance}>
         <FaMoneyBillAlt />
         <span>
-          <div>My Income</div>
+          <div>Penghasilan Saya</div>
           <div>
             {balance
               ? balance.amount > 0

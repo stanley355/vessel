@@ -9,6 +9,8 @@ import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
 import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
 import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
+import UserProfileCard from "../../components/pages/Account/UserProfileCard";
+import MyWallet from "../../components/pages/Account/MyWallet";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
@@ -19,6 +21,8 @@ const Account = (props: any) => {
     <div className="container">
       <HomeMetaHead />
       <div className={styles.account}>
+        <UserProfileCard profile={profile} />
+        <MyWallet balance={balance} />
         <ProfileTab
           profile={profile}
           channel={channel}
