@@ -17,11 +17,16 @@ const Account = (props: any) => {
   const AccountHero = () => (
     <div className={styles.hero}>
       <div>
-        <img src="/images/cartoon/explore.png" alt="explore" width={360} height={300} />
+        <img
+          src="/images/cartoon/explore.png"
+          alt="explore"
+          width={360}
+          height={300}
+        />
       </div>
       <h3>Ayo, Jelajahi Kontenku Sekarang!</h3>
     </div>
-  )
+  );
 
   return (
     <div className="container">

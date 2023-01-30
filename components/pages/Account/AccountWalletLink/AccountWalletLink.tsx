@@ -15,7 +15,7 @@ const AccountWalletLink = (props: IAccountWalletLink) => {
       return balance.amount > 0 ? `Rp ${balance.amount}` : "Rp 0";
     }
     return "Terjadi kesalahan saat pengambilan data";
-  }
+  };
 
   return (
     <Link href="/account/wallet/">
@@ -24,13 +24,13 @@ const AccountWalletLink = (props: IAccountWalletLink) => {
           <FaWallet />
           <span>
             <div>Penghasilan Saya</div>
-            <div>
-              {handleBalanceDisplay()}
-            </div>
+            <div>{handleBalanceDisplay()}</div>
           </span>
         </div>
 
-        <a title="My Wallet"><FaChevronCircleRight /></a>
+        <a title="My Wallet">
+          <FaChevronCircleRight />
+        </a>
       </div>
     </Link>
   );

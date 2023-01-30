@@ -5,7 +5,9 @@ import styles from "./Footer.module.scss";
 
 const Footer = ({ token }: any) => {
   return (
-    <div className={classNames(styles.footer, token ? styles.footer__login : "")}>
+    <div
+      className={classNames(styles.footer, token ? styles.footer__login : "")}
+    >
       <div>
         Copyright <FaRegCopyright /> {new Date().getFullYear()} Kontenku
       </div>

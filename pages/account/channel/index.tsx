@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { GetServerSideProps } from 'next';
-import jwtDecode from 'jwt-decode';
-import jsCookie from 'js-cookie';
-import channelLoginHandler from '../../../lib/loginHandler/channelLoginHandler';
-import viewPost from '../../../lib/postHandler/viewPost';
-import PostCard from '../../../components/pages/Account/PostCard';
-import NoPostsCard from '../../../components/pages/Account/NoPostsCard';
-import UploadPostForm from '../../../components/pages/Account/UploadPostForm';
-import CreateChannelForm from '../../../components/pages/Account/CreateChannelForm';
-import NoChannelCard from '../../../components/pages/Account/NoChannelCard';
-import ChannelStatus from '../../../components/pages/Account/ChannelStatus';
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
+import jwtDecode from "jwt-decode";
+import jsCookie from "js-cookie";
+import channelLoginHandler from "../../../lib/loginHandler/channelLoginHandler";
+import viewPost from "../../../lib/postHandler/viewPost";
+import PostCard from "../../../components/pages/Account/PostCard";
+import NoPostsCard from "../../../components/pages/Account/NoPostsCard";
+import UploadPostForm from "../../../components/pages/Account/UploadPostForm";
+import CreateChannelForm from "../../../components/pages/Account/CreateChannelForm";
+import NoChannelCard from "../../../components/pages/Account/NoChannelCard";
+import ChannelStatus from "../../../components/pages/Account/ChannelStatus";
 import "node_modules/video-react/dist/video-react.css";
-import styles from './AccountChannel.module.scss';
+import styles from "./AccountChannel.module.scss";
 
 interface IChannelTab {
   channel: any;
@@ -82,9 +82,11 @@ const AccountChannel = (props: IChannelTab) => {
   };
 
   return (
-    <div className='container'>{channel ? <HasChannelComponent /> : <NoChannelComponent />}</div>
+    <div className="container">
+      {channel ? <HasChannelComponent /> : <NoChannelComponent />}
+    </div>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
@@ -127,6 +129,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {},
   };
 };
-
 
 export default AccountChannel;

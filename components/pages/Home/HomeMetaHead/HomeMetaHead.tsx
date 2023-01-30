@@ -2,7 +2,6 @@ import React from "react";
 import MetaHead from "../../../MetaHead";
 
 const HomeMetaHead = () => {
-
   const HOME_META = {
     title: "Kontenku - Exclusive Content for The Fans",
     description:
