@@ -18,21 +18,21 @@ const AccountWalletLink = (props: IAccountWalletLink) => {
   }
 
   return (
-    <div className={styles.my__wallet}>
-      <div className={styles.balance}>
-        <FaWallet />
-        <span>
-          <div>Penghasilan Saya</div>
-          <div>
-            {handleBalanceDisplay()}
-          </div>
-        </span>
-      </div>
+    <Link href="/account/wallet">
+      <div className={styles.my__wallet}>
+        <div className={styles.balance}>
+          <FaWallet />
+          <span>
+            <div>Penghasilan Saya</div>
+            <div>
+              {handleBalanceDisplay()}
+            </div>
+          </span>
+        </div>
 
-      <Link href="/account/wallet">
         <a title="My Wallet"><FaChevronCircleRight /></a>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

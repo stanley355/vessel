@@ -3,17 +3,15 @@ import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
-import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
-import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
-import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
 import AccountWalletLink from "../../components/pages/Account/AccountWalletLink";
+import AccountSubscriptionLink from "../../components/pages/Account/AccountSubscriptionLink";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, pendingOrder } = props;
+  const { profile, balance } = props;
 
   return (
     <div className="container">
@@ -21,6 +19,7 @@ const Account = (props: any) => {
       <div className={styles.account}>
         <UserProfileCard profile={profile} />
         <AccountWalletLink balance={balance} />
+        <AccountSubscriptionLink />
       </div>
     </div>
   );
@@ -30,8 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
   let balance: any;
-  let subscriptions: any = [];
-  let pendingOrder: any = [];
   let channel: any;
 
   if (!token) {
@@ -45,12 +42,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
-    pendingOrder = await findUserPendingOrder(profile.id);
-    const subscriptionsID = await viewSubscriptions(profile.id);
-
-    if (subscriptionsID && subscriptionsID.length > 0) {
-      subscriptions = (await findSubscribedChannel(subscriptionsID)) ?? [];
-    }
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
@@ -68,8 +59,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       profile: profile ?? null,
       balance: balance ?? null,
       channel: channel ?? null,
-      subscriptions,
-      pendingOrder,
     },
   };
 };
