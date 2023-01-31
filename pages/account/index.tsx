@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
@@ -6,16 +7,35 @@ import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
 import UserProfileCard from "../../components/pages/Account/UserProfileCard";
-import AccountWalletLink from "../../components/pages/Account/AccountWalletLink";
-import AccountSubscriptionLink from "../../components/pages/Account/AccountSubscriptionLink";
-import AccountChannelLink from "../../components/pages/Account/AccountChannelLink";
 import useResponsive from "../../lib/hooks/useResponsive";
+import { FaBell, FaPlayCircle, FaWallet, FaChevronCircleRight } from "react-icons/fa";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
   const { profile, balance } = props;
 
   const { isDesktop } = useResponsive();
+
+  const ACCOUNT_LINKS = [
+    {
+      url: "/account/channel/",
+      icon: <FaPlayCircle />,
+      title: "Channel Saya",
+      subtitle: "Belum Ada Channel"
+    },
+    {
+      url: "/account/wallet/",
+      icon: <FaWallet />,
+      title: "Penghasilan Saya",
+      subtitle: balance ? (balance.amount > 0 ? `Rp ${balance.amount}` : "Rp 0") : "Error"
+    },
+    {
+      url: "/account/subscription/",
+      icon: <FaBell />,
+      title: "Subscription Saya",
+      subtitle: "Ongoing/Pending Subscription",
+    }
+  ]
 
   const AccountHero = () => (
     <div className={styles.hero}>
@@ -31,6 +51,7 @@ const Account = (props: any) => {
     </div>
   );
 
+
   return (
     <div className="container">
       <HomeMetaHead />
@@ -38,9 +59,24 @@ const Account = (props: any) => {
         {!isDesktop && <AccountHero />}
         <div className={styles.account__menu}>
           <UserProfileCard profile={profile} />
-          <AccountChannelLink />
-          <AccountWalletLink balance={balance} />
-          <AccountSubscriptionLink />
+          {
+            ACCOUNT_LINKS.map((link: any) =>
+              <Link href={link.url} key={link.url}>
+                <div className={styles.subscription__link}>
+                  <div className={styles.main}>
+                    {link.icon}
+                    <span className={styles.content}>
+                      <div className={styles.title}>{link.title}</div>
+                      <div>{link.subtitle}</div>
+                    </span>
+                  </div>
+                  <div className={styles.arrow}>
+                    <FaChevronCircleRight />
+                  </div>
+                </div>
+              </Link>
+            )
+          }
         </div>
         {isDesktop && <AccountHero />}
       </div>
