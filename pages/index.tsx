@@ -71,25 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   const profile: any = token ? jwtDecode(token) : "";
-  let posts: any[] = [];
-
-  if (profile && profile.id) {
-    const subscriptions = await viewSubscriptions(profile.id);
-    if (subscriptions && subscriptions.length > 0) {
-      const subscribedChannels = await findSubscribedChannel(subscriptions);
-
-      if (subscribedChannels && subscribedChannels.length > 0) {
-        const subscribedChannelsID = subscribedChannels.map(
-          (subs: any) => subs.id
-        );
-        posts = await viewHomePosts(subscribedChannelsID);
-      }
-    } else {
-      posts = await viewHomePosts([]);
-    }
-  } else {
-    posts = await viewHomePosts([]);
-  }
+  let posts: any[] = await viewHomePosts([]); //TODO: Check subscription on post
 
   return {
     props: {
