@@ -9,10 +9,13 @@ import UserProfileCard from "../../components/pages/Account/UserProfileCard";
 import AccountWalletLink from "../../components/pages/Account/AccountWalletLink";
 import AccountSubscriptionLink from "../../components/pages/Account/AccountSubscriptionLink";
 import AccountChannelLink from "../../components/pages/Account/AccountChannelLink";
+import useResponsive from "../../lib/hooks/useResponsive";
 import styles from "./account.module.scss";
 
 const Account = (props: any) => {
   const { profile, balance } = props;
+
+  const { isDesktop } = useResponsive();
 
   const AccountHero = () => (
     <div className={styles.hero}>
@@ -32,11 +35,14 @@ const Account = (props: any) => {
     <div className="container">
       <HomeMetaHead />
       <div className={styles.account}>
-        <AccountHero />
-        <UserProfileCard profile={profile} />
-        <AccountChannelLink />
-        <AccountWalletLink balance={balance} />
-        <AccountSubscriptionLink />
+        {!isDesktop && <AccountHero />}
+        <div className={styles.account__menu}>
+          <UserProfileCard profile={profile} />
+          <AccountChannelLink />
+          <AccountWalletLink balance={balance} />
+          <AccountSubscriptionLink />
+        </div>
+        {isDesktop && <AccountHero />}
       </div>
     </div>
   );

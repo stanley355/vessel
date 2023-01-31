@@ -1,6 +1,7 @@
 @import "../../../../styles/tokens/all";
 
 .my__wallet {
+  cursor: pointer;
   padding: $space--xs;
   border-radius: $space--xs;
   border: 1px solid $primary-color;

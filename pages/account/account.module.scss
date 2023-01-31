@@ -11,5 +11,18 @@
     h3 {
       text-align: center;
     }
+
+    @include desktop-view {
+      width: 60%;
+      margin: $space--sm auto;
+    }
+  }
+
+  &__menu {
+    @include desktop-view {
+      display: grid;
+      grid-gap: 1%;
+      grid-template-columns: 50% 50%;
+    }
   }
 }

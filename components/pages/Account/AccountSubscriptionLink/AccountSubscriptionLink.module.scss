@@ -1,6 +1,7 @@
 @import "../../../../styles/tokens/all";
 
 .subscription__link {
+  cursor: pointer;
   padding: $space--xs;
   border: 1px solid $primary-color;
   border-radius: $space--xs;
