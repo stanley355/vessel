@@ -81,7 +81,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => { },
+        (snapshot: any) => {},
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -137,14 +137,21 @@ const CreateChannelForm = () => {
   };
 
   const CreateChannelHero = () => {
-    return <div className={styles.hero}>
-      <div className={styles.img__wrap}>
-        <img src="/images/cartoon/oh_no.png" alt="Oh no" width={250} height={250} />
+    return (
+      <div className={styles.hero}>
+        <div className={styles.img__wrap}>
+          <img
+            src="/images/cartoon/oh_no.png"
+            alt="Oh no"
+            width={250}
+            height={250}
+          />
+        </div>
+        <div className={styles.title}>Kamu belum Ada channel nih</div>
+        <div className={styles.subtitle}>Yuk buat dengan mudah</div>
       </div>
-      <div className={styles.title}>Kamu belum Ada channel nih</div>
-      <div className={styles.subtitle}>Yuk buat dengan mudah</div>
-    </div>
-  }
+    );
+  };
 
   return (
     <div className={styles.create__channel}>
