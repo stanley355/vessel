@@ -2,7 +2,7 @@
 
 .create__channel {
   .hero {
-    margin-bottom: $space--sm;
+    padding: $space--sm $space--xs;
     .img__wrap {
       display: grid;
       place-items: center;
@@ -20,6 +20,10 @@
     }
   }
 
+  form {
+    background: $color--barely-blue;
+    padding: $space--sm $space--xs;
+  }
 
 
   .field {

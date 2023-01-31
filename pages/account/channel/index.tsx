@@ -9,6 +9,7 @@ import NoPostsCard from "../../../components/pages/Account/NoPostsCard";
 import UploadPostForm from "../../../components/pages/Account/UploadPostForm";
 import CreateChannelForm from "../../../components/pages/Account/CreateChannelForm";
 import ChannelStatus from "../../../components/pages/Account/ChannelStatus";
+import useResponsive from "../../../lib/hooks/useResponsive";
 import "node_modules/video-react/dist/video-react.css";
 import styles from "./AccountChannel.module.scss";
 
@@ -21,6 +22,7 @@ const AccountChannel = (props: IChannelTab) => {
   const { channel, posts } = props;
 
   const [showUploadPostForm, setShowUploadPostForm] = useState(false);
+  const { isDesktop } = useResponsive();
 
   const PostSection = () => {
     if (posts && posts.length > 0) {
@@ -70,7 +72,7 @@ const AccountChannel = (props: IChannelTab) => {
   };
 
   return (
-    <div className="container">
+    <div className={isDesktop ? "container" : ""}>
       <CreateChannelForm />
     </div>
   );

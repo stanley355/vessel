@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import CurrencyInput from "react-currency-input-field";
 import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import createChannel from "../../../../lib/channelHandler/createChannel";
@@ -14,8 +13,6 @@ import Router from "next/router";
 const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState("");
-
-
 
   const cleanChannelPrice = (price: string) => {
     const newPrice = price.replace("Rp", "").replace(",", "");
@@ -74,9 +71,7 @@ const CreateChannelForm = () => {
 
     if (inputValid) {
       const channelName: string = e.target.channel_name.value.trim();
-      const channelPrice: number = cleanChannelPrice(
-        e.target.channel_price.value
-      );
+      const channelPrice = Number(e.target.channel_price.value);
       const profileImage = e.target.profile_img.files[0];
 
       const storageRef: any = await getFirebaseStorageRef(
@@ -86,7 +81,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
+        (snapshot: any) => { },
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -168,12 +163,11 @@ const CreateChannelForm = () => {
 
         <div className={styles.field}>
           <label htmlFor="channel_price">Harga Berlangganan (bulan): </label>
-          <CurrencyInput
-            prefix="Rp"
+          <input
+            type="number"
             id="channel_price"
             name="channel_price"
             placeholder="Rp10,000"
-            decimalsLimit={2}
           />
         </div>
 
