@@ -59,24 +59,20 @@ const Account = (props: any) => {
         {!isDesktop && <AccountHero />}
         <div className={styles.account__menu}>
           <UserProfileCard profile={profile} />
-          {
-            ACCOUNT_LINKS.map((link: any) =>
+          {ACCOUNT_LINKS.map((link: any) =>
               <Link href={link.url} key={link.url}>
-                <div className={styles.subscription__link}>
+                <div className={styles.link}>
                   <div className={styles.main}>
                     {link.icon}
-                    <span className={styles.content}>
+                    <div>
                       <div className={styles.title}>{link.title}</div>
-                      <div>{link.subtitle}</div>
-                    </span>
+                      <div className={styles.subtitle}>{link.subtitle}</div>
+                    </div>
                   </div>
-                  <div className={styles.arrow}>
-                    <FaChevronCircleRight />
-                  </div>
+                  <FaChevronCircleRight />
                 </div>
               </Link>
-            )
-          }
+            )}
         </div>
         {isDesktop && <AccountHero />}
       </div>

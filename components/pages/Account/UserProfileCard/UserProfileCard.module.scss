@@ -20,6 +20,10 @@
     background: $color--blue;
     display: grid;
     place-items: center;
+
+    @include desktop-view {
+      width: 7.5%;
+    }
   }
 
   .name {

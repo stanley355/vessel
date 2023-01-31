@@ -19,6 +19,46 @@
   }
 
   &__menu {
+    .link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: $space--xs;
+      border: 1px solid $primary-color;
+      border-radius: $space--xs;
+      margin-bottom: $space--sm;
+      cursor: pointer;
+
+      &:hover {
+        background: $color--barely-blue;
+      }
+
+      svg {
+        font-size: $font--xl;
+        color: $primary-color;
+      }
+
+      .main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        svg {
+          font-size: 34px;
+          margin-right: $space--xs;
+        }
+
+        .title {
+          font-weight: bold;
+        }
+
+        .subtitle {
+          font-style: italic;
+        }
+      }
+    }
+
     @include desktop-view {
       display: grid;
       grid-gap: 1%;
