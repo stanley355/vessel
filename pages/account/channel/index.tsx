@@ -8,7 +8,6 @@ import PostCard from "../../../components/pages/Account/PostCard";
 import NoPostsCard from "../../../components/pages/Account/NoPostsCard";
 import UploadPostForm from "../../../components/pages/Account/UploadPostForm";
 import CreateChannelForm from "../../../components/pages/Account/CreateChannelForm";
-import NoChannelCard from "../../../components/pages/Account/NoChannelCard";
 import ChannelStatus from "../../../components/pages/Account/ChannelStatus";
 import "node_modules/video-react/dist/video-react.css";
 import styles from "./AccountChannel.module.scss";
@@ -21,7 +20,6 @@ interface IChannelTab {
 const AccountChannel = (props: IChannelTab) => {
   const { channel, posts } = props;
 
-  const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [showUploadPostForm, setShowUploadPostForm] = useState(false);
 
   const PostSection = () => {
@@ -45,16 +43,6 @@ const AccountChannel = (props: IChannelTab) => {
       <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} />
     ) : (
       <PostSection />
-    );
-  };
-
-  const NoChannelComponent = () => {
-    return showCreateChannelForm ? (
-      <CreateChannelForm />
-    ) : (
-      <NoChannelCard
-        onCreateChannelClick={() => setShowCreateChannelForm(true)}
-      />
     );
   };
 
@@ -83,7 +71,7 @@ const AccountChannel = (props: IChannelTab) => {
 
   return (
     <div className="container">
-      {channel ? <HasChannelComponent /> : <NoChannelComponent />}
+      <CreateChannelForm />
     </div>
   );
 };
