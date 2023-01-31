@@ -7,13 +7,15 @@ import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import createChannel from "../../../../lib/channelHandler/createChannel";
 import updateUserData from "../../../../lib/updateHandler/updateUserData";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
+import updateBalanceChannel from "../../../../lib/paymentHandler/updateBalanceChannel";
 import styles from "./CreateChannelForm.module.scss";
 import Router from "next/router";
-import updateBalanceChannel from "../../../../lib/paymentHandler/updateBalanceChannel";
 
 const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState("");
+
+
 
   const cleanChannelPrice = (price: string) => {
     const newPrice = price.replace("Rp", "").replace(",", "");
@@ -139,9 +141,20 @@ const CreateChannelForm = () => {
     }
   };
 
+  const CreateChannelHero = () => {
+    return <div className={styles.hero}>
+      <div className={styles.img__wrap}>
+        <img src="/images/cartoon/oh_no.png" alt="Oh no" width={250} height={250} />
+      </div>
+      <div className={styles.title}>Kamu belum Ada channel nih</div>
+      <div className={styles.subtitle}>Yuk buat dengan mudah</div>
+    </div>
+  }
+
   return (
     <div className={styles.create__channel}>
-      <div className={styles.title}>Create Channel</div>
+      <CreateChannelHero />
+
       <form onSubmit={handleSubmit}>
         <div className={styles.field}>
           <label htmlFor="channel_name">Nama Channel: </label>

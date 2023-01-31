@@ -1,27 +1,26 @@
 @import "../../../../styles/tokens/all";
 
 .create__channel {
-  padding: $space--sm;
-  border-radius: $space--xs;
-  box-shadow: 0 0 8px 4px $color--gray;
-  display: flex;
-  flex-direction: column;
+  .hero {
+    margin-bottom: $space--sm;
+    .img__wrap {
+      display: grid;
+      place-items: center;
+    }
 
-  @include desktop-view {
-    width: 50%;
-    margin: 0 auto;
-  }
+    .title {
+      font-weight: bold;
+      text-align: center;
+      font-size: $font--xl;
+    }
 
-  .title {
-    text-align: center;
-    font-weight: bold;
-    font-size: $font--xl;
-    margin: $space--sm 0;
-
-    @include desktop-view {
-      font-size: $font--xxl;
+    .subtitle {
+      font-size: $font--lg;
+      text-align: center;
     }
   }
+
+
 
   .field {
     display: flex;
