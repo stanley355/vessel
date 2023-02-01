@@ -1,8 +1,16 @@
 @import "../../../../styles/tokens/all";
 
 .create__channel {
+  @include desktop-view {
+    display: grid;
+    place-items: center;
+    grid-template-columns: 50% 50%;
+    padding: $space--lg 0;
+  }
+
   .hero {
     padding: $space--sm $space--xs;
+
     .img__wrap {
       display: grid;
       place-items: center;
@@ -22,7 +30,21 @@
 
   form {
     background: $color--barely-blue;
-    padding: $space--sm $space--xs;
+    padding: $space--sm $space--lg;
+    margin: 0 $space--xs;
+    border-radius: 50%;
+
+    // input[type="file"] {
+    //   display: none;
+    // }
+
+    // .custom-file-upload {
+    //   border: 1px solid #ccc;
+    //   display: inline-block;
+    //   padding: 6px 12px;
+    //   cursor: pointer;
+    //   width: 100%;
+    // }
   }
 
   .field {
@@ -42,6 +64,7 @@
       border-radius: $space--xxs;
       padding: $space--xs;
       border: 1px solid $color--blue;
+      outline: none;
 
       @include desktop-view {
         font-size: $font--md;
@@ -57,7 +80,7 @@
     color: $color--white;
     background: $color--blue;
     border: none;
-    border-radius: $space--xs;
+    border-radius: $space--xxs;
     font-size: $font--lg;
     padding: $space--xs $space--sm;
     width: 100%;
