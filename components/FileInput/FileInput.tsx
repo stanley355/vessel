@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaFileUpload } from 'react-icons/fa';
 import styles from './FileInput.module.scss';
 
 interface IFileInput {
@@ -25,17 +26,15 @@ const FileInput = (props: IFileInput) => {
 
   return (
     <div className={styles.file__input}>
-      <div className={styles.main}>
-        <label htmlFor={name}>{placeHolder}</label>
-        <input
-          type="file"
-          name={name}
-          id={name}
-          accept={handleAccept()}
-          onChange={handleOnChange}
-        />
-      </div>
-      <div>{fileName}</div>
+      <FaFileUpload />
+      <label htmlFor={name}>{fileName || placeHolder}</label>
+      <input
+        type="file"
+        name={name}
+        id={name}
+        accept={handleAccept()}
+        onChange={handleOnChange}
+      />
     </div>
 
   )

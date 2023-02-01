@@ -182,7 +182,7 @@ const CreateChannelForm = () => {
 
         <div className={styles.field}>
           <FileInput
-            placeHolder="Upload Profile Image: "
+            placeHolder="Upload Profile Image"
             name="profile_img"
             accept="image"
           />

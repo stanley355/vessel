@@ -1,5 +1,23 @@
 @import '../../styles/tokens/all';
 
 .file__input {
-  
+  width: 100%;
+  color: $primary-color;
+  font-size: $font--lg;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: $color--white;
+  padding: $space--xs;
+  border-radius: $space--xxs;
+  cursor: pointer;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  svg {
+    font-size: $font--lg;
+    margin-right: $space--xxs;
+  }
 }
