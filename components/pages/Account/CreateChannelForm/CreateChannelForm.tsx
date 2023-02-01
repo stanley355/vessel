@@ -11,7 +11,6 @@ import { WARNING_MSG } from "../../../../lib/warning-messages";
 import updateBalanceChannel from "../../../../lib/paymentHandler/updateBalanceChannel";
 import styles from "./CreateChannelForm.module.scss";
 
-
 const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState("");
@@ -83,7 +82,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => { },
+        (snapshot: any) => {},
         (error: any) => {
           console.error(error);
           setHasSubmit(false);

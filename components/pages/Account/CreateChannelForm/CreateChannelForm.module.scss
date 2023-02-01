@@ -48,8 +48,9 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      label, input {
-        font-size: $font--lg
+      label,
+      input {
+        font-size: $font--lg;
       }
     }
 
