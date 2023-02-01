@@ -171,7 +171,7 @@ const CreateChannelForm = () => {
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="channel_price">Harga Berlangganan (bulan): </label>
+          <label htmlFor="channel_price">Harga Berlangganan/bulan: </label>
           <input
             type="number"
             id="channel_price"

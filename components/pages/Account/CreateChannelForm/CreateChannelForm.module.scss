@@ -34,6 +34,9 @@
     margin: 0 $space--xs;
     border-radius: 50%;
 
+    @include desktop-view {
+      margin: 0 $space--lg;
+    }
   }
 
   .field {
@@ -41,24 +44,25 @@
     flex-direction: column;
     margin-bottom: $space--sm;
 
-    // label {
-    //   margin-bottom: $space--xxs;
+    @include desktop-view {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      label, input {
+        font-size: $font--lg
+      }
+    }
 
-    //   @include desktop-view {
-    //     font-size: $font--md;
-    //   }
-    // }
+    label {
+      margin-bottom: $space--xxs;
+    }
 
-    // input {
-    //   border-radius: $space--xxs;
-    //   padding: $space--xs;
-    //   border: 1px solid $color--blue;
-    //   outline: none;
-
-    //   @include desktop-view {
-    //     font-size: $font--md;
-    //   }
-    // }
+    input {
+      border-radius: $space--xxs;
+      padding: $space--xs;
+      border: 1px solid $color--blue;
+      outline: none;
+    }
   }
 
   .error {
@@ -71,8 +75,8 @@
     border: none;
     border-radius: $space--xxs;
     font-size: $font--lg;
-    padding: $space--xs $space--sm;
+    padding: $space--sm;
     width: 100%;
-    margin: $space--md auto;
+    margin: $space--sm auto;
   }
 }
