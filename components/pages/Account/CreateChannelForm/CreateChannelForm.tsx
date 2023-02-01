@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import FileInput from "../../../FileInput";
 import createChannel from "../../../../lib/channelHandler/createChannel";
 import updateUserData from "../../../../lib/updateHandler/updateUserData";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import updateBalanceChannel from "../../../../lib/paymentHandler/updateBalanceChannel";
 import styles from "./CreateChannelForm.module.scss";
-import Router from "next/router";
+
 
 const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -81,7 +83,7 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
+        (snapshot: any) => { },
         (error: any) => {
           console.error(error);
           setHasSubmit(false);
@@ -179,12 +181,10 @@ const CreateChannelForm = () => {
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="profile_img">Upload Profile Image: </label>
-          <input
-            type="file"
+          <FileInput
+            placeHolder="Upload Profile Image: "
             name="profile_img"
-            id="profile_img"
-            accept="image/*"
+            accept="image"
           />
         </div>
 
