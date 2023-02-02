@@ -80,7 +80,6 @@ const AccountChannel = (props: IChannelTab) => {
     return <CreateChannelForm />
   }
 
-  console.log(channel);
   return (
     <div className={isDesktop ? "container" : ""}>
       <ChannelPage />

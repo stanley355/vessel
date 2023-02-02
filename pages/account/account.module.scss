@@ -65,4 +65,12 @@
       grid-template-columns: 50% 50%;
     }
   }
+
+  .logout {
+    border: none;
+    border-radius: $space--xxs;
+    background: $color--barely-blue;
+    font-size: $font--sm;
+    padding: $space--xs $space--xs;
+  }
 }

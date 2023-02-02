@@ -15,6 +15,7 @@ import {
   FaChevronCircleRight,
 } from "react-icons/fa";
 import styles from "./account.module.scss";
+import logoutUser from "../../lib/loginHandler/logoutUser";
 
 const Account = (props: any) => {
   const { profile, balance } = props;
@@ -60,6 +61,10 @@ const Account = (props: any) => {
     </div>
   );
 
+  const LogoutBtn = () => {
+    return <button onClick={logoutUser} className={styles.logout}>Keluar</button>;
+  }
+
   return (
     <div className="container">
       <HomeMetaHead />
@@ -81,8 +86,14 @@ const Account = (props: any) => {
               </div>
             </Link>
           ))}
+          {!isDesktop && <LogoutBtn />}
         </div>
-        {isDesktop && <AccountHero />}
+        {isDesktop &&
+          <>
+            <LogoutBtn />
+            <AccountHero />
+          </>
+        }
       </div>
     </div>
   );
