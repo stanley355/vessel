@@ -1,39 +1,32 @@
 @import "../../../../styles/tokens/all";
 
 .profile__card {
-  border-radius: $space--xs;
   width: 100%;
-  padding: 0;
-  display: grid;
-  grid-gap: 2%;
-  grid-template-columns: 15% 85%;
-
-  @include desktop-view {
-    grid-gap: 0;
-    grid-template-columns: 10% 90%;
-  }
+  border-radius: $space--xs;
+  border: 1px solid $primary-color;
+  padding: $space--xs;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: $space--sm;
 
   .profile__image {
-    width: 100%;
-    height: 80%;
-    border-radius: 50%;
+    width: 10%;
+    border-radius: 100%;
+    margin-right: $space--xs;
     font-size: $font--lg;
-    padding: $space--sm 0;
+    padding: $space--xs 0;
     color: $color--white;
-    text-align: center;
     background: $color--blue;
-    margin-top: $space--xs;
+    display: grid;
+    place-items: center;
 
     @include desktop-view {
-      font-size: $font--xxl;
-      width: 60%;
-      height: 100%;
-      margin: auto;
+      width: 7.5%;
     }
   }
 
   .name {
-    margin: $space--xs 0;
     font-size: $font--lg;
     font-weight: bold;
   }

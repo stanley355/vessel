@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import CurrencyInput from "react-currency-input-field";
 import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import FileInput from "../../../FileInput";
 import createChannel from "../../../../lib/channelHandler/createChannel";
 import updateUserData from "../../../../lib/updateHandler/updateUserData";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
-import styles from "./CreateChannelForm.module.scss";
-import Router from "next/router";
 import updateBalanceChannel from "../../../../lib/paymentHandler/updateBalanceChannel";
+import styles from "./CreateChannelForm.module.scss";
 
 const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -72,9 +72,7 @@ const CreateChannelForm = () => {
 
     if (inputValid) {
       const channelName: string = e.target.channel_name.value.trim();
-      const channelPrice: number = cleanChannelPrice(
-        e.target.channel_price.value
-      );
+      const channelPrice = Number(e.target.channel_price.value);
       const profileImage = e.target.profile_img.files[0];
 
       const storageRef: any = await getFirebaseStorageRef(
@@ -114,10 +112,13 @@ const CreateChannelForm = () => {
               };
 
               const userDataUpdate = await updateUserData(userPayload);
+
               const balanceChannel = await updateBalanceChannel({
                 userID: user.id,
                 channelID: channelData.id,
               });
+
+              console.log(balanceChannel);
 
               if (userDataUpdate.token && balanceChannel.id) {
                 jsCookie.set("token", userDataUpdate.token);
@@ -139,9 +140,27 @@ const CreateChannelForm = () => {
     }
   };
 
+  const CreateChannelHero = () => {
+    return (
+      <div className={styles.hero}>
+        <div className={styles.img__wrap}>
+          <img
+            src="/images/cartoon/oh_no.png"
+            alt="Oh no"
+            width={250}
+            height={250}
+          />
+        </div>
+        <div className={styles.title}>Kamu belum Ada channel nih</div>
+        <div className={styles.subtitle}>Yuk buat dengan mudah</div>
+      </div>
+    );
+  };
+
   return (
     <div className={styles.create__channel}>
-      <div className={styles.title}>Create Channel</div>
+      <CreateChannelHero />
+
       <form onSubmit={handleSubmit}>
         <div className={styles.field}>
           <label htmlFor="channel_name">Nama Channel: </label>
@@ -154,23 +173,20 @@ const CreateChannelForm = () => {
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="channel_price">Harga Berlangganan (bulan): </label>
-          <CurrencyInput
-            prefix="Rp"
+          <label htmlFor="channel_price">Harga Berlangganan/bulan: </label>
+          <input
+            type="number"
             id="channel_price"
             name="channel_price"
             placeholder="Rp10,000"
-            decimalsLimit={2}
           />
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="profile_img">Upload Profile Image: </label>
-          <input
-            type="file"
+          <FileInput
+            placeHolder="Upload Profile Image"
             name="profile_img"
-            id="profile_img"
-            accept="image/*"
+            accept="image"
           />
         </div>
 

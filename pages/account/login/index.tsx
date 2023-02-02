@@ -25,7 +25,12 @@ const AccountLogin = (props: any) => {
                 <h1 className={styles.title}>Apa itu Kontenku?</h1>
                 {!isDesktop && (
                   <div>
-                    <img src="/images/home_hero.webp" alt="hero" width={400} height={400} />
+                    <img
+                      src="/images/home_hero.webp"
+                      alt="hero"
+                      width={400}
+                      height={400}
+                    />
                   </div>
                 )}
               </div>
@@ -39,7 +44,12 @@ const AccountLogin = (props: any) => {
             </div>
             {isDesktop && (
               <div>
-                <img src="/images/home_hero.webp" alt="hero" width={400} height={400} />
+                <img
+                  src="/images/home_hero.webp"
+                  alt="hero"
+                  width={400}
+                  height={400}
+                />
               </div>
             )}
           </div>
@@ -95,7 +105,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       },
     };
   }
-  
+
   return {
     props: {
       clientID: config?.clientID ?? "",

@@ -1,25 +1,41 @@
 @import "../../../../styles/tokens/all";
 
 .create__channel {
-  padding: $space--sm;
-  border-radius: $space--xs;
-  box-shadow: 0 0 8px 4px $color--gray;
-  display: flex;
-  flex-direction: column;
-
   @include desktop-view {
-    width: 50%;
-    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 50% 50%;
+    padding: $space--lg 0;
   }
 
-  .title {
-    text-align: center;
-    font-weight: bold;
-    font-size: $font--xl;
-    margin: $space--sm 0;
+  .hero {
+    padding: $space--sm $space--xs;
+
+    .img__wrap {
+      display: grid;
+      place-items: center;
+    }
+
+    .title {
+      font-weight: bold;
+      text-align: center;
+      font-size: $font--xl;
+    }
+
+    .subtitle {
+      font-size: $font--lg;
+      text-align: center;
+    }
+  }
+
+  form {
+    background: $color--barely-blue;
+    padding: $space--sm $space--lg;
+    margin: 0 $space--xs;
+    border-radius: 50%;
 
     @include desktop-view {
-      font-size: $font--xxl;
+      margin: 0 $space--lg;
     }
   }
 
@@ -28,22 +44,25 @@
     flex-direction: column;
     margin-bottom: $space--sm;
 
+    @include desktop-view {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      label,
+      input {
+        font-size: $font--lg;
+      }
+    }
+
     label {
       margin-bottom: $space--xxs;
-
-      @include desktop-view {
-        font-size: $font--md;
-      }
     }
 
     input {
       border-radius: $space--xxs;
       padding: $space--xs;
       border: 1px solid $color--blue;
-
-      @include desktop-view {
-        font-size: $font--md;
-      }
+      outline: none;
     }
   }
 
@@ -55,10 +74,10 @@
     color: $color--white;
     background: $color--blue;
     border: none;
-    border-radius: $space--xs;
+    border-radius: $space--xxs;
     font-size: $font--lg;
-    padding: $space--xs $space--sm;
+    padding: $space--sm;
     width: 100%;
-    margin: $space--md auto;
+    margin: $space--sm auto;
   }
 }

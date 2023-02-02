@@ -1,70 +1,99 @@
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
-import viewPost from "../../lib/postHandler/viewPost";
-import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import viewBalance from "../../lib/paymentHandler/viewBalance";
-import findUserPendingOrder from "../../lib/orderHandler/findUserPendingOrder";
-import findSubscribedChannel from "../../lib/channelHandler/findSubscribedChannel";
-import ChannelTab from "../../components/pages/Account/ChannelTab";
-import ProfileTab from "../../components/pages/Account/ProfileTab";
 import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
-import "node_modules/video-react/dist/video-react.css";
+import UserProfileCard from "../../components/pages/Account/UserProfileCard";
+import useResponsive from "../../lib/hooks/useResponsive";
+import {
+  FaBell,
+  FaPlayCircle,
+  FaWallet,
+  FaChevronCircleRight,
+} from "react-icons/fa";
 import styles from "./account.module.scss";
+import logoutUser from "../../lib/loginHandler/logoutUser";
 
 const Account = (props: any) => {
-  const { profile, balance, subscriptions, channel, posts, pendingOrder } =
-    props;
-  const [activeTab, setActiveTab] = useState("channel");
+  const { profile, balance } = props;
 
-  const AccountTabHeader = () => (
-    <div className={styles.account__tabs}>
-      <button
-        type="button"
-        onClick={() => setActiveTab("channel")}
-        className={activeTab === "channel" ? styles.btn__active : ""}
-      >
-        Channel
-      </button>
-      <button
-        type="button"
-        onClick={() => setActiveTab("account")}
-        className={activeTab === "account" ? styles.btn__active : ""}
-      >
-        Account
-      </button>
+  const { isDesktop } = useResponsive();
+
+  const ACCOUNT_LINKS = [
+    {
+      url: "/account/channel/",
+      icon: <FaPlayCircle />,
+      title: "Channel Saya",
+      subtitle: "Belum Ada Channel",
+    },
+    {
+      url: "/account/wallet/",
+      icon: <FaWallet />,
+      title: "Penghasilan Saya",
+      subtitle: balance
+        ? balance.amount > 0
+          ? `Rp ${balance.amount}`
+          : "Rp 0"
+        : "Error",
+    },
+    {
+      url: "/account/subscription/",
+      icon: <FaBell />,
+      title: "Subscription Saya",
+      subtitle: "Ongoing/Pending Subscription",
+    },
+  ];
+
+  const AccountHero = () => (
+    <div className={styles.hero}>
+      <div>
+        <img
+          src="/images/cartoon/explore.png"
+          alt="explore"
+          width={360}
+          height={300}
+        />
+      </div>
+      <h3>Ayo, Jelajahi Kontenku Sekarang!</h3>
     </div>
   );
 
-  const ActiveTabBody = () => {
-    switch (activeTab) {
-      case "channel":
-        return <ChannelTab channel={channel} posts={posts} />;
-      case "account":
-        return (
-          <ProfileTab
-            profile={profile}
-            channel={channel}
-            balance={balance}
-            subscriptions={subscriptions}
-            pendingOrder={pendingOrder}
-          />
-        );
-      default:
-        return <ChannelTab channel={channel} posts={posts} />;
-    }
-  };
+  const LogoutBtn = () => {
+    return <button onClick={logoutUser} className={styles.logout}>Keluar</button>;
+  }
 
   return (
     <div className="container">
-      <HomeMetaHead/>
+      <HomeMetaHead />
       <div className={styles.account}>
-        <AccountTabHeader />
-        <div className={styles.account__tabs__body}>
-          <ActiveTabBody />
+        {!isDesktop && <AccountHero />}
+        <div className={styles.account__menu}>
+          <UserProfileCard profile={profile} />
+          {ACCOUNT_LINKS.map((link: any) => (
+            <Link href={link.url} key={link.url}>
+              <div className={styles.link}>
+                <div className={styles.main}>
+                  {link.icon}
+                  <div>
+                    <div className={styles.title}>{link.title}</div>
+                    <div className={styles.subtitle}>{link.subtitle}</div>
+                  </div>
+                </div>
+                <FaChevronCircleRight />
+              </div>
+            </Link>
+          ))}
+          {!isDesktop && <LogoutBtn />}
         </div>
+        {isDesktop &&
+          <>
+            <LogoutBtn />
+            <AccountHero />
+          </>
+        }
       </div>
     </div>
   );
@@ -74,10 +103,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
   const profile: any = token ? jwtDecode(token) : "";
   let balance: any;
-  let subscriptions: any = [];
-  let pendingOrder: any = [];
   let channel: any;
-  let posts: any[] = [];
 
   if (!token) {
     return {
@@ -90,12 +116,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (profile && profile.id) {
     balance = await viewBalance(profile.id);
-    pendingOrder = await findUserPendingOrder(profile.id);
-    const subscriptionsID = await viewSubscriptions(profile.id);
-
-    if (subscriptionsID && subscriptionsID.length > 0) {
-      subscriptions = (await findSubscribedChannel(subscriptionsID)) ?? [];
-    }
   }
 
   // Refetch channel data if there's necessary changes e.g (subscribers/post)
@@ -108,18 +128,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  if (channel && channel.posts_number > 0) {
-    posts = await viewPost(channel.slug);
-  }
-
   return {
     props: {
       profile: profile ?? null,
       balance: balance ?? null,
       channel: channel ?? null,
-      posts,
-      subscriptions,
-      pendingOrder,
     },
   };
 };
