@@ -112,10 +112,13 @@ const CreateChannelForm = () => {
               };
 
               const userDataUpdate = await updateUserData(userPayload);
+
               const balanceChannel = await updateBalanceChannel({
                 userID: user.id,
                 channelID: channelData.id,
               });
+
+              console.log(balanceChannel);
 
               if (userDataUpdate.token && balanceChannel.id) {
                 jsCookie.set("token", userDataUpdate.token);
