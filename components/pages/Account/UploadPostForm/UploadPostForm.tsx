@@ -112,7 +112,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
         <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post" />
 
         <div className={styles.field}>
-          <input type="text" placeholder="Tulis Judul keren untuk Kontenmu..." />
+          <input type="text" name="title" id="title" placeholder="Tulis Judul keren untuk Kontenmu..." />
         </div>
 
         <div className={styles.field__paid}>
