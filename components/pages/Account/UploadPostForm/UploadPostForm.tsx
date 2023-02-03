@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import { FaUpload, FaArrowCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import {
+  FaUpload,
+  FaArrowCircleLeft,
+  FaChevronCircleRight,
+} from "react-icons/fa";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -46,15 +50,20 @@ const UploadPostForm = (props: IUploadPostForm) => {
       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
     );
     setUploadPercent(progress);
-  }
+  };
 
   const handleUploadError = (error: any) => {
     console.error(error);
     setHasSubmit(false);
     alert(WARNING_MSG.TRY_AGAIN);
-  }
+  };
 
-  const handleUploadSuccess = async (title: string, channel: any, newPost: any, downloadURL: string) => {
+  const handleUploadSuccess = async (
+    title: string,
+    channel: any,
+    newPost: any,
+    downloadURL: string
+  ) => {
     const payload = {
       channelID: channel.id,
       channelSlug: channel.slug,
@@ -69,13 +78,13 @@ const UploadPostForm = (props: IUploadPostForm) => {
     if (postResponse.error) {
       alert(WARNING_MSG.TRY_AGAIN);
       setHasSubmit(false);
-      return '';
+      return "";
     }
 
     if (postResponse && postResponse.id) {
       Router.reload();
     }
-  }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -96,10 +105,9 @@ const UploadPostForm = (props: IUploadPostForm) => {
         (snapshot) => handleSnapshot(snapshot),
         (error: any) => handleUploadError(error),
         () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-            .then(
-              async (downloadURL) => handleUploadSuccess(title, channel, newPost, downloadURL)
-            );
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) =>
+            handleUploadSuccess(title, channel, newPost, downloadURL)
+          );
         }
       );
     }
@@ -112,7 +120,12 @@ const UploadPostForm = (props: IUploadPostForm) => {
         <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post" />
 
         <div className={styles.field}>
-          <input type="text" name="title" id="title" placeholder="Tulis Judul keren untuk Kontenmu..." />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Tulis Judul keren untuk Kontenmu..."
+          />
         </div>
 
         <div className={styles.field__paid}>
@@ -122,7 +135,8 @@ const UploadPostForm = (props: IUploadPostForm) => {
             onClick={() => setFreePost(false)}
           >
             Paid
-          </button>|
+          </button>
+          |
           <button
             type="button"
             className={freePost ? styles.active : ""}
@@ -133,8 +147,7 @@ const UploadPostForm = (props: IUploadPostForm) => {
         </div>
 
         <div>
-          *Dengan memilih &quot;Free&quot;,
-          pengguna dapat melihat konten Anda
+          *Dengan memilih &quot;Free&quot;, pengguna dapat melihat konten Anda
           <b> tanpa</b> berlangganan channel Anda.
         </div>
 

@@ -24,7 +24,10 @@ const MetaHead = (props: IMetaHead) => {
       <meta property="og:locale" content="id_ID" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://metatags.io/" />
-      <meta property="og:title" content="Kontenku - Langganan Konten Terbaik - Nikmati Konten Berkualitas Tinggi Setiap Hari" />
+      <meta
+        property="og:title"
+        content="Kontenku - Langganan Konten Terbaik - Nikmati Konten Berkualitas Tinggi Setiap Hari"
+      />
       <meta
         property="og:description"
         content="Nikmati konten berkualitas tinggi setiap hari dengan berlangganan konten kami. Terupdate, informatif, dan menyenangkan, langganan konten kami adalah pilihan terbaik bagi Anda."

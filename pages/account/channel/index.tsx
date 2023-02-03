@@ -73,12 +73,12 @@ const AccountChannel = (props: IChannelTab) => {
 
   const ChannelPage = () => {
     if (channel) {
-      if (posts.length > 0) return <ChannelStatus channel={channel} />
-        return <UploadPostForm onBackBtnClick={()=>{}}/>
+      if (posts.length > 0) return <ChannelStatus channel={channel} />;
+      return <UploadPostForm onBackBtnClick={() => {}} />;
     }
 
-    return <CreateChannelForm />
-  }
+    return <CreateChannelForm />;
+  };
 
   return (
     <div className={isDesktop ? "container" : ""}>

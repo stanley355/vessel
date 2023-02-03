@@ -47,7 +47,7 @@
       padding: $space--xs;
       background: $primary-color;
       border-radius: $space--xxs;
-      color:$color--white;
+      color: $color--white;
       font-size: $font--lg;
       display: flex;
       flex-direction: row;
@@ -55,7 +55,7 @@
       justify-content: center;
       margin: $space--sm 0;
     }
-    
+
     .error {
       color: red;
       margin: $space--sm 0;

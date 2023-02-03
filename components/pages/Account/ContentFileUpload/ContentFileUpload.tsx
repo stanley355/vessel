@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { FaFileUpload } from "react-icons/fa";
 import styles from "./ContentFileUpload.module.scss";
@@ -19,7 +18,7 @@ const ContentFileUpload = (props: IContentFileUpload) => {
     const maxAllowedSize = 100 * 1024 * 1024; //100 MB
     if (uploadedFile.size > maxAllowedSize) {
       alert("Maximum File Size 100MB");
-      return '';
+      return "";
     }
 
     setFileName(uploadedFile.name);
@@ -28,7 +27,7 @@ const ContentFileUpload = (props: IContentFileUpload) => {
   return (
     <div className={styles.file__input}>
       <label htmlFor={name}>
-        <FaFileUpload /> 
+        <FaFileUpload />
         <div>{fileName ? fileName : placeHolder}</div>
       </label>
       <input

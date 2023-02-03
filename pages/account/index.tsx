@@ -62,8 +62,12 @@ const Account = (props: any) => {
   );
 
   const LogoutBtn = () => {
-    return <button onClick={logoutUser} className={styles.logout}>Keluar</button>;
-  }
+    return (
+      <button onClick={logoutUser} className={styles.logout}>
+        Keluar
+      </button>
+    );
+  };
 
   return (
     <div className="container">
@@ -88,12 +92,12 @@ const Account = (props: any) => {
           ))}
           {!isDesktop && <LogoutBtn />}
         </div>
-        {isDesktop &&
+        {isDesktop && (
           <>
             <LogoutBtn />
             <AccountHero />
           </>
-        }
+        )}
       </div>
     </div>
   );
