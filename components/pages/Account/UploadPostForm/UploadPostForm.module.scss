@@ -1,16 +1,12 @@
 @import "../../../../styles/tokens/all";
 
 .upload__post {
-  @include desktop-view {
-    width: 60%;
-    margin: 0 10%;
-  }
-
   .title {
     text-align: center;
   }
 
   .form {
+    padding: 0 $space--xs;
     &__error {
       color: red;
       margin: $space--sm 0;

@@ -103,21 +103,11 @@ const UploadPostForm = (props: IUploadPostForm) => {
       );
     }
   };
-  // Error:DatabaseError(ForeignKeyViolation, "insert or update on table \"posts\" violates foreign key constraint \"posts_channels_id_fkey\"")
 
   return (
     <div className={styles.upload__post}>
-      <h3 className={styles.title}>Upload Image / Video</h3>
+      <h3 className={styles.title}>Upload Kontenmu</h3>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.form__field}>
-          <label htmlFor="caption">Short caption: </label>
-          <textarea
-            name="caption"
-            id="caption"
-            rows={10}
-            placeholder="About..."
-          />
-        </div>
 
         <div className={styles.form__field}>
           <label htmlFor="new_post" className={styles.file__label}>
