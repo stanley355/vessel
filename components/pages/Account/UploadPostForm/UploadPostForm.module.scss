@@ -7,7 +7,56 @@
 
   form {
     padding: 0 $space--sm;
-    &__error {
+
+    .field {
+      input {
+        padding: $space--sm $space--xs;
+        width: 100%;
+        border: 1px dashed $primary-color;
+        outline: none;
+        font-size: $font--lg;
+        font-weight: bold;
+      }
+
+      &__paid {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: $space--sm 0;
+        font-size: $font--xxl;
+
+        button {
+          width: 100%;
+          background: none;
+          border: none;
+          font-size: $font--lg;
+        }
+
+        .active {
+          border-radius: $space--xxs;
+          background: $color--barely-blue;
+          color: $primary-color;
+          border: 1px solid $primary-color;
+        }
+      }
+    }
+
+    .cta {
+      width: 100%;
+      border: none;
+      padding: $space--xs;
+      background: $primary-color;
+      border-radius: $space--xxs;
+      color:$color--white;
+      font-size: $font--lg;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin: $space--sm 0;
+    }
+    
+    .error {
       color: red;
       margin: $space--sm 0;
     }

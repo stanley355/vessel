@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import { FaUpload, FaArrowCircleLeft } from "react-icons/fa";
+import { FaUpload, FaArrowCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -19,26 +19,21 @@ const UploadPostForm = (props: IUploadPostForm) => {
   const { onBackBtnClick } = props;
 
   const [uploadPercent, setUploadPercent] = useState(0);
+  const [freePost, setFreePost] = useState(false);
   const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState("");
 
   const validateInput = (e: any) => {
-    const caption = e.target.caption.value;
-    const post = e.target.new_post.files[0];
+    const title = e.target.title.value;
+    const newPost = e.target.new_post.files[0];
 
-    if (caption && caption.length > 500) {
-      setFormError("Caption Maksimum 500 karakter");
+    if (title && title.length > 250) {
+      setFormError("Judul Maksimum 250 karakter");
       return false;
     }
 
-    if (!post) {
-      setFormError("File belum di upload!");
-      return false;
-    }
-
-    const maxAllowedSize = 50 * 1024 * 1024; //50 MB
-    if (post && post.size > maxAllowedSize) {
-      setFormError("Maximum file size is 50MB");
+    if (!newPost) {
+      setFormError("Kontenmu lupa diupload!");
       return false;
     }
 
@@ -46,60 +41,65 @@ const UploadPostForm = (props: IUploadPostForm) => {
     return true;
   };
 
+  const handleSnapshot = (snapshot: any) => {
+    const progress = Math.round(
+      (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+    );
+    setUploadPercent(progress);
+  }
+
+  const handleUploadError = (error: any) => {
+    console.error(error);
+    setHasSubmit(false);
+    alert(WARNING_MSG.TRY_AGAIN);
+  }
+
+  const handleUploadSuccess = async (title: string, channel: any, newPost: any, downloadURL: string) => {
+    const payload = {
+      channelID: channel.id,
+      channelSlug: channel.slug,
+      downloadURL: downloadURL,
+      description: "-",
+      title: title,
+      postType: newPost.type.includes("video") ? "Video" : "Image",
+      isFree: freePost,
+    };
+
+    const postResponse = await createPost(payload);
+    if (postResponse.error) {
+      alert(WARNING_MSG.TRY_AGAIN);
+      setHasSubmit(false);
+      return '';
+    }
+
+    if (postResponse && postResponse.id) {
+      Router.reload();
+    }
+  }
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    const caption = e.target.caption.value;
-    const post = e.target.new_post.files[0];
-    const free_post = e.target.free_post.value === "Free";
-
+    const title = e.target.title.value;
+    const newPost = e.target.new_post.files[0];
     const inputValid = validateInput(e);
     setHasSubmit(inputValid);
 
     if (inputValid) {
       const channelToken: any = jsCookie.get("token_channel");
       const channel: any = jwtDecode(channelToken);
-
-      const storageRef: any = await getFirebaseStorageRef(
-        `/${channel.slug}/${post.name}`
-      );
-      const uploadTask = uploadBytesResumable(storageRef, post);
+      const storagePath = `/${channel.slug}/${newPost.name}`;
+      const storageRef: any = await getFirebaseStorageRef(storagePath);
+      const uploadTask = uploadBytesResumable(storageRef, newPost);
 
       uploadTask.on(
         "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setUploadPercent(progress);
-        },
-        (error: any) => {
-          console.error(error);
-          setHasSubmit(false);
-          alert(WARNING_MSG.TRY_AGAIN);
-        },
+        (snapshot) => handleSnapshot(snapshot),
+        (error: any) => handleUploadError(error),
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            const payload = {
-              channelID: channel.id,
-              channelSlug: channel.slug,
-              downloadURL: downloadURL,
-              description: textToHtml(caption),
-              postType: post.type.includes("video") ? "Video" : "Image",
-              isFree: free_post,
-            };
-
-            const postResponse = await createPost(payload);
-
-            if (postResponse.error) {
-              alert(WARNING_MSG.TRY_AGAIN);
-              setHasSubmit(false);
-            }
-
-            if (postResponse && postResponse.id) {
-              Router.reload();
-            }
-          });
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then(
+              async (downloadURL) => handleUploadSuccess(title, channel, newPost, downloadURL)
+            );
         }
       );
     }
@@ -109,41 +109,40 @@ const UploadPostForm = (props: IUploadPostForm) => {
     <div className={styles.upload__post}>
       <h3 className={styles.title}>Upload Kontenmu</h3>
       <form onSubmit={handleSubmit}>
-        <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post"/>
+        <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post" />
 
-        <div className={styles.form__field__drop}>
-          <label htmlFor="free_post">Post Type: </label>
-          <select name="free_post" id="free_post" defaultValue="paid">
-            <option value="Paid">Paid</option>
-            <option value="Free">Free</option>
-          </select>
+        <div className={styles.field}>
+          <input type="text" placeholder="Tulis Judul keren untuk Kontenmu..." />
+        </div>
+
+        <div className={styles.field__paid}>
+          <button
+            type="button"
+            className={freePost ? "" : styles.active}
+            onClick={() => setFreePost(false)}
+          >
+            Paid
+          </button>|
+          <button
+            type="button"
+            className={freePost ? styles.active : ""}
+            onClick={() => setFreePost(true)}
+          >
+            Free
+          </button>
         </div>
 
         <div>
-          *Dengan memilih &quot;Post Type&quot; sebagai &quot;Free&quot;,
-          pengguna Kontenku dapat melihat konten Anda
+          *Dengan memilih &quot;Free&quot;,
+          pengguna dapat melihat konten Anda
           <b> tanpa</b> berlangganan channel Anda.
         </div>
 
-        {formError && <div className={styles.form__error}>{formError}</div>}
+        {formError && <div className={styles.error}>{formError}</div>}
         <button type="submit" className={styles.cta} disabled={hasSubmit}>
-          {hasSubmit ? (
-            <span>Uploading ...{uploadPercent}%</span>
-          ) : (
-            <span>
-              Upload <FaUpload />{" "}
-            </span>
-          )}
+          {hasSubmit ? `Uploading: ${uploadPercent}%` : "Submit"}
         </button>
       </form>
-
-      <button
-        type="button"
-        className={styles.back__btn}
-        onClick={onBackBtnClick}
-      >
-        <FaArrowCircleLeft />
-      </button>
     </div>
   );
 };

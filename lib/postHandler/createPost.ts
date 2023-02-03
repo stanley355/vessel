@@ -8,6 +8,7 @@ interface ICreatePost {
   description: string;
   postType: string;
   isFree: boolean;
+  title: string;
 }
 
 const { KONTENKU_URL } = getConfig().publicRuntimeConfig;
@@ -20,6 +21,7 @@ const createPost = async (payload: ICreatePost) => {
     description: payload.description,
     post_type: payload.postType,
     is_free: payload.isFree,
+    title: payload.title,
   };
 
   const postRes = await fetcher(`${KONTENKU_URL}/api/channel/post/`, {
