@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import {
-  FaUpload,
-  FaArrowCircleLeft,
-  FaChevronCircleRight,
-} from "react-icons/fa";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import createPost from "../../../../lib/postHandler/createPost";
-import textToHtml from "../../../../lib/textToHtml";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import ContentFileUpload from "../ContentFileUpload";
 import styles from "./UploadPostForm.module.scss";
