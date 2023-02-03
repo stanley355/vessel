@@ -8,6 +8,7 @@ import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import createPost from "../../../../lib/postHandler/createPost";
 import textToHtml from "../../../../lib/textToHtml";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
+import ContentFileUpload from "../ContentFileUpload";
 import styles from "./UploadPostForm.module.scss";
 
 interface IUploadPostForm {
@@ -107,13 +108,8 @@ const UploadPostForm = (props: IUploadPostForm) => {
   return (
     <div className={styles.upload__post}>
       <h3 className={styles.title}>Upload Kontenmu</h3>
-      <form onSubmit={handleSubmit} className={styles.form}>
-
-        <div className={styles.form__field}>
-          <label htmlFor="new_post" className={styles.file__label}>
-            <input type="file" name="new_post" accept="video/*, image/*" />
-          </label>
-        </div>
+      <form onSubmit={handleSubmit}>
+        <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post"/>
 
         <div className={styles.form__field__drop}>
           <label htmlFor="free_post">Post Type: </label>

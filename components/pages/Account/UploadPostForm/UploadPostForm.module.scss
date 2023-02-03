@@ -5,95 +5,11 @@
     text-align: center;
   }
 
-  .form {
-    padding: 0 $space--xs;
+  form {
+    padding: 0 $space--sm;
     &__error {
       color: red;
       margin: $space--sm 0;
     }
-
-    &__field {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: $space--sm;
-    }
-
-    &__field__drop {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: $space--sm;
-
-      select {
-        width: 50%;
-        padding: $space--xxs;
-        font-size: $font--md;
-        border-radius: $space--xs;
-        border: 1px solid $color--blue;
-        background: none;
-      }
-    }
-
-    label {
-      font-size: $font--md;
-      font-weight: bold;
-    }
-
-    textarea {
-      padding: $space--xs;
-      border-radius: $space--xs;
-      border: 1px solid $color--blue;
-    }
-
-    .file__label {
-      width: 100%;
-      border-radius: $space--xs;
-      border: 1px solid $color--blue;
-
-      input {
-        width: 100%;
-      }
-
-      ::-webkit-file-upload-button {
-        content: "Browse Files";
-        cursor: pointer;
-        padding: $space--xs;
-        border: none;
-        font-size: $font--lg;
-        border-radius: $space--xs;
-        width: 60%;
-        margin-right: $space--sm;
-      }
-    }
-
-    .cta {
-      padding: $space--xs;
-      background: $color--blue;
-      margin: $space--xl 15%;
-      width: 70%;
-      border: none;
-      color: $color--white;
-      font-size: $font--xl;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: $space--xs;
-
-      svg {
-        margin-left: $space--sm;
-      }
-
-      @include desktop-view {
-        margin: $space--xl 20%;
-      }
-    }
-  }
-
-  .back__btn {
-    font-size: 36px;
-    background: none;
-    border: none;
-    color: $color--blue;
   }
 }

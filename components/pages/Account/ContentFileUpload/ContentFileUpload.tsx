@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { FaFileUpload } from "react-icons/fa";
 import styles from "./ContentFileUpload.module.scss";
 
@@ -20,8 +21,9 @@ const ContentFileUpload = (props: IContentFileUpload) => {
 
   return (
     <div className={styles.file__input}>
-      <FaFileUpload />
-      <label htmlFor={name}>{fileName || placeHolder}</label>
+      <label htmlFor={name}>
+        <FaFileUpload /> {placeHolder}
+      </label>
       <input
         type="file"
         name={name}
