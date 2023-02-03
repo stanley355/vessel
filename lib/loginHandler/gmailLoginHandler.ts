@@ -44,7 +44,7 @@ const gmailLoginHandler = async (googleRes: any) => {
         }
       } else {
         jsCookie.set("token", loginRes.token, { expires: 15 });
-        Router.push("/account/");
+        Router.push("/account/channel/");
       }
     } else {
       alert(WARNING_MSG.TRY_AGAIN);
