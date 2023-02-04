@@ -103,7 +103,8 @@ const UploadPostForm = (props: IUploadPostForm) => {
         (error: any) => handleUploadError(error),
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(
-            async (downloadURL) => await handleUploadSuccess(title, channel, newPost, downloadURL)
+            async (downloadURL) =>
+              await handleUploadSuccess(title, channel, newPost, downloadURL)
           );
         }
       );
@@ -112,13 +113,18 @@ const UploadPostForm = (props: IUploadPostForm) => {
 
   return (
     <div className={styles.upload__post}>
-      {isDesktop && <div className={styles.hero}>
-        <img src="/images/cartoon/write_post.png" alt="Create Post" />
-      </div>}
+      {isDesktop && (
+        <div className={styles.hero}>
+          <img src="/images/cartoon/write_post.png" alt="Create Post" />
+        </div>
+      )}
       <div>
         <h3 className={styles.title}>Upload Kontenmu</h3>
         <form onSubmit={handleSubmit}>
-          <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post" />
+          <ContentFileUpload
+            placeHolder="Upload Gambar/Video"
+            name="new_post"
+          />
 
           <div className={styles.field}>
             <input
@@ -157,7 +163,6 @@ const UploadPostForm = (props: IUploadPostForm) => {
             {hasSubmit ? `Uploading: ${uploadPercent}%` : "Submit"}
           </button>
         </form>
-
       </div>
     </div>
   );

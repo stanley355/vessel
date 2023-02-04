@@ -27,9 +27,7 @@ const ChannelStatus = (props: IChannelStatus) => {
       </div>
 
       <div className={styles.desc}>
-        <div className={styles.title}>
-            {channel.channel_name}
-        </div>
+        <div className={styles.title}>{channel.channel_name}</div>
         <div className={styles.subtitle}>
           <span> {channel.posts_number} posts</span>
           <span>|</span>

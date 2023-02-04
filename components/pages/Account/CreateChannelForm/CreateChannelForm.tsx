@@ -65,9 +65,13 @@ const CreateChannelForm = () => {
     console.error(err);
     setHasSubmit(false);
     alert(WARNING_MSG.TRY_AGAIN);
-  }
+  };
 
-  const handleUploadSuccess = async (channelName: string, channelPrice: number, downloadUrl: string) => {
+  const handleUploadSuccess = async (
+    channelName: string,
+    channelPrice: number,
+    downloadUrl: string
+  ) => {
     const token: any = jsCookie.get("token");
     const user: any = jwtDecode(token);
 
@@ -96,7 +100,6 @@ const CreateChannelForm = () => {
         channelID: channelData.id,
       });
 
-
       if (userDataUpdate.token && balanceChannel.id) {
         jsCookie.set("token", userDataUpdate.token);
         jsCookie.set("token_channel", channel.token);
@@ -111,7 +114,7 @@ const CreateChannelForm = () => {
       setFormError(channel.data.error ?? WARNING_MSG.TRY_AGAIN);
       setHasSubmit(false);
     }
-  }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -129,13 +132,12 @@ const CreateChannelForm = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => { },
+        (snapshot: any) => {},
         (err: any) => handleUploadError(err),
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(
-            async (downloadURL) => {
-              await handleUploadSuccess(channelName, channelPrice, downloadURL);
-            });
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await handleUploadSuccess(channelName, channelPrice, downloadURL);
+          });
         }
       );
     }

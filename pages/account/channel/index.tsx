@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import jwtDecode from "jwt-decode";
 import jsCookie from "js-cookie";
 import channelLoginHandler from "../../../lib/loginHandler/channelLoginHandler";
@@ -25,7 +25,9 @@ const AccountChannel = (props: IChannelTab) => {
   const ChannelPage = () => {
     if (channel) {
       if (posts.length > 0) return <ChannelStatus channel={channel} />;
-      const UploadPostForm = dynamic(() => import('../../../components/pages/Account/UploadPostForm'));
+      const UploadPostForm = dynamic(
+        () => import("../../../components/pages/Account/UploadPostForm")
+      );
       return <UploadPostForm onBackBtnClick={() => {}} />;
     }
 

@@ -27,7 +27,9 @@ const Account = (props: any) => {
       url: "/account/channel/",
       icon: <FaPlayCircle />,
       title: "Channel Saya",
-      subtitle: channel ? `${channel.channel_name} - ${channel.subscribers} Subscriber` : "Belum Ada Channel",
+      subtitle: channel
+        ? `${channel.channel_name} - ${channel.subscribers} Subscriber`
+        : "Belum Ada Channel",
     },
     {
       url: "/account/wallet/",
@@ -80,7 +82,7 @@ const Account = (props: any) => {
       ))}
       {!isDesktop && <LogoutBtn />}
     </div>
-  )
+  );
 
   const LogoutBtn = () => {
     return (
@@ -129,7 +131,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         destination: "/account/channel/",
         permanent: false,
       },
-    }
+    };
   }
 
   if (profile && profile.id) {
