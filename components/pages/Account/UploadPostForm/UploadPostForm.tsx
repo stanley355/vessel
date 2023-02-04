@@ -102,8 +102,8 @@ const UploadPostForm = (props: IUploadPostForm) => {
         (snapshot) => handleSnapshot(snapshot),
         (error: any) => handleUploadError(error),
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) =>
-            handleUploadSuccess(title, channel, newPost, downloadURL)
+          getDownloadURL(uploadTask.snapshot.ref).then(
+            async (downloadURL) => await handleUploadSuccess(title, channel, newPost, downloadURL)
           );
         }
       );

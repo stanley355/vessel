@@ -34,7 +34,7 @@ const AccountChannel = (props: IChannelTab) => {
 
   return (
     <div className={isDesktop ? "container" : ""}>
-      <ChannelMetaHead channel={channel} posts={posts} />
+      {channel && <ChannelMetaHead channel={channel} posts={posts} />}
       <ChannelPage />
     </div>
   );

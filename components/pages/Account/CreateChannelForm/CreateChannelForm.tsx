@@ -15,14 +15,10 @@ const CreateChannelForm = () => {
   const [hasSubmit, setHasSubmit] = useState(false);
   const [formError, setFormError] = useState("");
 
-  const cleanChannelPrice = (price: string) => {
-    const newPrice = price.replace("Rp", "").replace(",", "");
-    return Number(newPrice);
-  };
-
+  // TODO: Refac with Formik
   const validateInput = (e: any) => {
     const channelName = e.target.channel_name.value.trim();
-    const channelPrice = cleanChannelPrice(e.target.channel_price.value);
+    const channelPrice = Number(e.target.channel_price.value);
     const profileImage = e.target.profile_img.files[0];
 
     if (!channelName) {
@@ -65,6 +61,58 @@ const CreateChannelForm = () => {
     return true;
   };
 
+  const handleUploadError = (err: any) => {
+    console.error(err);
+    setHasSubmit(false);
+    alert(WARNING_MSG.TRY_AGAIN);
+  }
+
+  const handleUploadSuccess = async (channelName: string, channelPrice: number, downloadUrl: string) => {
+    const token: any = jsCookie.get("token");
+    const user: any = jwtDecode(token);
+
+    const payload = {
+      userID: user.id,
+      channelName: channelName.toLowerCase(),
+      subscriptionPrice: channelPrice,
+      profileImgURL: downloadUrl,
+    };
+    const channel = await createChannel(payload);
+
+    if (channel && channel.token) {
+      const channelData: any = jwtDecode(channel.token);
+
+      const userPayload = {
+        id: user.id,
+        fullname: user.fullname,
+        email: user.email,
+        has_channel: true,
+      };
+
+      const userDataUpdate = await updateUserData(userPayload);
+
+      const balanceChannel = await updateBalanceChannel({
+        userID: user.id,
+        channelID: channelData.id,
+      });
+
+
+      if (userDataUpdate.token && balanceChannel.id) {
+        jsCookie.set("token", userDataUpdate.token);
+        jsCookie.set("token_channel", channel.token);
+        Router.reload();
+      } else {
+        setFormError(WARNING_MSG.TRY_AGAIN);
+        setHasSubmit(false);
+      }
+    }
+
+    if (channel.error) {
+      setFormError(channel.data.error ?? WARNING_MSG.TRY_AGAIN);
+      setHasSubmit(false);
+    }
+  }
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const inputValid = validateInput(e);
@@ -74,66 +122,20 @@ const CreateChannelForm = () => {
       const channelName: string = e.target.channel_name.value.trim();
       const channelPrice = Number(e.target.channel_price.value);
       const profileImage = e.target.profile_img.files[0];
+      const storagePath = `/profileImage/${channelName}`;
 
-      const storageRef: any = await getFirebaseStorageRef(
-        `/profileImage/${channelName}`
-      );
+      const storageRef: any = await getFirebaseStorageRef(storagePath);
       const uploadTask = uploadBytesResumable(storageRef, profileImage);
 
       uploadTask.on(
         "state_changed",
-        (snapshot: any) => {},
-        (error: any) => {
-          console.error(error);
-          setHasSubmit(false);
-          alert(WARNING_MSG.TRY_AGAIN);
-        },
+        (snapshot: any) => { },
+        (err: any) => handleUploadError(err),
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            const token: any = jsCookie.get("token");
-            const user: any = jwtDecode(token);
-
-            const payload = {
-              userID: user.id,
-              channelName: channelName.toLowerCase(),
-              subscriptionPrice: channelPrice,
-              profileImgURL: downloadURL,
-            };
-            const channel = await createChannel(payload);
-
-            if (channel && channel.token) {
-              const channelData: any = jwtDecode(channel.token);
-
-              const userPayload = {
-                id: user.id,
-                fullname: user.fullname,
-                email: user.email,
-                has_channel: true,
-              };
-
-              const userDataUpdate = await updateUserData(userPayload);
-
-              const balanceChannel = await updateBalanceChannel({
-                userID: user.id,
-                channelID: channelData.id,
-              });
-
-
-              if (userDataUpdate.token && balanceChannel.id) {
-                jsCookie.set("token", userDataUpdate.token);
-                jsCookie.set("token_channel", channel.token);
-                Router.reload();
-              } else {
-                setFormError(WARNING_MSG.TRY_AGAIN);
-                setHasSubmit(false);
-              }
-            }
-
-            if (channel.error) {
-              setFormError(channel.data.error ?? WARNING_MSG.TRY_AGAIN);
-              setHasSubmit(false);
-            }
-          });
+          getDownloadURL(uploadTask.snapshot.ref).then(
+            async (downloadURL) => {
+              await handleUploadSuccess(channelName, channelPrice, downloadURL);
+            });
         }
       );
     }
