@@ -3,22 +3,22 @@ import Link from "next/link";
 import { GetServerSideProps } from "next";
 import jsCookie from "js-cookie";
 import jwtDecode from "jwt-decode";
-import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
-import viewBalance from "../../lib/paymentHandler/viewBalance";
-import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
-import UserProfileCard from "../../components/pages/Account/UserProfileCard";
-import useResponsive from "../../lib/hooks/useResponsive";
 import {
   FaBell,
   FaPlayCircle,
   FaWallet,
   FaChevronCircleRight,
 } from "react-icons/fa";
-import styles from "./account.module.scss";
+import channelLoginHandler from "../../lib/loginHandler/channelLoginHandler";
+import viewBalance from "../../lib/paymentHandler/viewBalance";
+import useResponsive from "../../lib/hooks/useResponsive";
 import logoutUser from "../../lib/loginHandler/logoutUser";
+import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
+import UserProfileCard from "../../components/pages/Account/UserProfileCard";
+import styles from "./account.module.scss";
 
 const Account = (props: any) => {
-  const { profile, balance } = props;
+  const { profile, balance, channel } = props;
 
   const { isDesktop } = useResponsive();
 
@@ -27,7 +27,7 @@ const Account = (props: any) => {
       url: "/account/channel/",
       icon: <FaPlayCircle />,
       title: "Channel Saya",
-      subtitle: "Belum Ada Channel",
+      subtitle: channel ? `${channel.channel_name} - ${channel.subscribers} Subscriber` : "Belum Ada Channel",
     },
     {
       url: "/account/wallet/",

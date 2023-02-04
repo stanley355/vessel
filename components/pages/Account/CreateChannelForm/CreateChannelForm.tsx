@@ -118,7 +118,6 @@ const CreateChannelForm = () => {
                 channelID: channelData.id,
               });
 
-              console.log(balanceChannel);
 
               if (userDataUpdate.token && balanceChannel.id) {
                 jsCookie.set("token", userDataUpdate.token);
