@@ -61,6 +61,27 @@ const Account = (props: any) => {
     </div>
   );
 
+  const AccountMenu = () => (
+    <div className={styles.account__menu}>
+      <UserProfileCard profile={profile} />
+      {ACCOUNT_LINKS.map((link: any) => (
+        <Link href={link.url} key={link.url}>
+          <div className={styles.link}>
+            <div className={styles.main}>
+              {link.icon}
+              <div>
+                <div className={styles.title}>{link.title}</div>
+                <div className={styles.subtitle}>{link.subtitle}</div>
+              </div>
+            </div>
+            <FaChevronCircleRight />
+          </div>
+        </Link>
+      ))}
+      {!isDesktop && <LogoutBtn />}
+    </div>
+  )
+
   const LogoutBtn = () => {
     return (
       <button onClick={logoutUser} className={styles.logout}>
@@ -74,24 +95,7 @@ const Account = (props: any) => {
       <HomeMetaHead />
       <div className={styles.account}>
         {!isDesktop && <AccountHero />}
-        <div className={styles.account__menu}>
-          <UserProfileCard profile={profile} />
-          {ACCOUNT_LINKS.map((link: any) => (
-            <Link href={link.url} key={link.url}>
-              <div className={styles.link}>
-                <div className={styles.main}>
-                  {link.icon}
-                  <div>
-                    <div className={styles.title}>{link.title}</div>
-                    <div className={styles.subtitle}>{link.subtitle}</div>
-                  </div>
-                </div>
-                <FaChevronCircleRight />
-              </div>
-            </Link>
-          ))}
-          {!isDesktop && <LogoutBtn />}
-        </div>
+        <AccountMenu />
         {isDesktop && (
           <>
             <LogoutBtn />
@@ -105,6 +109,7 @@ const Account = (props: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
+  const token_channel = context.req.cookies["token_channel"];
   const profile: any = token ? jwtDecode(token) : "";
   let balance: any;
   let channel: any;
@@ -116,6 +121,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         permanent: false,
       },
     };
+  }
+
+  if (!token_channel) {
+    return {
+      redirect: {
+        destination: "/account/channel/",
+        permanent: false,
+      },
+    }
   }
 
   if (profile && profile.id) {
