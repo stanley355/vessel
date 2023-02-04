@@ -1,6 +1,19 @@
 @import "../../../../styles/tokens/all";
 
 .upload__post {
+  @include desktop-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    place-items: center;
+  }
+
+  .hero {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
   .title {
     text-align: center;
   }
@@ -54,6 +67,11 @@
       align-items: center;
       justify-content: center;
       margin: $space--sm 0;
+
+      @include desktop-view {
+        width: 78%;
+        margin: $space--sm auto;
+      }
     }
 
     .error {

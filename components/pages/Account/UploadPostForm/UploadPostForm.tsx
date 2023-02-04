@@ -7,6 +7,7 @@ import getFirebaseStorageRef from "../../../../lib/getFirebaseStorageRef";
 import createPost from "../../../../lib/postHandler/createPost";
 import { WARNING_MSG } from "../../../../lib/warning-messages";
 import ContentFileUpload from "../ContentFileUpload";
+import useResponsive from "../../../../lib/hooks/useResponsive";
 import styles from "./UploadPostForm.module.scss";
 
 interface IUploadPostForm {
@@ -15,6 +16,8 @@ interface IUploadPostForm {
 
 const UploadPostForm = (props: IUploadPostForm) => {
   const { onBackBtnClick } = props;
+
+  const { isDesktop } = useResponsive();
 
   const [uploadPercent, setUploadPercent] = useState(0);
   const [freePost, setFreePost] = useState(false);
@@ -109,47 +112,53 @@ const UploadPostForm = (props: IUploadPostForm) => {
 
   return (
     <div className={styles.upload__post}>
-      <h3 className={styles.title}>Upload Kontenmu</h3>
-      <form onSubmit={handleSubmit}>
-        <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post" />
+      {isDesktop && <div className={styles.hero}>
+        <img src="/images/cartoon/write_post.png" alt="Create Post" />
+      </div>}
+      <div>
+        <h3 className={styles.title}>Upload Kontenmu</h3>
+        <form onSubmit={handleSubmit}>
+          <ContentFileUpload placeHolder="Upload Gambar/Video" name="new_post" />
 
-        <div className={styles.field}>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Tulis Judul keren untuk Kontenmu..."
-          />
-        </div>
+          <div className={styles.field}>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Tulis Judul keren untuk Kontenmu..."
+            />
+          </div>
 
-        <div className={styles.field__paid}>
-          <button
-            type="button"
-            className={freePost ? "" : styles.active}
-            onClick={() => setFreePost(false)}
-          >
-            Paid
+          <div className={styles.field__paid}>
+            <button
+              type="button"
+              className={freePost ? "" : styles.active}
+              onClick={() => setFreePost(false)}
+            >
+              Paid
+            </button>
+            |
+            <button
+              type="button"
+              className={freePost ? styles.active : ""}
+              onClick={() => setFreePost(true)}
+            >
+              Free
+            </button>
+          </div>
+
+          <div>
+            *Dengan memilih &quot;Free&quot;, pengguna dapat melihat konten Anda
+            <b> tanpa</b> berlangganan channel Anda.
+          </div>
+
+          {formError && <div className={styles.error}>{formError}</div>}
+          <button type="submit" className={styles.cta} disabled={hasSubmit}>
+            {hasSubmit ? `Uploading: ${uploadPercent}%` : "Submit"}
           </button>
-          |
-          <button
-            type="button"
-            className={freePost ? styles.active : ""}
-            onClick={() => setFreePost(true)}
-          >
-            Free
-          </button>
-        </div>
+        </form>
 
-        <div>
-          *Dengan memilih &quot;Free&quot;, pengguna dapat melihat konten Anda
-          <b> tanpa</b> berlangganan channel Anda.
-        </div>
-
-        {formError && <div className={styles.error}>{formError}</div>}
-        <button type="submit" className={styles.cta} disabled={hasSubmit}>
-          {hasSubmit ? `Uploading: ${uploadPercent}%` : "Submit"}
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
+import dynamic from 'next/dynamic';
 import jwtDecode from "jwt-decode";
 import jsCookie from "js-cookie";
 import channelLoginHandler from "../../../lib/loginHandler/channelLoginHandler";
 import viewPost from "../../../lib/postHandler/viewPost";
-import PostCard from "../../../components/pages/Account/PostCard";
-import NoPostsCard from "../../../components/pages/Account/NoPostsCard";
-import UploadPostForm from "../../../components/pages/Account/UploadPostForm";
 import CreateChannelForm from "../../../components/pages/Account/CreateChannelForm";
 import ChannelStatus from "../../../components/pages/Account/ChannelStatus";
 import useResponsive from "../../../lib/hooks/useResponsive";
+import ChannelMetaHead from "../../../components/pages/Channel/ChannelMetaHead";
 import "node_modules/video-react/dist/video-react.css";
 import styles from "./AccountChannel.module.scss";
 
@@ -21,59 +20,12 @@ interface IChannelTab {
 const AccountChannel = (props: IChannelTab) => {
   const { channel, posts } = props;
 
-  const [showUploadPostForm, setShowUploadPostForm] = useState(false);
   const { isDesktop } = useResponsive();
-
-  const PostSection = () => {
-    if (posts && posts.length > 0) {
-      return (
-        <div className={styles.posts__wrap}>
-          {posts.map((post: any) => (
-            <div key={post.id}>
-              {" "}
-              <PostCard channel={channel} post={post} />{" "}
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return <NoPostsCard onUploadClick={() => setShowUploadPostForm(true)} />;
-  };
-
-  const MainChannelTab = () => {
-    return showUploadPostForm ? (
-      <UploadPostForm onBackBtnClick={() => setShowUploadPostForm(false)} />
-    ) : (
-      <PostSection />
-    );
-  };
-
-  const HasChannelComponent = () => {
-    return (
-      <div className={styles.channel__tab}>
-        <ChannelStatus channel={channel} />
-        <div className={styles.main}>
-          <div className={styles.main__head}>
-            <h2>My Posts</h2>
-            {!showUploadPostForm && (
-              <button
-                type="button"
-                className={styles.upload__btn}
-                onClick={() => setShowUploadPostForm(true)}
-              >
-                Upload
-              </button>
-            )}
-          </div>
-          <MainChannelTab />
-        </div>
-      </div>
-    );
-  };
 
   const ChannelPage = () => {
     if (channel) {
       if (posts.length > 0) return <ChannelStatus channel={channel} />;
+      const UploadPostForm = dynamic(() => import('../../../components/pages/Account/UploadPostForm'));
       return <UploadPostForm onBackBtnClick={() => {}} />;
     }
 
@@ -82,6 +34,7 @@ const AccountChannel = (props: IChannelTab) => {
 
   return (
     <div className={isDesktop ? "container" : ""}>
+      <ChannelMetaHead channel={channel} posts={posts} />
       <ChannelPage />
     </div>
   );
