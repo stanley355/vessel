@@ -26,22 +26,15 @@ const ChannelStatus = (props: IChannelStatus) => {
         />
       </div>
 
-      <Link href={`/channel/${channel.slug}`}>
-        <a title={channel.channel_name} className={styles.title}>
-          {channel.channel_name}
-        </a>
-      </Link>
-
-      <div className={styles.status__box}>
-        <span>
-          <div>{channel.posts_number}</div>
-          <div>posts</div>
-        </span>
-
-        <span>
-          <div>{channel.subscribers}</div>
-          <div>subscribers</div>
-        </span>
+      <div className={styles.desc}>
+        <div className={styles.title}>
+            {channel.channel_name}
+        </div>
+        <div className={styles.subtitle}>
+          <span> {channel.posts_number} posts</span>
+          <span>|</span>
+          <span>{channel.subscribers} subscribers</span>
+        </div>
       </div>
     </div>
   );

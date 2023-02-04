@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import getConfig from "next/config";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import ChannelStatus from "../../components/pages/Account/ChannelStatus";
+import ChannelStatus from "../../components/ChannelStatus";
 import ChannelNoPosts from "../../components/pages/Channel/ChannelNoPosts";
 import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubscribed";
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";

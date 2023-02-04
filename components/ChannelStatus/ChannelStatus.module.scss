@@ -1,0 +1,58 @@
+@import "../../styles/tokens/all";
+
+.channel__status {
+  display: flex;
+  flex-direction: row;
+  padding: $space--xs;
+  height: 50px;
+
+  @include desktop-view {
+    width: 100%;
+    border: 1px solid $primary-color;
+    border-radius: $space--xxs;
+    padding: 0;
+    height: 75px;
+  }
+
+  .img__wrap {
+    width: 25%;
+
+    img {
+      width: 100%;
+      height: 50px;
+      border: 1px solid $primary-color;
+    }
+
+    @include desktop-view {
+      width: 20%;
+      img {
+        height: 100%;
+        border: none;
+      }
+    }
+  }
+
+  .desc {
+    display: flex;
+    flex-direction: column;
+    padding: 0 $space--xs;
+    font-size: $font--lg;
+
+    .title {
+      color: $primary-color;
+      font-weight: bold;
+      margin-bottom: $space--xxs;
+    }
+
+    .subtitle {
+      span {
+        margin-right: $space--xs;
+      }
+    }
+
+    @include desktop-view {
+      justify-content: center;
+      font-size: $font--xl;
+    }
+  }
+}

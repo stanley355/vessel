@@ -6,7 +6,7 @@ import jsCookie from "js-cookie";
 import channelLoginHandler from "../../../lib/loginHandler/channelLoginHandler";
 import viewPost from "../../../lib/postHandler/viewPost";
 import CreateChannelForm from "../../../components/pages/Account/CreateChannelForm";
-import ChannelStatus from "../../../components/pages/Account/ChannelStatus";
+import ChannelStatus from "../../../components/ChannelStatus";
 import useResponsive from "../../../lib/hooks/useResponsive";
 import ChannelMetaHead from "../../../components/pages/Channel/ChannelMetaHead";
 import "node_modules/video-react/dist/video-react.css";
