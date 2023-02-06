@@ -55,4 +55,16 @@
       font-size: $font--xl;
     }
   }
+
+  .setting {
+    color: $primary-color;
+    margin: $space--sm $space--xs auto auto;
+    font-size: $font--lg;
+    cursor: pointer;
+
+    @include desktop-view {
+      margin-top: $space--lg;
+      font-size: $font--xxl;
+    }
+  }
 }

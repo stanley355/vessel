@@ -1,8 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { FaCog } from "react-icons/fa";
 import styles from "./ChannelStatus.module.scss";
 
 interface IChannelStatus {
+  isPublic: boolean;
   channel: {
     profile_img_url: string;
     channel_name: string;
@@ -13,7 +15,7 @@ interface IChannelStatus {
 }
 
 const ChannelStatus = (props: IChannelStatus) => {
-  const { channel } = props;
+  const { isPublic, channel } = props;
 
   return (
     <div className={styles.channel__status}>
@@ -34,6 +36,14 @@ const ChannelStatus = (props: IChannelStatus) => {
           <span>{channel.subscribers} subscribers</span>
         </div>
       </div>
+
+      {!isPublic &&
+        <Link href="/channel/setting/">
+          <span className={styles.setting}>
+
+            <FaCog />
+          </span>
+        </Link>}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const AccountChannel = (props: IChannelTab) => {
 
   const ChannelPage = () => {
     if (channel) {
-      if (posts.length > 0) return <ChannelStatus channel={channel} />;
+      if (posts.length > 0) return <ChannelStatus isPublic={false} channel={channel} />;
       const UploadPostForm = dynamic(
         () => import("../../../components/pages/Account/UploadPostForm")
       );

@@ -99,7 +99,7 @@ const ChannelSlug = (props: IChannelSlug) => {
         <ChannelMetaHead channel={channel} posts={posts} />
       )}
       <div className={styles.channel__slug}>
-        {channel && <ChannelStatus channel={channel} />}
+        {channel && <ChannelStatus isPublic channel={channel} />}
         <MainSection />
       </div>
     </div>
