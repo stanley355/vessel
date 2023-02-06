@@ -1,0 +1,21 @@
+@import '../../../styles/tokens/all';
+
+.subscriptions {
+  &__tab {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      width: 50%;
+      border: none;
+      background: none;
+      font-size: $font--lg;
+      padding: $space--xs;
+    }
+
+    .active__btn {
+      color: $primary-color;
+      border-bottom: 1px solid $primary-color;
+    }
+  }
+}
