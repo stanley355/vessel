@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FaCog } from "react-icons/fa";
 import styles from "./ChannelStatus.module.scss";
 

@@ -1,0 +1,23 @@
+@import '../../styles/tokens/all';
+
+.post__card {
+  width: 100%;
+
+  .img__wrap {
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+    }
+  }
+
+  .caption {
+    padding: $space--xs;
+    .channel__img {
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+}

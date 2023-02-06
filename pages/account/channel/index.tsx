@@ -5,10 +5,11 @@ import jwtDecode from "jwt-decode";
 import jsCookie from "js-cookie";
 import channelLoginHandler from "../../../lib/loginHandler/channelLoginHandler";
 import viewPost from "../../../lib/postHandler/viewPost";
+import useResponsive from "../../../lib/hooks/useResponsive";
 import CreateChannelForm from "../../../components/pages/Account/CreateChannelForm";
 import ChannelStatus from "../../../components/ChannelStatus";
-import useResponsive from "../../../lib/hooks/useResponsive";
 import ChannelMetaHead from "../../../components/pages/Channel/ChannelMetaHead";
+import PostCard from "../../../components/PostCard";
 import "node_modules/video-react/dist/video-react.css";
 import styles from "./AccountChannel.module.scss";
 
@@ -24,11 +25,14 @@ const AccountChannel = (props: IChannelTab) => {
 
   const ChannelPage = () => {
     if (channel) {
-      if (posts.length > 0) return <ChannelStatus isPublic={false} channel={channel} />;
+      if (posts.length > 0) return <>
+        <ChannelStatus isPublic={false} channel={channel} />
+        <PostCard channel={channel} post={posts[0]} />
+      </>
       const UploadPostForm = dynamic(
         () => import("../../../components/pages/Account/UploadPostForm")
       );
-      return <UploadPostForm onBackBtnClick={() => {}} />;
+      return <UploadPostForm onBackBtnClick={() => { }} />;
     }
 
     return <CreateChannelForm />;

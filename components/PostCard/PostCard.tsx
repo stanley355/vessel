@@ -26,20 +26,6 @@ const PostCard = (props: IPostCard) => {
 
   return (
     <div className={styles.post__card}>
-      {/* <div className={styles.post__card__head}>
-        <span className={styles.channel__img}>
-          <Image
-            src={channel.profile_img_url}
-            alt={post.channel_name}
-            width={75}
-            height={75}
-          />
-        </span>
-        <span className={styles.post_info}>
-          <div className={styles.title}>{channel.channel_name}</div>
-          <div>{getPostDate()}</div>
-        </span>
-      </div> */}
 
       {/* {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
@@ -57,7 +43,22 @@ const PostCard = (props: IPostCard) => {
           <img width={300} height={300} src={post.img_url} alt={post.id} />
         </div>
       {/* )} */}
-      <div>{post.title}</div>
+
+
+      <div className={styles.caption}>
+        <span className={styles.channel__img}>
+          <Image
+            src={channel.profile_img_url}
+            alt={post.channel_name}
+            width={50}
+            height={50}
+          />
+        </span>
+        <span className={styles.post_info}>
+          <div className={styles.title}>{channel.channel_name}</div>
+          <div>{getPostDate()}</div>
+        </span>
+      </div>
     </div>
   );
 };
