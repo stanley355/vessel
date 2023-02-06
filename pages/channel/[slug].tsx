@@ -8,7 +8,6 @@ import ChannelNotSubscribed from "../../components/pages/Channel/ChannelNotSubsc
 import SubscribeChannelForm from "../../components/pages/Channel/SubscribeChannelForm";
 import AwaitingPaymentForm from "../../components/pages/Channel/AwaitingPaymentForm";
 import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
-import PostCard from "../../components/pages/Account/PostCard";
 import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
@@ -34,7 +33,7 @@ const ChannelSlug = (props: IChannelSlug) => {
     <div>
       {postList.map((post: any) => (
         <div key={post.id}>
-          <PostCard channel={channel} post={post} />
+          {/* <PostCard channel={channel} post={post} /> */}
         </div>
       ))}
     </div>

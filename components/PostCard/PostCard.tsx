@@ -1,3 +1,4 @@
+
 import React from "react";
 import Image from "next/image";
 import parse from "html-react-parser";
@@ -25,7 +26,7 @@ const PostCard = (props: IPostCard) => {
 
   return (
     <div className={styles.post__card}>
-      <div className={styles.post__card__head}>
+      {/* <div className={styles.post__card__head}>
         <span className={styles.channel__img}>
           <Image
             src={channel.profile_img_url}
@@ -38,9 +39,9 @@ const PostCard = (props: IPostCard) => {
           <div className={styles.title}>{channel.channel_name}</div>
           <div>{getPostDate()}</div>
         </span>
-      </div>
+      </div> */}
 
-      {post.post_type === "Video" ? (
+      {/* {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
           <Player playsInline>
             <BigPlayButton position="center" />
@@ -51,12 +52,12 @@ const PostCard = (props: IPostCard) => {
             <source src={post.img_url} />
           </Player>
         </div>
-      ) : (
+      ) : ( */}
         <div className={styles.img__wrap}>
           <img width={300} height={300} src={post.img_url} alt={post.id} />
         </div>
-      )}
-      <div>{parse(post.description)}</div>
+      {/* )} */}
+      <div>{post.title}</div>
     </div>
   );
 };
