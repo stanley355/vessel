@@ -29,7 +29,7 @@ const AccountChannel = (props: IChannelTab) => {
     <div className={styles.post__container}>
       {posts.map((post: any, index: number) => (
         <div key={index}>
-          <PostCard channel={channel} post={post} />
+          <PostCard isHome={false} channel={channel} post={post} />
         </div>
       ))}
     </div>

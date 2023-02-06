@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import Image from "next/image";
 import {
   Player,
@@ -11,13 +12,15 @@ import useResponsive from "../../lib/hooks/useResponsive";
 import styles from "./PostCard.module.scss";
 
 interface IPostCard {
+  isHome: boolean;
   channel: any;
   post: any;
 }
 
 const PostCard = (props: IPostCard) => {
-  const { channel, post } = props;
+  const { isHome, channel, post } = props;
 
+  console.log(post);
   const [showModal, setShowModal] = useState(false);
   const { isDesktop } = useResponsive();
 
@@ -72,7 +75,7 @@ const PostCard = (props: IPostCard) => {
     <div className={styles.caption}>
       <span className={styles.channel__img}>
         <Image
-          src={channel.profile_img_url}
+          src={isHome ? post.profile_img_url : channel.profile_img_url}
           alt={post.channel_name}
           width={50}
           height={50}
@@ -81,16 +84,23 @@ const PostCard = (props: IPostCard) => {
       <span className={styles.info}>
         <div>{post.title}</div>
         <div>
-          {channel.channel_name} | {getPostDate()}
+          {isHome ? post.channel_name : channel.channel_name} | {getPostDate()}
         </div>
       </span>
     </div>
   );
 
+  const handlePostClick = () => {
+    if (isHome) {
+      Router.push(`/channel/${post.channels_slug}`)
+    }
+    return isDesktop && !showModal ? setShowModal(true) : {};
+  }
+
   return (
     <div
       className={styles.post__card}
-      onClick={() => (isDesktop && !showModal ? setShowModal(true) : {})}
+      onClick={handlePostClick}
     >
       <Content isPopup={false} />
       <Caption />

@@ -34,7 +34,7 @@ const ChannelSlug = (props: IChannelSlug) => {
     <div className={styles.post__container}>
       {postList.map((post: any) => (
         <div key={post.id}>
-          <PostCard channel={channel} post={post} />
+          <PostCard isHome={false} channel={channel} post={post} />
         </div>
       ))}
     </div>
