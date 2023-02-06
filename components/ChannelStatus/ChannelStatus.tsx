@@ -1,11 +1,11 @@
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { FaCog } from "react-icons/fa";
+import { FaUpload } from "react-icons/fa";
+import useResponsive from "../../lib/hooks/useResponsive";
 import styles from "./ChannelStatus.module.scss";
 
 interface IChannelStatus {
   isPublic: boolean;
+  onUploadClick?: () => void;
   channel: {
     profile_img_url: string;
     channel_name: string;
@@ -16,7 +16,9 @@ interface IChannelStatus {
 }
 
 const ChannelStatus = (props: IChannelStatus) => {
-  const { isPublic, channel } = props;
+  const { isPublic, onUploadClick, channel } = props;
+
+  const { isDesktop } = useResponsive();
 
   return (
     <div className={styles.channel__status}>
@@ -39,11 +41,10 @@ const ChannelStatus = (props: IChannelStatus) => {
       </div>
 
       {!isPublic &&
-        <Link href="/channel/setting/">
-          <span className={styles.setting}>
-            <FaCog />
-          </span>
-        </Link>}
+        <button className={styles.upload} onClick={onUploadClick}>
+          <FaUpload /> {isDesktop ? "Upload" : ""}
+        </button>
+      }
     </div>
   );
 };

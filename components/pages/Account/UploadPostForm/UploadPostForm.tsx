@@ -10,13 +10,7 @@ import ContentFileUpload from "../ContentFileUpload";
 import useResponsive from "../../../../lib/hooks/useResponsive";
 import styles from "./UploadPostForm.module.scss";
 
-interface IUploadPostForm {
-  onBackBtnClick: () => void;
-}
-
-const UploadPostForm = (props: IUploadPostForm) => {
-  const { onBackBtnClick } = props;
-
+const UploadPostForm = () => {
   const { isDesktop } = useResponsive();
 
   const [uploadPercent, setUploadPercent] = useState(0);

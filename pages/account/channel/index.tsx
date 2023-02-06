@@ -21,18 +21,20 @@ interface IChannelTab {
 const AccountChannel = (props: IChannelTab) => {
   const { channel, posts } = props;
 
+  const [showUpload, setShowUpload] = useState(false);
+
   const { isDesktop } = useResponsive();
 
   const ChannelPage = () => {
     if (channel) {
-      if (posts.length > 0) return <>
-        <ChannelStatus isPublic={false} channel={channel} />
-        <PostCard channel={channel} post={posts[0]} />
-      </>
       const UploadPostForm = dynamic(
         () => import("../../../components/pages/Account/UploadPostForm")
       );
-      return <UploadPostForm onBackBtnClick={() => { }} />;
+      if (posts.length > 0) return <>
+        <ChannelStatus isPublic={false} channel={channel} onUploadClick={() => setShowUpload(!showUpload)} />
+        {showUpload ? <UploadPostForm /> : <PostCard channel={channel} post={posts[0]} />}
+      </>
+      return <UploadPostForm />;
     }
 
     return <CreateChannelForm />;
