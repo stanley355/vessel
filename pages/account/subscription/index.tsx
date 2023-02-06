@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { GetServerSideProps } from 'next';
-import jwtDecode from 'jwt-decode';
-import HomeMetaHead from '../../../components/pages/Home/HomeMetaHead';
-import findUserPendingOrder from '../../../lib/orderHandler/findUserPendingOrder';
-import findSubscribedChannel from '../../../lib/channelHandler/findSubscribedChannel';
-import viewSubscriptions from '../../../lib/subscriptionHandler/viewSubscriptions';
-import MySubscriptions from '../../../components/pages/Account/MySubscriptions';
-import MyPendingSubscriptions from '../../../components/pages/Account/MyPendingSubscriptions';
-import styles from './subscriptioins.module.scss';
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
+import jwtDecode from "jwt-decode";
+import HomeMetaHead from "../../../components/pages/Home/HomeMetaHead";
+import findUserPendingOrder from "../../../lib/orderHandler/findUserPendingOrder";
+import findSubscribedChannel from "../../../lib/channelHandler/findSubscribedChannel";
+import viewSubscriptions from "../../../lib/subscriptionHandler/viewSubscriptions";
+import MySubscriptions from "../../../components/pages/Account/MySubscriptions";
+import MyPendingSubscriptions from "../../../components/pages/Account/MyPendingSubscriptions";
+import styles from "./subscriptioins.module.scss";
 
 const Subscription = (props: any) => {
   const { profile, subscriptions, pendingOrder } = props;
@@ -33,7 +33,6 @@ const Subscription = (props: any) => {
     </div>
   );
 
-
   return (
     <div className="container">
       <HomeMetaHead />
@@ -47,8 +46,8 @@ const Subscription = (props: any) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies["token"];

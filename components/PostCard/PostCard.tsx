@@ -91,16 +91,13 @@ const PostCard = (props: IPostCard) => {
 
   const handlePostClick = () => {
     if (isHome) {
-      Router.push(`/channel/${post.channels_slug}`)
+      Router.push(`/channel/${post.channels_slug}`);
     }
     return isDesktop && !showModal ? setShowModal(true) : {};
-  }
+  };
 
   return (
-    <div
-      className={styles.post__card}
-      onClick={handlePostClick}
-    >
+    <div className={styles.post__card} onClick={handlePostClick}>
       <Content isPopup={false} />
       <Caption />
       {showModal && <Modal />}

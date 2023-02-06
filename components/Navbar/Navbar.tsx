@@ -31,7 +31,7 @@ const Navbar = (props: INavbar) => {
   const ChannelSettingLink = () => (
     <Link href="/channel/setting/">
       <a title="setting">
-        <FaCog /> Setting 
+        <FaCog /> Setting
       </a>
     </Link>
   );
@@ -50,7 +50,7 @@ const Navbar = (props: INavbar) => {
         <FaUser /> Account
       </a>
     </Link>
-  )
+  );
 
   const LoginNavbar = () => {
     return (
@@ -71,7 +71,7 @@ const Navbar = (props: INavbar) => {
             </a>
           </Link>
           {isChannel ? <AccountLink /> : <ChannelLink />}
-          {isChannel ? <ChannelSettingLink/> : <AccountLink />}
+          {isChannel ? <ChannelSettingLink /> : <AccountLink />}
         </div>
       </div>
     );
