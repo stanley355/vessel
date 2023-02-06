@@ -41,7 +41,6 @@ const ChannelStatus = (props: IChannelStatus) => {
       {!isPublic &&
         <Link href="/channel/setting/">
           <span className={styles.setting}>
-
             <FaCog />
           </span>
         </Link>}

@@ -13,9 +13,25 @@
 
   .caption {
     padding: $space--xs;
+    display: flex;
+    flex-direction: row;
+
     .channel__img {
+      margin-right: $space--xs;
       img {
         border-radius: 50%;
+      }
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      div:first-child {
+        font-size: $font--xl;
+        color: $primary-color;
+        font-weight: bold;
       }
     }
   }

@@ -54,9 +54,9 @@ const PostCard = (props: IPostCard) => {
             height={50}
           />
         </span>
-        <span className={styles.post_info}>
-          <div className={styles.title}>{channel.channel_name}</div>
-          <div>{getPostDate()}</div>
+        <span className={styles.info}>
+          <div>{post.title}</div>
+          <div>{channel.channel_name} | {getPostDate()}</div>
         </span>
       </div>
     </div>
