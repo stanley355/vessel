@@ -27,22 +27,30 @@ const AccountChannel = (props: IChannelTab) => {
 
   const PostContainer = () => (
     <div className={styles.post__container}>
-      {posts.map((post: any, index: number) => <div key={index}>
+      {posts.map((post: any, index: number) => (
+        <div key={index}>
           <PostCard channel={channel} post={post} />
         </div>
-      )}
+      ))}
     </div>
-  )
+  );
 
   const ChannelPage = () => {
     if (channel) {
       const UploadPostForm = dynamic(
         () => import("../../../components/pages/Account/UploadPostForm")
       );
-      if (posts.length > 0) return <>
-        <ChannelStatus isPublic={false} channel={channel} onUploadClick={() => setShowUpload(!showUpload)} />
-        {showUpload ? <UploadPostForm /> : <PostContainer />}
-      </>
+      if (posts.length > 0)
+        return (
+          <>
+            <ChannelStatus
+              isPublic={false}
+              channel={channel}
+              onUploadClick={() => setShowUpload(!showUpload)}
+            />
+            {showUpload ? <UploadPostForm /> : <PostContainer />}
+          </>
+        );
       return <UploadPostForm />;
     }
 

@@ -40,11 +40,11 @@ const ChannelStatus = (props: IChannelStatus) => {
         </div>
       </div>
 
-      {!isPublic &&
+      {!isPublic && (
         <button className={styles.upload} onClick={onUploadClick}>
           <FaUpload /> {isDesktop ? "Upload" : ""}
         </button>
-      }
+      )}
     </div>
   );
 };

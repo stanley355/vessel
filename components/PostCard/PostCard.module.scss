@@ -1,4 +1,4 @@
-@import '../../styles/tokens/all';
+@import "../../styles/tokens/all";
 
 .post__card {
   width: 100%;
@@ -26,7 +26,7 @@
     @include desktop-view {
       height: 200px;
 
-      >div {
+      > div {
         border-radius: $space--xs !important;
       }
     }

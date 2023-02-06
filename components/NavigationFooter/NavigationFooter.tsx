@@ -22,7 +22,7 @@ const NavigationFooter = () => {
         <FaCog />
       </span>
     </Link>
-  )
+  );
 
   const AccountLink = () => (
     <Link href="/account/">
@@ -30,7 +30,7 @@ const NavigationFooter = () => {
         <FaUser />
       </span>
     </Link>
-  )
+  );
 
   return (
     <div className={styles.navigation__footer}>
@@ -44,8 +44,8 @@ const NavigationFooter = () => {
           <FaSearch />
         </span>
       </Link>
-      {isChannel ? <AccountLink /> : <ChannelLink /> }
-      {isChannel ? <ChannelSettingLink /> : <AccountLink /> }
+      {isChannel ? <AccountLink /> : <ChannelLink />}
+      {isChannel ? <ChannelSettingLink /> : <AccountLink />}
     </div>
   );
 };

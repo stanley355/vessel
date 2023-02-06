@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Image from "next/image";
 import {
@@ -30,18 +29,29 @@ const PostCard = (props: IPostCard) => {
   const Modal = () => (
     <div className={styles.modal}>
       <div className={styles.box}>
-        <button type="button" className={styles.close} onClick={() => setShowModal(false)}>x</button>
+        <button
+          type="button"
+          className={styles.close}
+          onClick={() => setShowModal(false)}
+        >
+          x
+        </button>
         <Content isPopup />
         <Caption />
       </div>
     </div>
-  )
+  );
 
   const Content = ({ isPopup }: any) => (
     <>
       {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
-          <Player playsInline fluid={isPopup || !isDesktop} width={255} height={200}>
+          <Player
+            playsInline
+            fluid={isPopup || !isDesktop}
+            width={255}
+            height={200}
+          >
             <BigPlayButton position="center" />
             <ControlBar autoHide={false}>
               <ReplayControl seconds={10} />
@@ -70,13 +80,18 @@ const PostCard = (props: IPostCard) => {
       </span>
       <span className={styles.info}>
         <div>{post.title}</div>
-        <div>{channel.channel_name} | {getPostDate()}</div>
+        <div>
+          {channel.channel_name} | {getPostDate()}
+        </div>
       </span>
     </div>
-  )
+  );
 
   return (
-    <div className={styles.post__card} onClick={() => (isDesktop && !showModal) ? setShowModal(true) : {}}>
+    <div
+      className={styles.post__card}
+      onClick={() => (isDesktop && !showModal ? setShowModal(true) : {})}
+    >
       <Content isPopup={false} />
       <Caption />
       {showModal && <Modal />}
