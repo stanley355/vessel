@@ -6,23 +6,27 @@ import viewHomePosts from "../lib/postHandler/viewHomePosts";
 import SearchBar from "../components/pages/Home/SearchBar";
 import HomeMetaHead from "../components/pages/Home/HomeMetaHead";
 import PostCard from "../components/PostCard";
+import useResponsive from "../lib/hooks/useResponsive";
 import "node_modules/video-react/dist/video-react.css";
 import styles from "../styles/pages/home.module.scss";
 
 const Home: NextPage = (props: any) => {
   const { posts } = props;
 
+  const { isDesktop } = useResponsive();
+
   return (
     <div className="container">
       <HomeMetaHead />
       <div className={styles.home}>
-          <SearchBar />
+        <SearchBar />
+        {isDesktop && <h2>New Post</h2>}
         <div className={styles.post__container}>
           {posts.map((post: any) => (
-              <div key={post.id}>
-                <PostCard isHome post={post} channel="" />
-              </div>
-            ))}
+            <div key={post.id}>
+              <PostCard isHome post={post} channel="" />
+            </div>
+          ))}
         </div>
       </div>
     </div>

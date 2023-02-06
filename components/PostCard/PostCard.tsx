@@ -20,7 +20,6 @@ interface IPostCard {
 const PostCard = (props: IPostCard) => {
   const { isHome, channel, post } = props;
 
-  console.log(post);
   const [showModal, setShowModal] = useState(false);
   const { isDesktop } = useResponsive();
 
