@@ -1,7 +1,6 @@
 
 import React from "react";
 import Image from "next/image";
-import parse from "html-react-parser";
 import {
   Player,
   BigPlayButton,
@@ -9,6 +8,7 @@ import {
   ReplayControl,
   ForwardControl,
 } from "video-react";
+import useResponsive from "../../lib/hooks/useResponsive";
 import styles from "./PostCard.module.scss";
 
 interface IPostCard {
@@ -19,6 +19,8 @@ interface IPostCard {
 const PostCard = (props: IPostCard) => {
   const { channel, post } = props;
 
+  const { isDesktop } = useResponsive();
+
   const getPostDate = () => {
     const date = new Date(post.created_at).toDateString();
     return date;
@@ -26,10 +28,9 @@ const PostCard = (props: IPostCard) => {
 
   return (
     <div className={styles.post__card}>
-
-      {/* {post.post_type === "Video" ? (
+      {post.post_type === "Video" ? (
         <div className={styles.video__wrap}>
-          <Player playsInline>
+          <Player playsInline fluid={!isDesktop} width={255} height={200}>
             <BigPlayButton position="center" />
             <ControlBar autoHide={false}>
               <ReplayControl seconds={10} />
@@ -38,12 +39,11 @@ const PostCard = (props: IPostCard) => {
             <source src={post.img_url} />
           </Player>
         </div>
-      ) : ( */}
+      ) : (
         <div className={styles.img__wrap}>
           <img width={300} height={300} src={post.img_url} alt={post.id} />
         </div>
-      {/* )} */}
-
+      )}
 
       <div className={styles.caption}>
         <span className={styles.channel__img}>

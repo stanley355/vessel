@@ -8,6 +8,27 @@
       width: 100%;
       height: auto;
       max-height: 250px;
+
+      @include desktop-view {
+        height: 200px;
+        border-radius: $space--xs;
+      }
+    }
+  }
+
+  .video__wrap {
+    .video {
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+    }
+
+    @include desktop-view {
+      height: 200px;
+
+      > div {
+        border-radius: $space--xs !important;
+      }
     }
   }
 
@@ -18,6 +39,7 @@
 
     .channel__img {
       margin-right: $space--xs;
+
       img {
         border-radius: 50%;
       }
@@ -32,6 +54,7 @@
         font-size: $font--xl;
         color: $primary-color;
         font-weight: bold;
+        overflow: hidden;
       }
     }
   }

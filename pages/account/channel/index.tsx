@@ -25,6 +25,15 @@ const AccountChannel = (props: IChannelTab) => {
 
   const { isDesktop } = useResponsive();
 
+  const PostContainer = () => (
+    <div className={styles.post__container}>
+      {posts.map((post: any, index: number) => <div key={index}>
+          <PostCard channel={channel} post={post} />
+        </div>
+      )}
+    </div>
+  )
+
   const ChannelPage = () => {
     if (channel) {
       const UploadPostForm = dynamic(
@@ -32,7 +41,7 @@ const AccountChannel = (props: IChannelTab) => {
       );
       if (posts.length > 0) return <>
         <ChannelStatus isPublic={false} channel={channel} onUploadClick={() => setShowUpload(!showUpload)} />
-        {showUpload ? <UploadPostForm /> : <PostCard channel={channel} post={posts[0]} />}
+        {showUpload ? <UploadPostForm /> : <PostContainer />}
       </>
       return <UploadPostForm />;
     }
@@ -83,10 +92,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       channel: channel ?? null,
       posts,
     },
-  };
-
-  return {
-    props: {},
   };
 };
 
