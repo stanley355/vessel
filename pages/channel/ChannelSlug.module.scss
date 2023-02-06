@@ -1,6 +1,15 @@
 @import "../../styles/tokens/all";
 
 .channel__slug {
+  .post__container {
+    margin: $space--xs 0;
+    @include desktop-view {
+      display: grid;
+      grid-gap: 1%;
+      grid-template-columns: 25% 25% 25% 25%;
+    }
+  }
+
   .main {
     &__head {
       display: flex;
@@ -35,10 +44,6 @@
         .subscribe__btn {
           margin-bottom: $space--xxs;
         }
-      }
-
-      .posts__wrap {
-        width: 70%;
       }
     }
   }

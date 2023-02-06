@@ -11,6 +11,7 @@ import viewSubscriptions from "../../lib/subscriptionHandler/viewSubscriptions";
 import ChannelMetaHead from "../../components/pages/Channel/ChannelMetaHead";
 import findChannel from "../../lib/channelHandler/findChannel";
 import fetcher from "../../lib/fetcher";
+import PostCard from "../../components/PostCard";
 import "node_modules/video-react/dist/video-react.css";
 import styles from "./ChannelSlug.module.scss";
 
@@ -30,10 +31,10 @@ const ChannelSlug = (props: IChannelSlug) => {
   const [showSubscribeForm, setShowSubscribeForm] = useState(false);
 
   const PostsSection = ({ postList }: any) => (
-    <div>
+    <div className={styles.post__container}>
       {postList.map((post: any) => (
         <div key={post.id}>
-          {/* <PostCard channel={channel} post={post} /> */}
+          <PostCard channel={channel} post={post} />
         </div>
       ))}
     </div>
@@ -66,15 +67,16 @@ const ChannelSlug = (props: IChannelSlug) => {
     if (channel && channel.posts_number > 0) {
       if (isSubscribing) {
         return <PostsSection postList={posts} />;
-      } else {
-        const freePosts = posts.filter((post: any) => post.is_free);
-        return (
-          <>
-            <SubscriptionSection />
-            {freePosts.length > 0 && <PostsSection postList={freePosts} />}
-          </>
-        );
       }
+
+      const freePosts = posts.filter((post: any) => post.is_free);
+      return (
+        <>
+          <SubscriptionSection />
+          <h3>Free Posts</h3>
+          {freePosts.length > 0 && <PostsSection postList={freePosts} />}
+        </>
+      );
     }
     return <ChannelNoPosts />;
   };
