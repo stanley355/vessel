@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import jwtDecode from "jwt-decode";
-import WalletHead from "../../components/pages/Account/WalletHead";
-import WalletPaymentsTable from "../../components/pages/Account/WalletPaymentsTable";
-import WalletWithdrawalTable from "../../components/pages/Account/WalletWithdrawalTable";
-import HomeMetaHead from "../../components/pages/Home/HomeMetaHead";
-import viewBalance from "../../lib/paymentHandler/viewBalance";
-import viewPaymentsByChannel from "../../lib/paymentHandler/viewPaymentsByChannel";
-import findAllUserWithdrawal from "../../lib/withdrawalHandler/findAllUserWithdrawal";
-import styles from "../../styles/pages/wallet.module.scss";
+import WalletHead from "../../../components/pages/Account/WalletHead";
+import WalletPaymentsTable from "../../../components/pages/Account/WalletPaymentsTable";
+import WalletWithdrawalTable from "../../../components/pages/Account/WalletWithdrawalTable";
+import HomeMetaHead from "../../../components/pages/Home/HomeMetaHead";
+import viewBalance from "../../../lib/paymentHandler/viewBalance";
+import viewPaymentsByChannel from "../../../lib/paymentHandler/viewPaymentsByChannel";
+import findAllUserWithdrawal from "../../../lib/withdrawalHandler/findAllUserWithdrawal";
+import styles from "./wallet.module.scss";
 
 const Wallet = (props: any) => {
   const { balance, payments, withdrawal } = props;
