@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { FaHome, FaSearch, FaPlayCircle, FaUser } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { FaHome, FaSearch, FaPlayCircle, FaUser, FaCog } from "react-icons/fa";
 import styles from "./Navbar.module.scss";
 
 interface INavbar {
@@ -10,6 +11,9 @@ interface INavbar {
 
 const Navbar = (props: INavbar) => {
   const { token, isDesktop } = props;
+
+  const router = useRouter();
+  const isChannel = router.asPath === "/account/channel";
 
   const DefaultNavbar = () => (
     <div className={token ? styles.navbar__blue : styles.navbar}>
@@ -23,6 +27,30 @@ const Navbar = (props: INavbar) => {
       )}
     </div>
   );
+
+  const ChannelSettingLink = () => (
+    <Link href="/channel/setting/">
+      <a title="setting">
+        <FaCog /> Setting 
+      </a>
+    </Link>
+  );
+
+  const ChannelLink = () => (
+    <Link href="/account/channel/">
+      <a title="wallet">
+        <FaPlayCircle /> Channel
+      </a>
+    </Link>
+  );
+
+  const AccountLink = () => (
+    <Link href="/account/">
+      <a title="account">
+        <FaUser /> Account
+      </a>
+    </Link>
+  )
 
   const LoginNavbar = () => {
     return (
@@ -42,16 +70,8 @@ const Navbar = (props: INavbar) => {
               <FaSearch /> Search
             </a>
           </Link>
-          <Link href="/account/channel/">
-            <a title="wallet">
-              <FaPlayCircle /> Channel
-            </a>
-          </Link>
-          <Link href="/account/">
-            <a title="account">
-              <FaUser /> Account
-            </a>
-          </Link>
+          {isChannel ? <AccountLink /> : <ChannelLink />}
+          {isChannel ? <ChannelSettingLink/> : <AccountLink />}
         </div>
       </div>
     );
