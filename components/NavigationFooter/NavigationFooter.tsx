@@ -1,9 +1,37 @@
 import React from "react";
 import Link from "next/link";
-import { FaHome, FaPlayCircle, FaSearch, FaUser } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { FaHome, FaPlayCircle, FaSearch, FaUser, FaCog } from "react-icons/fa";
 import styles from "./NavigationFooter.module.scss";
 
 const NavigationFooter = () => {
+  const router = useRouter();
+  const isChannel = router.asPath === "/account/channel";
+
+  const ChannelLink = () => (
+    <Link href="/account/channel/">
+      <span>
+        <FaPlayCircle />
+      </span>
+    </Link>
+  );
+
+  const ChannelSettingLink = () => (
+    <Link href="/channel/setting/">
+      <span>
+        <FaCog />
+      </span>
+    </Link>
+  )
+
+  const AccountLink = () => (
+    <Link href="/account/">
+      <span>
+        <FaUser />
+      </span>
+    </Link>
+  )
+
   return (
     <div className={styles.navigation__footer}>
       <Link href="/">
@@ -16,16 +44,8 @@ const NavigationFooter = () => {
           <FaSearch />
         </span>
       </Link>
-      <Link href="/account/channel/">
-        <span>
-          <FaPlayCircle />
-        </span>
-      </Link>
-      <Link href="/account/">
-        <span>
-          <FaUser />
-        </span>
-      </Link>
+      {isChannel ? <AccountLink /> : <ChannelLink /> }
+      {isChannel ? <ChannelSettingLink /> : <AccountLink /> }
     </div>
   );
 };
