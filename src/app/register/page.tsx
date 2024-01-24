@@ -1,13 +1,13 @@
-'use client'
-import Header from '@/components/Header'
+import RegisterForm from '@/components/accounts/RegisterForm';
 import React from 'react'
 
-const page = () => {
+const RegisterPage = async () => {
+
   return (
-    <div>
-      <div>this is register</div>
+    <div className='container mx-auto'>
+      <RegisterForm />
     </div>
   )
 }
 
-export default page
+export default RegisterPage; 
