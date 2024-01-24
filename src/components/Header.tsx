@@ -1,14 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => {
 
   return (
-    <header className="border-b border-black">
+    <header className="border-b border-black bg-indigo-600">
       <nav className="container mx-auto flex items-center justify-between">
         <Link href="/">
-          <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+          <Image src={"/next.svg"} alt="travel" width={100} height={100} className="mx-auto" />
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 text-white">
           <Link href="/login" className="p-4 hover:font-bold">
             Login
           </Link>
