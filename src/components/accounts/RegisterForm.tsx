@@ -6,6 +6,16 @@ import FormPhoneInput from "../Forms/FormPhoneInput";
 const RegisterForm = () => {
 
   const handleAction = async (formData: FormData) => {
+
+    // const fullnameRegex = /^[a-zA-Z0-9. ]+$/;
+    // const fullname = formData.get("fullname");
+
+    // if (!fullnameRegex.test(fullname)) {
+
+    // }
+
+
+
     const b = {
       fullname: "woi",
       phone_number: "8938398",
@@ -13,11 +23,12 @@ const RegisterForm = () => {
       password: "woi"
     }
 
+    console.log(formData.get("fullname"));
     const a = await fetchAccountRegister(b);
   }
 
   return (
-    <form action={handleAction} className="mx-auto w-[400px] mt-12">
+    <form action={handleAction} className="mx-auto p-4 pt-0 mt-12 max-w-[400px]">
       <FormInput name="fullname" id="fullname_input" label="Nama Lengkap" type="text" />
       <FormInput name="email" id="email_input" label="Email" type="email" />
       <FormPhoneInput />
