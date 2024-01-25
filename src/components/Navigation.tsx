@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const Header = () => {
-
+const Navigation = () => {
   return (
-    <header className="border-b border-black bg-indigo-600 px-2">
-      <nav className="container mx-auto flex items-center justify-between">
+    <nav className="border-b border-black bg-indigo-600 px-2">
+      <div className="container mx-auto flex items-center justify-between">
         <Link href="/">
           <Image src={"/next.svg"} alt="travel" width={100} height={100} className="mx-auto" />
         </Link>
@@ -17,9 +16,9 @@ const Header = () => {
             Register
           </Link>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   )
 }
 
-export default Header;
+export default Navigation;
