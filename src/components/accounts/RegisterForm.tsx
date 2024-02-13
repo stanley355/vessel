@@ -1,20 +1,44 @@
 'use client'
-import { fetchAccountRegister } from "@/lib/api/account/fetchAccountRegister";
+import { ToastContainer, toast } from 'react-toastify';
+
 import FormInput from "../Forms/FormInput";
 import FormPhoneInput from "../Forms/FormPhoneInput";
+
+import { fetchAccountRegister } from "@/lib/api/account/fetchAccountRegister";
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterForm = () => {
 
   const handleAction = async (formData: FormData) => {
+    
+    const fullname = formData.get("fullname");
+    const phoneNumber = formData.get("phone_number");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const repassword = formData.get("repassword");
 
-    // const fullnameRegex = /^[a-zA-Z0-9. ]+$/;
-    // const fullname = formData.get("fullname");
+    if (!fullname || !phoneNumber) {
+      toast.error("Harap lengkapi semua kolom");
+      return;
+    }
 
-    // if (!fullnameRegex.test(fullname)) {
+    const fullnameRegex = /^[a-zA-Z0-9. ]+$/;
+    if (fullname && !fullnameRegex.test(String(fullname))) {
+      toast.error("Nama Lengkap tidak valid")
+      return;
+    }
 
-    // }
+    const phoneRegex = /^((08)|8){1}[0-9]{1,15}$/;
+    if (phoneNumber && !phoneRegex.test(String(phoneNumber))) {
+      toast.error("Nomor telepon tidak valid")
+      return;
+    }
 
-
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (email && !emailRegex.test(String(email))) {
+      toast.error("Email tidak valid")
+      return;
+    }
 
     const b = {
       fullname: "woi",
@@ -23,7 +47,7 @@ const RegisterForm = () => {
       password: "woi"
     }
 
-    console.log(formData.get("fullname"));
+    // console.log(formData.get("fullname"));
     const a = await fetchAccountRegister(b);
   }
 
@@ -37,6 +61,7 @@ const RegisterForm = () => {
       <button type="submit" className="w-full p-2 bg-indigo-500 text-white rounded-md hover:font-bold hover:bg-indigo-600">
         Daftar
       </button>
+      <ToastContainer position='top-center' />
     </form>
   )
 }

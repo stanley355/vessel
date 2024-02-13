@@ -13,21 +13,17 @@ export const fetchAccountRegister = async (props: IFetchAccountRegister) => {
   const { fullname, phone_number, email, password } = props;
 
   const payload = { fullname, phone_number, email, password };
+  const url = `${process.env.AXOLOTL_URL}/accounts/register/`;
 
   try {
-    const { data } = await axios.post(
-      "http://localhost:8000/accounts/register/",
-      payload,
-      {
-        headers: {
-          Authorization: "ltoloxa",
-        },
-      }
-    );
+    const { data } = await axios.post(url, payload, {
+      headers: {
+        Authorization: process.env.AXOLOTL_TOKEN,
+      },
+    });
 
     return data;
   } catch (error: any) {
-    // return {}
-    return axiosErrorHandler("zzz", error);
+    return axiosErrorHandler(url, error);
   }
 };
